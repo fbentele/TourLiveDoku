@@ -1,11 +1,46 @@
-\chapter{Android Aufnahme Client}
-
+\chapter{Android Aufnahme System}
 
 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed gravida mollis placerat. Sed congue iaculis massa vitae dapibus. Fusce sed felis lorem. Suspendisse purus diam, sollicitudin vitae imperdiet ac, placerat eu metus. In luctus, metus vel dictum hendrerit, diam lacus cursus enim, eu porta augue lacus non metus. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Nullam nec orci eget metus pulvinar sagittis. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Sed turpis lorem, aliquet eu ornare non, viverra ac urna.
 
 \section{Anforderungen}
 
-Praesent libero lectus, ultrices eget pharetra sed, sollicitudin et est. Pellentesque quis urna eget lorem sodales venenatis eget nec quam. In sagittis aliquam auctor. Phasellus vitae ipsum purus, sit amet imperdiet nunc. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Ut malesuada nibh ut lectus scelerisque sed iaculis lectus varius. Nulla blandit turpis tortor. Nulla facilisi. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nam leo ante, porta vel scelerisque at, volutpat eu sapien. Aliquam viverra adipiscing sapien et porta. Sed quis diam ut sem tincidunt consectetur varius non dolor. Fusce fermentum, quam vitae suscipit euismod, leo erat malesuada ante, ac consequat est lacus eget enim. Proin lacinia justo et est vehicula adipiscing rhoncus lacus mollis.
+\begin{table}
+\begin{center}
+{\renewcommand{\arraystretch}{2}%
+    \begin{tabular}{ | p{5cm} | p{5cm} | p{5cm} |}
+    \hline
+    \textbf{Requirements} & \textbf{Altes System} & \textbf{Neues System} \\ \hline
+\hline
+    Positionsdaten übertragen & Geschwindigkeit, Höhe, Richtung/Beschleunigung, Steigung, Longitude, Latitude & Geschwindigkeit, Höhe, Richtung, Steigung, Longitude, Latitude \\ \hline
+    Etappendaten & Zeit, Höhe, Distanz, Durchschnittliche Geschwindigkeit, UTC Zeit,Datum & Zeit, Höhe, Distanz, Durchschnittliche Geschwindigkeit \\
+    \hline
+     Tour Total & Zeit Total, Zeit Tour, Distanz Total, Distanz Tour, Höhe Total, Höhe Tour & - \\
+    \hline
+    Netzdaten übertragen & Zellen ID, Location Area, Signal, Akku, Netzwerk, Netzwerk ID & Zellen ID, Area, Signal, Netzwerk ID, Technologie, Datenrate, RTT, Packet Loss\\
+    \hline
+    Bilder übertragen & Bilder wurden übertragen & Bilder werden übertragen\\
+    \hline
+    Videostream übertragen & Einzelne Bilder wurden übertragen und serverseitig zu einem Stream zusammengefügt & Videosequenzen werden übertragen und serverseitig zu einem Stream zusammengesetzt\\
+    \hline
+    Anpassung der Bild- / Videoaufl"osung & - & Adaptive Angleichung der Auflo"osung an die verfu"ugbare Bandbreite\\
+    \hline
+    Lokales Caching & nur Bilder wurden gecacht & Sämtliche aufgenommene Daten werden lokal gespeichert\\
+    \hline
+	Aufnahmesystemstatus übertragen & nur der Akkustand wurde an das Device Management Portal übertragen & Detaillierte Statusinformation an das Device Management Portal\\
+    \hline    
+    Betriebsmodi & - & Managed - Einstellungen über das Portal / Unmanaged - Einstellungen am Gerät\\
+    \hline
+	Auto-Start der App & - & App wird beim Gerätestart automatisch gestartet\\
+    \hline    
+    Externe Geräte & ODB (Onboard Diagnose Bus) und Pulsinfo Geräte wurden angesteuert & -\\
+    \hline
+    
+    
+\end{tabular}}
+\end{center}
+\caption{Anforderungen Android Aufnahme System}
+\end{table}
+
 
 \section{Software Analyse}
 
