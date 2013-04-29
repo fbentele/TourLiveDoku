@@ -1,0 +1,18 @@
+{
+    "satellites": "4/10",
+    "device": {
+        "deviceId": "d1fac717d37751a",
+        "username": "patrizia"
+    },
+    "powerSupplyMode": "charging",
+    "operationMode": "managed",
+    "lastConfigSent": 0,
+    "lastImageSent": 0,
+    "lastPositionSent": 0,
+    "timestamp": 1366909305150,
+    "freeSpaceMemoryCard": 0,
+    "freeSpaceIntern": 10,
+    "batteryStatus": 11,
+    "logSize": 0,
+    "upstream": 10
+}

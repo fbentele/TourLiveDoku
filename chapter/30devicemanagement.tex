@@ -1,11 +1,63 @@
-\chapter{Devicemanagement}
+\chapter{Devicemanagement Portal}
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed gravida mollis placerat. Sed congue iaculis massa vitae dapibus. Fusce sed felis lorem. Suspendisse purus diam, sollicitudin vitae imperdiet ac, placerat eu metus. In luctus, metus vel dictum hendrerit, diam lacus cursus enim, eu porta augue lacus non metus. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Nullam nec orci eget metus pulvinar sagittis. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Sed turpis lorem, aliquet eu ornare non, viverra ac urna.
-
-\section{Anforderungen}
-
-Praesent libero lectus, ultrices eget pharetra sed, sollicitudin et est. Pellentesque quis urna eget lorem sodales venenatis eget nec quam. In sagittis aliquam auctor. Phasellus vitae ipsum purus, sit amet imperdiet nunc. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Ut malesuada nibh ut lectus scelerisque sed iaculis lectus varius. Nulla blandit turpis tortor. Nulla facilisi. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nam leo ante, porta vel scelerisque at, volutpat eu sapien. Aliquam viverra adipiscing sapien et porta. Sed quis diam ut sem tincidunt consectetur varius non dolor. Fusce fermentum, quam vitae suscipit euismod, leo erat malesuada ante, ac consequat est lacus eget enim. Proin lacinia justo et est vehicula adipiscing rhoncus lacus mollis.
+In diesem Kapitel wird genauer auf das Devicemanagement Portal eingegangen.
 
 \section{Software Analyse}
+
+\subsection{Anforderungen}
+Um die Anforderungen zu evaluieren wurde das bestehende Portal analysiert. Da das bestehende System noch nicht viel konnte, wurden vom Industriepartner zus"{a}tzliche Funktionalit"{a}ten gew\"{u}nscht.
+Um eine kurze "{u}bersicht \"{u}ber die vorhandenen Funktionen und erfassten Anforderungen zu geben folgt hier eine Tabelle.
+
+{\renewcommand{\arraystretch}{2}%
+    \begin{longtable}{ | p{3cm} | p{4cm} | p{4cm} |}
+    \hline
+    \textbf{Requirements} & \textbf{Altes System} & \textbf{Neues System} \\ \hline
+\hline
+    Einstellungen anpassen & Nur Renndistanzkorrektur & Detaillierte Verwaltung der Ger"{a}teeinstellungen \\ \hline
+    Status der Ger"{a}te & Rudiment"{a}re Anzeige des Ger"{a}testatus & Detaillierte Anzeige des Ger"{a}testatus \\
+    \hline
+     Alarming bei schlechtem Ger"{a}tezustand & Dauer seit letztem Positionsupdate / Bildempfang zu gross & Visuelle Hervorhebung bei Problemen des Ger"{a}testatus \\
+    \hline
+    Neustarten des Ger"{a}ts & Neustarten des Ger"{a}tes via Portal & -(nur f"{u}r Systemapps möglich)\\
+    \hline
+    Ger"{a}telog anzeigen & - & Ger"{a}telog wird angezeigt\\
+    \hline
+    Versand von Nachrichten & - & Nachrichten an das Ger"{a}t senden via Portal\\
+    \hline
+   
+\caption{Anforderungen Devicemanagement Portal}
+\end{longtable}}
+
+Eine detaillierte Beschreibung aller Anforderungen befindet sich im Anhang. Folgend werden die aus unserer Sicht wichtigsten Anforderungen beschrieben.
+
+\subsubsection{Funktionale Anforderungen}
+\paragraph{Betriebsmodi}
+Die Ger"{a}te sollen sowohl "{u}ber ein Management-Portal, analog zum zur bisherigen Verwaltungsseite , fernverwaltet als auch "{u}ber ein „Einstellungen“-Men"{u} direkt am Ger"{a}t konfiguriert werden können. 
+
+Daraus resultieren zwei Betriebsmodi: „managed“ und „unmanaged“. Beim ersten App-Start nach der Installation der App, wird der Benutzer gefragt, in welchem Modus das Aufnahmesystem betrieben werden soll. Die beiden Modi lassen sich am Ger"{a}t selber jederzeit "{a}ndern. W"{a}hlt der Benutzer beim ersten App-Start innerhalb von 10 Sekunden keinen Modus, wird das Ger"{a}t automatisch in den Betriebsmodus „managed“ versetzt und eine Standardkonfiguration vom Device Management Server bezogen.
+
+Bei allen weiteren App-Starts werden die Einstellungen vom letzten Betrieb "{u}bernommen sofern der Betriebsmodus zuvor „unmanaged“ war. War der Betriebsmodus auf „managed“ eingestellt, so wird die Konfiguration vom Management Server bezogen. Ist dieser nicht verf"{u}gbar, wird der Modus auf „unmanaged“ gesetzt und die existierenden Einstellungen verwendet.
+
+\paragraph{Alarming Funktionen}
+Treten Probleme auf, so soll auf dem Telefon sowie in der Management Konsole dar"{u}ber informiert werden. Als zu meldende Probleme gelten folgende:
+\begin{itemize}
+\item Keine GPS-Daten w"{a}hrend 2 Minuten
+\item Keine Bild-Daten w"{a}hrend 2 Minuten
+\item Keine Mobile-Verbindung 2 Minuten [TODO: Unlogisch]
+\item Smartphone wird nicht mehr geladen (Stromzufuhr unterbrochen)
+\item Smartphone Akkustand ist unter 50\%, 25\%, 10\%
+\end{itemize}
+	
+\subsubsection{Nichtfunktionale Anforderungen}
+
+\paragraph{Sicherheit}
+Das Devicemanagement Portal wird mit einem Benutzernamen und Passwort gesperrt. 
+
+\subsection{Technologien}
+F"{u}r die Entwicklung des Portals wurde das Spring Framework benutzt. Genauere Details dazu befinden sich in dem TourLive Server Kapitel.
+
+
+
+\section{Software Design}
 
 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed gravida mollis placerat. Sed congue iaculis massa vitae dapibus. Fusce sed felis lorem. Suspendisse purus diam, sollicitudin vitae imperdiet ac, placerat eu metus. In luctus, metus vel dictum hendrerit, diam lacus cursus enim, eu porta augue lacus non metus. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Nullam nec orci eget metus pulvinar sagittis. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Sed turpis lorem, aliquet eu ornare non, viverra ac urna.

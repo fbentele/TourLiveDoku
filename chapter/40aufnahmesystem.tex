@@ -1,47 +1,117 @@
-\chapter{Android Aufnahme System}
+\chapter{Android Aufnahmesystem}
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed gravida mollis placerat. Sed congue iaculis massa vitae dapibus. Fusce sed felis lorem. Suspendisse purus diam, sollicitudin vitae imperdiet ac, placerat eu metus. In luctus, metus vel dictum hendrerit, diam lacus cursus enim, eu porta augue lacus non metus. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Nullam nec orci eget metus pulvinar sagittis. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Sed turpis lorem, aliquet eu ornare non, viverra ac urna.
+In diesem Kapitel wird genauer auf das Android Aufnahmesystem eingegangen.
 
-\section{Anforderungen}
+\section{Software Analyse}
 
-\begin{table}
-\begin{center}
+\subsection{Anforderungen}
+
+Um die Anforderungen zu evaluieren wurde das bestehende Portal analysiert. Alle vorhandenen Funktionen wurden erfasst und mit dem Industriepartner um weitere erg\"{a}nzt. 
+Um eine kurze Übersicht \"{u}ber die vorhandenen Funktionen und erfassten Anforderungen zu geben folgt hier eine Tabelle.
+
 {\renewcommand{\arraystretch}{2}%
-    \begin{tabular}{ | p{5cm} | p{5cm} | p{5cm} |}
+    \begin{longtable}{ | p{3cm} | p{4cm} | p{4cm} |}
     \hline
     \textbf{Requirements} & \textbf{Altes System} & \textbf{Neues System} \\ \hline
 \hline
-    Positionsdaten übertragen & Geschwindigkeit, Höhe, Richtung/Beschleunigung, Steigung, Longitude, Latitude & Geschwindigkeit, Höhe, Richtung, Steigung, Longitude, Latitude \\ \hline
-    Etappendaten & Zeit, Höhe, Distanz, Durchschnittliche Geschwindigkeit, UTC Zeit,Datum & Zeit, Höhe, Distanz, Durchschnittliche Geschwindigkeit \\
+    Positionsdaten \"{u}bertragen & Geschwindigkeit, H\"{o}he, Richtung/Beschleunigung, Steigung, Longitude, Latitude & Geschwindigkeit, H\"{o}he, Richtung, Steigung, Longitude, Latitude \\ \hline
+    Etappendaten & Zeit, H\"{o}he, Distanz, Durchschnittliche Geschwindigkeit, UTC Zeit,Datum & Zeit, H\"{o}he, Distanz, Durchschnittliche Geschwindigkeit \\
     \hline
-     Tour Total & Zeit Total, Zeit Tour, Distanz Total, Distanz Tour, Höhe Total, Höhe Tour & - \\
+     Tour Total & Zeit Total, Zeit Tour, Distanz Total, Distanz Tour, H\"{o}he Total, H\"{o}he Tour & - \\
     \hline
-    Netzdaten übertragen & Zellen ID, Location Area, Signal, Akku, Netzwerk, Netzwerk ID & Zellen ID, Area, Signal, Netzwerk ID, Technologie, Datenrate, RTT, Packet Loss\\
+    Netzdaten \"{u}bertragen & Zellen ID, Location Area, Signal, Akku, Netzwerk, Netzwerk ID & Zellen ID, Area, Signal, Netzwerk ID, Technologie, Datenrate, RTT, Packet Loss\\
     \hline
-    Bilder übertragen & Bilder wurden übertragen & Bilder werden übertragen\\
+    Bilder \"{u}bertragen & Bilder wurden \"{u}bertragen & Bilder werden \"{u}bertragen\\
     \hline
-    Videostream übertragen & Einzelne Bilder wurden übertragen und serverseitig zu einem Stream zusammengefügt & Videosequenzen werden übertragen und serverseitig zu einem Stream zusammengesetzt\\
+    Videostream \"{u}bertragen & Einzelne Bilder wurden \"{u}bertragen und serverseitig zu einem Stream zusammengef\"{u}gt & Videosequenzen werden \"{u}bertragen und serverseitig zu einem Stream zusammengesetzt\\
     \hline
     Anpassung der Bild- / Videoaufl"osung & - & Adaptive Angleichung der Auflo"osung an die verfu"ugbare Bandbreite\\
     \hline
-    Lokales Caching & nur Bilder wurden gecacht & Sämtliche aufgenommene Daten werden lokal gespeichert\\
+    Lokales Caching & nur Bilder wurden gecacht & S\"{a}mtliche aufgenommene Daten werden lokal gespeichert\\
     \hline
-	Aufnahmesystemstatus übertragen & nur der Akkustand wurde an das Device Management Portal übertragen & Detaillierte Statusinformation an das Device Management Portal\\
+	Aufnahme- systemstatus \"{u}bertragen & nur der Akkustand wurde an das Device Management Portal \"{u}bertragen & Detaillierte Statusinformation an das Device Management Portal\\
     \hline    
-    Betriebsmodi & - & Managed - Einstellungen über das Portal / Unmanaged - Einstellungen am Gerät\\
+    Betriebsmodi & - & Managed - Einstellungen \"{u}ber das Portal / Unmanaged - Einstellungen am Ger\"{a}t\\
     \hline
-	Auto-Start der App & - & App wird beim Gerätestart automatisch gestartet\\
+	Auto-Start der App & - & App wird beim Ger\"{a}testart automatisch gestartet\\
     \hline    
-    Externe Geräte & ODB (Onboard Diagnose Bus) und Pulsinfo Geräte wurden angesteuert & -\\
+    Externe Ger\"{a}te & ODB (Onboard Diagnose Bus) und Pulsinfo Ger\"{a}te wurden angesteuert & -\\
+    \hline  
+    Smartphone tauglich & Symbian App & Android App\\
+    \hline 
+    Log & Position und Bilder gesendet & Daten, Bilder, Status und Einstellungen gesendet / Exceptions\\
+    \hline 
+    Aufnahmestart Modi & Aufnahme hat automatisch bei App Start gestartet & Manuell, Zeitbasiert, Fernverwaltet oder bei Aktivierung einer externen Stromquelle\\
+    \hline 
+   	Power Management & - & Bei niedrigem Akkustand wird ein Energiesparmodus aktiviert\\
+    \hline 
+    Alarming Funktion & - & Treten Probleme aus, so wird darauf hingewiesen (z.B. keine GPS Daten w\"{a}hrend 2 Minuten)\\
+    \hline 
+    Mehrsprachigkeit & - & Deutsch und Englisch, einfach erweiterbar\\
     \hline
     
     
-\end{tabular}}
-\end{center}
 \caption{Anforderungen Android Aufnahme System}
-\end{table}
+\end{longtable}}
+
+Eine detaillierte Beschreibung aller Anforderungen befindet sich im Anhang. Folgend werden die aus unserer Sicht wichtigsten Anforderungen beschrieben.
+
+\subsubsection{Funktionale Anforderungen}
+\paragraph{Positionsaufnahme}
+Die prim\"{a}re Funktion des Aufnahmesystems besteht in der Aufnahme von Geopositionsdaten, deren Weiterverarbeitung und der Übermittlung an den TourLive-Server. Über das GPS-Modul des Mobilfunkger\"{a}tes werden folgende Daten ermittelt:
+\begin{itemize}
+\item Aktuelle Position [GPS Longitude / Latitude]
+\item Aktuelle H\"{o}he (GPS H\"{o}he) [m]
+\item Aktuelle Zeit (GPS Timestamp) [unix\_time]
+\item Geschwindigkeit (wird gelesen) [km/h]
+\item Richtung (in Azimut, wird berechnet) [°]
+\item Steigung (\"{u}ber die letzten 100m, wird berechnet) [%]
+\item Anzahl Satelliten mit denen das Aufnahmeger\"{a}t verbunden ist
+\end{itemize}
+
+\paragraph{Bildaufnahme}
+Ein wesentlicher Bestandteil des Aufnahmesystems ist die \"{U}bertragung von Bildmaterial in Form von einzelnen Bildern oder einem Videostream bestehend aus Videosequenzen. Folgende Funktionalit\"{a}t muss dabei beachtet werden:
+\begin{itemize}
+\item Anpassung der Bildaufl\"{o}sung adaptiv an die verf\"{u}gbare Datenraten (optional)
+\item Bilder sollen automatisch, in der korrekten Ausrichtung an den Server geschickt werden (Stichwort Ger\"{a}tesensoren)
+\end{itemize}
 
 
-\section{Software Analyse}
+\subsubsection{Nichtfunktionale Anforderungen}
+
+\paragraph{Sicherheit}
+In Bezug auf Vertraulichkeit und Integrit\"{a}t werden keine speziellen Anforderungen gestellt. Die Daten\"{u}bertragung erfolgt unverschl\"{u}sselt. Das Aufnahmeger\"{a}t muss sich am TourLive Server nicht explizit authentisieren. In Bezug auf Verf\"{u}gbarkeit sind die Anforderungen hoch. W\"{a}hrend dem Rennen soll es keine L\"{u}cken ohne Daten von mehr als 5 Minuten geben. K\"{o}nnen w\"{a}hrend einer bestimmten Zeitspanne keine Daten \"{u}bertragen werden, sollen diese gepuffert und zu einem sp\"{a}teren Zeitpunkt \"{u}bertragen werden. 
+
+\paragraph{Ausfallsicherheit}
+Die gesammelten Daten (Positionen, Bilder,..) werden parallel auf dem lokalen Ger\"{a}tespeicher abgelegt. Erreicht dieser 80\% der verf\"{u}gbaren Kapazit\"{a}t werden automatisch alte Eventdaten gel\"{o}scht. Über dieses lokale Caching wird sichergestellt, dass die  gesammelten Daten aufgrund technischer Probleme bei der Daten\"{u}bertragung nicht verloren gehen. 
+
+\subsection{Technologien}
+
+\subsubsection{Android}
+Die native Programmiersprache f\"{u}r das Android Betriebssystem ist Java. Die Programmierung in Java bringt den Vorteil, dass auf die gesamte Application Programming Interface (API) von Android zugegriffen werden kann. Weiter sind die Ger\"{a}te genau dafu\"{u}r ausgelegt und eine optimale Performance kann erreicht werden. S\"{a}mtliche Komponenten dieser Arbeit sind in Java geschrieben.
+
+\subsubsection{Externe Libraries}
+Externe Libraries
+Android beinhaltet bereits ein umfangreiches Framework zur Entwicklung. Deshalb nutzt die Applikation folgende zwei externen Libraries.
+\paragraph{Spring for Android}\footnote{Spring for Android, \url{http://www.springsource.org/spring-android}, aufgerufen am 29.04.2013} 
+Spring for Android ist das Spring Framework, welches im TourLive Server verwendet wird, f\"{u}r Android. Dies erm\"{o}glicht eine einfache Initialisierung eines Objekts aus einem Json String.
+\paragraph{TODO: Library f\"{u}r lokales Caching}
+TODO
+
+\subsection{Entwicklungsumgebung}
+Die von Android empfohlene Entwicklungsumgebung ist Eclipse\footnote{Eclipse, \url{http://eclipse.org}, aufgerufen am 29.04.2013}  mit einem Plugin zur Entwicklung von Android Applikationen. Auf der Entwicklerseite von Android steht dazu folgendes:
+\begin{quotation}
+Android Development Tools (ADT) is a plugin for the Eclipse IDE that is designed to give you a powerful, integrated environment in which to build Android applications.\footnote{Android Plugin f\"{u}r Eclipse, \url{http://developer.android.com/tools/sdk/eclipse-adt.html}, aufgerufen am 29.04.2013} 
+\end{quotation}
+Eclipse ist eine weit verbreitete IDE und wird aktiv weiter entwickelt. Mit dem Plugin zusammen bildet sie eine solide Grundlage f"{u}r dieses Projekt.
+Damit die Android Applikation direkt auf dem Computer getestet werden kann, stellt Google einen Emulator zur Verf"{u}gung. Der Emulator ist allerdings auch als solcher zu betrachten, da die Bedienung nicht vergleichbar mit einem richtigen Smartphone ist.
+
+\paragraph{Android Version}
+Eine Anwendung wird f"{u}r eine spezifische Android Version entwickelt und getestet. Somit kann garantiert werden, dass das Verhalten der Anwendung immer gleich ist. In dieser Arbeit ist dies die Version 4.0 mit dem Versionsnamen Ice Cream Sandwich\footnote{Android Ice Cream Sandwich, \url{http://www.android.com/about/ice-cream-sandwich/}, aufgerufen am 29.04.2013}.
+Die Entwicklung auf einer Version schliesst jedoch nicht aus, dass die Anwendung in neueren Versionen nicht mehr lauff"{a}hig ist.
+
+
+
+\section{Software Design}
 
 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed gravida mollis placerat. Sed congue iaculis massa vitae dapibus. Fusce sed felis lorem. Suspendisse purus diam, sollicitudin vitae imperdiet ac, placerat eu metus. In luctus, metus vel dictum hendrerit, diam lacus cursus enim, eu porta augue lacus non metus. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Nullam nec orci eget metus pulvinar sagittis. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Sed turpis lorem, aliquet eu ornare non, viverra ac urna.

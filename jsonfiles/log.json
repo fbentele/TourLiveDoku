@@ -1,0 +1,32 @@
+{
+    "device": {
+        "deviceId": "d1fac717d37751a",
+        "username": "patrizia_hoi"
+    },
+    "entries": [
+        {
+            "message": "start image",
+            "identifier": "ch.hsr.ba.tourlive.service.StatusDataService",
+            "level": "DEBUG",
+            "date": 1366893166692
+        },
+        {
+            "message": "onReceive",
+            "identifier": "ch.hsr.ba.tourlive.receiver.PowerConnectionReceiver",
+            "level": "DEBUG",
+            "date": 1366893166725
+        },
+        {
+            "message": "GPS Initalized",
+            "identifier": "ch.hsr.ba.tourlive.view.StartFragment",
+            "level": "DEBUG",
+            "date": 1366893167076
+        },
+        {
+            "message": "DeviceManagementTask Sent 14:32 25.04.13",
+            "identifier": "ch.hsr.ba.tourlive.task.DeviceManagementTask",
+            "level": "DEBUG",
+            "date": 1366893168774
+        }
+    ]
+}

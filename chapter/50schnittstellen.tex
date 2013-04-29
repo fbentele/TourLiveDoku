@@ -1,11 +1,10 @@
 \chapter{Schnittstellen}
 
+Das Aufnahmesystem kommuniziert mit den Servern in beide Richtungen, wobei jeweils das Aufnahmesystem aktiv Daten liefert und sich neue Daten holt. In diesem Kapitel werden die Schnittstellen zwischen Aufnahmesystem und Tourlive Server sowie Devicemanagement Portal.
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed gravida mollis placerat. Sed congue iaculis massa vitae dapibus. Fusce sed felis lorem. Suspendisse purus diam, sollicitudin vitae imperdiet ac, placerat eu metus. In luctus, metus vel dictum hendrerit, diam lacus cursus enim, eu porta augue lacus non metus. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Nullam nec orci eget metus pulvinar sagittis. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Sed turpis lorem, aliquet eu ornare non, viverra ac urna.
+\section{TourLive Server Schnittstelle}
 
-\section{Server TourLive Schnittstelle}
-
-Praesent libero lectus, ultrices eget pharetra sed, sollicitudin et est. Pellentesque quis urna eget lorem sodales venenatis eget nec quam. In sagittis aliquam auctor. Phasellus vitae ipsum purus, sit amet imperdiet nunc. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Ut malesuada nibh ut lectus scelerisque sed iaculis lectus varius. Nulla blandit turpis tortor. Nulla facilisi. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nam leo ante, porta vel scelerisque at, volutpat eu sapien. Aliquam viverra adipiscing sapien et porta. Sed quis diam ut sem tincidunt consectetur varius non dolor. Fusce fermentum, quam vitae suscipit euismod, leo erat malesuada ante, ac consequat est lacus eget enim. Proin lacinia justo et est vehicula adipiscing rhoncus lacus mollis.
+TODO FLO
 
 \section{Devicemanagement Schnittstelle}
 
@@ -21,10 +20,10 @@ Um den aktuellen Status des Aufnahmesystems dem Server mitzuteilen kann diese Me
 
 Das JSON eines Status Posts sieht folgendermassen aus:
 
-\begin{figure}[h]
+\begin{figure}[H]
 	\centering
 	\caption{Status JSON}
-	\includegraphics[height=80mm]{images/StatusJson.png}
+	\lstinputlisting[language=json]{jsonfiles/status.json}
 \end{figure}
 
 
@@ -35,7 +34,7 @@ Die Antwort die man bei dieser Anfrage erhält ist die folgende:
 \begin{figure}[H]
 	\centering
 	\caption{Einstellungen JSON}
-	\includegraphics[height=120mm]{images/SettingsJson.png}
+	\lstinputlisting[language=json]{jsonfiles/settings.json}
 \end{figure}
 
 
@@ -52,7 +51,7 @@ Das JSON eines Log Posts sieht folgendermassen aus:
 \begin{figure}[H]
 	\centering
 	\caption{Log JSON}
-	\includegraphics[height=100mm]{images/LogJson.png}
+	\lstinputlisting[language=json]{jsonfiles/log.json}
 \end{figure}
 
 \subsection{Nachricht abholen}
@@ -61,10 +60,12 @@ Sofern eine neue Nachricht für das Gerät vorhanden ist kann sie über diese Me
 
 {\bf URL: }http://tlng.cnlab.ch/devmgmtsrv/api/getmsg/{deviceId}
 
+\subsubsection{Nachrichten JSON}
+Das JSON für die Nachrichten ist das folgende:
 \begin{figure}[H]
 	\centering
-	\caption{Nachricht JSON}
-	\includegraphics[height=30mm]{images/MessageJson.png}
+	\caption{Nachrichten JSON}
+	\lstinputlisting[language=json]{jsonfiles/message.json}
 \end{figure}
 
 

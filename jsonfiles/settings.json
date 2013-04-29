@@ -1,0 +1,31 @@
+{
+    "device": {
+        "username": "patrizia",
+        "deviceId": "47fea59bcc48612b"
+    },
+    "deviceManagementContainerId": 1,
+    "configChangedTime": 1366967381690,
+    "messageAvailable": true,
+    "generalSettings": {
+        "transferInterval": 10,
+        "operationMode": "managed",
+        "backlight": true,
+        "criticalBatteryValue": 10,
+        "deviceManagementServer": "dev.cnlab.ch",
+        "recordingMode": "manual",
+        "tourLiveServerPrim": "prim.cnlab.ch",
+        "tourLiveServerSec": "sec.cnlab.ch"
+    },
+    "imageSettings": {
+        "automaticCameraAdjustment": false,
+        "camera": "Back",
+        "cameraMode": "image",
+        "imageResolution": "1024x1200,1024x1200,1024x1200",
+        "imageInterval": 0,
+        "videoResolution": ""
+    },
+    "stageSettings": {
+        "raceDistanceCorrection": 0,
+        "stageSettingsId": 1
+    }
+}
