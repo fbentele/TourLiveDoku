@@ -18,6 +18,7 @@
 \usepackage{hyperref}
 \usepackage{array}
 \usepackage{ngerman}
+\usepackage{datatool}
 \usepackage{glossaries}
 \usepackage{color}
 \usepackage{listings} \lstset{backgroundcolor=\color{lightgrey}} \lstset{language=Java}

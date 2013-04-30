@@ -1,5 +1,44 @@
 \chapter*{Aufgabenstellung}
 
-Hier kommt die Aufgabenstellung rein. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed gravida mollis placerat. Sed congue iaculis massa vitae dapibus. Fusce sed felis lorem. Suspendisse purus diam, sollicitudin vitae imperdiet ac, placerat eu metus. In luctus, metus vel dictum hendrerit, diam lacus cursus enim, eu porta augue lacus non metus. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Nullam nec orci eget metus pulvinar sagittis. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Sed turpis lorem, aliquet eu ornare non, viverra ac urna.
+\begin{tabular}{ll}
+	Studiengang: & Informatik (I) \\
+	Institut: & ITA: Internet-Techn. und Anwendungen \\
+	Gruppe: & Patrizia Heer, Simon Stäheli, Florian Bentele \\
+	Betreuer: & Peter Heinzmann  \\
+	Koreferent: & H. Huser, HSR \\
+	Experte: & Dr. Th. Siegenthaler, CSI  \\
+	Industriepartner: & Swiss Cycling / cnlab software ag \\    
+   
+\end{tabular}
+\section{Ausgangslage}
+Das cnlab TourLive-System\footnote{Tourlive-System, \url{www.tourlive.ch}, besucht am 30.04.2013} dient zur Renndatenerfassung an Sportanlässen. Es wird seit 2004 an der Tour de Suisse und bei den Rennsporttagen Gippingen eingesetzt. Die in Schiedsrichterfahrzeugen montierten mobilen Aufnahmesysteme (Nokia Mobiltelfonie mit Symbian-Anwendung) erfassen die Position von den Spitzenfahrern, den Verfolgern und dem Feld. Ferner liefern die Aufnahmesysteme Live-Bilder aus Sicht dieser Schiedsrichterfahrzeuge. Mit Hilfe der RadioTour-Android Tablet Anwendung notiert der RadioTour-Speaker die Zeitabstände und Zusammensetzung von Fahrergruppen. All diese Daten werden auf dem cnlab TourLive-Server gesammelt, aufbereitet und für die Publikation auf Webservern zu Verfügung gestellt. 
+Swiss Cycling möchte die TourLive-Anwendung nun auch kleineren Rennveranstaltern zu Verfügung stellen können. In diesem Zusammenhang sollen auch die Aufnahmesysteme auf Android portiert und in der Funktionalität optimiert werden.
 
-Praesent libero lectus, ultrices eget pharetra sed, sollicitudin et est. Pellentesque quis urna eget lorem sodales venenatis eget nec quam. In sagittis aliquam auctor. Phasellus vitae ipsum purus, sit amet imperdiet nunc. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Ut malesuada nibh ut lectus scelerisque sed iaculis lectus varius. Nulla blandit turpis tortor. Nulla facilisi. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nam leo ante, porta vel scelerisque at, volutpat eu sapien. Aliquam viverra adipiscing sapien et porta. Sed quis diam ut sem tincidunt consectetur varius non dolor. Fusce fermentum, quam vitae suscipit euismod, leo erat malesuada ante, ac consequat est lacus eget enim. Proin lacinia justo et est vehicula adipiscing rhoncus lacus mollis.	
+\section{Ziel}
+Das überarbeitete TourLive-System soll als Gesamtpaket für Rennveranstalter zu Verfügung gestellt werden können. Die Rennveranstalter sollen ihre Anlässe zusammen mit den Renninformationen auf der Webanwendungen (Datenerfassungs- und Aufbereitungssystem) präsentieren können. Die Aufnahmesysteme sollen auf Android Mobiles funktionieren und sie sollen über eine Management Anwendung überwacht und konfiguriert werden können.
+
+\section{Teilaufgaben}
+\begin{itemize}
+	\item Analyse
+	\begin{itemize}
+		\item Detailliertes Studium des aktuellen TourLive-Systems (Symbian Aufnahmesysteme und Webanwendung)
+		\item Studium verschiedener Websites zu Radrennen, Erstellung einer Übersicht und Beurteilung der verschiedenen Elemente auf solchen Webseiten
+		\item Festlegung der Funktionen der Aufnahme- und Darstellungssysteme
+	\end{itemize}
+	\item Entwicklung Android Aufnahmesysteme
+	\begin{itemize}
+		\item Positions- und Bildaufnahmen
+		\item Alarming-Funktionen
+		\item Logging-Funktionen
+		\item Kommunikation mit verschiedenen Datenservern
+	\end{itemize}
+	\item Entwicklung Webanwendung (Webserver für Radrennen bei welchen mit TourLive und RadioTour Renndaten aufgezeichnet und dargestellt werden)
+	\begin{itemize}
+		\item Funktionsblöcke (Zeitabstände, Fahrergruppen, Bilder, LiveTicker, Kartendarstellung, Höhenprofil, Ranglisten, Marschtabellen, Fahrerinformationen, Abstände von Aufnahmesystemen, Distanz zum Werbe- und Renntross, Zeit bis dieser eine bestimmte Stelle passiert, …)
+		\item Kommunikationsschnittstelle mit alten und neuen TourLive-Aufnahmesystemen
+		\item Kommunikationsschnittstelle mit RadioTour-Anwendung
+		\item Schnittstelle zu Zeiterfassungssystemen (Matsport)
+		\item Rennadministration (Fahrerlisten)
+	\end{itemize}
+	\item Testeinsatz am 50. GP des Kantons Aargau vom Donnerstag, 6. Juni 2013 im Rahmen der Radsporttagen Gippingen 2013
+\end{itemize}
