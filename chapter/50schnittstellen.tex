@@ -1,14 +1,82 @@
 \chapter{Schnittstellen}
 
 Das Aufnahmesystem kommuniziert mit den Servern in beide Richtungen, wobei jeweils das Aufnahmesystem aktiv Daten liefert und sich neue Daten holt. In diesem Kapitel werden die Schnittstellen zwischen Aufnahmesystem und Tourlive Server sowie Devicemanagement Portal.
+ 
 
 \section{TourLive Server Schnittstelle}
 
+{\renewcommand{\arraystretch}{1.5}%
+    \begin{longtable}{ p{2.5cm}  p{10cm}}
+
+	\textbf{URL:} & /api/valuecontainer \\
+	\textbf{Request:} & POST: JSON/ValueContainer \\
+	\textbf{Response:} & ?  \\
+	\textbf{Interval:} & einstellbar \\
+	\textbf{Zeitpunkt:} & Bei laufender Aufnahme \\ 
+\hline
+\hline
+	\textbf{URL:} & /api/image \\
+	\textbf{Request:} & POST: Multi Part Form Data \\
+	\textbf{Response:} & ?  \\
+	\textbf{Interval:} & einstellbar \\
+	\textbf{Zeitpunkt:} & Bei laufender Aufnahme, falls Image aktiviert ist \\ 
+\hline
+\hline
+	\textbf{URL:} & /api/video \\
+	\textbf{Request:} & POST: Multi Part Form Data \\
+	\textbf{Response:} & ?  \\
+	\textbf{Interval:} & einstellbar \\
+	\textbf{Zeitpunkt:} & Bei laufender Aufnahme, falls der Videostream aktiviert ist \\ 
+\hline
+\hline
+	\textbf{URL:} & /api/racedata \\
+	\textbf{Request:} & GET \\
+	\textbf{Response:} & JSON/ RaceData  \\
+	\textbf{Interval:} & 60 Sekunden \\
+	\textbf{Zeitpunkt:} & immer \\ 
+\hline
+\hline 
+\caption{Schnittstellen TourLiveServer Übersicht}
+\end{longtable} }
 TODO FLO
 
-\section{Devicemanagement Schnittstelle}
+\section{DeviceManagement Portal Schnittstelle}
 
-Für alle Funktionen, auf die von dem Aufnahmesystem her zugegrifen werden, steht eine JSON Schnittstelle mit URL zur Verfügung. Im folgenden werden diese näher beschrieben.
+Für alle Funktionen, auf die von dem Aufnahmesystem her zugegrifen werden, steht eine JSON Schnittstelle mit URL zur Verfügung. Um sich eine Übersicht zu machen, zeigt die folgende Tabelle kurz, was wann aufgerufen wird. Die Base URL für alle Requests ist jeweils tlng.cnlab.ch/devmgmtsrv. Danach werden alle Funktionen genauer beschrieben.
+
+{\renewcommand{\arraystretch}{1.5}%
+    \begin{longtable}{ p{2.5cm}  p{10cm}}
+	\textbf{URL:} & /api/postdevicemanagementcontainer \\
+	\textbf{Request:} & POST: JSON/DeviceManagementContainer \\
+	\textbf{Response:} &  \\
+	\textbf{Interval:} & Bei Änderungen \\
+	\textbf{Zeitpunkt:} & Einmalig beim App Start \\ 
+\hline
+\hline    
+	\textbf{URL:} & /api/getdevicemanagementcontainer \\
+	\textbf{Request:} & POST: JSON/StatusData \\
+	\textbf{Response:} & JSON/DeviceManagementContainer \\
+	\textbf{Interval:} & 60 Sekunden \\
+	\textbf{Zeitpunkt:} & immer \\ 
+\hline
+\hline    
+	\textbf{URL:} & /api/postlog \\
+	\textbf{Request:} & POST: JSON/TourLiveLog \\
+	\textbf{Response:} &  \\
+	\textbf{Interval:} &  \\
+	\textbf{Zeitpunkt:} &  \\ 
+\hline
+\hline 
+	\textbf{URL:} & /api/getMsg/\{deviceId\} \\
+	\textbf{Request:} & GET \\
+	\textbf{Response:} &  JSON/Message\\
+	\textbf{Interval:} &  Bei messageAvailable flag im DeviceManagementContainer\\
+	\textbf{Zeitpunkt:} &  immer\\ 
+\hline
+\hline 
+
+\caption{Schnittstellen DeviceManagement Portal Übersicht}
+\end{longtable} }
 
 \subsection{Status posten und Einstellungen erhalten}
 
@@ -22,8 +90,8 @@ Das JSON eines Status Posts sieht folgendermassen aus:
 
 \begin{figure}[H]
 	\centering
-	\caption{Status JSON}
 	\lstinputlisting[language=json]{jsonfiles/status.json}
+	\caption{Status JSON}
 \end{figure}
 
 
@@ -33,8 +101,8 @@ Die Antwort die man bei dieser Anfrage erhält ist die folgende:
 
 \begin{figure}[H]
 	\centering
-	\caption{Einstellungen JSON}
 	\lstinputlisting[language=json]{jsonfiles/settings.json}
+	\caption{Einstellungen JSON}
 \end{figure}
 
 
@@ -50,8 +118,8 @@ Das JSON eines Log Posts sieht folgendermassen aus:
 
 \begin{figure}[H]
 	\centering
-	\caption{Log JSON}
 	\lstinputlisting[language=json]{jsonfiles/log.json}
+	\caption{Log JSON}
 \end{figure}
 
 \subsection{Nachricht abholen}
@@ -64,8 +132,8 @@ Sofern eine neue Nachricht für das Gerät vorhanden ist kann sie über diese Me
 Das JSON für die Nachrichten ist das folgende:
 \begin{figure}[H]
 	\centering
-	\caption{Nachrichten JSON}
 	\lstinputlisting[language=json]{jsonfiles/message.json}
+	\caption{Nachrichten JSON}
 \end{figure}
 
 

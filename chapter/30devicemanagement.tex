@@ -1,31 +1,30 @@
-\chapter{Devicemanagement Portal}
+\chapter{DeviceManagement Portal}
 
 In diesem Kapitel wird genauer auf das Devicemanagement Portal eingegangen.
 
 \section{Software Analyse}
 
 \subsection{Anforderungen}
-Um die Anforderungen zu evaluieren wurde das bestehende Portal analysiert. Da das bestehende System noch nicht viel konnte, wurden vom Industriepartner zus"{a}tzliche Funktionalit"{a}ten gew\"{u}nscht.
-Um eine kurze "{u}bersicht \"{u}ber die vorhandenen Funktionen und erfassten Anforderungen zu geben folgt hier eine Tabelle.
+Um die Anforderungen zu evaluieren wurde das bestehende Portal analysiert. Da beim bestehenden System die Funktionalität stark eingeschränkt war, wurden vom Industriepartner zusätzliche Funktionalitäten gewünscht.
+Um eine kurze Übersicht über die vorhandenen Funktionen und erfassten Anforderungen zu geben folgt hier eine Tabelle.
 
 {\renewcommand{\arraystretch}{2}%
-    \begin{longtable}{ | p{3cm} | p{4cm} | p{4cm} |}
-    \hline
+    \begin{longtable}{  p{3.5cm} | p{4.3cm} | p{4.3cm} }
+
     \textbf{Requirements} & \textbf{Altes System} & \textbf{Neues System} \\ \hline
 \hline
     Einstellungen anpassen & Nur Renndistanzkorrektur & Detaillierte Verwaltung der Ger"{a}teeinstellungen \\ \hline
     Status der Ger"{a}te & Rudiment"{a}re Anzeige des Ger"{a}testatus & Detaillierte Anzeige des Ger"{a}testatus \\
     \hline
-     Alarming bei schlechtem Ger"{a}tezustand & Dauer seit letztem Positionsupdate / Bildempfang zu gross & Visuelle Hervorhebung bei Problemen des Ger"{a}testatus \\
+     Alarming bei schlechtem Gerätezustand & Dauer seit letztem Positionsupdate / Bildempfang zu gross & Visuelle Hervorhebung bei Problemen des Ger"{a}testatus \\
     \hline
     Neustarten des Ger"{a}ts & Neustarten des Ger"{a}tes via Portal & -(nur f"{u}r Systemapps möglich)\\
     \hline
     Ger"{a}telog anzeigen & - & Ger"{a}telog wird angezeigt\\
     \hline
     Versand von Nachrichten & - & Nachrichten an das Ger"{a}t senden via Portal\\
-    \hline
-   
-\caption{Anforderungen Devicemanagement Portal}
+
+\caption{Anforderungen DeviceManagement Portal}
 \end{longtable}}
 
 Eine detaillierte Beschreibung aller Anforderungen befindet sich im Anhang. Folgend werden die aus unserer Sicht wichtigsten Anforderungen beschrieben.
@@ -53,11 +52,9 @@ Treten Probleme auf, so soll auf dem Telefon sowie in der Management Konsole dar
 \paragraph{Sicherheit}
 Das Devicemanagement Portal wird mit einem Benutzernamen und Passwort gesperrt. 
 
-\subsection{Technologien}
+\subsection*{Technologien}
 F"{u}r die Entwicklung des Portals wurde das Spring Framework benutzt. Genauere Details dazu befinden sich in dem TourLive Server Kapitel.
-
 
 
 \section{Software Design}
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed gravida mollis placerat. Sed congue iaculis massa vitae dapibus. Fusce sed felis lorem. Suspendisse purus diam, sollicitudin vitae imperdiet ac, placerat eu metus. In luctus, metus vel dictum hendrerit, diam lacus cursus enim, eu porta augue lacus non metus. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Nullam nec orci eget metus pulvinar sagittis. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Sed turpis lorem, aliquet eu ornare non, viverra ac urna.

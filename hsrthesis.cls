@@ -29,6 +29,7 @@
 \definecolor{lightgrey}{rgb}{.9,.9,.9}
 \usepackage{bera}% optional: just to have a nice mono-spaced font
 \usepackage{xcolor}
+\usepackage[stable]{footmisc}
 
 
 \colorlet{punct}{red!60!black}
@@ -39,34 +40,36 @@
 \definecolor{background}{HTML}{EEEEEE}
 \definecolor{delim}{RGB}{20,105,176}
 \colorlet{numb}{magenta!60!black}
+\definecolor{mygray}{rgb}{0.5,0.5,0.5}
+\definecolor{mymauve}{rgb}{0.58,0,0.82}
 
 \lstdefinelanguage{json}{
     basicstyle=\normalfont\ttfamily,
-    numbers=left,
-    numberstyle=\scriptsize,
-    stepnumber=1,
-    numbersep=8pt,
+    numbers=none,
     showstringspaces=false,
     breaklines=true,
-    frame=lines,
-    backgroundcolor=\color{background},
-    literate=
-     *{0}{{{\color{numb}0}}}{1}
-      {1}{{{\color{numb}1}}}{1}
-      {2}{{{\color{numb}2}}}{1}
-      {3}{{{\color{numb}3}}}{1}
-      {4}{{{\color{numb}4}}}{1}
-      {5}{{{\color{numb}5}}}{1}
-      {6}{{{\color{numb}6}}}{1}
-      {7}{{{\color{numb}7}}}{1}
-      {8}{{{\color{numb}8}}}{1}
-      {9}{{{\color{numb}9}}}{1}
-      {:}{{{\color{punct}{:}}}}{1}
-      {,}{{{\color{punct}{,}}}}{1}
-      {\{}{{{\color{delim}{\{}}}}{1}
-      {\}}{{{\color{delim}{\}}}}}{1}
-      {[}{{{\color{delim}{[}}}}{1}
-      {]}{{{\color{delim}{]}}}}{1},
+    backgroundcolor=\color{background},  
+    framexleftmargin=5mm,
+    framexrightmargin=5mm,
+    framextopmargin=5mm,
+    framexbottommargin=5mm,
+    morekeywords={device,username,deviceId, deviceManagementContainerId, configChangedTime, messageAvailable, generalSettings, transferInterval, operationMode, backlight, criticalBatteryValue, deviceManagementServer, recordingMode, tourLiveServerPrim, tourLiveServerSec, imageSettings, automaticCameraAdjustment, camera, cameraMode, imageResolution, imageInterval, videoResolution, stageSettings, raceDistanceCorrection, stageSettingsId, satellites, powerSupplyMode, lastConfigSent, lastImageSent, lastPositionSent, timestamp, freeSpaceMemoryCard, freeSpaceIntern, batteryStatus, logSize, upstream, entries, message, identifier, level, date, messageId, textMessage, readAt},
+  keywordstyle=\color{blue!90!black},
+  commentstyle=\itshape\color{purple!40!black},
+  identifierstyle=\color{punct},
+  numberstyle=\color{punct},
+  stringstyle=\color{punct},
+  literate=
+     *{0}{{{\color{punct}0}}}{1}
+      {1}{{{\color{punct}1}}}{1}
+      {2}{{{\color{punct}2}}}{1}
+      {3}{{{\color{punct}3}}}{1}
+      {4}{{{\color{punct}4}}}{1}
+      {5}{{{\color{punct}5}}}{1}
+      {6}{{{\color{punct}6}}}{1}
+      {7}{{{\color{punct}7}}}{1}
+      {8}{{{\color{punct}8}}}{1}
+      {9}{{{\color{punct}9}}}{1},
 }
 % Titlepage
 %%%%%%%%%%%
@@ -251,9 +254,7 @@
      \parbox[t]{.9\mp@margwd}{\raggedleft\sffamily\slshape\small#1: #2}
      }
    
-   \renewcommand{\figure}{%
-     \let\@makecaption\mp@makefigcap\@float{figure}%
-     }
+
    \renewcommand{\table}{%
      \let\@makecaption\mp@makefigcap\@float{table}%
      }
