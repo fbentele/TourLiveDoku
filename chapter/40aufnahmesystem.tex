@@ -6,8 +6,8 @@ In diesem Kapitel wird genauer auf das Android Aufnahmesystem eingegangen.
 
 \subsection{Anforderungen}
 
-Um die Anforderungen zu evaluieren wurde das bestehende Portal analysiert. Alle vorhandenen Funktionen wurden erfasst und mit dem Industriepartner um weitere erg\"{a}nzt. 
-Um eine kurze Übersicht \"{u}ber die vorhandenen Funktionen und erfassten Anforderungen zu geben folgt hier eine Tabelle.
+Um die Anforderungen zu evaluieren wurde das bestehende Aufnahmesystem auf Basis einer Nokia Symbian App analysiert. Alle vorhandenen Funktionen wurden erfasst und mit dem Industriepartner um weitere erg\"{a}nzt. 
+Eine kurze Übersicht \"{u}ber die bereits bestehenden Funktionen und den neu erfassten Anforderungen folgt in tabellarischer Form.
 
 {\renewcommand{\arraystretch}{2}%
     \begin{longtable}{  p{3.5cm} | p{4.3cm} | p{4.3cm} }
@@ -91,13 +91,12 @@ Die gesammelten Daten (Positionen, Bilder,..) werden parallel auf dem lokalen Ge
 Die native Programmiersprache f\"{u}r das Android Betriebssystem ist Java. Die Programmierung in Java bringt den Vorteil, dass auf die gesamte Application Programming Interface (API) von Android zugegriffen werden kann. Weiter sind die Ger\"{a}te genau dafu\"{u}r ausgelegt und eine optimale Performance kann erreicht werden. S\"{a}mtliche Komponenten dieser Arbeit sind in Java geschrieben.
 
 \subsubsection{Externe Libraries}
-Externe Libraries
-Android beinhaltet bereits ein umfangreiches Framework zur Entwicklung. Deshalb nutzt die Applikation folgende zwei externen Libraries.
+Um den geforderten Funktionsumfang umzusetzen nutzt die Applikation folgende zwei externe Libraries.
 \paragraph{Spring for Android\footnote{Spring for Android, \url{http://www.springsource.org/spring-android}, aufgerufen am 29.04.2013} }
-Spring for Android ist das Spring Framework, welches im TourLive Server verwendet wird, f\"{u}r Android. Dies erm\"{o}glicht eine einfache Initialisierung eines Objekts aus einem Json String.
+Ein Rest Client für Android von den Entwicklern des populären Java Spring Frameworks. Der Rest Client bietet einfache Deserialisierung eines JSON-Strings in ein Java Objekt. Diese Library wird benötigt um die Kommunikation zwischen dem Aufnahmesystem und den beiden Serversystemen zu ermöglichen.
 \paragraph{ORMLite\footnote{ORMLite, \url{ormlite.com}, aufgerufen am 02.05.2013}} ORMLite ist eine OpenSource Java Library, welche das Objectrelational mapping
 (ORM) übernimmt. ORMLite bietet eine speziell auf Android angepasste Distribution.\\
-Um eine Klasse mit ihren Feldern zur Persistierung zu markieren, werden Java Annotationen verwendet. Aus diesen Annotationen erstellt ORMLite die Datenbank. Darüber hinaus werden mit ORMLite alle Zugriffe auf die SQLite Datenbank ausgeführt. In dieser Arbeit wird die ORMLite Version 4.45 verwendet.
+Um eine Klasse mit ihren Feldern zur Persistierung zu markieren, werden Java Annotationen verwendet. Aus diesen Annotationen erstellt ORMLite die Datenbank. Darüber hinaus werden mit ORMLite alle Zugriffe auf die SQLite Datenbank ausgeführt. In dieser Arbeit wird die ORMLite Version 4.45 verwendet. Diese Library wird verwendet um die gesammelten Informationen lokal in einer Datenbank speichern zu können und um somit die Datenkonsistenz bei Verbindungsunterbrüchen sicherstellen zu können.
 
 \subsection{Entwicklungsumgebung}
 Die von Android empfohlene Entwicklungsumgebung ist Eclipse\footnote{Eclipse, \url{http://eclipse.org}, aufgerufen am 29.04.2013}  mit einem Plugin zur Entwicklung von Android Applikationen. Auf der Entwicklerseite von Android steht dazu folgendes:

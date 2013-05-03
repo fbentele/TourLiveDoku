@@ -1,6 +1,6 @@
 \chapter{Schnittstellen}
 
-Das Aufnahmesystem kommuniziert mit den Servern in beide Richtungen, wobei jeweils das Aufnahmesystem aktiv Daten liefert und sich neue Daten holt. In diesem Kapitel werden die Schnittstellen zwischen Aufnahmesystem und Tourlive Server sowie Devicemanagement Portal.
+Das Aufnahmesystem kommuniziert mit beiden Serversystemen in beide Richtungen. In diesem Kapitel werden die Schnittstellen zwischen Aufnahmesystem,  Tourlive Server sowie Devicemanagement Portal erläutert.
  
 
 \section{TourLive Server Schnittstelle}
@@ -16,10 +16,12 @@ Das Aufnahmesystem kommuniziert mit den Servern in beide Richtungen, wobei jewei
 \hline
 \hline
 	\textbf{URL:} & /api/image \\
-	\textbf{Request:} & POST: Multi Part Form Data \\
+	\textbf{Request:} & Method: POST
+		\newline Content-Type: multipart/form-data
+		\newline Body: \\
 	\textbf{Response:} & ?  \\
-	\textbf{Interval:} & einstellbar \\
 	\textbf{Zeitpunkt:} & Bei laufender Aufnahme, falls Image aktiviert ist \\ 
+	\textbf{Interval:} & einstellbar \\
 \hline
 \hline
 	\textbf{URL:} & /api/video \\
@@ -40,38 +42,54 @@ Das Aufnahmesystem kommuniziert mit den Servern in beide Richtungen, wobei jewei
 \end{longtable} }
 TODO FLO
 
-\section{DeviceManagement Portal Schnittstelle}
-
-Für alle Funktionen, auf die von dem Aufnahmesystem her zugegrifen werden, steht eine JSON Schnittstelle mit URL zur Verfügung. Um sich eine Übersicht zu machen, zeigt die folgende Tabelle kurz, was wann aufgerufen wird. Die Base URL für alle Requests ist jeweils tlng.cnlab.ch/devmgmtsrv. Danach werden alle Funktionen genauer beschrieben.
+\section{Device Management Portal Schnittstelle}
 
 {\renewcommand{\arraystretch}{1.5}%
     \begin{longtable}{ p{2.5cm}  p{10cm}}
-	\textbf{URL:} & /api/postdevicemanagementcontainer \\
-	\textbf{Request:} & POST: JSON/DeviceManagementContainer \\
-	\textbf{Response:} &  \\
-	\textbf{Interval:} & Bei Änderungen \\
-	\textbf{Zeitpunkt:} & Einmalig beim App Start \\ 
+	\textbf{URL:} & /devmgmtsrv/api/postdevicemanagementcontainer \\
+	\textbf{Request:} & 
+	
+{\renewcommand{\arraystretch}{1}%
+		\begin{tabular}{ll}
+		Method: & POST \\
+		Content-Type: & application/json \\
+		Body: & JSON-String 'DeviceManagementContainer'
+		\end{tabular} } \\
+	\textbf{Response:} &  Header: HTTP/1.1 200 OK
+		\newline Body: <empty>	\\
+	\textbf{Eigenschaft:} & Wird einmalig beim App Start ausgeführt sowie bei lokalen Änderungen in den Einstellungen \\
+	\textbf{Interval:} & unregelmässig\\
 \hline
 \hline    
-	\textbf{URL:} & /api/getdevicemanagementcontainer \\
-	\textbf{Request:} & POST: JSON/StatusData \\
-	\textbf{Response:} & JSON/DeviceManagementContainer \\
-	\textbf{Interval:} & 60 Sekunden \\
-	\textbf{Zeitpunkt:} & immer \\ 
+	\textbf{URL:} & /devmgmtsrv/api/getdevicemanagementcontainer \\
+	\textbf{Request:} & Content-Type: application/json
+		\newline Method: POST
+		\newline Body: JSON-String 'StatusData' \\
+	\textbf{Response:} & Method: POST
+		\newline Content-Type: application/json
+		\newline Body: JSON-String 'DeviceManagementContainer' \\
+	\textbf{Eigenschaft:} & Wird regelmässig als Service ausgeführt. \\ 
+	\textbf{Interval:} & regelmässig - alle 60 Sekunden \\
 \hline
 \hline    
 	\textbf{URL:} & /api/postlog \\
-	\textbf{Request:} & POST: JSON/TourLiveLog \\
-	\textbf{Response:} &  \\
-	\textbf{Interval:} &  \\
-	\textbf{Zeitpunkt:} &  \\ 
+	\textbf{Request:} & Method: POST
+		\newline Content-Type: application/json
+		\newline Body: JSON-String 'TourLiveLog' \\
+	\textbf{Response:} &  Header: HTTP/1.1 200 OK
+		\newline Body: <empty>	\\
+	\textbf{Eigenschaft:} &  Wird regelmässig als Service ausgeführt.\\ 
+	\textbf{Interval:} &  regelmässig - alle 60 Sekunden\\
 \hline
 \hline 
 	\textbf{URL:} & /api/getMsg/\{deviceId\} \\
-	\textbf{Request:} & GET \\
-	\textbf{Response:} &  JSON/Message\\
-	\textbf{Interval:} &  Bei messageAvailable flag im DeviceManagementContainer\\
-	\textbf{Zeitpunkt:} &  immer\\ 
+	\textbf{Request:} & Method: GET
+		\newline Body: <empty> \\
+	\textbf{Response:} & Method: POST
+		\newline Content-Type: application/json
+		\newline Body: JSON-String 'Message' \\
+	\textbf{Eigenschaft:} &  Wenn das 'messageAvailable'-Flag gesetzt ist in einem empfangenen DeviceManagementContainer. \\
+	\textbf{Interval:} & unregelmässig\\
 \hline
 \hline 
 
