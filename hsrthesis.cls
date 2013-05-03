@@ -30,6 +30,9 @@
 \usepackage{bera}% optional: just to have a nice mono-spaced font
 \usepackage{xcolor}
 \usepackage[stable]{footmisc}
+\usepackage{booktabs, multicol, multirow}
+\usepackage{makecell}
+
 
 
 \colorlet{punct}{red!60!black}

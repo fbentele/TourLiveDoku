@@ -5,40 +5,52 @@ Das Aufnahmesystem kommuniziert mit beiden Serversystemen in beide Richtungen. I
 
 \section{TourLive Server Schnittstelle}
 
-{\renewcommand{\arraystretch}{1.5}%
-    \begin{longtable}{ p{2.5cm}  p{10cm}}
+{\renewcommand{\arraystretch}{1.1}%
+    \begin{longtable}{ p{2.5cm} p{3.5cm} p{7cm}}
 
-	\textbf{URL:} & /api/valuecontainer \\
-	\textbf{Request:} & POST: JSON/ValueContainer \\
-	\textbf{Response:} & ?  \\
-	\textbf{Interval:} & einstellbar \\
-	\textbf{Zeitpunkt:} & Bei laufender Aufnahme \\ 
+	\textbf{URL:} & \multicolumn{2}{p{10cm}}{/api/valuecontainer} \\
+	\textbf{Request:} & Method: & POST \\
+		& Content-Type: & application/json \\
+		& Body: & JSON-String 'ValueContainer' \\
+	\textbf{Response:} & Header: & HTTP/1.1 200 OK \\
+		& Body: & <empty> \\
+	\textbf{Zeitpunkt:} & \multicolumn{2}{p{10cm}}{Bei laufender Aufnahme} \\ 
+	\textbf{Interval:} & \multicolumn{2}{p{10cm}}{einstellbar} \\
 \hline
 \hline
-	\textbf{URL:} & /api/image \\
-	\textbf{Request:} & Method: POST
-		\newline Content-Type: multipart/form-data [3 Boundaries]
-		\newline Body-Boundary 1: text/plain (timestamp)
-		\newline Body-Boundary 2: text/plain (deviceId)
-		\newline Body-Boundary 3: application/octet-stream (Bild)\\
-	\textbf{Response:} &  Header: HTTP/1.1 200 OK
-		\newline Body: <empty>	\\
-	\textbf{Zeitpunkt:} & Bei laufender Aufnahme, falls Image aktiviert ist \\ 
-	\textbf{Interval:} & einstellbar \\
+	\textbf{URL:} & \multicolumn{2}{p{10cm}}{/api/image} \\
+	\textbf{Request:} & Method: & POST \\
+		& Content-Type: & multipart/form-data [3 Boundaries] \\
+		& Body-Boundary 1: & text/plain (timestamp) \\
+		& Body-Boundary 2: & text/plain (deviceId) \\
+		& Body-Boundary 3: & application/octet-stream (Bild) \\
+	\textbf{Response:} & Header: & HTTP/1.1 200 OK \\
+		& Body: & <empty> \\
+	\textbf{Zeitpunkt:} & \multicolumn{2}{p{10cm}}{Bei laufender Aufnahme, falls Image aktiviert ist} \\ 
+	\textbf{Interval:} & \multicolumn{2}{p{10cm}}{einstellbar} \\
 \hline
 \hline
-	\textbf{URL:} & /api/video \\
-	\textbf{Request:} & POST: Multi Part Form Data \\
-	\textbf{Response:} & ?  \\
-	\textbf{Interval:} & einstellbar \\
-	\textbf{Zeitpunkt:} & Bei laufender Aufnahme, falls der Videostream aktiviert ist \\ 
+	\textbf{URL:} & \multicolumn{2}{p{10cm}}{/api/video} \\
+	\textbf{Request:} & Method: & POST \\
+		& Content-Type: & multipart/form-data [3 Boundaries] \\
+		& Body-Boundary 1: & text/plain (timestamp) \\
+		& Body-Boundary 2: & text/plain (deviceId) \\
+		& Body-Boundary 3: & application/octet-stream (Video) \\
+	\textbf{Response:} & Header: & HTTP/1.1 200 OK \\
+		& Body: & <empty> \\
+	\textbf{Zeitpunkt:} & \multicolumn{2}{p{10cm}}{Bei laufender Aufnahme, falls der Videostream aktiviert ist} \\ 
+	\textbf{Interval:} & \multicolumn{2}{p{10cm}}{einstellbar} \\
 \hline
 \hline
-	\textbf{URL:} & /api/racedata \\
-	\textbf{Request:} & GET \\
-	\textbf{Response:} & JSON/ RaceData  \\
-	\textbf{Interval:} & 60 Sekunden \\
-	\textbf{Zeitpunkt:} & immer \\ 
+	\textbf{URL:} & \multicolumn{2}{p{10cm}}{/api/racedata} \\
+	\textbf{Request:} & Method: & GET \\
+		& Body: & empty\\	
+	\textbf{Response:} & Method: & GET \\
+		& Content-Type: & application/json \\
+		& Body: & JSON-String 'RaceData' \\	
+	
+	\textbf{Zeitpunkt:} & \multicolumn{2}{p{10cm}}{immer} \\ 
+	\textbf{Interval:} & \multicolumn{2}{p{10cm}}{60 Sekunden} \\
 \hline
 \hline 
 \caption{Schnittstellen TourLiveServer Übersicht}
@@ -47,52 +59,48 @@ TODO FLO
 
 \section{Device Management Portal Schnittstelle}
 
-{\renewcommand{\arraystretch}{1.5}%
-    \begin{longtable}{ p{2.5cm}  p{10cm}}
-	\textbf{URL:} & /devmgmtsrv/api/postdevicemanagementcontainer \\
-	\textbf{Request:} & 
-	
-{\renewcommand{\arraystretch}{1}%
-		\begin{tabular}{ll}
-		Method: & POST \\
-		Content-Type: & application/json \\
-		Body: & JSON-String 'DeviceManagementContainer'
-		\end{tabular} } \\
-	\textbf{Response:} &  Header: HTTP/1.1 200 OK
-		\newline Body: <empty>	\\
-	\textbf{Eigenschaft:} & Wird einmalig beim App Start ausgeführt sowie bei lokalen Änderungen in den Einstellungen \\
-	\textbf{Interval:} & unregelmässig\\
+
+{\renewcommand{\arraystretch}{1.1}%
+    \begin{longtable}{ p{2.5cm} p{3.5cm} p{7cm}}
+	\textbf{URL:} & \multicolumn{2}{l}{/devmgmtsrv/api/postdevicemanagementcontainer} \\
+	\textbf{Request:} & Method: & POST \\
+		& Content-Type: & application/json \\
+		& Body: & JSON-String 'DeviceManagementContainer'\\
+	\textbf{Response:} &  Header: & HTTP/1.1 200 OK \\
+		& Body: & <empty>	\\
+	\textbf{Eigenschaft:} & \multicolumn{2}{p{10cm}}{Wird einmalig beim App Start ausgeführt sowie bei lokalen Änderungen in den Einstellungen} \\
+	\textbf{Interval:} & \multicolumn{2}{p{10cm}}{unregelmässig} \\
 \hline
 \hline    
-	\textbf{URL:} & /devmgmtsrv/api/getdevicemanagementcontainer \\
-	\textbf{Request:} & Content-Type: application/json
-		\newline Method: POST
-		\newline Body: JSON-String 'StatusData' \\
-	\textbf{Response:} & Method: POST
-		\newline Content-Type: application/json
-		\newline Body: JSON-String 'DeviceManagementContainer' \\
-	\textbf{Eigenschaft:} & Wird regelmässig als Service ausgeführt. \\ 
-	\textbf{Interval:} & regelmässig - alle 60 Sekunden \\
+	\textbf{URL:} & \multicolumn{2}{l}{/devmgmtsrv/api/getdevicemanagementcontainer} \\
+	\textbf{Request:} & Content-Type: & application/json \\
+		& Method: & POST \\
+		& Body: & JSON-String 'StatusData' \\
+	\textbf{Response:} & Method: & POST \\
+		& Content-Type: & application/json \\
+		& Body: & JSON-String 'DeviceManagementContainer' \\
+	\textbf{Eigenschaft:} & \multicolumn{2}{p{10cm}}{Wird regelmässig als Service ausgeführt.} \\ 
+	\textbf{Interval:} & \multicolumn{2}{p{10cm}}{regelmässig - alle 60 Sekunden} \\
 \hline
 \hline    
-	\textbf{URL:} & /api/postlog \\
-	\textbf{Request:} & Method: POST
-		\newline Content-Type: application/json
-		\newline Body: JSON-String 'TourLiveLog' \\
-	\textbf{Response:} &  Header: HTTP/1.1 200 OK
-		\newline Body: <empty>	\\
-	\textbf{Eigenschaft:} &  Wird regelmässig als Service ausgeführt.\\ 
-	\textbf{Interval:} &  regelmässig - alle 60 Sekunden\\
+	\textbf{URL:} & \multicolumn{2}{p{10cm}}{/devmgmtsrv/api/postlog} \\
+	\textbf{Request:} & Method: & POST \\
+		& Content-Type: & application/json \\
+		& Body: & JSON-String 'TourLiveLog' \\
+	\textbf{Response:} &  Header: & HTTP/1.1 200 OK \\
+		& Body: & <empty>	\\
+	\textbf{Eigenschaft:} &  \multicolumn{2}{p{10cm}}{Wird regelmässig als Service ausgeführt.}\\ 
+	\textbf{Interval:} &  \multicolumn{2}{p{10cm}}{regelmässig - alle 60 Sekunden}\\
 \hline
 \hline 
-	\textbf{URL:} & /api/getMsg/\{deviceId\} \\
-	\textbf{Request:} & Method: GET
-		\newline Body: <empty> \\
-	\textbf{Response:} & Method: POST
-		\newline Content-Type: application/json
-		\newline Body: JSON-String 'Message' \\
-	\textbf{Eigenschaft:} &  Wenn das 'messageAvailable'-Flag gesetzt ist in einem empfangenen DeviceManagementContainer. \\
-	\textbf{Interval:} & unregelmässig\\
+	\textbf{URL:} & \multicolumn{2}{p{10cm}}{/devmgmtsrv/api/getMsg/\{deviceId\}} \\
+	\textbf{Request:} & Method: & GET \\
+		& Body: & <empty> \\
+	\textbf{Response:} & Method: & POST \\
+		& Content-Type: & application/json \\
+		& Body: & JSON-String 'Message' \\
+	\textbf{Eigenschaft:} & \multicolumn{2}{p{10cm}}{ Wenn das 'messageAvailable'-Flag gesetzt ist in einem empfangenen DeviceManagementContainer.} \\
+	\textbf{Interval:} & \multicolumn{2}{p{10cm}}{unregelmässig}\\
 \hline
 \hline 
 
