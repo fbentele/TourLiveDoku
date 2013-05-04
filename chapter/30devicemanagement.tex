@@ -1,6 +1,6 @@
-\chapter{Device Management Portal}
+\chapter{DeviceManagement Portal}
 
-In diesem Kapitel wird genauer auf das Devicemanagement Portal eingegangen.
+In diesem Kapitel wird genauer auf das DeviceManagement Portal eingegangen.
 
 \section{Software Analyse}
 
@@ -13,16 +13,16 @@ Um eine kurze Übersicht über die vorhandenen Funktionen und erfassten Anforder
 
     \textbf{Anforderung} & \textbf{Altes System} & \textbf{Neues System} \\ \hline
 \hline
-    Einstellungen anpassen & Nur Renndistanzkorrektur & Detaillierte Verwaltung der Ger"{a}teeinstellungen \\ \hline
-    Status der Ger"{a}te & Rudiment"{a}re Anzeige des Ger"{a}testatus & Detaillierte Anzeige des Ger"{a}testatus \\
+    Einstellungen anpassen & Nur Renndistanzkorrektur & Detaillierte Verwaltung der Geräteeinstellungen \\ \hline
+    Status der Geräte & Rudimentäre Anzeige des Gerätestatus & Detaillierte Anzeige des Gerätestatus \\
     \hline
-     Alarming bei schlechtem Gerätezustand & Dauer seit letztem Positionsupdate / Bildempfang zu gross & Visuelle Hervorhebung bei Problemen des Ger"{a}testatus \\
+     Alarming bei schlechtem Gerätezustand & Dauer seit letztem Positionsupdate / Bildempfang zu gross & Visuelle Hervorhebung bei Problemen des Gerätestatus \\
     \hline
-    Neustarten des Ger"{a}tes & Neustarten des Ger"{a}tes via Portal & - (nur Neustarten der App möglich)\\
+    Neustarten des Gerätes & Neustarten des Gerätes via Portal & - (nur Neustarten der App möglich)\\
     \hline
-    Ger"{a}telog anzeigen & - & Ger"{a}telog wird angezeigt\\
+    Gerätelog anzeigen & - & Gerätelog wird angezeigt\\
     \hline
-    Versand von Nachrichten & - & Nachrichten an das Ger"{a}t senden via Portal\\
+    Versand von Nachrichten & - & Nachrichten an das Gerät senden via Portal\\
 
 \caption{Anforderungen DeviceManagement Portal}
 \end{longtable}}
@@ -31,17 +31,17 @@ Eine detaillierte Beschreibung aller Anforderungen befindet sich im Anhang. Folg
 
 \subsubsection{Funktionale Anforderungen}
 \paragraph{Betriebsmodi}
-Die Ger"{a}te sollen sowohl "{u}ber ein Management-Portal, analog zum zur bisherigen Verwaltungsseite , fernverwaltet als auch "{u}ber ein „Einstellungen“-Men"{u} direkt am Ger"{a}t konfiguriert werden können. 
+Die Geräte sollen sowohl über ein Management-Portal, analog zum zur bisherigen Verwaltungsseite , fernverwaltet als auch über ein „Einstellungen“-Menü direkt am Gerät konfiguriert werden können. 
 
-Daraus resultieren zwei Betriebsmodi: „managed“ und „unmanaged“. Beim ersten App-Start nach der Installation der App, wird der Benutzer gefragt, in welchem Modus das Aufnahmesystem betrieben werden soll. Die beiden Modi lassen sich am Ger"{a}t selber jederzeit "{a}ndern. W"{a}hlt der Benutzer beim ersten App-Start innerhalb von 10 Sekunden keinen Modus, wird das Ger"{a}t automatisch in den Betriebsmodus „managed“ versetzt und eine Standardkonfiguration vom Device Management Server bezogen.
+Daraus resultieren zwei Betriebsmodi: „managed“ und „unmanaged“. Beim ersten App-Start nach der Installation der App, wird der Benutzer gefragt, in welchem Modus das Aufnahmesystem betrieben werden soll. Die beiden Modi lassen sich am Gerät selber jederzeit ändern. Wählt der Benutzer beim ersten App-Start innerhalb von 10 Sekunden keinen Modus, wird das Gerät automatisch in den Betriebsmodus „managed“ versetzt und eine Standardkonfiguration vom Device Management Server bezogen.
 
-Bei allen weiteren App-Starts werden die Einstellungen vom letzten Betrieb "{u}bernommen sofern der Betriebsmodus zuvor „unmanaged“ war. War der Betriebsmodus auf „managed“ eingestellt, so wird die Konfiguration vom Management Server bezogen. Ist dieser nicht verf"{u}gbar, wird der Modus auf „unmanaged“ gesetzt und die existierenden Einstellungen verwendet.
+Bei allen weiteren App-Starts werden die Einstellungen vom letzten Betrieb übernommen sofern der Betriebsmodus zuvor „unmanaged“ war. War der Betriebsmodus auf „managed“ eingestellt, so wird die Konfiguration vom Management Server bezogen. Ist dieser nicht verfügbar, wird der Modus auf „unmanaged“ gesetzt und die existierenden Einstellungen verwendet.
 
 \paragraph{Alarming Funktionen}
-Treten Probleme auf, so soll auf dem Telefon sowie in der Management Konsole dar"{u}ber informiert werden. Als zu meldende Probleme gelten folgende:
+Treten Probleme auf, so soll auf dem Telefon sowie in der Management Konsole darüber informiert werden. Als zu meldende Probleme gelten folgende:
 \begin{itemize}
-\item Keine GPS-Daten w"{a}hrend 2 Minuten
-\item Keine Bild-Daten w"{a}hrend 2 Minuten
+\item Keine GPS-Daten während 2 Minuten
+\item Keine Bild-Daten während 2 Minuten
 \item Keine Mobile-Verbindung 2 Minuten [TODO: Unlogisch]
 \item Smartphone wird nicht mehr geladen (Stromzufuhr unterbrochen)
 \item Smartphone Akkustand ist unter 50\%, 25\%, 10\%
@@ -52,9 +52,21 @@ Treten Probleme auf, so soll auf dem Telefon sowie in der Management Konsole dar
 \paragraph{Sicherheit}
 Das Devicemanagement Portal wird mit einem Benutzernamen und Passwort gesperrt. 
 
-\subsection*{Technologien}
-F"{u}r die Entwicklung des Portals wurde das Spring Framework benutzt. Genauere Details dazu befinden sich in dem TourLive Server Kapitel.
+\subsection{Technologien}
+Für die Entwicklung des Portals wurde das Spring Framework benutzt. Genauere Details dazu befinden sich in dem TourLive Server Kapitel.
 
+\subsection{Entwicklungsumgebung}
+Für die Entwicklung des DeviceManagement Portals wurde die Spring Tool Suite verwendet. Die Spring Tool Suite wurde bereits im Kapitel TourLive Server genauer beschrieben.
+
+\subsection{Paper Protoypes}
+
+
+
+\subsection{Domain Model}
 
 \section{Software Design}
+\subsection{Schichtenmodell}
+
+
+\subsection{Sequenzdiagramm}
 
