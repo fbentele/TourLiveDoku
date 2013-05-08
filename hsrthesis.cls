@@ -321,7 +321,7 @@
    \parskip1ex
 
    \newlength{\mp@margwd}
-   \setlength{\mp@margwd}{20mm}
+   \setlength{\mp@margwd}{15mm}
    \setlength{\marginparwidth}{0.85\mp@margwd}
 
    \newlength{\mp@fullwd}

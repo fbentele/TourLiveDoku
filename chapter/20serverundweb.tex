@@ -1,16 +1,73 @@
-\chapter{TourLive Server und Webseite}
-
-Dies ist die Tourliveserver.
-
+\chapter{TourLive Server}
+\label{sec:tourliveserver}
+In den folgenden Abschnitten wird die Webapplikation TourLive Server erläutert. Dabei liegt der Fokus auf den Anforderungen und deren technischen Umsetzung. Dieses Kapitel richtet sich ins Besondere an Entwickler, welche an diesem Projekt weiterarbeiten möchten.
 
 \section{Software Analyse}
 \subsection{Anforderungen}
+Weite Teile der Anforderungen an die Webapplikation ergeben sich aus der Analyse der bestehenden Lösung. Im Einsatz ist zur Zeit eine, von der cnlab AG entwickelte \textit{\gls{php}} Webapplikation. Grundsätzlich soll die Funktionalität der bestehenden Lösung erweitert und in technologisch Sicht auf den aktuellsten Stand gebracht werden. In der folgenden Tabelle ist jeweils zu erkennen, ob es sich um ein neues Feature handelt oder ein bestehendes erweitert wird.
+\\
+Die Funktionalen Anforderungen und Usecases sind im Anhang \ref{sec:tourliveusecase} komplett Aufgelistet. Im folgenden sind die wesentlichen Elemente zusammengefasst.
 
+\begin{longtable}{  p{3.5cm} | p{4.3cm} | p{4.3cm} }
+    \textbf{Anforderung} & \textbf{Altes System} & \textbf{Neues System} \\
+    \hline\hline
+Renn- und Etappenverwaltung & - & Benutzerfreundliche Renn- und Etappenverwaltung
+\\ \hline
+Bildübertragung & 1 Bild / Zeitpunkt (auch bei mehreren Aufnahmegeräten) & Konfigurierbare Bildübertragung  
+    \\ \hline
+Streckenprofil & Aktuelle Position & Alle Positionen (HTML5, SVG\footnote{HTML5 und SVG sind zwei moderne Webtechnologien um grafiken im Browser zu zeichnen})
+	\\ \hline
+	Zeitliche Abstände & Distanz in Zeit und km zwischen Geräten & Rückstand relativ zur Spitze in Zeit und km, sowie Durchschnittsgeschwindigkeit und Höhenmeter
+	\\ \hline
+Rennsituation & Fahrer werden gruppiert dargestellt & Fahrer mit weiteren Informationen angereichert
+	\\ \hline
+Rangliste & - & Aktuelle (virtuelle) Rangliste, sortierbar
+	\\ \hline
+Marschtabelle & - & Marschtabelle mit Informationen und aktueller Position
+	\\ \hline
+Kartenausschnitt & Position der Aufnahmesysteme & Poistionen der Aufnahmesysteme (farbe wählbar)
+	\\ \hline
+Replay & Vergangene Rennen abspielbar & Rennon vor und zurückspuhlen
+	\\ \hline
+Werbebanner & Statische Werbung & Einbetten von HTML Code für Werbeblock
+	\\ \hline
+Mobile Client & - & Webseite optimiert für Mobile Geräte
+	\\ \hline
 
-\subsection{Evaluation Framework}
+\caption{Anforderungen TourLive Server}
+\end{longtable}
 
+\subsection{Evaluation Webframework}
+\label{sec:evaluationwebframework}
+Wie aus der Aufgabenstellung zu entnehmen ist, wird keine spezifische Technologie für die Umsetzung des TourLive Server festgelegt. Vielmehr ist es Teil der Arbeit eine geeignete Lösung zu evaluieren und dabei auf ein \textit{\gls{webframework}} zurückzugreifen.\\
+Die Anforderungen an das neue TourLive System bilden die Basis für die Evaluation eines dafür geeigneten Webframeworks. Die folgende Kriterien wurden zusammen mit dme Industriepartner definiert udn festgelegt.
+\begin{itemize}
+\item Open Source Software, keine Lizenzgebühren
+\item Beispiel- und Referenzprojekte vorhanden
+\item Hohe Performance und stabile Verfügbarkeit auch bei hoher Auslastung
+\item Skalierbar für mehrere Rennen und Etappen
+\item Datenbankanbindung an \textit{\gls{mariadb}}
+\item Weiterentwicklung durch cnlab AG muss möglich sein
+\end{itemize}
+
+Weiter werden optionale jedoch wünschenswerte Kriterien für die Auswahl aufgelistet.
+\begin{itemize}
+\item Vorkenntnisse in der betreffenden Programmiersprache
+\item Gleiche Technologie für API, Webseite und Datenverarbeitung
+\item Umfangreiche Dokumentation und Tutorials (Community\footnote{Die Community ist die Verbreitung einer Technologie sowie die Hilfsbereitschaft in Foren und Portalen bei Fragen oder Problemen. Dies ist äusserts schwierig zu beurteilen und kann sich auch schnell ändern.})
+\end{itemize}
+
+In einem nächsten Schritt wurden mögliche Lösungen gesucht und auf die obigen Anforderungen geprüft. Aktuell beliebte und verbreitete Frameworks wie Django (basierend auf der Programmiersprache Python) oder Ruby on Rails seinen an dieser Stelle als Beispiele erwähnt. Für die detaillierte Evaluation und Gewichtung der Kriterien wird aber auf Kapitel \ref{sec:evaluationwebframework} im Anhang verwiesen.
+\\
+Zusammen mit dem Industriepartner fällt die Entscheidung auf das Java basierte Spring MVC Framework. Ausschlaggebend dafür waren schlussendlich die Vorkenntnisse in der Technologie, da die Frameworks sehr ähnliche Ideen verfolgen und sich daher, abstrakt betrachtet, kaum unterscheiden.
 
 \subsection{Technologien}
+Wie aus der Evaluation im Kapitel \ref{sec:evaluationwebframework} zu entnehmen ist, basiert die Umsetzung auf dem Spring MVC Framework. Dieses Java Webframework baut auf den beiden Prinzipien \textit{Dependency Injection} und \textit{Aspect-oriented Programming} auf. Weiter fördert Spring gute Programmierpraktiken wie z.B. die Trennung von Model, View und Controller oder die Verwendung von Objekt relationalen Mappern beim Einsatz von relationalen Datenbankmanagementsystemen.
+
+\subsubsection{Dependency Injection}
+
+\subsubsection{Aspect-oriented Programming}
+
 
 
 \section{Software Design}
