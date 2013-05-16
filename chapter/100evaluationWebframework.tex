@@ -1,0 +1,46 @@
+\section{Evaluation Webframework}
+\label{sec:evaluationwebframework}
+\subsection{Kriterienkatalog}
+Zwingende Kriterien
+\begin{itemize}
+\item Open Source Software, keine Lizenzgebühren
+\item Beispiel- und Referenzprojekte vorhanden
+\item Hohe Performance und stabile Verfügbarkeit auch bei hoher Auslastung
+\item Skalierbar für mehrere Rennen und Etappen
+\item Datenbankanbindung an \gls{mariadb}
+\item Weiterentwicklung durch cnlab AG muss möglich sein
+\end{itemize}
+Optionale, gewünschte Anforderungen
+\begin{itemize}
+\item Vorkenntnisse in der betreffenden Programmiersprache
+\item Gleiche Technologie für API, Webseite und Datenverarbeitung
+\item Umfangreiche Dokumentation und Tutorials (Community\footnote{Die Community ist die Verbreitung einer Technologie sowie die Hilfsbereitschaft in Foren und Portalen. Dies ist äusserts schwierig zu beurteilen und kann sich auch schnell ändern.})
+\end{itemize}
+\subsection{Mögliche Lösungen}
+\subsubsection{Django}
+Auf Python basiertes Webframework. Wird eingesetzt bei berühmten Webseiten wie z.B. Pinterest, Instagram und The Washington Post.  Django beinhaltet einen OR Mapper, Templates zur Darstellung und einen URL Dispatcher als Controller.
+\subsubsection{Spring MVC}
+Spring MVC ist ein Framework für die Erstellung von Webprojekten. Es basiert auf Java Technologien und fördert Dependency Injection  und aspektorientierte Programmierung .
+\subsubsection{JavaServer Faces}
+JSF ist ein Framework-Standard für Webapplikationen in Java. Es verwendet die Java Servlet Technologie und benötigt einen Servlet Container für den Betrieb. Mit JSF können Komponenten für User Interfaces einfach in Webseiten eingebaut werden. 
+\subsubsection{Symfony}
+Symfony ist ein Open Source PHP Webframework und verfolgt das MVC Pattern. Die Zuordnung der Models geschieht dabei über die Namensgleichheit in Singular und Plural und nicht über Konfigurationsdateien (convention over configuration). Weiter können durch Konsolenapplikationen Anwendungen generiert werden.
+\subsubsection{Ruby on Rails}
+Rails ist ein Webframework geschrieben in Ruby, es ist geprägt von den Prinzipien „don’t repeate yourself“ und „convention over configuration“. Ruby on Rails besteht aus fünf Modulen, jedes dieser Module übernimmt gewisse Funktionen, so z.B. der Action Mailer versendet und empfängt E-Mails.
+\subsection{Nutzwertanalyse}
+\begin{figure}[H]
+	\includegraphics[width=130mm]{images/nutzwertanalyse.png}
+	\caption{Nutzwertanalyse}
+\end{figure}
+\subsubsection{Erläuterung zu Performance und Skalierbarkeit}
+Bezüglich der Performance gibt es verschiedene Ansichten zu den verschiedenen Frameworks. Da es aber zu allen obigen Frameworks grosse Projekte gibt, kann davon ausgegangen werden, dass die Performance und Skalierbarkeit für das TourLive Projekt ausreicht.
+\subsubsection{Erläuterung zur Gewichtung der Kriterien}
+Die verschiedenen Kriterien wurden in einer Skala von 1 – 10 Gewichtet wobei 10 das wichtigste Kriterium darstellt. Gemäss cnlab AG dürfen für das Framework keine Lizenzkosten anfallen und die Webseite muss auch unter Last stabil verfügbar sein. Daher werden diese beiden Kriterien mit dem höchsten Gewicht 10 versehen.
+Da das System einen stark wachsenden Datenbestand haben wird, ist die Implementation von Datenbanken ebenfalls von hoher Bedeutung. Referenzprojekte dienen als Beweis für die Skalierbarkeit und die Performance des jeweiligen Frameworks.
+Für die Studierenden ist der Zugang zu freier Dokumentation sowie Vorkenntnisse relevant jedoch nicht zwingend erforderlich. Wünschenswert ist ebenfalls, dass für das gesamte Webprojekt dasselbe Framework verwendet werden kann. Diese Punkte werden daher mit den Gewichten 3-5 bewertet.
+\subsubsection{DB und ORM}
+Ruby on Rails verfolgt das Ziel möglichst abstrakt mit Datenbanken zu arbeiten und kann deshalb problemlos mit verschiedenen Datenbanksystemen arbeiten. Gleichwohl ist der Ansatz bei Django, dort werden verschiedene Datenbankadapter zur Verfügung gestellt. Auch Spring arbeitet z.B. mit Hibernate als ORM problemlos mit verschiedenen Datenbanken.
+\subsubsection{Weiterentwicklung durch cnlab AG}
+Nach Abschluss der Arbeit wird das Projekt durch die cnlab weiter entwickelt. Daher muss bei der Auswahl des Frameworks darauf geachtet werden, dass eine weitere Entwicklung möglich ist.
+\subsubsection{Schlussfolgerungen}
+Da die Frameworks sehr ähnliche Ansätze verfolgen und aktuell eine grosse Entwicklergemeinschaft geniessen, sind die Unterschiede, abgesehen von der Programmiersprache welche als Grundlage dient, sehr klein. Entscheidend sind schliesslich die Vorkenntnisse: Java diejenige, für die bereits das grösste Vorwissen besteht. Daher sind für die engere Wahl die beiden Lösungen Spring MVC und JSF im rennen. Da wir in einer kleinen Projektarbeit bereits mit JSF gearbeitet haben möchten wir nach unseren eher negativen  Erfahrungen damit von einer Entwicklung mit JSF absehen und auf das Spring MVC Framework setzen.
