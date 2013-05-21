@@ -49,7 +49,7 @@ In einem nächsten Schritt wurden mögliche Lösungen gesucht und auf die obigen
 Zusammen mit dem Industriepartner fällt die Entscheidung auf das Java basierte Spring MVC Framework\footnote{Java Spring Framework Family, \url{http://springsource.org}, aufgerufen am 16.052013)}. Da die Frameworks sehr ähnliche Ideen verfolgen und sich daher, abstrakt betrachtet, kaum unterscheiden. Ausschlaggebend für diesen Entscheid waren schlussendlich die Vorkenntnisse der Studenten in der Java Technologie. 
 
 \subsection{ Weitere Technologien}
-Die folgenden Technologien wurden verwendet für die Umsetzung des TourLive Server.
+Die folgenden weiteren Technologien wurden für die Umsetzung des TourLive Server verwendet. Im Kapitel \ref{sec:wekzeugeundentwicklungsumgebung} im Anhang sind spezifische Tools und Entwicklungsumgebungen für die Entwicklung aufgeführt.
 
 \subsubsection{ORM und Datenbank}
 Für die Persistierung sämtlicher Daten wird die MySQL ähnliche, quelloffene Datebank MariaDB\footnote{MariaDB, \url{https://mariadb.org/}, aufgerufen am 16.05.2013} verwendet. Dies ist eine Anforderung des Industriepartners cnlab AG.
@@ -58,6 +58,9 @@ Die Abbildung des Models auf der Datenbank übernimmt das Java ORM Framework Hib
 
 \subsubsection{Maven}
 Für die Verwaltung der externen Java Libraries wird Apache Maven\footnote{Apache Maven, \url{http://maven.apache.org/}, aufgerufen am 16.05.2013} verwendet. Maven lädt die definierten Abhängigkeiten automatisch und kompiliert das Projekt. Weiter generiert Maven die Javadoc\footnote{Javadoc, \url{http://de.wikipedia.org/wiki/Javadoc}, aufgerufen am 16.05.2013} Dokumentation zum Projekt und kann Auswertungen und statische Codeanalysen erzeugen.
+
+\subsubsection{Twitter Bootstrap}
+Die Daten werden mit dem Front-End Framework Twitter Bootstap in Form einer HTML Webseite dargestellt. Twitter Bootstrap vereinfacht und beschleunigt die Entwicklung von Webseiten  indem es gewisse grundlegende Elemente anbietet. Es besteht aus einer komprimierten JavaScript und einer CSS Datei und kann durch viele Plugins erweitert oder verändert werden. Twitter Bootstrap ist OpenSource und in der Entwicklergemeinde sehr beliebt, da es unter anderem Webseiten für verschiedene Bildschirmgrössen (inkl. Smartphones und Tablets) optimal anpasst.
 
 \section{Software Design}
 Dieser Abschnitt behandelt die Umsetzung der Spezifikationen zum Endzustand. Nach einem Überblick über die Architektur werden die Komponenten einzeln behandelt.
@@ -79,6 +82,6 @@ Ein Spring MVC Projekt legt eine gewisse Struktur vor, wie eine Webapplikation a
 % Package diagram here
 \label{fig:tourlivewebpackage}
 
-Im Packagediagramm \ref{fig:tourlivewebpackage} sind die Schichten zu erkennen. So wurde das Domainmodel im Package \textit{Model} abgebildet, die Datenzugriffsobjekte im \textit{DAO} Package und die Zugriffscontroller im Package \textit{Controller}.
+Im Packagediagramm \ref{fig:tourlivewebpackage} sind die Schichten der Applikation zu erkennen. So wurde das Domainmodel im Package \textit{Model} abgebildet, die Datenzugriffsobjekte im \textit{DAO} Package und die dazugehörige Service Schicht im Package \textit{Service}. Die Anfragen werden durch die Zugriffscontroller im Package \textit{Controller} bearbeitet. Um wiederkehrende Tasks zu zentralisieren, wurden diese im Package Utils zusammengefasst, so z.B. das Formatieren Zeiten und Daten.
 
 
