@@ -1,6 +1,17 @@
 \chapter*{Abstract}
-Um den aktuellen Stand von Radrennen zu erfassen und diese Daten zu veröffentlichen, konnte bisher das TourLive System von der cnlab AG eingesetzt werden. Nokia Handys wurden in Begleitfahrzeugen an der Frontscheibe eingebaut und haben die aktuelle Position sowie Bilder aufgenommen. Diese Daten wurden dann an den TourLive Server geschickt, welcher die Informationen verarbeitet und als Webseite für Radsport interessierte präsentiert.
-\\
-Im Rahmen dieser Bachelorarbeit wurde das über 10 jährige System überarbeitet und an die neuen Anforderungen angepasst. Die TourLive Anwendung fasst drei Systeme zusammen. Zum Einen die Aufnahmegeräte, welche durch moderne Android Smartphones ersetzt werden. Das zweite Element bildet der TourLive Server, welcher die Daten der Aufnahmegeräte entgegennimmt und darstellt. Die dritte Systemkomponente ist das Geräteverwaltungsportal in welchem die Aufnahmegeräte auch nach dem Start eines Rennens aus der Ferne (Remote) bedient und überwacht werden können.
-\\
+Das bestehende cnlab TourLive System, kurz TourLive, ermöglicht die Aufzeichnung von Positions-, Bild- und Videodaten an Radrennsportanlässen mittels Nokia Symbian Geräten. Die gesammelten Daten werden mittels Webservice an den TourLive Server übertragen und dort Radsportinteressierten präsentiert.
+
+%Um den aktuellen Stand von Radrennen zu erfassen und diese Daten zu veröffentlichen, konnte bisher das TourLive System von der cnlab AG eingesetzt werden.
+
+%Nokia Handys wurden in Begleitfahrzeugen an der Frontscheibe eingebaut und haben die aktuelle Position sowie Bilder aufgenommen. Diese Daten wurden dann an den TourLive Server geschickt, welcher die Informationen verarbeitet und als Webseite für Radsport interessierte präsentiert.
+
+Im Rahmen dieser Bachelorarbeit wurde das über 10 jährige System analysiert, an die aktuellen Bedürfnisse angepasst sowie mit Hilfe moderner Technologien umgesetzt. Das TourLive System umfasst neu drei komplett voneinander getrennte Komponenten. Diese sind zum ersten die Aufnahmegeräte, welche durch moderne Android Smartphones ersetzt wurden, zum zweiten der eigentliche TourLive Server (Java Spring Webservice) und als drittes das Geräteverwaltungsportal (Java Spring Webservice). 
+
+
+Die neue Komponente, das Geräteverwaltungsportal ermöglicht die vollumfängliche Fernverwaltung der Aufnahmesysteme, welche bisher nur in einem sehr rudimentären Rahmen möglich war. Neu ist auch die Art des Videostreams. Während bisher nur Einzelbilder übertragen wurden, die dann auf dem Server zu einem Videostream verarbeitet wurden, ermöglicht das neue System die Übertragung ganzer Videosequenzen die anschliessend aufeinanderfolgend abgespielt werden. Die Kommunikation zwischen den verschiedenen Komponenten erfolgt über eine moderne RESTful-JSON-Schnittstelle. 
+
+
+Die Administrationsoberfläche des TourLive Servers ermöglicht eine konfortable Renn- und Etappenverwaltung und auch die  Aufwertung der grafischen Oberflächen kam nicht zu kurz. 
+
+
 Das Endprodukt beinhaltet die vom Industriepartner gewünschte Funktionalität und einen Prototypen, welcher anhand eines Probelaufs erfolgreich getestet wurde. Die weitere Entwicklung und der allfällige Einsatz an Radrennen in der Schweiz liegt in den Händen des Industriepartners.
