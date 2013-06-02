@@ -5,10 +5,10 @@ In der Einleitung werden die Systemkomponenten der Arbeit erläutert. Dadurch er
 \section{Big Picture}
 
 Zur Übersicht werden die verschiedenen Komponenten des Projektes in einem Big Picture zusammengefasst. Die Darstellung ist in drei Abschnitte unterteilt. Im obersten Abschnitt befinden sich alle Geräte, welche Daten erfassen und diese zur Verfügung stellen. Diese Aufnahmesysteme bestehen aus der Android TourLiveApp, als Teil dieser Arbeit, sowie dem Android RadioTourSpeaker welcher im Rahmen einer anderen Arbeit entwickelt wurde. \\
-Im mittleren Teil befinden sich die Serversysteme. Diese besteht aus einem TourLiveServer, welcher die Renndaten empfängt und verarbeitet sowie dem Geräteverwaltungsserver. Der Geräteverwaltungsserver bietet eine Übersicht über die registrierten Aufnahmesysteme und ermöglicht es deren Einstellungen zu Verwalten sowie allfällige Fehlerquellen früehzeitig zu erkennen.\\
+Im mittleren Teil befinden sich die Serversysteme. Diese besteht aus einem TourLiveServer, welcher die Renndaten empfängt und verarbeitet sowie dem Geräteverwaltungsserver. Der Geräteverwaltungsserver bietet eine Übersicht über die registrierten Aufnahmesysteme und ermöglicht es deren Einstellungen zu Verwalten sowie allfällige Fehlerquellen frühzeitig zu erkennen.\\
 Der unterste Abschnitt zeigt die Anwendergruppen, die mit den Daten beliefert werden. Dies kann die Webseite sein, die in dieser Arbeit umgesetzt wird, sowie auch Drittanbieter, die Interesse an diesen Daten haben.\\
 \\
-Teil dieser Arbeit sind die farblich hervorgehobenen Komponenten: Die Aufnahmesysteme «TourLiveApp» in Form einer Android App [rot], das Serversystem «TourLiveServer» in Form eines Spring Webapplikation [blau] sowie das Serversystem «TourLiveDeviceManagementServer» ebenfalls in Form eines Spring Webapplikation [grün].
+Teil dieser Arbeit sind die farblich hervorgehobenen Komponenten: Die Aufnahmesysteme «TourLiveApp» in Form einer Android App [rot], das Serversystem «TourLiveServer» in Form einer Spring Webapplikation [blau] sowie das Serversystem «TourLiveDeviceManagementServer» ebenfalls in Form einer Spring Webapplikation [grün].
 
 \begin{figure}[H]
 	\centering
@@ -22,10 +22,10 @@ Teil dieser Arbeit sind die farblich hervorgehobenen Komponenten: Die Aufnahmesy
 Die drei oben erwähnten Kernsysteme werdem im folgenden kurz beschrieben.
 
 \subsection{TourLive Server}
-Auf der zentralen Webapplikation TourLive Server werden die eingehenden Daten von den Aufnahmesystemen gespeichert, verarbeitet, aufbereitet und weitergegeben. Bild und Positionsdaten werden in Form einer Webseite für Radsportbegeisterte aufbereitet und für mögliche Drittentwickler zur Verfügung gestellt. Die Architektur wurde dabei so gewählt, dass das System bei hoher Last gut skaliert. Dies wird im Kapitel \ref{sec:tourliveserver} genauer dargestellt.
+Auf der zentralen Webapplikation TourLive Server werden die eingehenden Daten von den Aufnahmesystemen gespeichert, verarbeitet, aufbereitet und weitergegeben. Bild und Positionsdaten werden in Form einer Webseite für Radsportbegeisterte aufbereitet und für mögliche Drittentwickler zur Verfügung gestellt. Die Architektur wurde dabei so gewählt, dass das System bei hoher Last gut skaliert. Diese Komponente wird im Kapitel \ref{sec:tourliveserver} genauer dargestellt.
 
 \subsection{DeviceManagement Portal}
-Das DeviceManagement Portal hilft dabei, die aktiven Aufnahmegeräte zu verwalten. Es ersetzt das existierende Portal, dass nur wenig Funktionalität besitze. Ist das DeviceManagement Portal nicht verfügbar, ist das ganze System trotzdem lauffähig, die Einstellungen müssen dann jedoch lokal am Smartphone gesetzt werden.
+Das DeviceManagement Portal hilft dabei, die aktiven Aufnahmegeräte zu verwalten. Es ersetzt das existierende Portal, dass nur wenig Funktionalität besitze. Ist das DeviceManagement Portal nicht verfügbar, ist das ganze System trotzdem lauffähig, die Einstellungen können dann lokal am Smartphone gesetzt werden.
 
 \subsection{Aufnahmesystem}
 Ein wesentlicher Bestandteil des Endsystems ist das Aufnahmesystem. Es ersetzt die Symbian App auf den Nokia Handys. In der folgenden Abbildung sieht man links das Aufnahmesystem, welches von den Satelliten GPS Daten erhält. Periodisch werden alle gesammelten Daten vom Aufnahmesystem an den TourLive Server übermittelt. Ebenfalls periodisch werden die Einstellungen vom DeviceManagement Portal abgeholt. Werden die Einstellungen lokal verändert so werden die veränderten Einstellungen an das DeviceManagement Portal übertragen.
@@ -33,7 +33,7 @@ Ein wesentlicher Bestandteil des Endsystems ist das Aufnahmesystem. Es ersetzt d
 	\centering
 	\includegraphics[width=150mm]{images/android/BigPicture_AndroidClient.png} 
 	\caption{BigPicture Android Aufnahmesystem}
-\end{figure} 
+\end{figure}
 
 \section{Aufgabenteilung}
 
@@ -43,7 +43,7 @@ Ein wesentlicher Bestandteil des Endsystems ist das Aufnahmesystem. Es ersetzt d
     \textbf{Aufgabe} & \textbf{Erledigt durch} \\ 
   	\hline
 	\hline
-    TourLiveServer & Florian Bentele \\
+    TourLive Server & Florian Bentele \\
     \hline
     TourLiveApp & Patrizia Heer\newline Simon Stäheli \\
     \hline

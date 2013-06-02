@@ -4,9 +4,9 @@ In den folgenden Abschnitten wird die Webapplikation TourLive Server erläutert.
 
 \section{Software Analyse}
 \subsection{Spezifikation}
-Weite Teile der Anforderungen an die Webapplikation ergeben sich aus der Analyse der bestehenden Lösung. Im Einsatz ist zur Zeit eine, von der cnlab AG entwickelte \textit{\gls{php}} Webapplikation. Grundsätzlich soll die Funktionalität der bestehenden Lösung erweitert und in technologischer Sicht auf den aktuellsten Stand gebracht werden. In der folgenden Tabelle ist jeweils zu erkennen, ob es sich um ein neues Feature handelt oder ein bestehendes erweitert wird.
+Weite Teile der Anforderungen an die Webapplikation ergeben sich aus der Analyse der bestehenden Lösung. Im Einsatz ist zur Zeit eine, von der cnlab AG entwickelte \textit{\gls{php}} Webapplikation. Grundsätzlich soll die Funktionalität der bestehenden Lösung erweitert und in technologischer Sicht auf den aktuellsten Stand gebracht werden. In der folgenden Tabelle \ref{tab:tourlivewebspeztable} ist jeweils zu erkennen, ob es sich um eine neue Funktion handelt oder eine Bestehende erweitert wurde.
 \\
-Die Funktionalen Anforderungen und Usecases sind im Anhang \ref{sec:tourliveusecase} vollständig Aufgelistet. In der Tabelle \ref{tab:tourlivewebspeztable} ist die Spezifikation der Webapplikation aufgelistet.
+Die Analyse der funktionalen Anforderungen und Usecases sind im Anhang \ref{sec:tourliveusecase} vollständig Aufgelistet.
 
 \begin{longtable}{  p{3.5cm} | p{4.3cm} | p{4.3cm} }
     \textbf{Spezifikation} & \textbf{Altes System} & \textbf{Neues System} \\
@@ -23,15 +23,15 @@ Rennsituation & Fahrer werden gruppiert dargestellt & Fahrer mit weiteren Inform
 	\\ \hline
 Rangliste & - & Aktuelle (virtuelle) Rangliste, sortierbar
 	\\ \hline
-Marschtabelle & - & Marschtabelle mit Informationen und aktueller Position
+Marschtabelle & - & Marschtabelle mit Informationen und allen Positionen der Aufnahmegeräten
 	\\ \hline
-Kartenausschnitt & Position der Aufnahmesysteme & Poistionen der Aufnahmesysteme (farbe wählbar)
+Kartenausschnitt & Position der Aufnahmesysteme & Poistionen der Aufnahmesysteme (Farbe wählbar)
 	\\ \hline
-Replay & Vergangene Rennen abspielbar & Rennon vor und zurückspuhlen
+Replay & Vergangene Rennen abspielbar & Rennen vor und zurück spulen nach Zeit und Renn Km
 	\\ \hline
 Werbebanner & Statische Werbung & Einbetten von HTML Code für Werbeblock
 	\\ \hline
-Mobile Client & - & Webseite optimiert für Mobile Geräte
+Mobile Client & - & Webseite optimiert für alle Bildschirmgrössen und Geräte
 	\\ \hline
 
 \caption{Spezifikation TourLive Server}
@@ -63,7 +63,7 @@ Für die Verwaltung der externen Java Libraries wird Apache Maven\footnote{Apach
 Die Daten werden mit dem Front-End Framework Twitter Bootstap in Form einer HTML Webseite dargestellt. Twitter Bootstrap vereinfacht und beschleunigt die Entwicklung von Webseiten  indem es gewisse grundlegende Elemente anbietet. Es besteht aus einer komprimierten JavaScript und einer CSS Datei und kann durch viele Plugins erweitert oder verändert werden. Twitter Bootstrap ist OpenSource und in der Entwicklergemeinde sehr beliebt, da es unter anderem Webseiten für verschiedene Bildschirmgrössen (inkl. Smartphones und Tablets) optimal anpasst.
 
 \section{Software Design}
-Dieser Abschnitt behandelt die Umsetzung der Spezifikationen zum Endzustand. Nach einem Überblick über die Architektur werden die Komponenten einzeln behandelt.
+Dieser Abschnitt behandelt die Umsetzung der Spezifikationen zum Endzustand. Nach einer kurzen Architekturübersicht wird jede Teilkomponente einzeln erläutert.
 
 \subsection{Architektur und Übersicht}
 Der TourLive Server übernimmt zwei grundsätzlich Funktionen, zum einen die Präsentation der Daten und zum anderen die Schnittstelle (\textit{\gls{api}}) für die Aufnahmegeräte und Drittentwickler.
@@ -82,6 +82,24 @@ Ein Spring MVC Projekt legt eine gewisse Struktur vor, wie eine Webapplikation a
 % Package diagram here
 \label{fig:tourlivewebpackage}
 
-Im Packagediagramm \ref{fig:tourlivewebpackage} sind die Schichten der Applikation zu erkennen. So wurde das Domainmodel im Package \textit{Model} abgebildet, die Datenzugriffsobjekte im \textit{DAO} Package und die dazugehörige Service Schicht im Package \textit{Service}. Die Anfragen werden durch die Zugriffscontroller im Package \textit{Controller} bearbeitet. Um wiederkehrende Tasks zu zentralisieren, wurden diese im Package Utils zusammengefasst, so z.B. das Formatieren Zeiten und Daten.
+Im Packagediagramm \ref{fig:tourlivewebpackage} sind die Schichten der Applikation zu erkennen. So wurde das Domainmodel im Package \textit{Model} abgebildet, die Datenzugriffsobjekte im \textit{DAO} Package und die dazugehörige Service Schicht im Package \textit{Service}. Die Anfragen werden durch die Zugriffscontroller im Package \textit{Controller} bearbeitet. Um wiederkehrende Tasks zu zentralisieren, wurden diese im Package \textit{Utils} zusammengefasst, so z.B. das Formatieren Zeiten und Daten.
+
+\subsection{XML basierte Konfiguration}
+Die Konfiguration in Spring geschieht einerseits über Java Annotationen wie Sie beim TourLive Server z.B. bei den Controllern zum Einsatz kommen.
+\begin{lstlisting}
+	/**
+	 * Show all Devices
+	 */
+	@RequestMapping(value = "/admin/device", method = RequestMethod.GET)
+	public String manageDevice(Locale locale, Model model) {
+		model.addAttribute("devices", deviceService.getAll());
+		model.addAttribute("adminmenu", "true");
+		model.addAttribute("races", raceService.getAllVisible());
+		model.addAttribute("breadcrumb", new Breadcrumb("/admin/device", ""));
+		model.addAttribute("positions",
+				valueContainerService.getMostRecentForEachDevice(deviceService.getAll()));
+		return "admin/manageDevice";
+	}
+\end{lstlisting}
 
 
