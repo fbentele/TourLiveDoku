@@ -97,12 +97,19 @@ Die Aufnahme der Bilder funktioniert nach einem ähnlichen Muster. Die aufgezeic
 \end{figure}
 
 \subsection{Positions Daten}
-Sämtliche Informationen zu der Aufgezeichneten Position wird in der Form eines ValueContainers übertragen. Der ValueContainer ist im Folgenden beispielhaft als JSON Objekt dargestellt.
+Die Positions Daten werden in Form eines ValueContainers gespeichert und übertragen. Ein beispielhafter ValueContainer ist im folgenden in der JSON Notation dargestellt.
+
 \begin{figure}[H]
 	\centering
 	\lstinputlisting[language=json]{jsonfiles/valuecontainer.json}
 	\caption{ValueContainer in einer JSON Repräsentation}
+	\label{fig:valuecontainerjson}	
 \end{figure}
+
+Der Container setzt sich aus den drei Objekten netData, positionData und stageData zusammen, hinzu kommt zu jedem Container das Device Objekt sowie der aktuelle Zeitpunkt als Timestamp. Daher auch der Name ValueContainer, weil darin verschiedene Daten gesammelt übermittelt werden.
+\\
+Die ValueContainer bilden das Herz der Informationsquelle. Alleine durch sortieren nach \textit{distance} im Objekt \textit{stageData} wird festgestellt, welches Gerät an der Spitze mitfährt und wie viel Prozent der Gesamtstrecke zurückgelegt wurde.
+
 \subsection{XML basierte Konfiguration}
 Die Konfiguration in Spring geschieht einerseits über Java Annotationen wie Sie beim TourLive Server z.B. bei den Controllern zum Einsatz kommen, andererseits werden Servlet und Datenbankeinstellungen sowie sämtliche Abhängigkeiten zu anderen Libraries in XML Dateien konfiguriert. Die wichtigsten Dateien werden im folgenden aufgezeigt.
 

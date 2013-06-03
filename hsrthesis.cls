@@ -27,7 +27,7 @@
 \usepackage{float}
 \usepackage{natbib}
 \definecolor{lightgrey}{rgb}{.9,.9,.9}
-\usepackage{bera}% optional: just to have a nice mono-spaced font
+%\usepackage{bera}% optional: just to have a nice mono-spaced font
 \usepackage{xcolor}
 \usepackage[stable]{footmisc}
 \usepackage{booktabs, multicol, multirow}
@@ -54,7 +54,7 @@
     framexrightmargin=5mm,
     framextopmargin=5mm,
     framexbottommargin=5mm,
-    morekeywords={device,username,deviceId, deviceManagementContainerId, configChangedTime, messageAvailable, generalSettings, transferInterval, operationMode, backlight, criticalBatteryValue, deviceManagementServer, recordingMode, tourLiveServerPrim, tourLiveServerSec, imageSettings, automaticCameraAdjustment, camera, cameraMode, imageResolution, imageInterval, videoResolution, stageSettings, raceDistanceCorrection, stageSettingsId, satellites, powerSupplyMode, lastConfigSent, lastImageSent, lastPositionSent, timestamp, freeSpaceMemoryCard, freeSpaceIntern, batteryStatus, logSize, upstream, entries, message, identifier, level, date, messageId, textMessage, readAt},
+    morekeywords={device,username,deviceId, phoneNr, deviceManagementContainerId, configChangedTime, messageAvailable, generalSettings, transferInterval, operationMode, backlight, criticalBatteryValue, deviceManagementServer, recordingMode, tourLiveServerPrim, tourLiveServerSec, imageSettings, automaticCameraAdjustment, camera, cameraMode, imageResolution, imageInterval, videoResolution, stageSettings, raceDistanceCorrection, stageSettingsId, satellites, powerSupplyMode, lastConfigSent, lastImageSent, lastPositionSent, timestamp, freeSpaceMemoryCard, freeSpaceIntern, batteryStatus, logSize, upstream, entries, message, identifier, level, date, messageId, textMessage, readAt, netData, technology, mncmcc, locationArea, signalStrength, cellNumber, positionData, direction, speed, altitude, latitude, longitude, accuracy, stageData, stageTime, distance, stageUpAltitude, averageSpeed, incline},
   keywordstyle=\color{blue!90!black},
   commentstyle=\itshape\color{purple!40!black},
   identifierstyle=\color{punct},
@@ -154,18 +154,18 @@
        \par\hspace{-\mp@margwd}%
        % typeset the chapter number
        \makebox[\mp@margwd][r]{%
-         \fontsize{6\EX}{6\EX}\sffamily\bfseries\thechapter
+         \fontsize{5\EX}{3\EX}\bfseries\thechapter
          }%
        \hfill%
        \fi
        % set variables for the formatting of the chapter title
        \settoheight{\mp@chapnoht}{%
-         \fontsize{6\EX}{6\EX}\sffamily\bfseries\thechapter}%
+         \fontsize{6\EX}{6\EX}\bfseries\thechapter}%
        \settoheight{\mp@chaptlht}{\parbox[b]{.9\textwidth}{%
-           \raggedleft\sffamily\bfseries\Huge #1}}
+           \raggedleft\bfseries\Huge #1}}
        % set the chapter title                                %
        \raisebox{-\mp@chaptlht}{\raisebox{\mp@chapnoht}{%
-           \parbox[b]{.9\textwidth}{\raggedleft\sffamily\bfseries\Huge
+           \parbox[b]{.9\textwidth}{\raggedleft\bfseries\Huge
              #1}}}%
        \chaptermark{#1}%
        \addcontentsline{toc}{chapter}{\protect\numberline{\thechapter} #1}%
@@ -186,12 +186,12 @@
        \hfill%
        % set variables for the formatting of the chapter title
        \settoheight{\mp@chapnoht}{%
-         \fontsize{6\EX}{6\EX}\sffamily\bfseries\thechapter}%
+         \fontsize{6\EX}{6\EX}\bfseries\thechapter}%
        \settoheight{\mp@chaptlht}{\parbox[b]{.9\textwidth}{%
-           \raggedleft\sffamily\bfseries\huge #1}}
+           \raggedleft\bfseries\huge #1}}
        % set the chapter title                                %
        \raisebox{-\mp@chaptlht}{\raisebox{\mp@chapnoht}{%
-           \parbox[b]{.9\textwidth}{\raggedleft\sffamily\bfseries\Huge #1}}}%
+           \parbox[b]{.9\textwidth}{\raggedleft\bfseries\Huge #1}}}%
        \par\nobreak%
        \vskip\mp@margwd%
        }%
@@ -211,7 +211,7 @@
        \hspace{-\mp@margwd}\rule{\mp@fullwd}{.25mm}%
        \par\vspace*{-.5\baselineskip}%
        \hspace{-\mp@margwd}%
-       \sffamily\bfseries\large\thesection~#2
+       \bfseries\large\thesection~#2
      }%
      \sectionmark{#1}%
      \addcontentsline{toc}{section}{\protect\numberline{\thesection} #1}%
@@ -227,7 +227,7 @@
        \hspace{-\mp@margwd}\rule{\mp@fullwd}{.25mm}%
        \par\vspace*{-.5\baselineskip}%
        \hspace{-\mp@margwd}%
-       \sffamily\bfseries\large#1
+       \bfseries\large#1
      }%
      \par
    }
@@ -236,14 +236,14 @@
    \renewcommand{\subsection}{%
      \@startsection
      {subsection}{2}{0pt}{-1.5ex plus -1ex minus -.2ex}%
-     {1ex plus .2ex}{\sffamily\bfseries\normalsize}%
+     {1ex plus .2ex}{\bfseries\normalsize}%
      }
 
 %% It redefines |\subsubsection|.
    \renewcommand{\subsubsection}{%
      \@startsection
      {subsubsection}{3}{0pt}{-1.5ex plus -1ex minus -.2ex}%
-     {1ex plus .2ex}{\sffamily\bfseries\normalsize}%
+     {1ex plus .2ex}{\bfseries\normalsize}%
      }
 
 %% Put caption in the margin, next to the figure/table (place caption first in
@@ -251,10 +251,10 @@
    \newlength{\mp@capht}
    \newcommand{\mp@makefigcap}[2]{%
      \settoheight{\mp@capht}%
-     {\parbox[b]{.9\mp@margwd}{\raggedleft\sffamily\slshape\small#1: #2}}%
+     {\parbox[b]{.9\mp@margwd}{\raggedleft\slshape\small#1: #2}}%
      \hspace{-\mp@margwd}%
      \vspace{-\mp@capht}%
-     \parbox[t]{.9\mp@margwd}{\raggedleft\sffamily\slshape\small#1: #2}
+     \parbox[t]{.9\mp@margwd}{\raggedleft\slshape\small#1: #2}
      }
    
 
@@ -305,7 +305,7 @@
 %% Set the style of the marginpars to match that of captions
    \let\oldmarginpar\marginpar
    \renewcommand\marginpar[2][none]{%
-     \-\oldmarginpar{\raggedleft\sffamily\slshape\small#2}%
+     \-\oldmarginpar{\raggedleft\slshape\small#2}%
    }
 
 %% Dimensions
@@ -317,7 +317,7 @@
    \setlength{\evensidemargin}{45mm}
    \pagestyle{plain}
 
-   \parindent3mm
+   \parindent0mm
    \parskip1ex
 
    \newlength{\mp@margwd}
