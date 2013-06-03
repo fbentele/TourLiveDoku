@@ -8,31 +8,31 @@ Weite Teile der Anforderungen an die Webapplikation ergeben sich aus der Analyse
 \\
 Die Analyse der funktionalen Anforderungen und Usecases sind im Anhang \ref{sec:tourliveusecase} vollständig Aufgelistet.
 
-\begin{longtable}{  p{3.5cm} | p{4.3cm} | p{4.3cm} }
-    \textbf{Spezifikation} & \textbf{Altes System} & \textbf{Neues System} \\
-    \hline\hline
+\begin{longtable}{ p{3.5cm} | p{4.3cm} | p{4.3cm} }
+	\textbf{Spezifikation} & \textbf{Altes System} & \textbf{Neues System} \\
+\hline\hline
 Renn- und Etappenverwaltung & - & Benutzerfreundliche Renn- und Etappenverwaltung
 \\ \hline
-Bildübertragung & 1 Bild / Zeitpunkt (auch bei mehreren Aufnahmegeräten) & Konfigurierbare Bildübertragung  
-    \\ \hline
+Bildübertragung & 1 Bild / Zeitpunkt (auch bei mehreren Aufnahmegeräten) & Konfigurierbare Bildübertragung
+\\ \hline
 Streckenprofil & Aktuelle Position & Alle Positionen (HTML5, SVG\footnote{HTML5 und SVG sind zwei moderne Webtechnologien um grafiken im Browser zu zeichnen})
-	\\ \hline
-	Zeitliche Abstände & Distanz in Zeit und km zwischen Geräten & Rückstand relativ zur Spitze in Zeit und km, sowie Durchschnittsgeschwindigkeit und Höhenmeter
-	\\ \hline
+\\ \hline
+Zeitliche Abstände & Distanz in Zeit und km zwischen Geräten & Rückstand relativ zur Spitze in Zeit und km, sowie Durchschnittsgeschwindigkeit und Höhenmeter
+\\ \hline
 Rennsituation & Fahrer werden gruppiert dargestellt & Fahrer mit weiteren Informationen angereichert
-	\\ \hline
+\\ \hline
 Rangliste & - & Aktuelle (virtuelle) Rangliste, sortierbar
-	\\ \hline
+\\ \hline
 Marschtabelle & - & Marschtabelle mit Informationen und allen Positionen der Aufnahmegeräten
-	\\ \hline
+\\ \hline
 Kartenausschnitt & Position der Aufnahmesysteme & Poistionen der Aufnahmesysteme (Farbe wählbar)
-	\\ \hline
+\\ \hline
 Replay & Vergangene Rennen abspielbar & Rennen vor und zurück spulen nach Zeit und Renn Km
-	\\ \hline
+\\ \hline
 Werbebanner & Statische Werbung & Einbetten von HTML Code für Werbeblock
-	\\ \hline
+\\ \hline
 Mobile Client & - & Webseite optimiert für alle Bildschirmgrössen und Geräte
-	\\ \hline
+\\ \hline
 
 \caption{Spezifikation TourLive Server}
 \label{tab:tourlivewebspeztable}
@@ -60,7 +60,7 @@ Die Abbildung des Models auf der Datenbank übernimmt das Java ORM Framework Hib
 Für die Verwaltung der externen Java Libraries wird Apache Maven\footnote{Apache Maven, \url{http://maven.apache.org/}, aufgerufen am 16.05.2013} verwendet. Maven lädt die definierten Abhängigkeiten automatisch und kompiliert das Projekt. Weiter generiert Maven die Javadoc\footnote{Javadoc, \url{http://de.wikipedia.org/wiki/Javadoc}, aufgerufen am 16.05.2013} Dokumentation zum Projekt und kann Auswertungen und statische Codeanalysen erzeugen.
 
 \subsubsection{Twitter Bootstrap}
-Die Daten werden mit dem Front-End Framework Twitter Bootstap in Form einer HTML Webseite dargestellt. Twitter Bootstrap vereinfacht und beschleunigt die Entwicklung von Webseiten  indem es gewisse grundlegende Elemente anbietet. Es besteht aus einer komprimierten JavaScript und einer CSS Datei und kann durch viele Plugins erweitert oder verändert werden. Twitter Bootstrap ist OpenSource und in der Entwicklergemeinde sehr beliebt, da es unter anderem Webseiten für verschiedene Bildschirmgrössen (inkl. Smartphones und Tablets) optimal anpasst.
+Die Daten werden mit dem Front-End Framework Twitter Bootstap in Form einer HTML Webseite dargestellt. Twitter Bootstrap vereinfacht und beschleunigt die Entwicklung von Webseiten indem es gewisse grundlegende Elemente anbietet. Es besteht aus einer komprimierten JavaScript und einer CSS Datei und kann durch viele Plugins erweitert oder verändert werden. Twitter Bootstrap ist OpenSource und in der Entwicklergemeinde sehr beliebt, da es unter anderem Webseiten für verschiedene Bildschirmgrössen (inkl. Smartphones und Tablets) optimal anpasst.
 
 \section{Software Design}
 Dieser Abschnitt behandelt die Umsetzung der Spezifikationen zum Endzustand. Nach einer kurzen Architekturübersicht wird jede Teilkomponente einzeln erläutert.
@@ -88,8 +88,21 @@ Im Packagediagramm \ref{fig:tourlivewebpackage} sind die Schichten der Applikati
 Die Anforderung war es eine Lösung zu suchen, welche es ermöglicht mit den Aufnahmegeräten Video Streams aufzuzeichnen und an den Server zu übermitteln. Dazu gibt es verschiedene Ansätze mit entsprechenden Vor- und Nachteilen. Im TourLive System im Einsatz ist eine eigene Entwicklung welche genau auf die Bedürfnisse angepasst ist. Die Geräte nehmen Videosequenzen auf und übertragen diese an den Server. Der Server konvertiert diese Sequenzen vom mp4 in das ogg Format. Dadurch sind die Browser Google Chrome, Mozilla Firefox und Microsoft Internet Explorer fähig die Videosequenzen abzuspielen. Die Videosequenzen werden auf dem Server gespeichert, zusätzlich wird ein VideoData Objekt in der Datenbank angelegt, welches den Aufnahmezeitpunkt und die Geräte ID zum Video sowie den Pfad zur Videodatei enthält. Wenn nun ein Gerät einer Etappe zugewiesen ist und Videosequenzen vorhanden sind, wird die aktuellste Sequenz ausgeliefert. Der Videoplayer meldet wenn die Videosequenz beendet ist und lädt, falls möglich, die nächste Sequenz via AJAX automatisch. Falls kein neues Video verfügbar ist, wird nach 8 Sekunden erneut versucht ein Video zu laden. Dadurch wird auch bei einem temporären Ausfall der Aufnahmegeräte die Videowiedergabe fortgesetzt, sobald diese wieder verfügbar ist.
 
 \subsection{Bilder}
-Die Aufnahme der Bilder funktioniert nach einem ähnlichen Muster. Die aufgezeichneten Bilder werden auf dem Server abgelegt und ein ImageData Objekt in der Datenbank erzeugt. Im ImageData Objekt wird, wie schon beim Video, der Aufnahmezeitpunkt, die Geräte ID sowie der Bildpfad gespeichert. Beim Aufruf einer Seite wird dann das aktuellste verfügbare Bild pro Gerät angezeigt.
+Die Aufnahme der Bilder funktioniert nach einem ähnlichen Muster. Die aufgezeichneten Bilder werden auf dem Server abgelegt und ein ImageData Objekt in der Datenbank erzeugt. Im ImageData Objekt wird, wie schon beim Video, der Aufnahmezeitpunkt, die Geräte ID sowie der Bildpfad gespeichert. Wie in Abbildung \ref{fig:bildaufzeichnung} zu sehen ist, wird beim Aufruf einer Seite das aktuellste verfügbare Bild pro Gerät angezeigt und mit dem Aufnahmezeitpunkt beschrieben.
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=70mm]{images/tourliveweb/bildaufzeichnung.png}
+	\caption{Aufgezeichnetes Bild mit Informationen ergänzt}
+	\label{fig:bildaufzeichnung}
+\end{figure}
 
+\subsection{Positions Daten}
+Sämtliche Informationen zu der Aufgezeichneten Position wird in der Form eines ValueContainers übertragen. Der ValueContainer ist im Folgenden beispielhaft als JSON Objekt dargestellt.
+\begin{figure}[H]
+	\centering
+	\lstinputlisting[language=json]{jsonfiles/valuecontainer.json}
+	\caption{ValueContainer in einer JSON Repräsentation}
+\end{figure}
 \subsection{XML basierte Konfiguration}
 Die Konfiguration in Spring geschieht einerseits über Java Annotationen wie Sie beim TourLive Server z.B. bei den Controllern zum Einsatz kommen, andererseits werden Servlet und Datenbankeinstellungen sowie sämtliche Abhängigkeiten zu anderen Libraries in XML Dateien konfiguriert. Die wichtigsten Dateien werden im folgenden aufgezeigt.
 
