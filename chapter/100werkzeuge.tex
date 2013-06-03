@@ -1,5 +1,7 @@
 \section{Werzeuge und Entwicklungsumgebung}
+\label{sec:wekzeugeundentwicklungsumgebung}
 Für die drei Teilprojekte TourLive Server, DeviceManagement Server und Aufnahmesystem wurde jeweils die Java Programmiersprache verwendet. Dennoch gibt es Unterschiede bei den Entwicklungsumgebungen, diese sind im folgenden Abschnitt erläutert.
+
 \subsection{TourLive Server}
 \begin{itemize}
 \item Entwicklungsumgebung: Spring Tool Suite (STS), basierend auf Eclipse, \url{http://www.springsource.org/sts}
@@ -7,6 +9,28 @@ Für die drei Teilprojekte TourLive Server, DeviceManagement Server und Aufnahme
 \item Mockups: Balsamiq Mockup für erste Entwürfe, \url{http://www.balsamiq.com/}
 \item Versionierungssystem: git, \url{http://git-scm.com/}
 \end{itemize}
+
+\subsubsection{Installation und Deployment}
+Um das Projekt zu builden und auf einem Webserver zu betreiben sind folgende Schritte notwendig.
+\begin{enumerate}
+\item Projekt aus Github klonen und die Konfiguration für die Datenbank sowie die Mediendaten im pom.xml anpassen (siehe Abschnitt unten)
+git clone
+\item Projekt mit Maven builden
+mvn install
+% TODO stimmt mvn install für builden?
+\item Deployment auf Server
+\begin{enumerate}
+\item War Datei via Tomcat Webserver deployen:
+Kopieren der War Datei in den .../tomcat/webapps/ Ordner und Tomcat neu starten
+\item oder direkt über das Maven deploy Plugin
+mvn deploy
+\end{enumerate}
+\end{enumerate}
+
+Sämtliche Videos und Bilder werden nicht direkt über die Webapplikation ausgeliefert, sondern über einen konfigurierbaren Pfad abgelegt und von dort aus zur Verfügung gestellt. Dieses Verfahren dient zur Entlastung des Webservers und steigert die Performance bei grossen Besucherzahlen. Der empfohlene Webserver für den Betrieb ist ein Tomcat für die Auslieferung der Bilder und Videodateien empfiehlt sich aber ein Apache Server, da dieser statische Inhalte bedeutend schneller ausliefern kann.
+% TODO add reference here, why apache is faster than tomcat for static files
+Diese Konfiguration lässt sich durch Anpassung der pom.xml Datei im Projektordner verändern. Es wird empfohlen, für die Zielumgebung ein Profil zu erstellen (siehe letzten Zeilen im pom.xml) und dieses beim Buildprozess Maven mitzugeben:
+mvn install -P MeinProfil
 
 \subsection{DeviceManagement Server}
 Java

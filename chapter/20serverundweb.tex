@@ -1,15 +1,15 @@
 \chapter{TourLive Server}
 \label{sec:tourliveserver}
-In den folgenden Abschnitten wird die Webapplikation TourLive Server erläutert. Dabei liegt der Fokus auf den Anforderungen und deren technischen Umsetzung. Dieses Kapitel richtet sich ins Besondere an Entwickler, welche an diesem Projekt weiterarbeiten möchten.
+In den folgenden Abschnitten wird die Webapplikation TourLive Server erläutert. Dabei liegt der Fokus auf der Spezifikation und deren technischen Umsetzung. Dieses Kapitel richtet sich ins Besondere an Entwickler, welche an diesem Projekt weiterarbeiten möchten und an Personen, welche an den technischen Details interessiert sind.
 
 \section{Software Analyse}
-\subsection{Anforderungen}
-Weite Teile der Anforderungen an die Webapplikation ergeben sich aus der Analyse der bestehenden Lösung. Im Einsatz ist zur Zeit eine, von der cnlab AG entwickelte \textit{\gls{php}} Webapplikation. Grundsätzlich soll die Funktionalität der bestehenden Lösung erweitert und in technologisch Sicht auf den aktuellsten Stand gebracht werden. In der folgenden Tabelle ist jeweils zu erkennen, ob es sich um ein neues Feature handelt oder ein bestehendes erweitert wird.
+\subsection{Spezifikation}
+Weite Teile der Anforderungen an die Webapplikation ergeben sich aus der Analyse der bestehenden Lösung. Im Einsatz ist zur Zeit eine, von der cnlab AG entwickelte \textit{\gls{php}} Webapplikation. Grundsätzlich soll die Funktionalität der bestehenden Lösung erweitert und in technologischer Sicht auf den aktuellsten Stand gebracht werden. In der folgenden Tabelle \ref{tab:tourlivewebspeztable} ist jeweils zu erkennen, ob es sich um eine neue Funktion handelt oder eine Bestehende erweitert wurde.
 \\
-Die Funktionalen Anforderungen und Usecases sind im Anhang \ref{sec:tourliveusecase} komplett Aufgelistet. Im folgenden sind die wesentlichen Elemente zusammengefasst.
+Die Analyse der funktionalen Anforderungen und Usecases sind im Anhang \ref{sec:tourliveusecase} vollständig Aufgelistet.
 
 \begin{longtable}{  p{3.5cm} | p{4.3cm} | p{4.3cm} }
-    \textbf{Anforderung} & \textbf{Altes System} & \textbf{Neues System} \\
+    \textbf{Spezifikation} & \textbf{Altes System} & \textbf{Neues System} \\
     \hline\hline
 Renn- und Etappenverwaltung & - & Benutzerfreundliche Renn- und Etappenverwaltung
 \\ \hline
@@ -23,54 +23,83 @@ Rennsituation & Fahrer werden gruppiert dargestellt & Fahrer mit weiteren Inform
 	\\ \hline
 Rangliste & - & Aktuelle (virtuelle) Rangliste, sortierbar
 	\\ \hline
-Marschtabelle & - & Marschtabelle mit Informationen und aktueller Position
+Marschtabelle & - & Marschtabelle mit Informationen und allen Positionen der Aufnahmegeräten
 	\\ \hline
-Kartenausschnitt & Position der Aufnahmesysteme & Poistionen der Aufnahmesysteme (farbe wählbar)
+Kartenausschnitt & Position der Aufnahmesysteme & Poistionen der Aufnahmesysteme (Farbe wählbar)
 	\\ \hline
-Replay & Vergangene Rennen abspielbar & Rennon vor und zurückspuhlen
+Replay & Vergangene Rennen abspielbar & Rennen vor und zurück spulen nach Zeit und Renn Km
 	\\ \hline
 Werbebanner & Statische Werbung & Einbetten von HTML Code für Werbeblock
 	\\ \hline
-Mobile Client & - & Webseite optimiert für Mobile Geräte
+Mobile Client & - & Webseite optimiert für alle Bildschirmgrössen und Geräte
 	\\ \hline
 
-\caption{Anforderungen TourLive Server}
+\caption{Spezifikation TourLive Server}
+\label{tab:tourlivewebspeztable}
 \end{longtable}
 
 \subsection{Evaluation Webframework}
 \label{sec:evaluationwebframework}
 Wie aus der Aufgabenstellung zu entnehmen ist, wird keine spezifische Technologie für die Umsetzung des TourLive Server festgelegt. Vielmehr ist es Teil der Arbeit eine geeignete Lösung zu evaluieren und dabei auf ein \textit{\gls{webframework}} zurückzugreifen.\\
-Die Anforderungen an das neue TourLive System bilden die Basis für die Evaluation eines dafür geeigneten Webframeworks. Die folgende Kriterien wurden zusammen mit dme Industriepartner definiert udn festgelegt.
-\begin{itemize}
-\item Open Source Software, keine Lizenzgebühren
-\item Beispiel- und Referenzprojekte vorhanden
-\item Hohe Performance und stabile Verfügbarkeit auch bei hoher Auslastung
-\item Skalierbar für mehrere Rennen und Etappen
-\item Datenbankanbindung an \textit{\gls{mariadb}}
-\item Weiterentwicklung durch cnlab AG muss möglich sein
-\end{itemize}
-
-Weiter werden optionale jedoch wünschenswerte Kriterien für die Auswahl aufgelistet.
-\begin{itemize}
-\item Vorkenntnisse in der betreffenden Programmiersprache
-\item Gleiche Technologie für API, Webseite und Datenverarbeitung
-\item Umfangreiche Dokumentation und Tutorials (Community\footnote{Die Community ist die Verbreitung einer Technologie sowie die Hilfsbereitschaft in Foren und Portalen bei Fragen oder Problemen. Dies ist äusserts schwierig zu beurteilen und kann sich auch schnell ändern.})
-\end{itemize}
-
-In einem nächsten Schritt wurden mögliche Lösungen gesucht und auf die obigen Anforderungen geprüft. Aktuell beliebte und verbreitete Frameworks wie Django (basierend auf der Programmiersprache Python) oder Ruby on Rails seinen an dieser Stelle als Beispiele erwähnt. Für die detaillierte Evaluation und Gewichtung der Kriterien wird aber auf Kapitel \ref{sec:evaluationwebframework} im Anhang verwiesen.
+Die Anforderungen an das neue TourLive System bilden die Basis für die Evaluation eines dafür geeigneten Webframeworks.
 \\
-Zusammen mit dem Industriepartner fällt die Entscheidung auf das Java basierte Spring MVC Framework. Ausschlaggebend dafür waren schlussendlich die Vorkenntnisse in der Technologie, da die Frameworks sehr ähnliche Ideen verfolgen und sich daher, abstrakt betrachtet, kaum unterscheiden.
+In einem nächsten Schritt wurden mögliche Lösungen gesucht und auf die obigen Anforderungen geprüft. Aktuell beliebte und verbreitete Frameworks wie Django (basierend auf der Programmiersprache Python) oder Ruby on Rails seinen an dieser Stelle als Beispiele erwähnt. Für die detaillierte Evaluation und Gewichtung der Kriterien wird aber auf Kapitel \ref{sec:evaluationwebframework} im Anhang verwiesen.
 
-\subsection{Technologien}
-Wie aus der Evaluation im Kapitel \ref{sec:evaluationwebframework} zu entnehmen ist, basiert die Umsetzung auf dem Spring MVC Framework. Dieses Java Webframework baut auf den beiden Prinzipien \textit{Dependency Injection} und \textit{Aspect-oriented Programming} auf. Weiter fördert Spring gute Programmierpraktiken wie z.B. die Trennung von Model, View und Controller oder die Verwendung von Objekt relationalen Mappern beim Einsatz von relationalen Datenbankmanagementsystemen.
+\subsubsection{Entscheid}
+Zusammen mit dem Industriepartner fällt die Entscheidung auf das Java basierte Spring MVC Framework\footnote{Java Spring Framework Family, \url{http://springsource.org}, aufgerufen am 16.052013)}. Da die Frameworks sehr ähnliche Ideen verfolgen und sich daher, abstrakt betrachtet, kaum unterscheiden. Ausschlaggebend für diesen Entscheid waren schlussendlich die Vorkenntnisse der Studenten in der Java Technologie. 
 
-\subsubsection{Dependency Injection}
+\subsection{ Weitere Technologien}
+Die folgenden weiteren Technologien wurden für die Umsetzung des TourLive Server verwendet. Im Kapitel \ref{sec:wekzeugeundentwicklungsumgebung} im Anhang sind spezifische Tools und Entwicklungsumgebungen für die Entwicklung aufgeführt.
 
-Die Grundlage für Dependency Injection basiert auf dem Prinzip, dass möglichst wenig Abhängigkeiten eines Objekts von einem anderen Objekt besitzt werden. Die Abhängigkeiten sollen zur Verfügung gestellt werden. Der Dependency Injection Container übernimmt dies. Dies geschieht entweder mit einer Annotation im Code oder durch Konfiguration in einer xml Datei.
+\subsubsection{ORM und Datenbank}
+Für die Persistierung sämtlicher Daten wird die MySQL ähnliche, quelloffene Datebank MariaDB\footnote{MariaDB, \url{https://mariadb.org/}, aufgerufen am 16.05.2013} verwendet. Dies ist eine Anforderung des Industriepartners cnlab AG.
+\\
+Die Abbildung des Models auf der Datenbank übernimmt das Java ORM Framework Hibernate\footnote{Hibernate ORM, \url{http://www.hibernate.org/}, aufgerufen am 16.05.2013}, dank unzähliger Datenbanktreiber kann ein beliebiges Datenbanksystem, unter anderem auch MariaDB, verwendet werden.
 
+\subsubsection{Maven}
+Für die Verwaltung der externen Java Libraries wird Apache Maven\footnote{Apache Maven, \url{http://maven.apache.org/}, aufgerufen am 16.05.2013} verwendet. Maven lädt die definierten Abhängigkeiten automatisch und kompiliert das Projekt. Weiter generiert Maven die Javadoc\footnote{Javadoc, \url{http://de.wikipedia.org/wiki/Javadoc}, aufgerufen am 16.05.2013} Dokumentation zum Projekt und kann Auswertungen und statische Codeanalysen erzeugen.
 
-\subsubsection{Aspect-oriented Programming}
-
-
+\subsubsection{Twitter Bootstrap}
+Die Daten werden mit dem Front-End Framework Twitter Bootstap in Form einer HTML Webseite dargestellt. Twitter Bootstrap vereinfacht und beschleunigt die Entwicklung von Webseiten  indem es gewisse grundlegende Elemente anbietet. Es besteht aus einer komprimierten JavaScript und einer CSS Datei und kann durch viele Plugins erweitert oder verändert werden. Twitter Bootstrap ist OpenSource und in der Entwicklergemeinde sehr beliebt, da es unter anderem Webseiten für verschiedene Bildschirmgrössen (inkl. Smartphones und Tablets) optimal anpasst.
 
 \section{Software Design}
+Dieser Abschnitt behandelt die Umsetzung der Spezifikationen zum Endzustand. Nach einer kurzen Architekturübersicht wird jede Teilkomponente einzeln erläutert.
+
+\subsection{Architektur und Übersicht}
+Der TourLive Server übernimmt zwei grundsätzlich Funktionen, zum einen die Präsentation der Daten und zum anderen die Schnittstelle (\textit{\gls{api}}) für die Aufnahmegeräte und Drittentwickler.
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=120mm]{images/tourliveweb/uebersicht_tourlive.png}
+	\caption{Grobstruktur des TourLive Servers}
+	\label{fig:grobstrukturtourliveserver}
+\end{figure}
+Diese Aufteilung wurde ganz bewusst so gewählt, da es die Möglichkeit offen lässt, die Dienste auf mehrere Server aufzuteilen. Aus dem Requirements Engineering kam hervor, dass das System auch unter grosser Last für die Datenerfassung immer zur Verfügung stehen muss. In der Entwicklungsphase wurde darauf verzichtet das System auf mehrere Server aufzuteilen, da es das Testing erschwert.
+
+\subsection{Schichtenmodell und Paketdiagramm}
+Ein Spring MVC Projekt legt eine gewisse Struktur vor, wie eine Webapplikation aufgebaut werden soll. Dadurch fördern Sie gute Programmierpraktiken und erzeugen gewisse Standards. Auch beim TourLive Server wurden diese Vorgaben angewendet.
+\\
+% TODO
+% Package diagram here
+\label{fig:tourlivewebpackage}
+
+Im Packagediagramm \ref{fig:tourlivewebpackage} sind die Schichten der Applikation zu erkennen. So wurde das Domainmodel im Package \textit{Model} abgebildet, die Datenzugriffsobjekte im \textit{DAO} Package und die dazugehörige Service Schicht im Package \textit{Service}. Die Anfragen werden durch die Zugriffscontroller im Package \textit{Controller} bearbeitet. Um wiederkehrende Tasks zu zentralisieren, wurden diese im Package \textit{Utils} zusammengefasst, so z.B. das Formatieren Zeiten und Daten.
+
+\subsection{XML basierte Konfiguration}
+Die Konfiguration in Spring geschieht einerseits über Java Annotationen wie Sie beim TourLive Server z.B. bei den Controllern zum Einsatz kommen.
+\begin{lstlisting}
+	/**
+	 * Show all Devices
+	 */
+	@RequestMapping(value = "/admin/device", method = RequestMethod.GET)
+	public String manageDevice(Locale locale, Model model) {
+		model.addAttribute("devices", deviceService.getAll());
+		model.addAttribute("adminmenu", "true");
+		model.addAttribute("races", raceService.getAllVisible());
+		model.addAttribute("breadcrumb", new Breadcrumb("/admin/device", ""));
+		model.addAttribute("positions",
+				valueContainerService.getMostRecentForEachDevice(deviceService.getAll()));
+		return "admin/manageDevice";
+	}
+\end{lstlisting}
+
+

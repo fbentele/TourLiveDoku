@@ -33,8 +33,6 @@
 \usepackage{booktabs, multicol, multirow}
 \usepackage{makecell}
 
-
-
 \colorlet{punct}{red!60!black}
 \definecolor{background}{HTML}{EEEEEE}
 \definecolor{delim}{RGB}{20,105,176}
@@ -84,7 +82,7 @@
 		% Logos
 		\begin{picture}(0,200)(0,-100)
       		\put(-60, 0){\includegraphics[height=30mm]{images/hsrlogo.png}}
-      		\put(190, 20){\includegraphics[height=20mm]{images/partnerlogo.png}}
+      		\put(210, 15){\includegraphics[height=20mm]{images/partnerlogo.png}}
 		\end{picture}
 
 		% title
@@ -103,9 +101,11 @@
 				\begin{tabular}[t]{ll}
 				% Checking Autor(s)
 				\ifthenelse{\equal{\thesisauthora}{}}{\message{blub}}{\ifthenelse{\equal{\thesisauthorb}{}}{\emph{Autor:} & \thesisauthora\\[3pt]}{\ifthenelse{\equal{\thesisauthorc}{}}{\emph{Autoren:} & \thesisauthora \ \& \thesisauthorb\\[3pt]}{\emph{Autoren:} & \thesisauthora \ \& \thesisauthorb \ \& \thesisauthorc\\[3pt]}}}
-				% Checking Supporter
+				% Checking professor
 				\ifthenelse{\equal{\professor}{}}{\\}{\emph{Betreuer:} & \professor\\[3pt]}
 					\emph{Projektpartner:} & \partner\\[3pt]
+					\emph{Experte:} & \expert\\[3pt]
+					\emph{Gegenleser:} & \coreader\\[3pt]
 					\emph{Arbeitsperiode:} & \timeperiode\\[3pt]
 					\emph{Arbeitsumfang:} & \workload\\[3pt]
 					\emph{Link:} & \url{\linktothesis}
