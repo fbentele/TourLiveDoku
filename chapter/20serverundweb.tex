@@ -84,22 +84,28 @@ Ein Spring MVC Projekt legt eine gewisse Struktur vor, wie eine Webapplikation a
 
 Im Packagediagramm \ref{fig:tourlivewebpackage} sind die Schichten der Applikation zu erkennen. So wurde das Domainmodel im Package \textit{Model} abgebildet, die Datenzugriffsobjekte im \textit{DAO} Package und die dazugehörige Service Schicht im Package \textit{Service}. Die Anfragen werden durch die Zugriffscontroller im Package \textit{Controller} bearbeitet. Um wiederkehrende Tasks zu zentralisieren, wurden diese im Package \textit{Utils} zusammengefasst, so z.B. das Formatieren Zeiten und Daten.
 
+\subsection{Video}
+Die Anforderung war es eine Lösung zu suchen, welche es ermöglicht mit den Aufnahmegeräten Video Streams aufzuzeichnen und an den Server zu übermitteln. Dazu gibt es verschiedene Ansätze mit entsprechenden Vor- und Nachteilen. Im TourLive System im Einsatz ist eine eigene Entwicklung welche genau auf die Bedürfnisse angepasst ist. Die Geräte nehmen Videosequenzen auf und übertragen diese an den Server. Der Server konvertiert diese Sequenzen vom mp4 in das ogg Format. Dadurch sind die Browser Google Chrome, Mozilla Firefox und Microsoft Internet Explorer fähig die Videosequenzen abzuspielen. Die Videosequenzen werden auf dem Server gespeichert, zusätzlich wird ein VideoData Objekt in der Datenbank angelegt, welches den Aufnahmezeitpunkt und die Geräte ID zum Video sowie den Pfad zur Videodatei enthält. Wenn nun ein Gerät einer Etappe zugewiesen ist und Videosequenzen vorhanden sind, wird die aktuellste Sequenz ausgeliefert. Der Videoplayer meldet wenn die Videosequenz beendet ist und lädt, falls möglich, die nächste Sequenz via AJAX automatisch. Falls kein neues Video verfügbar ist, wird nach 8 Sekunden erneut versucht ein Video zu laden. Dadurch wird auch bei einem temporären Ausfall der Aufnahmegeräte die Videowiedergabe fortgesetzt, sobald diese wieder verfügbar ist.
+
+\subsection{Bilder}
+Die Aufnahme der Bilder funktioniert nach einem ähnlichen Muster. Die aufgezeichneten Bilder werden auf dem Server abgelegt und ein ImageData Objekt in der Datenbank erzeugt. Im ImageData Objekt wird, wie schon beim Video, der Aufnahmezeitpunkt, die Geräte ID sowie der Bildpfad gespeichert. Beim Aufruf einer Seite wird dann das aktuellste verfügbare Bild pro Gerät angezeigt.
+
 \subsection{XML basierte Konfiguration}
-Die Konfiguration in Spring geschieht einerseits über Java Annotationen wie Sie beim TourLive Server z.B. bei den Controllern zum Einsatz kommen.
-\begin{lstlisting}
-	/**
-	 * Show all Devices
-	 */
-	@RequestMapping(value = "/admin/device", method = RequestMethod.GET)
-	public String manageDevice(Locale locale, Model model) {
-		model.addAttribute("devices", deviceService.getAll());
-		model.addAttribute("adminmenu", "true");
-		model.addAttribute("races", raceService.getAllVisible());
-		model.addAttribute("breadcrumb", new Breadcrumb("/admin/device", ""));
-		model.addAttribute("positions",
-				valueContainerService.getMostRecentForEachDevice(deviceService.getAll()));
-		return "admin/manageDevice";
-	}
-\end{lstlisting}
+Die Konfiguration in Spring geschieht einerseits über Java Annotationen wie Sie beim TourLive Server z.B. bei den Controllern zum Einsatz kommen, andererseits werden Servlet und Datenbankeinstellungen sowie sämtliche Abhängigkeiten zu anderen Libraries in XML Dateien konfiguriert. Die wichtigsten Dateien werden im folgenden aufgezeigt.
 
+\subsubsection{web.xml}
+Im web.xml wird zugewiesen welches Servlet welche Ressource ansteuert. Weiter werde die Filter definiert, welche angewendet werden sollen. Filter erlaube es Anfragen vor oder nach zu bearbeiten. Im TourLive Server werden die zwei Filter verwendet, zum einen der Sitemesh Filter welcher wiederverwendbare Elemente (z.B. Menu oder Footer) in den JSP Seiten auslagert. Der zweite Filter schützt den Administrationsbereich vor nicht authentifiziertem Zugriff. Bei diesem Security Filter kann eine Ressource komplett geschützt werden. Die weitere Konfiguration findet dann in der security.xml Datei statt.
 
+\subsubsection{tourlive-servlet.xml}
+Damit die von den Controllern erstellten Models auch auf den JSP Seiten abgebildet werden können wird ein ViewResolver verwendet. In der XML Datei wird zusätzlich angegeben wo sich die JSP Seiten befinden. Weiter werden die Internationalisierung und die Auslieferung von statischen Ressourcen, wie Bilder und StyleSheets, definiert.
+
+\subsubsection{hibernate.xml}
+Das Datenbankmapping geschieht mit Spring Hibernate. In der hibernate.xml Datei werden die Datenbankeinstellungen vorgenommen. Zusätzlich wird hier die SessionBean deklariert, damit werden die Abfragen auf der Datenbank ausgeführt.
+
+\subsubsection{root-context.xml}
+Im Root Context wird definiert, dass die weitere Konfiguration durch Java Annotationen interpretiert werden soll. Weiter werden die Konfigurationen der Datenbank sowie umgebungsspezifische Einstellungen importiert. Das Pendant zum Root Context für die Testumgebung ist der Test Context.
+
+\subsubsection{security.xml}
+Die Sicherheitsparameter welche von Spring geladen werden, sind in der security.xml Datei definiert. So kann eine Login und eine Logout Seite angegeben werden. An dieser Stelle wird auch definiert, dass sämtliche Zugriffe auf die Administrationsseiten nur nach Authentifizierung stattfinden können.
+\\
+Die TourLive Server Anwendung verfügt nur über zwei Benutzergruppen, nicht authentifizierte Besucher und Administratoren. Daher wurde auf eine Aufwändige Benutzerverwaltung verzichtet und nur ein Administrationsbenutzer fest in der XML Datei definiert.
