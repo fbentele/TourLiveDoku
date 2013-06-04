@@ -108,9 +108,22 @@ Die Positions Daten werden in Form eines ValueContainers gespeichert und übertr
 
 Der Container setzt sich aus den drei Objekten \textit{netData}, \textit{positionData} und \textit{stageData} zusammen, hinzu kommt zu jedem Container das Device Objekt sowie der aktuelle Zeitpunkt als Timestamp. Daher auch der Name ValueContainer, weil darin verschiedene Daten gesammelt und übermittelt werden.
 \\
+
 Die ValueContainer bilden das Herz der Informationsquelle. Alleine durch sortieren nach dem Feld \textit{distance} im Objekt \textit{stageData} wird festgestellt, welches Gerät an der Spitze mitfährt und wie viel Prozent der Gesamtstrecke zurückgelegt wurde. Da die ValueContainer nicht einer Etappe sondern einem Gerät zugeordnet sind, können auch nachträglich noch Geräte einer Etappe hinzugefügt oder entfernt werden. Um die Positionsdaten für eine Etappe zu erhalten werden alle ValueContainer vom Startzeitpunkt bis zum Endzeitpunkt einer Etappe gefiltert und alle mit der Geräte ID eines Gerätes welches der Etappe zugeordnet ist ausgewählt. Um ein vergangenes Rennen wieder abzuspielen wird einfach die zeitliche Grenze welche durch die Etappenendzeit gegeben war ersetzt durch einen beliebigen Zeitpunkt ( > Startzeit). Dadurch werden immer nur diejenigen Container ausgewählt, welche bis zum angezeigten Zeitpunkt aufgezeichnet wurden.
 \\
-Um die Daten zu visualisieren werden verschiedene Elemente verwendet. Der geografische Verlauf der Strecke wird auf einer Karte eingezeichnet. Jedes Aufnahmegeräte (\textit{device}) hat zusätzlich ein Feld color, welches die Farbe auf der Karte bestimmt.
+
+Um die Daten zu visualisieren werden verschiedene Elemente verwendet. Der geografische Verlauf der Strecke wird auf einer Karte eingezeichnet. Jedes Aufnahmegeräte (\textit{device}) hat zusätzlich ein Feld \textit{color}, welches die Farbe auf der Karte bestimmt.
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=110mm]{images/tourliveweb/karte_neu.png}
+	\caption{Kartenausschnitt mit zurückgelegter Strecke eines Gerätes}
+\end{figure}
+
+\subsection{Interne API}
+Mit der internen API wird die Schnittstelle zwischen den Aufnahmesystemen und dem TourLive Server beschrieben. Diese Schnittstelle wird genauer im Kapitel \ref{sec:tourliveserverapi} erklärt.
+
+\subsection{Public API}
+Für die aufgezeichneten Daten wurde ebenfalls eine öffentliche Schnittstelle erstellt. Drittentwicklern wird es ermöglicht die Positionsdaten in ihren Anwendungen zu verwenden und die Bilder als auch die Videosequenzen abzurufen. Die Schnittstelle ist zum jetzigen Zeitpunkt uneingeschränkt nutzbar. Für den produktiven Betrieb von TourLive wäre eine Authentifizierung für die Benutzung der Schnittstelle wünschenswert, eine solche ist aber nicht Teil dieser Arbeit. Die öffentliche Schnittstelle ist im Kapitel \ref{sec:tourlivepublicapi} detailliert beschrieben.
 
 \subsection{XML basierte Konfiguration}
 Die Konfiguration in Spring geschieht einerseits über Java Annotationen wie Sie beim TourLive Server z.B. bei den Controllern zum Einsatz kommen, andererseits werden Servlet und Datenbankeinstellungen sowie sämtliche Abhängigkeiten zu anderen Libraries in XML Dateien konfiguriert. Die wichtigsten Dateien werden im folgenden aufgezeigt.

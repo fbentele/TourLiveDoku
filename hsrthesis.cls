@@ -312,7 +312,7 @@
    \setlength\hoffset{0in}
    \setlength\voffset{-1in}
    \setlength\textwidth{130mm}
-   \setlength\textheight{.85\paperheight}
+   \setlength\textheight{.86\paperheight}
    \setlength{\oddsidemargin}{45mm}
    \setlength{\evensidemargin}{45mm}
    \pagestyle{plain}
