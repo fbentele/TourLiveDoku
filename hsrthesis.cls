@@ -256,7 +256,6 @@
      \vspace{-\mp@capht}%
      \parbox[t]{.9\mp@margwd}{\raggedleft\slshape\small#1: #2}
      }
-   
 
    \renewcommand{\table}{%
      \let\@makecaption\mp@makefigcap\@float{table}%

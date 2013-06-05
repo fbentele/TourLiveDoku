@@ -6,7 +6,7 @@ In den folgenden Abschnitten wird die Webapplikation TourLive Server erläutert.
 \subsection{Spezifikation}
 Weite Teile der Anforderungen an die Webapplikation ergeben sich aus der Analyse der bestehenden Lösung. Im Einsatz ist zur Zeit eine, von der cnlab AG entwickelte \textit{\gls{php}} Webapplikation. Grundsätzlich soll die Funktionalität der bestehenden Lösung erweitert und in technologischer Sicht auf den aktuellsten Stand gebracht werden. In der folgenden Tabelle \ref{tab:tourlivewebspeztable} ist jeweils zu erkennen, ob es sich um eine neue Funktion handelt oder eine Bestehende erweitert wurde.
 \\
-Die Analyse der funktionalen Anforderungen und Usecases sind im Anhang \ref{sec:tourliveusecase} vollständig Aufgelistet.
+Die Analyse der funktionalen Anforderungen und Usecases sind im Anhang \ref{sec:tourliveusecase} umfangreich Dokumentiert.
 
 \begin{longtable}{ p{3.5cm} | p{4.3cm} | p{4.3cm} }
 	\textbf{Spezifikation} & \textbf{Altes System} & \textbf{Neues System} \\
@@ -49,11 +49,12 @@ In einem nächsten Schritt wurden mögliche Lösungen gesucht und auf die obigen
 Zusammen mit dem Industriepartner fällt die Entscheidung auf das Java basierte Spring MVC Framework\footnote{Java Spring Framework Family, \url{http://springsource.org}, aufgerufen am 16.052013)}. Da die Frameworks sehr ähnliche Ideen verfolgen und sich daher, abstrakt betrachtet, kaum unterscheiden. Ausschlaggebend für diesen Entscheid waren schlussendlich die Vorkenntnisse der Studenten in der Java Technologie. 
 
 \subsection{ Weitere Technologien}
-Die folgenden weiteren Technologien wurden für die Umsetzung des TourLive Server verwendet. Im Kapitel \ref{sec:wekzeugeundentwicklungsumgebung} im Anhang sind spezifische Tools und Entwicklungsumgebungen für die Entwicklung aufgeführt.
+Die folgenden weiteren Technologien wurden für die Umsetzung des TourLive Server verwendet. Im Kapitel \ref{sec:wekzeugeundentwicklungsumgebung} im Anhang sind spezifische Tools und Entwicklungsumgebungen für die weitere Entwicklung aufgeführt.
 
 \subsubsection{ORM und Datenbank}
-Für die Persistierung sämtlicher Daten wird die MySQL ähnliche, quelloffene Datebank MariaDB\footnote{MariaDB, \url{https://mariadb.org/}, aufgerufen am 16.05.2013} verwendet. Dies ist eine Anforderung des Industriepartners cnlab AG.
+Für die Persistierung sämtlicher Daten wird die MySQL ähnliche, quelloffene Datenbank MariaDB\footnote{MariaDB, \url{https://mariadb.org/}, aufgerufen am 16.05.2013} verwendet. Dies ist eine Anforderung des Industriepartners cnlab AG.
 \\
+
 Die Abbildung des Models auf der Datenbank übernimmt das Java ORM Framework Hibernate\footnote{Hibernate ORM, \url{http://www.hibernate.org/}, aufgerufen am 16.05.2013}, dank unzähliger Datenbanktreiber kann ein beliebiges Datenbanksystem, unter anderem auch MariaDB, verwendet werden.
 
 \subsubsection{Maven}
@@ -69,7 +70,7 @@ Dieser Abschnitt behandelt die Umsetzung der Spezifikationen zum Endzustand. Nac
 Der TourLive Server übernimmt zwei grundsätzlich Funktionen, zum einen die Präsentation der Daten und zum anderen die Schnittstelle (\textit{\gls{api}}) für die Aufnahmegeräte und Drittentwickler.
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=120mm]{images/tourliveweb/uebersicht_tourlive.png}
+	\includegraphics[width=130mm]{images/tourliveweb/uebersicht_tourlive.png}
 	\caption{Grobstruktur des TourLive Servers}
 	\label{fig:grobstrukturtourliveserver}
 \end{figure}
@@ -78,14 +79,14 @@ Diese Aufteilung wurde ganz bewusst so gewählt, da es die Möglichkeit offen l�
 \subsection{Schichtenmodell und Paketdiagramm}
 Ein Spring MVC Projekt legt eine gewisse Struktur vor, wie eine Webapplikation aufgebaut werden soll. Dadurch fördern Sie gute Programmierpraktiken und erzeugen gewisse Standards. Auch beim TourLive Server wurden diese Vorgaben angewendet.
 \\
-% TODO
+%TODO Flo: add packagediagramm <<here>>
 % Package diagram here
 \label{fig:tourlivewebpackage}
 
 Im Packagediagramm \ref{fig:tourlivewebpackage} sind die Schichten der Applikation zu erkennen. So wurde das Domainmodel im Package \textit{Model} abgebildet, die Datenzugriffsobjekte im \textit{DAO} Package und die dazugehörige Service Schicht im Package \textit{Service}. Die Anfragen werden durch die Zugriffscontroller im Package \textit{Controller} bearbeitet. Um wiederkehrende Tasks zu zentralisieren, wurden diese im Package \textit{Utils} zusammengefasst, so z.B. das Formatieren Zeiten und Daten.
 
 \subsection{Video}
-Die Anforderung war es eine Lösung zu suchen, welche es ermöglicht mit den Aufnahmegeräten Video Streams aufzuzeichnen und an den Server zu übermitteln. Dazu gibt es verschiedene Ansätze mit entsprechenden Vor- und Nachteilen. Im TourLive System im Einsatz ist eine eigene Entwicklung welche genau auf die Bedürfnisse angepasst ist. Die Geräte nehmen Videosequenzen auf und übertragen diese an den Server. Der Server konvertiert diese Sequenzen vom mp4 in das ogg Format. Dadurch sind die Browser Google Chrome, Mozilla Firefox und Microsoft Internet Explorer fähig die Videosequenzen abzuspielen. Die Videosequenzen werden auf dem Server gespeichert, zusätzlich wird ein VideoData Objekt in der Datenbank angelegt, welches den Aufnahmezeitpunkt und die Geräte ID zum Video sowie den Pfad zur Videodatei enthält. Wenn nun ein Gerät einer Etappe zugewiesen ist und Videosequenzen vorhanden sind, wird die aktuellste Sequenz ausgeliefert. Der Videoplayer meldet wenn die Videosequenz beendet ist und lädt, falls möglich, die nächste Sequenz via AJAX automatisch. Falls kein neues Video verfügbar ist, wird nach 8 Sekunden erneut versucht ein Video zu laden. Dadurch wird auch bei einem temporären Ausfall der Aufnahmegeräte die Videowiedergabe fortgesetzt, sobald diese wieder verfügbar ist.
+Eine Anforderung war es, eine Lösung zu erarbeiten, welche es ermöglicht mit den Aufnahmegeräten Video Streams aufzuzeichnen und an den Server zu übermitteln. Dazu gibt es verschiedene Ansätze mit entsprechenden Vor- und Nachteilen. Im TourLive System im Einsatz ist eine eigene Entwicklung welche genau auf die Bedürfnisse angepasst ist. Die Geräte nehmen Videosequenzen auf und übertragen diese an den Server. Der Server konvertiert diese Sequenzen vom mp4 in das ogg Format. Dazu wird die externe Library Xuggler\footnote{Xuggler, \url{http://www.xuggle.com/xuggler}, aufgerufen am 04.06.2013} verwendet. Mit diesem Schritt sind die Browser Google Chrome, Mozilla Firefox und Microsoft Internet Explorer fähig die Videosequenzen abzuspielen. Zusätzlich wird ein VideoData Objekt in der Datenbank angelegt, welches den Aufnahmezeitpunkt und die Geräte ID zum Video sowie den Pfad zur Videodatei enthält. Wenn nun ein Gerät einer Etappe zugewiesen ist und Videosequenzen vorhanden sind, wird die aktuellste Sequenz ausgeliefert. Der Videoplayer meldet wenn die Videosequenz beendet ist und lädt, falls möglich, die nächste Sequenz via AJAX automatisch nach. Falls kein neues Video verfügbar ist, wird nach 8 Sekunden erneut versucht ein Video zu laden. Dadurch wird auch bei einem temporären Ausfall der Aufnahmegeräte die Videowiedergabe fortgesetzt, sobald diese wieder verfügbar ist.
 
 \subsection{Bilder}
 Die Aufnahme der Bilder funktioniert nach einem ähnlichen Muster. Die aufgezeichneten Bilder werden auf dem Server abgelegt und ein ImageData Objekt in der Datenbank erzeugt. Im ImageData Objekt wird, wie schon beim Video, der Aufnahmezeitpunkt, die Geräte ID sowie der Bildpfad gespeichert. Wie in Abbildung \ref{fig:bildaufzeichnung} zu sehen ist, wird beim Aufruf einer Seite das aktuellste verfügbare Bild pro Gerät angezeigt und mit dem Aufnahmezeitpunkt beschrieben.
@@ -118,6 +119,19 @@ Um die Daten zu visualisieren werden verschiedene Elemente verwendet. Der geogra
 	\includegraphics[width=110mm]{images/tourliveweb/karte_neu.png}
 	\caption{Kartenausschnitt mit zurückgelegter Strecke eines Gerätes}
 \end{figure}
+
+Ein Aufnahmegerät fährt in der Regel an der Spitz mit, ein zweites hinter dem Feld. Die Spitze setzt sich im laufe des Rennens ab und der Abstand wird grösser. Die Entwicklung dieses Abstands ist für Radsportbegeisterte sehr spannend zu beobachten. Diese Berechnung wird ebenfalls durch die ValueContainers ermöglicht. Sobald mehr als ein Gerät einer Etappe zugeordnet ist, beginnt die Berechnung des Abstandes nach dem folgenden Algorithmus.
+\begin{quotation}
+\textit{Für jeden ValueContainer in einer Etappe mache folgendes:
+\\
+Suche pro Gerät den ValueContainer welcher die nächsttiefere Etappendistanz im Vergleich zum obigen Container aufweist, falls dieser Distanzunterschied kleiner als eine definierte Grösse ist (Standardwert 500m) so wähle den Container mit der kleinsten Zeit. Vergleiche diese Zeit mit dem ursprünglichen Container, ist die Zeit des ursprünglichen Containers grösser ist die Differenz der Zeiten der Rückstand für diesen Container, andernfalls ist der ursprüngliche Container zu dem Zeitpunkt an der Spitz}
+\end{quotation}
+
+Diese Berechnung ist sehr Aufwändig und wird mit steigender Anzahl ValueContainers immer langsamer. Im lokalen Testumfeld mit weniger als 1000 ValueContainer wird diese Berechnung kaum bemerkt. Beim ersten Testlauf stellte sich jedoch heraus, dass diese Werte zwischengespeichert werden müssen, da die Liveberechnung einfach zu lange dauern würde. Bei jedem Seitenaufruf werden nur die neu hinzugekommenen ValueContainer berechnet, dadurch wird das System quasi schneller, je mehr Benutzer auf der Seite sind. Im Administrationsbereich kann die manuelle Berechnung aller ValueContainer neu gestartet werden. Dieser Vorgang ist notwendig, wenn nachträglich ein weiteres Gerät zur Etappe hinzugefügt wird.
+\\
+Sämtliche Rückstände werden in einer Grafik dargestellt. In der X-Achse sind die zurückgelegten Rennkilometer und in der Y-Achse die Rückstände in Sekunden. Für die Spitze ist diese Kurve komplett flach, daher wird diese weggelassen.
+
+%TODO Flo: insert abstandsentwicklung grafik <<here>>
 
 \subsection{Interne API}
 Mit der internen API wird die Schnittstelle zwischen den Aufnahmesystemen und dem TourLive Server beschrieben. Diese Schnittstelle wird genauer im Kapitel \ref{sec:tourliveserverapi} erklärt.
