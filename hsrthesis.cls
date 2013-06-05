@@ -32,6 +32,7 @@
 \usepackage[stable]{footmisc}
 \usepackage{booktabs, multicol, multirow}
 \usepackage{makecell}
+\usepackage{inconsolata}
 
 \colorlet{punct}{red!60!black}
 \definecolor{background}{HTML}{EEEEEE}
@@ -72,6 +73,42 @@
       {8}{{{\color{punct}8}}}{1}
       {9}{{{\color{punct}9}}}{1},
 }
+
+\colorlet{listingbackground}{gray!10.0}
+\colorlet{stringcolor}{green!40!black!100}
+\colorlet{commentcolor}{green!40!black!100}
+
+% Code Listings
+%%%%%%%%%%%%%%%%
+\lstset{
+	basicstyle=\small\ttfamily, % Standardschrift
+	numbers=left,               % Ort der Zeilennummern
+	numberstyle=\tiny,          % Stil der Zeilennummern
+	numbersep=5pt,              % Abstand der Nummern zum Text
+	tabsize=2,                  % Groesse von Tabs
+	extendedchars=true,         %
+	breaklines=true,            % Zeilen werden Umgebrochen
+	backgroundcolor=\color{listingbackground},
+	stringstyle=\color{stringcolor}, % Farbe der String
+	commentstyle=\color{commentcolor}, % Farbe der String
+	showspaces=false,           % Leerzeichen anzeigen ?
+	showtabs=false,             % Tabs anzeigen ?
+	showstringspaces=false,      % Leerzeichen in Strings anzeigen ?
+	language=Java,
+	captionpos=b,
+	abovecaptionskip=5mm,
+	frame=tb,
+	framerule=0pt,
+	framesep=0pt,
+	framexleftmargin=5pt,
+	framexrightmargin=5pt,
+	framextopmargin=5pt,
+	framexbottommargin=5pt
+}
+
+\renewcommand{\lstlistlistingname}{Quellcodes}
+\renewcommand{\lstlistingname}{Quellcode}
+
 % Titlepage
 %%%%%%%%%%%
 

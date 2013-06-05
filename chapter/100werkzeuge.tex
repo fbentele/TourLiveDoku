@@ -12,25 +12,47 @@ Für die drei Teilprojekte TourLive Server, DeviceManagement Server und Aufnahme
 
 \subsubsection{Installation und Deployment}
 Um das Projekt zu builden und auf einem Webserver zu betreiben sind folgende Schritte notwendig.
-\begin{enumerate}
-\item Projekt aus Github klonen und die Konfiguration für die Datenbank sowie die Mediendaten im pom.xml anpassen (siehe Abschnitt unten)
-git clone
-\item Projekt mit Maven builden
-mvn install
-% TODO stimmt mvn install für builden?
-\item Deployment auf Server
-\begin{enumerate}
-\item War Datei via Tomcat Webserver deployen:
-Kopieren der War Datei in den .../tomcat/webapps/ Ordner und Tomcat neu starten
-\item oder direkt über das Maven deploy Plugin
-mvn deploy
-\end{enumerate}
-\end{enumerate}
 
-Sämtliche Videos und Bilder werden nicht direkt über die Webapplikation ausgeliefert, sondern über einen konfigurierbaren Pfad abgelegt und von dort aus zur Verfügung gestellt. Dieses Verfahren dient zur Entlastung des Webservers und steigert die Performance bei grossen Besucherzahlen. Der empfohlene Webserver für den Betrieb ist ein Tomcat für die Auslieferung der Bilder und Videodateien empfiehlt sich aber ein Apache Server, da dieser statische Inhalte bedeutend schneller ausliefern kann.
-% TODO add reference here, why apache is faster than tomcat for static files
-Diese Konfiguration lässt sich durch Anpassung der pom.xml Datei im Projektordner verändern. Es wird empfohlen, für die Zielumgebung ein Profil zu erstellen (siehe letzten Zeilen im pom.xml) und dieses beim Buildprozess Maven mitzugeben:
-mvn install -P MeinProfil
+\begin{itemize}
+\item Projekt aus GitHub klonen oder komprimierte zip Datei von der CD entpacken
+\item In der pom.xml Datei ganz unten ein Profil für die Entwicklungsumgebung erstellen und vergewissern, dass der Datenbankserver läuft
+\item Projekt mit Maven builden:
+\end{itemize}
+
+\begin{lstlisting}[language=Bash, caption=Build und Test mit Maven]
+# bash oder andere Shell starten und
+# ins Projektverzeichnis wechseln
+~ $> cd RadioTourWebsite
+
+# Dependencies herunterladen und Tests starten
+RadioTourWebsite $> mvn install -P meinprofil
+
+# Projekt kompilieren und als deployable war exportieren
+RadioTourWebsite $> mvn package -P meinprofil
+
+# Das War File liegt dann im Verzeichnis
+RadioTourWebsite $> ~/RadioTourWebsite/target/ba-1.0.0-BUILD-SNAPSHOT.war
+
+\end{lstlisting}
+
+\begin{itemize}
+\item Die \textit{war} Datei kann nun auf verschiedene Arten auf dem Tomcat deployed werden, am einfachsten ist das Autodeployment von Tomcat
+\end{itemize}
+\begin{lstlisting}[language=Bash, caption=Deployment auf Tomcat]
+# war Datei aus dem target Ordner in den Tomcat webapps
+# Ordner kopieren
+RadioTourWebsite $> cp target/ba-1.0.0-BUILD-SNAPSHOT.war /var/lib/tomcat7/webapps/ROOT.war
+
+# Bemerkung: Der Pfad zum webapps Ordner kann sich je
+# nach Plattform unterscheiden. Wird die Datei in
+# ROOT.war umbenannt so wird die Applikation auf dem
+# Domainroot (http://tlng.cnlab.ch/) deployed.
+# Danach Tomcat neu starten
+RadioTourWebsite $> /etc/init.d/tomcat7 restart
+
+\end{lstlisting}
+
+Sämtliche Videos und Bilder werden nicht direkt über die Webapplikation ausgeliefert, sondern über einen konfigurierbaren Pfad (im Profil ganz unten im pom.xml) abgelegt und von dort aus zur Verfügung gestellt. Der empfohlene Webserver für den Betrieb ist ein Tomcat für die Auslieferung der Bilder und Videodateien kann ein anderer Server verwendet werden, um den Hauptwebserver zu entlasten. Dabei kann aber auch ein Tomcat verwendet werden, die Aussage, dass der Tomcat Server statische Inhalte langsamer ausliefert, wirkt sich gemäss Mark Thomas im Betrieb kaum auf die Performance aus \cite{thomas2010}.
 
 \subsection{DeviceManagement Server}
 Java
@@ -39,6 +61,23 @@ Java
 Android Java
 
 \subsection{Projektmanagement und weiteres}
+Für die Projektplanung und -verwaltung wurde auf verschiedene Hilfsmittel zurückgegriffen. Zum Projektbeginn wurden ein Grobzeitplan erstellt und folgende Meilensteine definiert:
+
+\begin{tabular}{p{2.8cm}p{7.5cm}r}
+Meilenstein 0 & Kickoff Meeting & 31.01.2013\\
+Meilenstein 1 & Requirements definiert & 15.03.2013\\
+Meilenstein 2 & Schnittstellen definiert & 22.03.2013\\
+Meilenstein 3 & Erster Prototyp bei Hei präsentiert & 28.03.2013\\
+Meilenstein 4 & Erster Feldtest Stäheli & 31.03.2013\\
+Meilenstein 5 & Zwischenpräsentation mit Gegenleser und zweiter Prototyp vorgestellt & 26.04.2013\\
+Meilenstein 6 & Komplettsystem Test & 02.05.2013\\
+Meilenstein 7 & Feature Freeze & 24.05.2013\\
+Meilenstein 8 & Code Freeze & 31.05.2013\\
+Meilenstein 9 & Abstract/Broschürentext einreichen & 07.06.2013\\
+Meilenstein 10 & Abgabe und Präsentation Poster & 14.06.2013\\
+
+\end{tabular}
+
 Zeitplan und Taskmanagement: Excel und Redmine
 Vorgehensmodell: angepasstes RUP
 Testing: Prototypen z.T. im Liveumfeld, JUnit

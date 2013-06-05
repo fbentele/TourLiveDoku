@@ -124,17 +124,17 @@ Ein Aufnahmegerät fährt in der Regel an der Spitz mit, ein zweites hinter dem 
 \begin{quotation}
 \textit{Für jeden ValueContainer in einer Etappe mache folgendes:
 \\
-Suche pro Gerät den ValueContainer welcher die nächsttiefere Etappendistanz im Vergleich zum obigen Container aufweist, falls dieser Distanzunterschied kleiner als eine definierte Grösse ist (Standardwert 500m) so wähle den Container mit der kleinsten Zeit. Vergleiche diese Zeit mit dem ursprünglichen Container, ist die Zeit des ursprünglichen Containers grösser ist die Differenz der Zeiten der Rückstand für diesen Container, andernfalls ist der ursprüngliche Container zu dem Zeitpunkt an der Spitz}
+Suche pro Gerät den ValueContainer welcher die nächsttiefere Etappendistanz im Vergleich zum obigen Container aufweist, falls dieser Distanzunterschied kleiner als eine definierte Grösse ist (Standardwert 500m) so wähle den Container mit der kleinsten Zeit. Vergleiche diese Zeit mit dem ursprünglichen Container, ist die Zeit des ursprünglichen Containers grösser, so ist die Differenz der Zeiten der Rückstand für diesen Container, andernfalls ist der ursprüngliche Container zu dem Zeitpunkt an der Spitz}
 \end{quotation}
 
-Diese Berechnung ist sehr Aufwändig und wird mit steigender Anzahl ValueContainers immer langsamer. Im lokalen Testumfeld mit weniger als 1000 ValueContainer wird diese Berechnung kaum bemerkt. Beim ersten Testlauf stellte sich jedoch heraus, dass diese Werte zwischengespeichert werden müssen, da die Liveberechnung einfach zu lange dauern würde. Bei jedem Seitenaufruf werden nur die neu hinzugekommenen ValueContainer berechnet, dadurch wird das System quasi schneller, je mehr Benutzer auf der Seite sind. Im Administrationsbereich kann die manuelle Berechnung aller ValueContainer neu gestartet werden. Dieser Vorgang ist notwendig, wenn nachträglich ein weiteres Gerät zur Etappe hinzugefügt wird.
+Diese Berechnung ist sehr Aufwändig und wird mit steigender Anzahl ValueContainers immer langsamer. Im lokalen Testumfeld mit weniger als 1000 ValueContainer wird diese Berechnung kaum bemerkt. Beim ersten Testlauf stellte sich jedoch heraus, dass diese Werte zwischengespeichert werden müssen, da die Liveberechnung einfach zu lange dauern würde. Bei jedem Seitenaufruf werden nur die neu hinzugekommenen ValueContainer berechnet, dadurch wird das System quasi schneller, je mehr Benutzer auf der Seite sind, da die Anzahl neu zu berechnender Werte immer kleiner wird. Im Administrationsbereich kann die manuelle Berechnung aller ValueContainer neu gestartet werden. Dieser Vorgang ist notwendig, wenn nachträglich ein weiteres Gerät zur Etappe hinzugefügt wird.
 \\
 Sämtliche Rückstände werden in einer Grafik dargestellt. In der X-Achse sind die zurückgelegten Rennkilometer und in der Y-Achse die Rückstände in Sekunden. Für die Spitze ist diese Kurve komplett flach, daher wird diese weggelassen.
 
 %TODO Flo: insert abstandsentwicklung grafik <<here>>
 
 \subsection{Interne API}
-Mit der internen API wird die Schnittstelle zwischen den Aufnahmesystemen und dem TourLive Server beschrieben. Diese Schnittstelle wird genauer im Kapitel \ref{sec:tourliveserverapi} erklärt.
+Mit der internen \gls{api} wird die Schnittstelle zwischen den Aufnahmesystemen und dem TourLive Server beschrieben. Diese Schnittstelle wird genauer im Kapitel \ref{sec:tourliveserverapi} erklärt.
 
 \subsection{Public API}
 Für die aufgezeichneten Daten wurde ebenfalls eine öffentliche Schnittstelle erstellt. Drittentwicklern wird es ermöglicht die Positionsdaten in ihren Anwendungen zu verwenden und die Bilder als auch die Videosequenzen abzurufen. Die Schnittstelle ist zum jetzigen Zeitpunkt uneingeschränkt nutzbar. Für den produktiven Betrieb von TourLive wäre eine Authentifizierung für die Benutzung der Schnittstelle wünschenswert, eine solche ist aber nicht Teil dieser Arbeit. Die öffentliche Schnittstelle ist im Kapitel \ref{sec:tourlivepublicapi} detailliert beschrieben.
