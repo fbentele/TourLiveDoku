@@ -1,0 +1,94 @@
+\section{Werzeuge und Entwicklungsumgebung}
+\label{sec:wekzeugeundentwicklungsumgebung}
+Für die drei Teilprojekte TourLive Server, DeviceManagement Server und Aufnahmesystem wurde jeweils die Java Programmiersprache verwendet. Dennoch gibt es Unterschiede bei den Entwicklungsumgebungen, diese sind im folgenden Abschnitt erläutert.
+
+\subsection{TourLive Server}
+\begin{itemize}
+\item Entwicklungsumgebung: Spring Tool Suite (STS), basierend auf Eclipse, \url{http://www.springsource.org/sts}
+\item Framework: Spring MVC, Java Webframework, \url{http://www.springsource.org/}
+\item Mockups: Balsamiq Mockup für erste Entwürfe, \url{http://www.balsamiq.com/}
+\item Versionierungssystem: git, \url{http://git-scm.com/}
+\end{itemize}
+
+\subsubsection{Installation und Deployment}
+Um das Projekt zu builden und auf einem Webserver zu betreiben sind folgende Schritte notwendig.
+
+\begin{itemize}
+\item Projekt aus GitHub klonen oder komprimierte zip Datei von der CD entpacken
+\item In der pom.xml Datei ganz unten ein Profil für die Entwicklungsumgebung erstellen und vergewissern, dass der Datenbankserver läuft
+\item Projekt mit Maven builden:
+\end{itemize}
+
+\begin{lstlisting}[language=Bash, caption=Build und Test mit Maven]
+# bash oder andere Shell starten und
+# ins Projektverzeichnis wechseln
+~ $> cd RadioTourWebsite
+
+# Dependencies herunterladen und Tests starten
+RadioTourWebsite $> mvn install -P meinprofil
+
+# Projekt kompilieren und als deployable war exportieren
+RadioTourWebsite $> mvn package -P meinprofil
+
+# Das War File liegt dann im Verzeichnis
+RadioTourWebsite $> ~/RadioTourWebsite/target/ba-1.0.0-BUILD-SNAPSHOT.war
+
+\end{lstlisting}
+
+\begin{itemize}
+\item Die \textit{war} Datei kann nun auf verschiedene Arten auf dem Tomcat deployed werden, am einfachsten ist das Autodeployment von Tomcat
+\end{itemize}
+\begin{lstlisting}[language=Bash, caption=Deployment auf Tomcat]
+# war Datei aus dem target Ordner in den Tomcat webapps
+# Ordner kopieren
+RadioTourWebsite $> cp target/ba-1.0.0-BUILD-SNAPSHOT.war /var/lib/tomcat7/webapps/ROOT.war
+
+# Bemerkung: Der Pfad zum webapps Ordner kann sich je
+# nach Plattform unterscheiden. Wird die Datei in
+# ROOT.war umbenannt so wird die Applikation auf dem
+# Domainroot (http://tlng.cnlab.ch/) deployed.
+# Danach Tomcat neu starten
+RadioTourWebsite $> /etc/init.d/tomcat7 restart
+
+\end{lstlisting}
+
+Sämtliche Videos und Bilder werden nicht direkt über die Webapplikation ausgeliefert, sondern über einen konfigurierbaren Pfad (im Profil ganz unten im pom.xml) abgelegt und von dort aus zur Verfügung gestellt. Der empfohlene Webserver für den Betrieb ist ein Tomcat für die Auslieferung der Bilder und Videodateien kann ein anderer Server verwendet werden, um den Hauptwebserver zu entlasten. Dabei kann aber auch ein Tomcat verwendet werden, die Aussage, dass der Tomcat Server statische Inhalte langsamer ausliefert, wirkt sich gemäss Mark Thomas im Betrieb kaum auf die Performance aus \cite{thomas2010}.
+
+\subsection{DeviceManagement Server}
+Java
+
+\subsection{Aufnahmesystem}
+Android Java
+
+\section{Projektmanagement und weiteres}
+Für die Projektplanung und -verwaltung wurde auf verschiedene Hilfsmittel zurückgegriffen. Zum Projektbeginn wurde ein Grobzeitplan erstellt und folgende Meilensteine definiert:
+
+\begin{tabular}{p{2.8cm}p{7.5cm}r}
+Meilenstein 0 & Kickoff Meeting & 31.01.2013\\
+Meilenstein 1 & Requirements definiert & 15.03.2013\\
+Meilenstein 2 & Schnittstellen definiert & 22.03.2013\\
+Meilenstein 3 & Erster Prototyp bei Hei präsentiert & 28.03.2013\\
+Meilenstein 4 & Erster Feldtest Stäheli & 31.03.2013\\
+Meilenstein 5 & Zwischenpräsentation mit Gegenleser und zweiter Prototyp vorgestellt & 26.04.2013\\
+Meilenstein 6 & Komplettsystem Test & 02.05.2013\\
+Meilenstein 7 & Feature Freeze & 24.05.2013\\
+Meilenstein 8 & Code Freeze & 31.05.2013\\
+Meilenstein 9 & Abstract/Broschürentext einreichen & 07.06.2013\\
+Meilenstein 10 & Abgabe und Präsentation Poster & 14.06.2013\\
+\end{tabular}
+
+Die Gesamtplanung mit den An- und Abwesenheiten der Projektmitgliedern und den Meilensteinen wurde in einer Excel Datei erfasst. Die aufgewendete Arbeitszeit zu den konkreten Arbeitspaketen wurde im Projektverwaltungstool Redmine aufgezeichnet.
+\\
+
+\subsection{Testing}
+Sämtliche Komponenten wurden kleineren Feldtests unterzogen. Am 6. Juni 2013 konnte das System an den Radsporttagen in Gippingen im realen Rennumfeld getestet werden.
+
+%TODO insert testbericht von gippingen <<here>>
+
+Für den TourLive Server existieren grundlegende JUnit Tests. Diese dienen in erster Linie dazu, die Serverkomponente zu testen und die Entwicklung von weiteren Tests beispielhaft zu dokumentieren.
+
+\subsection{Dokumentation}
+Für diese Dokumentation wurde das Textsatzprogramm LaTex verwendet. Es lässt sich optimal mit dem Versionierungssystem git kombinieren, was für die Zusammenarbeit an der Dokumentation vorteilhaft ist.
+\\
+
+Zu jedem Meeting mit dem Professor wurde ein Protokoll geschrieben. Sämtliche Protokolle und zusätzliche Dokumente befinden sich im Word Format auf der CD.

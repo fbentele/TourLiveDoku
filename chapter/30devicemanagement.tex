@@ -53,20 +53,42 @@ Treten Probleme auf, so soll auf dem Telefon sowie in der Management Konsole dar
 Das Devicemanagement Portal wird mit einem Benutzernamen und Passwort gesperrt. 
 
 \subsection{Technologien}
-Für die Entwicklung des Portals wurde das Spring Framework benutzt. Genauere Details dazu befinden sich in dem TourLive Server Kapitel.
-
-\subsection{Entwicklungsumgebung}
-Für die Entwicklung des DeviceManagement Portals wurde die Spring Tool Suite verwendet. Die Spring Tool Suite wurde bereits im Kapitel TourLive Server genauer beschrieben.
-
-\subsection{Paper Protoypes}
-
-
+Für die Entwicklung des Portals wurden die gleichen Technologien verwendet wie für den TourLiveServer. 
 
 \subsection{Domain Model}
+Das Domain Model zeigt auf, welche Daten zwischen dem Aufnahmesystem und dem Android Client übertragen werden.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=120mm]{images/devmgmtsrv/domainmodel.jpg}
+	\caption{Domain Model des Device Management Portals}
+\end{figure}
+
 
 \section{Software Design}
-\subsection{Schichtenmodell}
+\subsection{Architektur und Übersicht}
+Wie auch der TourLive Server hat das Device Management Portal zwei Hauptaufgaben. Zum einen wird die Bearbeitung der Daten ermöglicht und zum anderen wird den Aufnahmesystemen eine API zur Verfügung gestellt.
 
+\subsection{Schichtenmodell und Paketdiagramm}
+Das Device Management Portal ist in vier Schichten unterteilt. Die Schichten wurden an die Struktur des Spring MVC angepasst. In der Abbildung kann man die verschiedenen Schichten mit den jeweiligen Klassen sehen.
 
-\subsection{Sequenzdiagramm}
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=120mm]{images/devmgmtsrv/schichten.jpg}
+	\caption{Schichtendiagramm des Device Management Portals}
+\end{figure}
+
+\subsubsection{View}
+Die View Schicht enthält alle JSP Files, die für die Darstellung benötigt werden. Die Controller stellen den verschiedenen Views die Models zur Verfügung.
+
+\subsubsection{Controller}
+Die Controller Schicht stellt die Models für die Anzeige sowie für die API zur Verfügung. In den verschiedenen Controller Klassen werden Attribute gesetzt, um auf die Models zugreifen zu können.
+
+\subsubsection{Service}
+Die Service Klassen wissen, wie die Models geladen werden. In unserer Implementation werden die Daten von der Datenbank via Hibernate in die Models geladen. 
+
+\subsubsection{Model}
+Die Domäne des Device Management Portals wird in der Model Schicht abgebildet. Für jede Domänenklasse gobt es hier eine Model Klasse. Diese Klassen werden via Hibernate von der Datenbank gespeichert und zurückgeschrieben.
+
+\subsubsection{DAO}
 

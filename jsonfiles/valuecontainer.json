@@ -1,0 +1,32 @@
+{
+    "timestamp": 1359724260000,
+    "device": {
+        "deviceId": "iJlekqJleNapiWnxqPejslq",
+        "username": "tourlive2",
+        "phoneNr": 0791112233
+    },
+    "netData": {
+        "technology": "3",
+        "mncmcc": "22801",
+        "locationArea": 909,
+        "signalStrength": 0,
+        "cellNumber": 689828,
+        "upstream": 0
+    },
+    "positionData": {
+        "direction": 2,
+        "speed": 5,
+        "altitude": 120,
+        "latitude": 47.3234238,
+        "longitude": 8.817156,
+        "accuracy": 3,
+        "satellites": "7/8"
+    },
+    "stageData": {
+        "stageTime": "1342362581234",
+        "distance": 10,
+        "stageUpAltitude": 30,
+        "averageSpeed": 20,
+        "incline": 12
+    }
+}
