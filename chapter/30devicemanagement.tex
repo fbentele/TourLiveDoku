@@ -69,6 +69,15 @@ Das Domain Model zeigt auf, welche Daten zwischen dem Aufnahmesystem und dem And
 \subsection{Architektur und Übersicht}
 Wie auch der TourLive Server hat das Device Management Portal zwei Hauptaufgaben. Zum einen wird die Bearbeitung der Daten ermöglicht und zum anderen wird den Aufnahmesystemen eine API zur Verfügung gestellt.
 
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=120mm]{images/devmgmtsrv/uebersicht.jpg}
+	\caption{Grobstruktur des Device Management Servers}
+\end{figure}
+
+Wie beim TourLive Server besteht dank der gewählten Struktur die Möglichkeit, die Webseite und die API auf verschiedenen Servern aufzuteilen. Da die Auslastung des DeviceManagement Portals jedoch gering ist, da nur Administratoren darauf zugreifen können, deshalb wird diese Aufteilung nicht weiter erklärt.
+
 \subsection{Schichtenmodell und Paketdiagramm}
 Das Device Management Portal ist in vier Schichten unterteilt. Die Schichten wurden an die Struktur des Spring MVC angepasst. In der Abbildung kann man die verschiedenen Schichten mit den jeweiligen Klassen sehen.
 
@@ -85,10 +94,15 @@ Die View Schicht enthält alle JSP Files, die für die Darstellung benötigt wer
 Die Controller Schicht stellt die Models für die Anzeige sowie für die API zur Verfügung. In den verschiedenen Controller Klassen werden Attribute gesetzt, um auf die Models zugreifen zu können.
 
 \subsubsection{Service}
-Die Service Klassen wissen, wie die Models geladen werden. In unserer Implementation werden die Daten von der Datenbank via Hibernate in die Models geladen. 
+Die Service Klassen wissen, wie die Models geladen werden. In unserer Implementation werden die Daten von der Datenbank via Hibernate in die Models geladen.
+
+\paragraph{DeviceManagementContainerService}
+Der Device Management Container Service speichert und liefert die Container mit den Einstellungen. Vor dem zurückliefern des Containers wird das Flag \textit{messageAvailable} gesetzt. Zusätzlich managt der Service den Zugriff auf die Geräte. 
 
 \subsubsection{Model}
 Die Domäne des Device Management Portals wird in der Model Schicht abgebildet. Für jede Domänenklasse gobt es hier eine Model Klasse. Diese Klassen werden via Hibernate von der Datenbank gespeichert und zurückgeschrieben.
 
 \subsubsection{DAO}
 
+
+\section{Realisierung}
