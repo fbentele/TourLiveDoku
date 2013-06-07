@@ -72,18 +72,18 @@ Wie auch der TourLive Server hat das Device Management Portal zwei Hauptaufgaben
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=120mm]{images/devmgmtsrv/uebersicht.jpg}
+	\includegraphics[width=120mm]{images/devmgmtsrv/uebersicht.png}
 	\caption{Grobstruktur des Device Management Servers}
 \end{figure}
 
-Wie beim TourLive Server besteht dank der gewählten Struktur die Möglichkeit, die Webseite und die API auf verschiedenen Servern aufzuteilen. Da die Auslastung des DeviceManagement Portals jedoch gering ist, da nur Administratoren darauf zugreifen können, deshalb wird diese Aufteilung nicht weiter erklärt.
+Wie beim TourLive Server besteht dank der gewählten Struktur die Möglichkeit, die Webseite und die API auf verschiedene Server aufzuteilen. Da die Auslastung des DeviceManagement Portals jedoch gering ist, da nur Administratoren darauf zugreifen können, deshalb wird diese Aufteilung nicht weiter erklärt.
 
 \subsection{Schichtenmodell und Paketdiagramm}
 Das Device Management Portal ist in vier Schichten unterteilt. Die Schichten wurden an die Struktur des Spring MVC angepasst. In der Abbildung kann man die verschiedenen Schichten mit den jeweiligen Klassen sehen.
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=120mm]{images/devmgmtsrv/schichten.jpg}
+	\includegraphics[width=80mm]{images/devmgmtsrv/schichten.jpg}
 	\caption{Schichtendiagramm des Device Management Portals}
 \end{figure}
 
@@ -103,6 +103,63 @@ Der Device Management Container Service speichert und liefert die Container mit 
 Die Domäne des Device Management Portals wird in der Model Schicht abgebildet. Für jede Domänenklasse gobt es hier eine Model Klasse. Diese Klassen werden via Hibernate von der Datenbank gespeichert und zurückgeschrieben.
 
 \subsubsection{DAO}
+TODO
 
+\subsection{Device Management Container}
 
 \section{Realisierung}
+Dieses Kapitel beschreibt die Umsetzung des Device Management Portals.
+
+\subsection{API}
+Die API wird mittels Spring Annotations definiert. 
+
+\begin{lstlisting}[language=Java, caption=Spring Annotation]
+@RequestMapping(value = "/api/getdevmgmtcontainer", method = RequestMethod.POST)
+@ResponseBody
+public DeviceManagementContainer getDeviceManagementContainer(@RequestBody final StatusData request)
+
+\end{lstlisting}
+\textbf{@RequestMapping:} gibt an, welche URL auf diese Methode gemappt wird und welche Request Methode erlaubt ist.
+\textbf{@ResponseBody: } definiert, dass die Methode eine Antwort zurück gibt.
+
+
+
+\subsection{Webseite}
+Die Webseiten wurden mit JSP umgesetzt. Als Erweiterung wurde Javascript sowie das JQuery Plugin verwendet. Um die grafische Oberfläche möglichst einfach zu gestalten, wurde das Twitter Bootstrap \footnote{Twitter Bootstrap, \url{http://twitter.github.io/bootstrap/}, besucht am 25. Mai 2013} CSS benutzt.
+
+Die Webseite wird in drei Teile unterteilt, Header, Footer sowie der Hauptbereich. 
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=120mm]{images/devmgmtsrv/all.png}
+	\caption{Übersicht der DevMgmt Webseite}
+\end{figure}
+
+\subsubsection{Header}
+Im Header hat man die Möglichkeit, über eine Schnellnavigation auf ein Gerät zuzugreifen. 
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=120mm]{images/devmgmtsrv/header.png}
+	\caption{DevMgmt Webseite Header}
+\end{figure}
+
+
+
+\subsubsection{Footer}
+Der Footer enthält detaillierte Informationen zum Projekt TourLive. 
+ 
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=120mm]{images/devmgmtsrv/footer.png}
+	\caption{DevMgmt Webseite Footer}
+\end{figure}
+
+
+\subsubsection{Hauptbereich}
+Der Hauptbereich unterteilt sich wieder in zwei Teile. So hat man Links eine neue Navigation, mit welcher man sich zwischen den verschiedenen Seiten hin und her bewegen kann. 
+ 
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=120mm]{images/devmgmtsrv/settings.png}
+	\caption{DevMgmt Webseite Hauptbereich}
+\end{figure}
