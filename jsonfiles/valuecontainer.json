@@ -1,32 +1,32 @@
 {
-    "timestamp": 1359724260000,
     "device": {
-        "deviceId": "iJlekqJleNapiWnxqPejslq",
-        "username": "tourlive2",
-        "phoneNr": 0791112233
+        "deviceId": "8459c58b06368bbb",
+        "username": "Galaxy Nexus Orange",
+        "phoneNr": "41789645164"
+    },
+    "stageData": {
+        "stageUpAltitude": 0,
+        "stageTime": 0,
+        "incline": 0,
+        "distance": 0,
+        "averageSpeed": 0
     },
     "netData": {
-        "technology": "3",
-        "mncmcc": "22801",
-        "locationArea": 909,
-        "signalStrength": 0,
-        "cellNumber": 689828,
+        "technology": "EDGE",
+        "mncmcc": "22803",
+        "locationArea": 7018,
+        "signalStrength": -85,
+        "cellNumber": 27432,
         "upstream": 0
     },
     "positionData": {
-        "direction": 2,
-        "speed": 5,
-        "altitude": 120,
-        "latitude": 47.3234238,
-        "longitude": 8.817156,
-        "accuracy": 3,
-        "satellites": "7/8"
+        "satellites": "0",
+        "altitude": 0,
+        "direction": 0,
+        "latitude": 47.223472595214844,
+        "longitude": 8.817152976989746,
+        "accuracy": 20,
+        "speed": 0
     },
-    "stageData": {
-        "stageTime": "1342362581234",
-        "distance": 10,
-        "stageUpAltitude": 30,
-        "averageSpeed": 20,
-        "incline": 12
-    }
+    "timestamp": 1370621236854
 }

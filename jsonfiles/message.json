@@ -1,7 +1,8 @@
 {
     "device": {
-        "username": "simon",
-        "deviceId": "8459c58b06368bbb"
+        "deviceId": "8459c58b06368bbb",
+        "username": "Galaxy Nexus Orange",
+        "phoneNr": "41789645164"
     },
     "messageId": 2,
     "textMessage": "Hallo Simon",

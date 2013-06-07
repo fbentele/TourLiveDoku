@@ -1,18 +1,19 @@
 {
-    "satellites": "4/10",
+    "satellites": "0",
     "device": {
         "deviceId": "d1fac717d37751a",
-        "username": "patrizia"
+        "username": "username",
+        "phoneNr": ""
     },
     "powerSupplyMode": "charging",
     "operationMode": "managed",
-    "lastConfigSent": 0,
-    "lastImageSent": 0,
+    "lastConfigSent": 1370621254591,
+    "lastMediaSent": 0,
     "lastPositionSent": 0,
-    "timestamp": 1366909305150,
-    "freeSpaceMemoryCard": 0,
-    "freeSpaceIntern": 10,
-    "batteryStatus": 11,
-    "logSize": 0,
-    "upstream": 10
+    "freeSpaceMemoryCard": 78.61,
+    "freeSpaceIntern": 78.61,
+    "tourLiveDataSize": 2437092836,
+    "batteryStatus": 86,
+    "recordingRunning": false,
+    "upstream": 0
 }
