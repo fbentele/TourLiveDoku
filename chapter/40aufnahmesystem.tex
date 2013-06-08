@@ -6,20 +6,20 @@ In diesem Kapitel wird genauer auf das Android Aufnahmesystem eingegangen.
 
 \subsection{Anforderungen}
 
-Um die Anforderungen zu evaluieren wurde das bestehende Aufnahmesystem auf Basis einer Nokia Symbian App analysiert. Alle vorhandenen Funktionen wurden erfasst und mit dem Industriepartner um weitere erg\"{a}nzt. 
-Eine kurze Übersicht \"{u}ber die bereits bestehenden Funktionen und den neu erfassten Anforderungen folgt in tabellarischer Form.
+Um die Anforderungen zu evaluieren wurde das bestehende Aufnahmesystem auf Basis einer Nokia Symbian App analysiert. Alle vorhandenen Funktionen wurden erfasst und mit dem Industriepartner um weitere ergänzt. 
+Eine kurze Übersicht über die bereits bestehenden Funktionen und den neu erfassten Anforderungen folgt in tabellarischer Form.
 
 {\renewcommand{\arraystretch}{2}%
     \begin{longtable}{  p{3.5cm} | p{4.3cm} | p{4.3cm} }
     
     \textbf{Requirements} & \textbf{Altes System} & \textbf{Neues System} \\ \hline
 \hline
-    Positionsdaten \"{u}bertragen & Geschwindigkeit, H\"{o}he, Richtung/Beschleunigung, Steigung, Longitude, Latitude & Geschwindigkeit, H\"{o}he, Richtung, Steigung, Longitude, Latitude \\ \hline
-    Etappendaten & Zeit, H\"{o}he, Distanz, Durchschnittliche Geschwindigkeit, UTC Zeit,Datum & Zeit, H\"{o}he, Distanz, Durchschnittliche Geschwindigkeit \\
+    Positionsdaten übertragen & Geschwindigkeit, H\"{o}he, Richtung/Beschleunigung, Steigung, Longitude, Latitude & Geschwindigkeit, H\"{o}he, Richtung, Steigung, Longitude, Latitude \\ \hline
+    Etappendaten & Zeit, Höhe, Distanz, Durchschnittliche Geschwindigkeit, UTC Zeit,Datum & Zeit, Höhe, Distanz, Durchschnittliche Geschwindigkeit \\
     \hline
-     Tour Total & Zeit Total, Zeit Tour, Distanz Total, Distanz Tour, H\"{o}he Total, H\"{o}he Tour & - \\
+     Tour Total & Zeit Total, Zeit Tour, Distanz Total, Distanz Tour, Höhe Total, H\"{o}he Tour & - \\
     \hline
-    Netzdaten \"{u}bertragen & Zellen ID, Location Area, Signal, Akku, Netzwerk, Netzwerk ID & Zellen ID, Area, Signal, Netzwerk ID, Technologie, Datenrate, RTT, Packet Loss\\
+    Netzdaten übertragen & Zellen ID, Location Area, Signal, Akku, Netzwerk, Netzwerk ID & Zellen ID, Area, Signal, Netzwerk ID, Technologie, Datenrate, RTT, Packet Loss\\
     \hline
     Bilder \"{u}bertragen & Bilder wurden \"{u}bertragen & Bilder werden \"{u}bertragen\\
     \hline
@@ -56,10 +56,11 @@ Eine kurze Übersicht \"{u}ber die bereits bestehenden Funktionen und den neu er
 \end{longtable}}
 
 Eine detaillierte Beschreibung aller Anforderungen befindet sich im Anhang. Folgend werden die aus unserer Sicht wichtigsten Anforderungen beschrieben.
+%TODO referenz auf Anhang
 
 \subsubsection{Funktionale Anforderungen}
 \paragraph{Positionsaufnahme}
-Die prim\"{a}re Funktion des Aufnahmesystems besteht in der Aufnahme von Geopositionsdaten, deren Weiterverarbeitung und der Übermittlung an den TourLive-Server. Über das GPS-Modul des Mobilfunkger\"{a}tes werden folgende Daten ermittelt:
+Die primäre Funktion des Aufnahmesystems besteht in der Aufnahme von Geopositionsdaten, deren Weiterverarbeitung und der Übermittlung an den TourLive Server. Über das GPS-Modul des Mobilfunkgerätes werden folgende Daten ermittelt:
 \begin{itemize}
 \item Aktuelle Position [GPS Longitude / Latitude]
 \item Aktuelle H\"{o}he (GPS H\"{o}he) [m]

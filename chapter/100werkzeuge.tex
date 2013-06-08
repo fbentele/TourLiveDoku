@@ -56,9 +56,11 @@ Sämtliche Videos und Bilder werden nicht direkt über die Webapplikation ausgel
 
 \subsection{DeviceManagement Server}
 Java
+%TODO Device Management Server beschreiben
 
 \subsection{Aufnahmesystem}
 Android Java
+%TODO Aufnahmesystem beschreiben
 
 \section{Projektmanagement und weiteres}
 Für die Projektplanung und -verwaltung wurde auf verschiedene Hilfsmittel zurückgegriffen. Zum Projektbeginn wurde ein Grobzeitplan erstellt und folgende Meilensteine definiert:
@@ -76,19 +78,30 @@ Meilenstein 8 & Code Freeze & 31.05.2013\\
 Meilenstein 9 & Abstract/Broschürentext einreichen & 07.06.2013\\
 Meilenstein 10 & Abgabe und Präsentation Poster & 14.06.2013\\
 \end{tabular}
-
-Die Gesamtplanung mit den An- und Abwesenheiten der Projektmitgliedern und den Meilensteinen wurde in einer Excel Datei erfasst. Die aufgewendete Arbeitszeit zu den konkreten Arbeitspaketen wurde im Projektverwaltungstool Redmine aufgezeichnet.
 \\
 
+Die Gesamtplanung mit den An- und Abwesenheiten der Projektmitgliedern und den Meilensteinen wurde in einer Excel Datei erfasst, diese Datei befindet sich auf der CD. Die aufgewendete Arbeitszeit zu den jeweiligen Arbeitspaketen wurde im Projektverwaltungstool Redmine aufgezeichnet und kann unter \url{http://ita.cnlab.ch/redmine/projects/ba-tourlive} eingesehen werden.
+\\
+%TODO wie machen wir das mit der Zeiterfassung? Redmine? 
+
 \subsection{Testing}
-Sämtliche Komponenten wurden kleineren Feldtests unterzogen. Am 6. Juni 2013 konnte das System an den Radsporttagen in Gippingen im realen Rennumfeld getestet werden.
+Sämtliche Komponenten wurden kleineren Feldtests unterzogen. Am 6. Juni 2013 konnte das System an den Radsporttagen in Gippingen im realen Rennumfeld getestet werden. Dazu wurde folgender Testbericht erstellt.
 
-%TODO insert testbericht von gippingen <<here>>
+\subsubsection{Testbericht Gippingen}
+%TODO bitte reviewen und ergänzen / korrigieren
+Für den Testlauf an den Radsporttagen in Gippingen wurden drei verschiedene Androidgeräte mit der aktuellsten Version der TourLive App ausgerüstet. Auf dem TourLive Server wurde ein Rennen und eine Etappe erstellt und die Fahrerliste sowie die Marschtabelle importiert. Die drei Aufnahmegeräte wurden dann im RadioTour Wagen bzw. bei zwei weiteren Kommissären im Auto installiert. Zwei zusätzliche Androidgeräte wurden parallel betrieben, jedoch nicht in einem der offiziellen Rennbegleitfahrzeug sondern um weitere Testparameter festzustellen.
+\\
 
+Nach wenigen Minuten konnte kein Kontakt mehr zum ersten Aufnahmegerät hergestellt werden. Das Gerät konnte durch die Notfallwiederherstellung per SMS neu gestartet werden, jedoch war nach kurzem Kontakt die Verbindung zum Gerät wieder abgebrochen. Die erste Analyse ergab, dass das Gerät stark überhitzt war und sich deshalb selbst ausschaltete. Ein weiteres Gerät versuchte sich mit dem naheliegenden Deutschen Mobilfunknetz zu verbinden, was aber daran scheiterte, das dass Datenroaming deaktiviert war.
+\\
+
+Das dritte Gerät sowie die zusätzlichen Testgeräten hielten den Test durch, obwohl alle Geräte extrem warm geworden sind. Die eingelieferten Daten wurden vom TourLive Server empfangen und verarbeitet. Die Kommunikation zwischen Aufnahmegeräten und Server verlief problemlos.
+
+\subsubsection{Unit Test}
 Für den TourLive Server existieren grundlegende JUnit Tests. Diese dienen in erster Linie dazu, die Serverkomponente zu testen und die Entwicklung von weiteren Tests beispielhaft zu dokumentieren.
 
 \subsection{Dokumentation}
-Für diese Dokumentation wurde das Textsatzprogramm LaTex verwendet. Es lässt sich optimal mit dem Versionierungssystem git kombinieren, was für die Zusammenarbeit an der Dokumentation vorteilhaft ist.
+Für diese Dokumentation wurde das Textsatzprogramm {\LaTeX} verwendet. Es lässt sich optimal mit dem Versionierungssystem \textit{\gls{git}} kombinieren, was für die Zusammenarbeit an der Dokumentation vorteilhaft ist.
 \\
 
 Zu jedem Meeting mit dem Professor wurde ein Protokoll geschrieben. Sämtliche Protokolle und zusätzliche Dokumente befinden sich im Word Format auf der CD.

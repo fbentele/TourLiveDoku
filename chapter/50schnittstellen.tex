@@ -1,10 +1,10 @@
 \chapter{Schnittstellen}
 
-Das Aufnahmesystem kommuniziert sowohl mit dem TourLive Server  als auch mit dem DeviceManagement Portal in beide Richtungen. In diesem Kapitel werden die Schnittstellen zwischen Aufnahmesystem, TourLive Server sowie DeviceManagement Portal und die öffentliche Schnittstelle erläutert.
+Das Aufnahmesystem kommuniziert sowohl mit dem TourLive Server als auch mit dem DeviceManagement Server in beide Richtungen. In diesem Kapitel werden die Schnittstellen zwischen Aufnahmesystem, TourLive Server sowie DeviceManagement Server und die öffentliche Schnittstelle erläutert.
 
 \section{TourLive Interne Schnittstelle}
 \label{sec:tourliveserverapi}
-Die Aufnahmegeräte liefern an dieser Stelle die ValueContainer, Bilder und Videos ein. Die benötigten Felder sind im Bereich Request erkennbar.
+Die Aufnahmegeräte liefern an dieser Stelle die ValueContainer, Bilder und Videos dem TourLive Server, dies wird als die interne Schnittstelle (\textit{\gls{api}}) bezeichnet. Die benötigten Felder sind im Bereich \textit{Request} erkennbar.
 {\renewcommand{\arraystretch}{1}
     \begin{longtable}{ p{2.5cm} p{3.5cm} p{6cm}}
 	\textbf{URL:} & \multicolumn{2}{p{10cm}}{/api/valuecontainer} \\
