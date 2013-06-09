@@ -126,9 +126,40 @@ Nach dem die Anforderungen definiert waren, haben wir Paper Prototypes erstellt.
 
 \section{Software Design}
 \subsection{Architektur und Übersicht}
+Die Android Applikation sammelt Daten für die beiden Server. In der Abbildung ??? %TODO 
+ wird veranschaulicht, welche Daten an welchen Server verschickt werden.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=120mm]{images/android/uebersicht.png}
+	\caption{Grobstruktur der Android App}
+\end{figure}
+
 
 \subsubsection{Architekturentscheide}
 
+\paragraph{Caching}
+Um sämtliche aufgenommene Daten zu Cachen, haben wir uns für die Objektrelationale Abbildung der Klassen in der SQLite Datenbank entschieden. Dies ermöglicht mit Annotation eine schnelle Einbindung. Alternativen wären die Speicherung in ein Textfile oder die Speicherung in der Datenbank ohne Objektrelationale Abbildung, jedoch stand beides nicht zur Diskussion, da sie einem ORM gegenüber viele Nachteile bringen.
+
+\paragraph{Datenhaltung}
+Um die verschiedenen Services und Container überall zur Verfügung zu haben und somit lange Aufrufketten zu verhindern, wurde ein Singleton Repository eingeführt. In diesem Repository können über Methoden auf alle Daten zugegriffen werden, die von diversen Klassen gebraucht werden.
+
+\paragraph{TourLiveApplication}
+Beim Start der Applikation müssen viele Daten initialisiert werden. Um dies bereits zu machen, bevor eine View geladen wurde, wurde eine TourLiveApplication erstellt, welche von der Android Klasse Application abgeleitet wird. 
+
+\paragraph{Berechnungen}
+
 \subsection{Schichtenmodell und Paketdiagramm}
+Die Android Applikation teilt sich in 3 Schichten auf.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=150mm]{images/tourliveweb/schichten.jpg}
+	\caption{Packagediagramm des Aufnahmesystems}
+\end{figure}
+
+Die oberste Schicht stellt die Schnittstelle zum Benutzer dar. Diese Klassen sind für die Darstellung zuständig.\\
+In der nächsten Schicht ist die ganz Businesslogik enthalten. Hier werden bei einer Aufnahme alle Timer gestartet und verwaltet und die jeweiligen Aktionen ausgeführt. \\
+In der letzten Schicht enthält die Domäne des Aufnahmesystems.
 
 \section{Realisierung}
