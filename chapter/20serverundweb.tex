@@ -196,4 +196,18 @@ Die Sicherheitsparameter welche von Spring geladen werden, sind in der security.
 Die TourLive Server Anwendung verfügt nur über zwei Benutzergruppen, nicht authentifizierte Besucher und Administratoren. Daher wurde auf eine Aufwändige Benutzerverwaltung verzichtet und nur ein Administrationsbenutzer fest in der XML Datei definiert.
 
 \section{Realisierung}
+Der für die Öffentlichkeit sichtbare Teil dieser Arbeit besteht aus den aufbereiteten Daten. Auf der Startseite wird jeweils die aktuellste Etappe angezeigt alle anderen Rennen können über die Navigation im Kopfbereich erreicht werden. In der Abbildung \ref{fig:tourlivewebansicht} ist ein fiktives Beispiel der ersten Etappe der Tour de Suisse 2013 dargestellt.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=130mm]{images/tourliveweb/tourlivewebansicht.png}
+	\caption{TourLive Server Webseite anhand eines Beispiels}
+	\label{fig:tourlivewebansicht}
+\end{figure}
+
+\subsection{Streckenprofil}
+Die aktuelle Positionen der Aufnahmegeräte wird mittels eines HTML5 Canvas direkt auf das Etappenprofil gezeichnet. Dazu wird die JavaScript Library \textit{Raphaël JS}\footnote{Raphaël JavaScript Library, \url{http://raphaeljs.com/}, aufgerufen am 01.06.2013} verwendet. Zu jedem Gerät wird der aktuellste ValueContainer gesucht und daraus die Etappendistanz gelesen. Diese Distanz wird dann relativ zur Seitenbreite des Browserfensters als feine Linie mit der Farbe des Gerätes eingezeichnet wie in der Abbildung \ref{fig:tourlivewebansicht} zu sehen ist. Gleich unterhalb dieser Grafik befindet sich eine Statusanzeige [blau]. Sie zeigt die zurückgelegten Kilometer in dieser Etappe an und dient gleichzeitig auch als Navigation. Durch klicken an einer beliebigen Stelle im blauen Balken kann man zu dieser Stelle (Rennkilometer) im Rennen zurückspringen. Das Pendant zu dieser Navigation sind die Schaltflächen im oberen Bereich, welche das Rennen über die Zeit navigieren lassen.
+\\
+
+Gleich wie die Positionen der Aufnahmegeräte werden auch die Daten der Abstandsentwicklung mit der Raphaël JavaScript Library dargestellt.
 
