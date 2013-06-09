@@ -1,11 +1,11 @@
 \chapter{Device Management Server}
 
-In diesem Kapitel wird genauer auf das Device Management Server eingegangen.
+In den folgenden Abschnitten wird die Webapplikation Device Management Server erläutert. Dabei liegt der Fokus auf der Spezifikation und deren technischen Umsetzung. Dieses Kapitel richtet sich ins Besondere an Entwickler, welche an diesem Projekt weiterarbeiten möchten und an Personen, welche an den technischen Details interessiert sind.
 
 \section{Software Analyse}
 
 \subsection{Anforderungen}
-Um die Anforderungen zu evaluieren wurde das bestehende Geräteverwaltungsportal analysiert. Da beim bestehenden System der Funktionsumfang stark eingeschränkt war, wurden vom Industriepartner zusätzliche Funktionalität gewünscht.
+Um die Anforderungen zu evaluieren wurde das bestehende Geräteverwaltungsportal analysiert. Da beim bestehenden System der Funktionsumfang stark eingeschränkt war, wurde vom Industriepartner zusätzliche Funktionalität gewünscht.
 Um eine kurze Übersicht über die vorhandenen Funktionen und erfassten Anforderungen zu geben folgt  eine Tabelle.
 
 {\renewcommand{\arraystretch}{2}%
@@ -16,48 +16,52 @@ Um eine kurze Übersicht über die vorhandenen Funktionen und erfassten Anforder
     Einstellungen anpassen & Nur Renndistanzkorrektur & Detaillierte Verwaltung der Geräteeinstellungen \\ \hline
     Status der Geräte & Rudimentäre Anzeige des Gerätestatus & Detaillierte Anzeige des Gerätestatus \\
     \hline
-     Alarming bei schlechtem Gerätezustand & Dauer seit letztem Positionsupdate / Bildempfang zu gross & Visuelle Hervorhebung bei Problemen des Gerätestatus \\
+     Alarming bei schlechtem Gerätezustand & Dauer seit letztem Positionsupdate / Bildempfang zu gross & Visuelle Hervorhebung bei Problemen mit dem Gerätestatus \\
     \hline
-    Neustarten des Gerätes & Neustarten des Gerätes via Portal & - (nur Neustarten der App möglich)\\
+    Neustarten des Gerätes & Neustarten des Gerätes via Portal & nur Neustarten der App möglich\\
     \hline
-    Gerätelog anzeigen & - & Gerätelog wird angezeigt\\
+    Gerätelog anzeigen & - & Gerätelog anzeigen\\
     \hline
-    Versand von Nachrichten & - & Nachrichten an das Gerät senden via Portal\\
+    Versand von Nachrichten & - & Versand von Nachrichte möglich\\
 
 \caption{Anforderungen Device Management Server}
 \end{longtable}}
 
-Eine detaillierte Beschreibung aller Anforderungen befindet sich im Anhang. Folgend werden die aus unserer Sicht wichtigsten Anforderungen beschrieben.
+Eine detaillierte Beschreibung aller Anforderungen befindet sich im Anhang. Nachfolgend werden die wichtigsten Anforderungen beschrieben.
 
 \subsubsection{Funktionale Anforderungen}
 \paragraph{Betriebsmodi}
-Die Geräte sollen sowohl über ein Management-Portal, analog zum zur bisherigen Verwaltungsseite , fernverwaltet als auch über ein „Einstellungen“-Menü direkt am Gerät konfiguriert werden können. 
+Die Geräte sollen sowohl über ein Management Server, analog zur bisherigen Verwaltungsseite , fernverwaltet als auch über ein „Einstellungen“-Menü direkt am Gerät konfiguriert werden können. 
 
-Daraus resultieren zwei Betriebsmodi: „managed“ und „unmanaged“. Beim ersten App-Start nach der Installation der App, wird der Benutzer gefragt, in welchem Modus das Aufnahmesystem betrieben werden soll. Die beiden Modi lassen sich am Gerät selber jederzeit ändern. Wählt der Benutzer beim ersten App-Start innerhalb von 10 Sekunden keinen Modus, wird das Gerät automatisch in den Betriebsmodus „managed“ versetzt und eine Standardkonfiguration vom Device Management Server bezogen.
+Daraus resultieren zwei Betriebsmodi: «managed» (TourLive App wird über den Device Management Server verwaltet) und «unmanaged» (TourLive App wird in den lokalen App Einstellungen verwaltet). Die Standardkonfiguration sieht den Modus «managed» vor. Die beiden Modi lassen sich jedoch am Gerät wie auch auf dem Device Management Server jederzeit ändern. 
 
-Bei allen weiteren App-Starts werden die Einstellungen vom letzten Betrieb übernommen sofern der Betriebsmodus zuvor „unmanaged“ war. War der Betriebsmodus auf „managed“ eingestellt, so wird die Konfiguration vom Management Server bezogen. Ist dieser nicht verfügbar, wird der Modus auf „unmanaged“ gesetzt und die existierenden Einstellungen verwendet.
 
 \paragraph{Alarming Funktionen}
 Treten Probleme auf, so soll auf dem Telefon sowie in der Management Konsole darüber informiert werden. Als zu meldende Probleme gelten folgende:
 \begin{itemize}
 \item Keine GPS-Daten während 2 Minuten
 \item Keine Bild-Daten während 2 Minuten
-\item Keine Mobile-Verbindung 2 Minuten [TODO: Unlogisch]
+\item Keine Verbindung zum TourLive Server während 2 Minuten
 \item Smartphone wird nicht mehr geladen (Stromzufuhr unterbrochen)
-\item Smartphone Akkustand ist unter 50\%, 25\%, 10\%
+\item Smartphone Akkustand liegt unter 30%
 \end{itemize}
 	
 \subsubsection{Nichtfunktionale Anforderungen}
 
-\paragraph{Sicherheit}
-Der Device Management Server wird mit einem Benutzernamen und Passwort gesperrt. 
-%TODO correction: ähm wird _nicht_ gesperrt
-
 \subsection{Technologien}
-Für die Entwicklung des Portals wurden die gleichen Technologien verwendet wie für den TourLive Server. 
+Für die Entwicklung des Device Management Servers wurden dieselben Technologien verwendet die bereits für den TourLive Server evaluiert wurden. Mehr Informationen dazu im Kapitel  \ref{sec:tourliveserverevaluationwebframework} Evaluation Webframework.
 
 \subsection{Domain Model}
-Das Domain Model zeigt die Domäne von dem Device Management Server auf.
+Folgende Abbildung zeigt das Domain Model des Device Management Servers. Das Domain Model kann grundsätzlich in 4 Kategorien unterteilt werden die im Endeffekt immer mit einem Gerät (der Klasse Device) assoziiert sind:
+
+
+\begin{itemize}
+\item Die Klasse TourLiveLog mit sämtlichen Gerätelogs in Form der Klasse LogEntry. 
+\item Die Klasse DeviceManagementContainer die sämtliche Geräteeinstellungen verteilt auf die Klassen DeviceSettings, RecordingSettings und AdditionalSettings speichert.
+\item Die Klasse StatusData die den aktuellen Gesundheitszustand eines Aufnahmegerätes wiederspiegelt.
+\item Die Klasse Message die allfällige Nachrichten vom Device Management Server an ein Aufnahmegerät speichert.
+
+\end{itemize}
 
 \begin{figure}[H]
 	\centering
