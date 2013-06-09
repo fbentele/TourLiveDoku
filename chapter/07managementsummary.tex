@@ -1,7 +1,7 @@
 \chapter*{Management Summary}
 \section*{Ausgangslage}
 
-Mit dem cnlab Tour Live System, nachfolgend TourLive genannt, werden an Radrennsportanlässen Live-Informationen (Positions-, Bild- und Videodaten) gesammelt, verarbeitet und in Form einer Webseite präsentiert. Das gegenwärtig eingesetzte System aus dem Jahr 2001  umfasst Nokia Symbian Aufnahmegeräte sowie einen PHP Webservice. TourLive wird an den verschiedensten Radrennsportanlässen in der Schweiz, unter anderem an der Tour de Suisse, eingesetzt. Partner und Auftraggeber dieses Projektes ist die TourLive-Entwicklerfirma cnlab Software AG. 
+Mit dem cnlab TourLive System, nachfolgend TourLive genannt, werden an Radrennsportanlässen Live-Informationen (Positions-, Bild- und Videodaten) gesammelt, verarbeitet und in Form einer Webseite präsentiert. Das gegenwärtig eingesetzte System aus dem Jahr 2001  umfasst Nokia Symbian Aufnahmegeräte sowie einen PHP Webservice. TourLive wird an den verschiedensten Radrennsportanlässen in der Schweiz, unter anderem an der Tour de Suisse, eingesetzt. Partner und Auftraggeber dieses Projektes ist die TourLive-Entwicklerfirma cnlab Software AG. 
 \\
 
 In Zukunft soll TourLive auch für kleinere Radrennsportanlässe zu Verfügung gestellt werden können. Dazu wurde im Rahmen dieser Bachelorarbeit das TourLive System erneuert und erweitert. Neben den bestehenden Funktionalitäten soll im neuen  TourLive System – TourLive Next Generation - TourLiveNG - der Fokus auf die Fernverwaltung der Aufnahmegeräte gelegt werden. 
@@ -18,7 +18,7 @@ Nach eingehender Analyse des bestehenden Systems wurden in Zusammenarbeit mit de
 Das neu entwickelte System TourLive next generation basiert auf drei Komponenten wie folgende Abbildung zeigt. 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=150mm]{images/android/BigPicture_AndroidClient.png} 
+	\includegraphics[width=140mm]{images/android/BigPicture_AndroidClient.png} 
 	\caption{BigPicture TourLiveNG}
 \end{figure}
 Dies sind das auf Android basierende Aufnahmesystem, der TourLive Server und der Device Management Server. Der Geräteverwaltungsserver ermöglicht die Überwachung und Fernverwaltung der Aufnahmesysteme. Bei allfälligen Problemen ermöglicht ein Notfallwiederherstellungsdienst ein Neustart des Aufnahmesystems. Beide Serverkomponenten wurden mit dem Java Spring Framework realisiert. Sie verwenden zudem Twitter Bootstrap als GUI Framework und erfüllen damit unter Anwendung von \gls{rwd} die Anforderung einer dynamischen Webseite die auch auf Tablets und Smartphones korrekt angezeigt wird. 
@@ -27,9 +27,8 @@ Dies sind das auf Android basierende Aufnahmesystem, der TourLive Server und der
 Rennen und Etappen können komfortabel über die Passwort gesicherte Administrationsoberfläche des TourLive Servers  verwaltet werden. Das Aufnahmesystem und die beiden Serverkomponenten kommunizieren über das Hypertext Transfer Protocol miteinander. Textdaten werden in einer JSON-Struktur übertragen während Video- und Bilddaten binär an den Server gesendet  werden. Der Videostream wird mit 10 sekündigen Videosequenzen realisiert die vom TourLive Server in ein vom Browser kompatibles Format konvertiert und mit Hilfes des HTML5 <video> Tags ausgeliefert werden. Aufgrund fehlender Standards und Browserinkompatibilitäten müssen die Videosequenzen in verschiedenen Videoformaten zur Verfügung gestellt werden.
 
 
-
 \section*{Ausblick}
-TourLiveNG wurde in der Schlussphase des Projektes an den Radsporttagen in Gippingen sowie an der ersten Etappe der Tour de Suisse ausgiebig getestet. Die Tests haben gezeigt, dass das System grundsätzlich eingesetzt werden kann. Es wurden aber auch noch die eine oder andere Optimierungsmöglichkeit eruriert. Eine wichtige Erkenntnis dieser Testläufe ist die Problematik mit der Wärmeentwicklung der Geräte bei direkter Sonneneinstrahlung. Ein paar kleine Optimierung konnten aufgrund dieser Tests noch vorgenommen werden. Diese und weitere, grössere Optimierungsmöglichkeiten wurden dokumentiert.
+TourLiveNG wurde in der Schlussphase des Projektes an den Radsporttagen in Gippingen sowie an der ersten Etappe der Tour de Suisse ausgiebig getestet. Die Tests haben gezeigt, dass das System grundsätzlich eingesetzt werden kann. Es wurden aber auch noch die eine oder andere Optimierungsmöglichkeit eruriert und dokumentiert. Eine wichtige Erkenntnis dieser Testläufe ist die Problematik der Wärmeentwicklung der Geräte bei direkter Sonneneinstrahlung. 
 \\
 
 Die Weiterentwicklung des Projektes liegt in den Händen der cnlab Software AG. Der Einsatz an weiteren Radrennen wird die cnlab Software AG gemeinsam mit dem Radsportverband Swisscycling prüfen.
