@@ -1,6 +1,6 @@
-\chapter{DeviceManagement Portal}
+\chapter{Device Management Server}
 
-In diesem Kapitel wird genauer auf das DeviceManagement Portal eingegangen.
+In diesem Kapitel wird genauer auf das Device Management Server eingegangen.
 
 \section{Software Analyse}
 
@@ -24,7 +24,7 @@ Um eine kurze Übersicht über die vorhandenen Funktionen und erfassten Anforder
     \hline
     Versand von Nachrichten & - & Nachrichten an das Gerät senden via Portal\\
 
-\caption{Anforderungen DeviceManagement Portal}
+\caption{Anforderungen Device Management Server}
 \end{longtable}}
 
 Eine detaillierte Beschreibung aller Anforderungen befindet sich im Anhang. Folgend werden die aus unserer Sicht wichtigsten Anforderungen beschrieben.
@@ -62,13 +62,13 @@ Das Domain Model zeigt auf, welche Daten zwischen dem Aufnahmesystem und dem And
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=120mm]{images/devmgmtsrv/domainmodel.jpg}
-	\caption{Domain Model des Device Management Portals}
+	\caption{Domain Model des Device Management Servers}
 \end{figure}
 
 
 \section{Software Design}
 \subsection{Architektur und Übersicht}
-Wie auch der TourLive Server hat das Device Management Portal zwei Hauptaufgaben. Zum einen wird die Bearbeitung der Daten ermöglicht und zum anderen wird den Aufnahmesystemen eine API zur Verfügung gestellt.
+Wie auch der TourLive Server hat der Device Management Service zwei Hauptaufgaben. Zum einen wird die Bearbeitung der Daten ermöglicht und zum anderen wird den Aufnahmesystemen eine API zur Verfügung gestellt.
 
 
 \begin{figure}[H]
@@ -77,15 +77,15 @@ Wie auch der TourLive Server hat das Device Management Portal zwei Hauptaufgaben
 	\caption{Grobstruktur des Device Management Servers}
 \end{figure}
 
-Wie beim TourLive Server besteht dank der gewählten Struktur die Möglichkeit, die Webseite und die API auf verschiedene Server aufzuteilen. Da die Auslastung des DeviceManagement Portals jedoch gering ist, da nur Administratoren darauf zugreifen können, deshalb wird diese Aufteilung nicht weiter erklärt.
+Wie beim TourLive Server besteht dank der gewählten Struktur die Möglichkeit, die Webseite und die API auf verschiedene Server aufzuteilen. Da die Auslastung des Device Management Servers jedoch gering ist, da nur Administratoren darauf zugreifen können, deshalb wird diese Aufteilung nicht weiter erklärt.
 
 \subsection{Schichtenmodell und Paketdiagramm}
-Das Device Management Portal ist in vier Schichten unterteilt. Die Schichten wurden an die Struktur des Spring MVC angepasst. In der Abbildung kann man die verschiedenen Schichten mit den jeweiligen Klassen sehen.
+Der Device Management Server ist in vier Schichten unterteilt. Die Schichten wurden an die Struktur des Spring MVC angepasst. In der Abbildung kann man die verschiedenen Schichten mit den jeweiligen Klassen sehen.
 
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=80mm]{images/devmgmtsrv/schichten.jpg}
-	\caption{Schichtendiagramm des Device Management Portals}
+	\caption{Schichtendiagramm des Device Management Servers}
 \end{figure}
 
 \subsubsection{View}
@@ -100,17 +100,27 @@ Die Service Klassen wissen, wie die Models geladen werden. In unserer Implementa
 \paragraph{DeviceManagementContainerService}
 Der Device Management Container Service speichert und liefert die Container mit den Einstellungen. Vor dem zurückliefern des Containers wird das Flag \textit{messageAvailable} gesetzt. Zusätzlich managt der Service den Zugriff auf die Geräte. 
 
-\subsubsection{Model}
-Die Domäne des Device Management Portals wird in der Model Schicht abgebildet. Für jede Domänenklasse gobt es hier eine Model Klasse. Diese Klassen werden via Hibernate von der Datenbank gespeichert und zurückgeschrieben.
 
 \subsubsection{DAO}
-%TODO
+Die DAO Schicht enthält die Datenzugriffsobjekte. Diese dient zur entkopplung der Geschäftslogik vom Datenzugriff. Die Interfaces bilden die Schnittstelle, die Implementierung kann so je nach Persistenztechnologie unterschiedlich sein, ohne dass die Geschäftslogik geändert werden muss.
+
+
+\subsubsection{Model}
+Die Domäne des Device Management Servers wird in der Model Schicht abgebildet. Für jede Domänenklasse gobt es hier eine Model Klasse. Diese Klassen werden via Hibernate von der Datenbank gespeichert und zurückgeschrieben.
 
 \subsection{Device Management Container}
-%TODO
+Der Device Management Container ist der wichtigste Teil des Device Management Servers. Er enthält alle Einstellungen für ein spezifisches Gerät. Es folgt ein Beispiel eines solchen Containers in JSON Notation.
+
+\begin{figure}[H]
+	\centering
+	\lstinputlisting[language=json]{jsonfiles/settings.json}
+	\caption{Einstellungen JSON}
+\end{figure}
+
+
 
 \section{Realisierung}
-Dieses Kapitel beschreibt die Umsetzung des Device Management Portals.
+Dieses Kapitel beschreibt die Umsetzung des Device Management Servers.
 
 \subsection{API}
 Die API wird mittels Spring Annotations definiert. 
@@ -168,4 +178,23 @@ Der Hauptbereich unterteilt sich wieder in zwei Teile. So hat man Links eine neu
 \end{figure}
 
 \subsection{Datenbank}
-Die Speicherung der Daten in der Datenbank erfolgt mittels Hibernate automatisch. 
+Die Speicherung der Daten in der Datenbank erfolgt mittels Hibernate Annotations.
+
+\begin{lstlisting}[language=Java, caption=Hibernate Annotation]
+@Entity
+@Table(name = "Device")
+public class Device {
+	@Id
+	@Column(name = "deviceId")
+	private String deviceId;
+	@Column
+	private String username;
+	@Column
+	private String phoneNr;
+}
+\end{lstlisting}
+
+\textbf{\textit{@Entity}:} mit dieser Annotation wird angegeben, dass diese Klasse eine gemappte Hibernate Klasse ist.\\
+\textbf{\textit{@Table}:} optional, bei der Angabe dieses Attributs, kann der Name der Tabelle definiert werden.\\
+\textbf{\textit{@Id}:} definiert das folgende Attribut als Primärschlüssel.\\
+\textbf{\textit{@Column}:} das folgende Attribut definiert die Spalte.
