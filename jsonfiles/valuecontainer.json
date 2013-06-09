@@ -1,0 +1,32 @@
+{
+    "device": {
+        "deviceId": "8459c58b06368bbb",
+        "username": "Galaxy Nexus Orange",
+        "phoneNr": "41789645164"
+    },
+    "stageData": {
+        "stageUpAltitude": 0,
+        "stageTime": 0,
+        "incline": 0,
+        "distance": 0,
+        "averageSpeed": 0
+    },
+    "netData": {
+        "technology": "EDGE",
+        "mncmcc": "22803",
+        "locationArea": 7018,
+        "signalStrength": -85,
+        "cellNumber": 27432,
+        "upstream": 0
+    },
+    "positionData": {
+        "satellites": "0",
+        "altitude": 0,
+        "direction": 0,
+        "latitude": 47.223472595214844,
+        "longitude": 8.817152976989746,
+        "accuracy": 20,
+        "speed": 0
+    },
+    "timestamp": 1370621236854
+}

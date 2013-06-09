@@ -1,7 +1,8 @@
 {
     "device": {
-        "deviceId": "d1fac717d37751a",
-        "username": "patrizia_hoi"
+        "deviceId": "8459c58b06368bbb",
+        "username": "Galaxy Nexus Orange",
+        "phoneNr": "41789645164"
     },
     "entries": [
         {
@@ -21,12 +22,6 @@
             "identifier": "ch.hsr.ba.tourlive.view.StartFragment",
             "level": "DEBUG",
             "date": 1366893167076
-        },
-        {
-            "message": "DeviceManagementTask Sent 14:32 25.04.13",
-            "identifier": "ch.hsr.ba.tourlive.task.DeviceManagementTask",
-            "level": "DEBUG",
-            "date": 1366893168774
         }
     ]
 }

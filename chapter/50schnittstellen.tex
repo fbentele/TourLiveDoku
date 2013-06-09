@@ -1,17 +1,16 @@
 \chapter{Schnittstellen}
 
-Das Aufnahmesystem kommuniziert mit beiden Serversystemen in beide Richtungen. In diesem Kapitel werden die Schnittstellen zwischen Aufnahmesystem,  Tourlive Server sowie Devicemanagement Portal erläutert.
- 
+Das Aufnahmesystem kommuniziert sowohl mit dem TourLive Server als auch mit dem DeviceManagement Server in beide Richtungen. In diesem Kapitel werden die Schnittstellen zwischen Aufnahmesystem, TourLive Server sowie DeviceManagement Server und die öffentliche Schnittstelle erläutert.
 
-\section{TourLive Server Schnittstelle}
-
-{\renewcommand{\arraystretch}{1.1}%
-    \begin{longtable}{ p{2.5cm} p{3.5cm} p{7cm}}
-
+\section{TourLive Interne Schnittstelle}
+\label{sec:tourliveserverapi}
+Die Aufnahmegeräte liefern an dieser Stelle die ValueContainer, Bilder und Videos dem TourLive Server, dies wird als die interne Schnittstelle (\textit{\gls{api}}) bezeichnet. Die benötigten Felder sind im Bereich \textit{Request} erkennbar.
+{\renewcommand{\arraystretch}{1}
+    \begin{longtable}{ p{2.5cm} p{3.5cm} p{6cm}}
 	\textbf{URL:} & \multicolumn{2}{p{10cm}}{/api/valuecontainer} \\
 	\textbf{Request:} & Method: & POST \\
 		& Content-Type: & application/json \\
-		& Body: & JSON-String 'ValueContainer' \\
+		& Body: & JSON-String 'ValueContainer'\\
 	\textbf{Response:} & Header: & HTTP/1.1 200 OK \\
 		& Body: & <empty> \\
 	\textbf{Zeitpunkt:} & \multicolumn{2}{p{10cm}}{Bei laufender Aufnahme} \\ 
@@ -42,26 +41,92 @@ Das Aufnahmesystem kommuniziert mit beiden Serversystemen in beide Richtungen. I
 	\textbf{Interval:} & \multicolumn{2}{p{10cm}}{einstellbar} \\
 \hline
 \hline
-	\textbf{URL:} & \multicolumn{2}{p{10cm}}{/api/racedata} \\
+	\textbf{URL:} & \multicolumn{2}{p{10cm}}{/api/racesituation/stage/\{stageId\}} \\
+	\textbf{Request:} & Method: & POST \\
+		& Body: & JSON-String 'RaceSituation'\\	
+	\textbf{Response:} & Header: & HTTP/1.1 200 OK \\
+		& Body: & <empty> \\	
+	\textbf{Bemerkung:} & \multicolumn{2}{p{10cm}}{Der RadioTourSpeaker sendet (unabhängig von den TourLive Aufnahmegeräten) periodisch die Rennsituation an den Server} \\
+\hline
+\hline
+	\textbf{URL:} & \multicolumn{2}{p{10cm}}{/api/getstageinfo/\{deviceId\}} \\
 	\textbf{Request:} & Method: & GET \\
-		& Body: & empty\\	
-	\textbf{Response:} & Method: & GET \\
+		& Body: & <empty>\\	
+	\textbf{Response:} & Header: & HTTP/1.1 200 OK \\
 		& Content-Type: & application/json \\
-		& Body: & JSON-String 'RaceData' \\	
-	
-	\textbf{Zeitpunkt:} & \multicolumn{2}{p{10cm}}{immer} \\ 
-	\textbf{Interval:} & \multicolumn{2}{p{10cm}}{60 Sekunden} \\
+		& Body: & Custom JSON-String \\	
+	\textbf{Bemerkung:} & \multicolumn{2}{p{10cm}}{Im Body der Response wird eine eigens kreierte HashMap ausgeliefert, darin sind aktuelle Etappeninformationen für das angegebene Gerät. Diese Informationen werden für den Rennbegleiter auf dem Gerät dargestellt} \\
 \hline
 \hline 
-\caption{Schnittstellen TourLiveServer Übersicht}
+\caption{Schnittstellen TourLive Server - Aufnahmegerät}
 \end{longtable} }
-TODO FLO
+
+\section{TourLive Public API}
+\label{sec:tourlivepublicapi}
+Die Renn- und Etappeninformationen stehen für Drittentwickler zur Verfügung. Zu jeder Etappe können zusätzlich die ValueContainer und Bilddaten abgefragt werden.
+
+{\renewcommand{\arraystretch}{1}
+\begin{longtable}{ p{2.5cm} p{3.5cm} p{6cm}}
+	\textbf{URL:} & \multicolumn{2}{l}{/public/stages} \\
+	\textbf{Request:} & Method: & GET \\
+		& Body: & <empty>\\
+	\textbf{Response:} &  Header: & HTTP/1.1 200 OK \\
+		& Content-Type: & application/json \\
+		& Body: & JSON-Array 'Stages'\\
+	\textbf{Bemerkung:} & \multicolumn{2}{p{10cm}}{Alle sichtbaren Etappen} \\
+\hline
+\hline    
+	\textbf{URL:} & \multicolumn{2}{l}{/public/stage/\{stageId\}/valuecontainer} \\
+	\textbf{Request:} & Method: & GET \\
+		& Body: & <empty>\\
+	\textbf{Response:} &  Header: & HTTP/1.1 200 OK \\
+		& Content-Type: & application/json \\
+		& Body: & JSON-Array 'ValueContainers'\\
+	\textbf{Bemerkung:} & \multicolumn{2}{p{10cm}}{Alle ValueContainers einer Etappe} \\
+\hline
+\hline
+	\textbf{URL:} & \multicolumn{2}{l}{/public/stage/\{stageId\}/imagedata} \\
+	\textbf{Request:} & Method: & GET \\
+		& Body: & <empty>\\
+	\textbf{Response:} &  Header: & HTTP/1.1 200 OK \\
+		& Content-Type: & application/json \\
+		& Body: & JSON-Array 'ImageData'\\
+	\textbf{Bemerkung:} & \multicolumn{2}{p{10cm}}{Alle ImageData Objekte zu dieser Etappe, nicht aber die eigentlichen Bilder. Die Bilder können aber mit dem Feld \textit{imageLocation} entweder direkt verlinkt oder heruntergeladen werden} \\
+\hline
+\hline
+	\textbf{URL:} & \multicolumn{2}{l}{/public/stage/\{stageId\}/videodata} \\
+	\textbf{Request:} & Method: & GET \\
+		& Body: & <empty>\\
+	\textbf{Response:} &  Header: & HTTP/1.1 200 OK \\
+		& Content-Type: & application/json \\
+		& Body: & JSON-Array 'VideoData'\\
+	\textbf{Bemerkung:} & \multicolumn{2}{p{10cm}}{Alle VideoData Objekte zu dieser Etappe, nicht aber die eigentlichen Videosequenzen. Die Videos können aber mit dem Feld \textit{videoLocation} entweder direkt verlinkt oder heruntergeladen werden} \\
+\hline
+\hline
+	\textbf{URL:} & \multicolumn{2}{l}{/public/stage/\{stageId\}/marchtableitem} \\
+	\textbf{Request:} & Method: & GET \\
+		& Body: & <empty>\\
+	\textbf{Response:} &  Header: & HTTP/1.1 200 OK \\
+		& Content-Type: & application/json \\
+		& Body: & JSON-Array 'MarchTableItem'\\
+	\textbf{Bemerkung:} & \multicolumn{2}{p{10cm}}{Die Marschtabelle ist aufgeteilt in Einheiten. Jede Reihe bedeutet eine Einheit. Pro Etappe können alle Marschtabelleneinheiten abgerufen werden.} \\
+\hline
+\hline
+	\textbf{URL:} & \multicolumn{2}{l}{/public/stage/\{stageId\}/riders} \\
+	\textbf{Request:} & Method: & GET \\
+		& Body: & <empty>\\
+	\textbf{Response:} &  Header: & HTTP/1.1 200 OK \\
+		& Content-Type: & application/json \\
+		& Body: & JSON-Array 'Riders'\\
+	\textbf{Bemerkung:} & \multicolumn{2}{p{10cm}}{Sämtliche Fahrer, welche dieser Etappe zugeordnet sind} \\
+\hline
+\hline
+\caption{TourLive Public API}
+\end{longtable}}
 
 \section{Device Management Portal Schnittstelle}
-
-
-{\renewcommand{\arraystretch}{1.1}%
-    \begin{longtable}{ p{2.5cm} p{3.5cm} p{7cm}}
+{\renewcommand{\arraystretch}{1}
+    \begin{longtable}{ p{2.5cm} p{3.5cm} p{6cm}}
 	\textbf{URL:} & \multicolumn{2}{l}{/devmgmtsrv/api/postdevicemanagementcontainer} \\
 	\textbf{Request:} & Method: & POST \\
 		& Content-Type: & application/json \\

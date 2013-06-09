@@ -1,31 +1,34 @@
 {
-    "device": {
-        "username": "patrizia",
-        "deviceId": "47fea59bcc48612b"
+    "additionalSettings": {
+        "raceDistanceCorrection": 0
     },
-    "deviceManagementContainerId": 1,
-    "configChangedTime": 1366967381690,
-    "messageAvailable": true,
-    "generalSettings": {
-        "transferInterval": 10,
-        "operationMode": "managed",
-        "backlight": true,
-        "criticalBatteryValue": 10,
-        "deviceManagementServer": "dev.cnlab.ch",
+    "recordingSettings": {
+        "videoResolution": "LOW",
+        "cameraType": "Back",
+        "streamingMode": "video",
+        "imageResolution": "LOW",
         "recordingMode": "manual",
-        "tourLiveServerPrim": "prim.cnlab.ch",
-        "tourLiveServerSec": "sec.cnlab.ch"
+        "automaticCameraAdjustment": true,
+        "recordingEndTime": 0,
+        "recordingStartTime": 0,
+        "dataTransferInterval": 27,
+        "imageTransferInterval": 27
     },
-    "imageSettings": {
-        "automaticCameraAdjustment": false,
-        "camera": "Back",
-        "cameraMode": "image",
-        "imageResolution": "1024x1200,1024x1200,1024x1200",
-        "imageInterval": 0,
-        "videoResolution": ""
+    "device": {
+        "deviceId": "8459c58b06368bbb",
+        "username": "Galaxy Nexus Orange",
+        "phoneNr": "41789645164"
     },
-    "stageSettings": {
-        "raceDistanceCorrection": 0,
-        "stageSettingsId": 1
-    }
+    "deviceSettings": {
+        "tourLiveServerSec": "tlng.cnlab.ch",
+        "tourLiveServerPrim": "tlng.cnlab.ch",
+        "operationMode": "unmanaged",
+        "deviceManagementServer": "tlng.cnlab.ch/devmgmtsrv",
+        "criticalBatteryValue": 15,
+        "backlight": true,
+        "appAutoStart": true
+    },
+    "configChangedTime": 1370610867542,
+    "messageAvailable": false,
+    "startRecording": false
 }
