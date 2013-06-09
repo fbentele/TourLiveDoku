@@ -57,7 +57,7 @@ Der Device Management Server wird mit einem Benutzernamen und Passwort gesperrt.
 Für die Entwicklung des Portals wurden die gleichen Technologien verwendet wie für den TourLive Server. 
 
 \subsection{Domain Model}
-Das Domain Model zeigt auf, welche Daten zwischen dem Aufnahmesystem und dem Android Client übertragen werden.
+Das Domain Model zeigt die Domäne von dem Device Management Server auf.
 
 \begin{figure}[H]
 	\centering
@@ -68,7 +68,7 @@ Das Domain Model zeigt auf, welche Daten zwischen dem Aufnahmesystem und dem And
 
 \section{Software Design}
 \subsection{Architektur und Übersicht}
-Wie auch der TourLive Server hat der Device Management Service zwei Hauptaufgaben. Zum einen wird die Bearbeitung der Daten ermöglicht und zum anderen wird den Aufnahmesystemen eine API zur Verfügung gestellt.
+Der Device Management Server hat zwei Hauptaufgaben. Zum einen wird die Bearbeitung der Daten ermöglicht und zum anderen wird dem Aufnahmesystemen eine API zur Verfügung gestellt.
 
 
 \begin{figure}[H]
@@ -77,7 +77,7 @@ Wie auch der TourLive Server hat der Device Management Service zwei Hauptaufgabe
 	\caption{Grobstruktur des Device Management Servers}
 \end{figure}
 
-Wie beim TourLive Server besteht dank der gewählten Struktur die Möglichkeit, die Webseite und die API auf verschiedene Server aufzuteilen. Da die Auslastung des Device Management Servers jedoch gering ist, da nur Administratoren darauf zugreifen können, deshalb wird diese Aufteilung nicht weiter erklärt.
+Wie beim TourLive Server besteht dank der gewählten Struktur die Möglichkeit, die Webseite und die API auf verschiedene Server aufzuteilen. Da die Auslastung des Device Management Servers jedoch gering ist, da nur Administratoren darauf zugreifen können, wird auf diese Aufteilung nicht weiter eingegangen.
 
 \subsection{Schichtenmodell und Paketdiagramm}
 Der Device Management Server ist in vier Schichten unterteilt. Die Schichten wurden an die Struktur des Spring MVC angepasst. In der Abbildung kann man die verschiedenen Schichten mit den jeweiligen Klassen sehen.
@@ -89,13 +89,13 @@ Der Device Management Server ist in vier Schichten unterteilt. Die Schichten wur
 \end{figure}
 
 \subsubsection{View}
-Die View Schicht enthält alle JSP Files, die für die Darstellung benötigt werden. Die Controller stellen den verschiedenen Views die Models zur Verfügung.
+Die View Schicht enthält alle JSP Files, die für die Darstellung benötigt werden. 
 
 \subsubsection{Controller}
 Die Controller Schicht stellt die Models für die Anzeige sowie für die API zur Verfügung. In den verschiedenen Controller Klassen werden Attribute gesetzt, um auf die Models zugreifen zu können.
 
 \subsubsection{Service}
-Die Service Klassen wissen, wie die Models geladen werden. In unserer Implementation werden die Daten von der Datenbank via Hibernate in die Models geladen.
+Die Service Klassen führen Businesslogik auf den von den DAO's gelieferten Objekten durch.
 
 \paragraph{DeviceManagementContainerService}
 Der Device Management Container Service speichert und liefert die Container mit den Einstellungen. Vor dem zurückliefern des Containers wird das Flag \textit{messageAvailable} gesetzt. Zusätzlich managt der Service den Zugriff auf die Geräte. 
