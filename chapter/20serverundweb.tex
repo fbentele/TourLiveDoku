@@ -4,7 +4,7 @@ In den folgenden Abschnitten wird die Webapplikation TourLive Server erläutert.
 
 \section{Software Analyse}
 \subsection{Spezifikation}
-Weite Teile der Anforderungen an die Webapplikation ergeben sich aus der Analyse der bestehenden Lösung. Im Einsatz ist zur Zeit eine, von der cnlab AG entwickelte \textit{\gls{php}} Webapplikation. Grundsätzlich soll die Funktionalität der bestehenden Lösung erweitert und in technologischer Sicht auf den aktuellsten Stand gebracht werden. In der folgenden Tabelle \ref{tab:tourlivewebspeztable} ist jeweils zu erkennen, ob es sich um eine neue Funktion handelt oder eine Bestehende erweitert wurde.
+Weite Teile der Anforderungen an die Webapplikation ergeben sich aus der Analyse der bestehenden Lösung. Im Einsatz ist zur Zeit eine, von der cnlab AG entwickelte \textit{\gls{php}} Webapplikation. Grundsätzlich soll die Funktionalität der bestehenden Lösung erweitert und in technologischer Sicht auf den aktuellsten Stand gebracht werden. In der folgenden Tabelle \ref{tab:tourlivewebspeztable} wird dargestellt, ob es sich um eine neue Funktion handelt oder ob eine Bestehende erweitert wurde.
 \\
 
 Die Analyse der funktionalen Anforderungen und Usecases sind im Anhang \ref{sec:tourliveusecase} umfangreich Dokumentiert.
@@ -31,10 +31,10 @@ Mobile Client & - & Webseite optimiert für alle Bildschirmgrössen und Geräte\
 Wie aus der Aufgabenstellung zu entnehmen ist, wird keine spezifische Technologie für die Umsetzung des TourLive Server festgelegt. Vielmehr ist es Teil der Arbeit eine geeignete Lösung zu evaluieren und dabei auf ein \textit{\gls{webframework}} zurückzugreifen.\\
 Die Anforderungen an das neue TourLive System bilden die Basis für die Evaluation eines dafür geeigneten Webframeworks.
 \\
-In einem nächsten Schritt wurden mögliche Lösungen gesucht und auf die obigen Anforderungen geprüft. Aktuell beliebte und verbreitete Frameworks wie Django (basierend auf der Programmiersprache Python) oder Ruby on Rails seinen an dieser Stelle als Beispiele erwähnt. Für die detaillierte Evaluation und Gewichtung der Kriterien wird aber auf Kapitel \ref{sec:evaluationwebframework} im Anhang verwiesen.
+In einem nächsten Schritt wurden mögliche Lösungen gesucht und auf die obigen Anforderungen geprüft. Aktuell beliebte und verbreitete Frameworks wie Django (basierend auf der Programmiersprache Python) oder Ruby on Rails seien an dieser Stelle als Beispiele erwähnt. Für die detaillierte Evaluation und Gewichtung der Kriterien wird aber auf Kapitel \ref{sec:evaluationwebframework} im Anhang verwiesen.
 
 \subsubsection{Entscheid}
-Zusammen mit dem Industriepartner fällt die Entscheidung auf das Java basierte Spring MVC Framework\footnote{Java Spring Framework Family, \url{http://springsource.org}, aufgerufen am 16.052013)}. Da die Frameworks sehr ähnliche Ideen verfolgen und sich daher, abstrakt betrachtet, kaum unterscheiden. Ausschlaggebend für diesen Entscheid waren schlussendlich die Vorkenntnisse der Studenten in der Java Technologie. 
+Zusammen mit dem Industriepartner fällt die Entscheidung auf das Java basierte Spring MVC Framework\footnote{Java Spring Framework Family, \url{http://springsource.org}, aufgerufen am 16.052013)}. Da die Frameworks sehr ähnliche Ideen verfolgen und sich daher, abstrakt betrachtet, kaum unterscheiden. Ausschlaggebend für diesen Entscheid waren schlussendlich die Vorkenntnisse der Studierenden in der Java Technologie. 
 
 \subsection{Weitere Technologien}
 Die folgenden weiteren Technologien wurden für die Umsetzung des TourLive Server verwendet. Im Kapitel \ref{sec:wekzeugeundentwicklungsumgebung} im Anhang sind spezifische Tools und Entwicklungsumgebungen für die weitere Entwicklung aufgeführt.
@@ -52,7 +52,7 @@ Für die Verwaltung der externen Java Libraries wird Apache Maven\footnote{Apach
 Die Daten werden mit dem Front-End Framework Twitter Bootstap in Form einer HTML Webseite dargestellt. Twitter Bootstrap vereinfacht und beschleunigt die Entwicklung von Webseiten indem es gewisse grundlegende Elemente anbietet. Es besteht aus einer komprimierten JavaScript und einer CSS Datei und kann durch viele Plugins erweitert oder verändert werden. Twitter Bootstrap ist OpenSource und in der Entwicklergemeinde sehr beliebt, da es unter anderem Webseiten für verschiedene Bildschirmgrössen (inkl. Smartphones und Tablets) optimal anpasst.
 
 \subsection{Domain Model}
-In der folgenden Abbildung \ref{fig:tourliveserverdomainmodel} wird die Problem Domain schematisch dargestellt. Die Renn- und insbesondere die Etappenklasse stehen im Zentrum der Abbildung, da die Informationen dort zusammengeführt werden. Die Umsetzung der einzelnen Elementen wird im nächsten Abschnitt \ref{sec:tourliveserversoftwaredesign} behandelt. 
+In der folgenden Abbildung \ref{fig:tourliveserverdomainmodel} wird die Problem Domain schematisch dargestellt. Die Renn- und insbesondere die Etappenklasse stehen im Zentrum der Abbildung, da die Informationen dort zusammengeführt werden. Darauf folgt die Umsetzung der einzelnen Elementen im Abschnitt \ref{sec:tourliveserversoftwaredesign}. 
 
 \begin{figure}[H]
 	\centering
@@ -73,10 +73,10 @@ Der TourLive Server übernimmt zwei grundsätzlich Funktionen, zum einen die Pr�
 	\caption{Grobstruktur des TourLive Servers}
 	\label{fig:grobstrukturtourliveserver}
 \end{figure}
-Diese Aufteilung wurde ganz bewusst so gewählt, da es die Möglichkeit offen lässt, die Dienste auf mehrere Server aufzuteilen. Aus dem Requirements Engineering kam hervor, dass das System auch unter grosser Last für die Datenerfassung immer zur Verfügung stehen muss. In der Entwicklungsphase wurde darauf verzichtet das System auf mehrere Server aufzuteilen, da es das Testing erschwert.
+Diese Aufteilung wurde bewusst so gewählt, da es die Möglichkeit offen lässt, die Dienste auf mehrere Server aufzuteilen. Aus dem Requirements Engineering kam hervor, dass das System auch unter grosser Last für die Datenerfassung immer zur Verfügung stehen muss. In der Entwicklungsphase wurde darauf verzichtet das System auf mehrere Server aufzuteilen, da es das Testing erschwert.
 
 \subsection{Schichtenmodell und Packagediagramm}
-Ein Spring MVC Projekt legt eine gewisse Struktur vor, wie eine Webapplikation aufgebaut werden soll. Dadurch fördern Sie gute Programmierpraktiken und erzeugen gewisse Standards. Auch beim TourLive Server wurden diese Vorgaben angewendet.
+Ein Spring MVC Projekt legt eine gewisse Struktur vor, wie eine Webapplikation aufgebaut werden soll. Dadurch fördern sie gute Programmierpraktiken und erzeugen gewisse Standards. Auch beim TourLive Server wurden diese Vorgaben angewendet.
 \\
 
 \begin{figure}[H]
@@ -128,8 +128,8 @@ Die Aufnahme der Bilder funktioniert nach einem ähnlichen Muster. Die aufgezeic
 	\label{fig:bildaufzeichnung}
 \end{figure}
 
-\subsection{Positions Daten}
-Die Positions Daten werden in Form eines ValueContainers gespeichert und übertragen. Ein beispielhafter ValueContainer ist im folgenden in der JSON Notation dargestellt.
+\subsection{Positionsdaten}
+Die Positionsdaten werden in Form eines ValueContainers gespeichert und übertragen. Ein beispielhafter ValueContainer ist im Folgenden in der \textit{\gls{json}} Notation dargestellt.
 
 \begin{figure}[H]
 	\centering
@@ -141,7 +141,7 @@ Die Positions Daten werden in Form eines ValueContainers gespeichert und übertr
 Der Container setzt sich aus den drei Objekten \textit{netData}, \textit{positionData} und \textit{stageData} zusammen, hinzu kommt zu jedem Container das Device Objekt sowie der aktuelle Zeitpunkt als Timestamp. Daher auch der Name ValueContainer, weil darin verschiedene Daten gesammelt und übermittelt werden.
 \\
 
-Die ValueContainer bilden das Herz der Informationsquelle. Alleine durch sortieren nach dem Feld \textit{distance} im Objekt \textit{stageData} wird festgestellt, welches Gerät an der Spitze mitfährt und wie viel Prozent der Gesamtstrecke zurückgelegt wurde. Da die ValueContainer nicht einer Etappe sondern einem Gerät zugeordnet sind, können auch nachträglich noch Geräte einer Etappe hinzugefügt oder entfernt werden. Um die Positionsdaten für eine Etappe zu erhalten werden alle ValueContainer vom Startzeitpunkt bis zum Endzeitpunkt einer Etappe gefiltert und alle mit der Geräte ID eines Gerätes welches der Etappe zugeordnet ist ausgewählt. Um ein vergangenes Rennen wieder abzuspielen wird einfach die zeitliche Grenze welche durch die Etappenendzeit gegeben war ersetzt durch einen beliebigen Zeitpunkt ( > Startzeit). Dadurch werden immer nur diejenigen Container ausgewählt, welche bis zum angezeigten Zeitpunkt aufgezeichnet wurden.
+Die ValueContainer bilden das Herz der Informationsquelle. Alleine durch sortieren nach dem Feld \textit{distance} im Objekt \textit{stageData} wird festgestellt, welches Gerät an der Spitze mitfährt und wie viel Prozent der Gesamtstrecke zurückgelegt wurde. Da die ValueContainer nicht einer Etappe sondern einem Gerät zugeordnet sind, können auch nachträglich noch Geräte einer Etappe hinzugefügt oder entfernt werden. Um die Positionsdaten für eine Etappe zu erhalten werden alle ValueContainer vom Startzeitpunkt bis zum Endzeitpunkt einer Etappe gefiltert und alle mit der Geräte ID eines Gerätes welches der Etappe zugeordnet ist ausgewählt. Um ein vergangenes Rennen wieder abzuspielen wird die zeitliche Grenze welche durch die Etappenendzeit gegeben war, durch einen beliebigen Zeitpunkt ( > Startzeit) ersetzt. Dadurch werden immer nur diejenigen Container ausgewählt, welche bis zum angezeigten Zeitpunkt aufgezeichnet wurden.
 \\
 
 Um die Daten zu visualisieren werden verschiedene Elemente verwendet. Der geografische Verlauf der Strecke wird auf einer Karte eingezeichnet. Jedes Aufnahmegeräte (\textit{device}) hat zusätzlich ein Feld \textit{color}, welches die Farbe auf der Karte bestimmt.
@@ -151,13 +151,13 @@ Um die Daten zu visualisieren werden verschiedene Elemente verwendet. Der geogra
 	\caption{Kartenausschnitt mit zurückgelegter Strecke eines Gerätes}
 \end{figure}
 
-Ein Aufnahmegerät fährt in der Regel an der Spitz mit, ein zweites hinter dem Feld. Die Spitze setzt sich im laufe des Rennens ab und der Abstand wird grösser. Die Entwicklung dieses Abstands ist für Radsportbegeisterte sehr spannend zu beobachten. Diese Berechnung wird ebenfalls durch die ValueContainers ermöglicht. Sobald mehr als ein Gerät einer Etappe zugeordnet ist, beginnt die Berechnung des Abstandes nach dem folgenden Algorithmus.
+Ein Aufnahmegerät fährt in der Regel an der Spitz mit, ein zweites hinter dem Feld. Die Spitze setzt sich im Laufe des Rennens ab und der Abstand wird grösser. Die Entwicklung dieses Abstands ist für Radsportbegeisterte sehr spannend zu beobachten. Diese Berechnung wird ebenfalls durch die ValueContainers ermöglicht. Sobald mehr als ein Gerät einer Etappe zugeordnet ist, beginnt die Berechnung des Abstandes nach dem folgenden Algorithmus.
 \begin{quotation}
 \textit{Für jeden ValueContainer in einer Etappe mache folgendes:
 Suche pro Gerät den ValueContainer welcher die nächsttiefere Etappendistanz im Vergleich zum obigen Container aufweist, falls dieser Distanzunterschied kleiner als eine definierte Grösse ist (Standardwert 500m) so wähle den Container mit der kleinsten Zeit. Vergleiche diese Zeit mit dem ursprünglichen Container, ist die Zeit des ursprünglichen Containers grösser, so ist die Differenz der Zeiten den Rückstand für diesen Container, andernfalls ist der ursprüngliche Container zu dem Zeitpunkt an der Spitze}
 \end{quotation}
 
-Diese Berechnung ist sehr Aufwändig und wird mit steigender Anzahl ValueContainers immer langsamer. Im lokalen Testumfeld mit weniger als 1000 ValueContainer wird diese Berechnung kaum bemerkt. Beim ersten Testlauf stellte sich jedoch heraus, dass diese Werte zwischengespeichert werden müssen, da die Liveberechnung einfach zu lange dauern würde. Bei jedem Seitenaufruf werden nur die neu hinzugekommenen ValueContainer berechnet, dadurch wird das System quasi schneller, je mehr Benutzer auf der Seite sind, da die Anzahl neu zu berechnender Werte immer kleiner wird. Im Administrationsbereich kann die manuelle Berechnung aller ValueContainer neu gestartet werden. Dieser Vorgang ist notwendig, wenn nachträglich ein weiteres Gerät zur Etappe hinzugefügt wird.
+Diese Berechnung ist sehr Aufwändig und wird mit steigender Anzahl ValueContainers immer langsamer. Im lokalen Testumfeld mit weniger als 1000 ValueContainer wird diese Berechnung kaum bemerkt. Beim ersten Testlauf stellte sich jedoch heraus, dass diese Werte zwischengespeichert werden müssen, da die Liveberechnung zu lange dauern würde. Bei jedem Seitenaufruf werden nur die neu hinzugekommenen ValueContainer berechnet, dadurch wird das System schneller, je mehr Benutzer auf der Seite sind, da die Anzahl neu zu berechnender Werte immer kleiner wird. Im Administrationsbereich kann die manuelle Berechnung aller ValueContainer neu gestartet werden. Dieser Vorgang ist notwendig, wenn nachträglich ein weiteres Gerät zur Etappe hinzugefügt wird.
 \\
 
 Sämtliche Rückstände werden in einer Grafik (vgl. Abbildung  \ref{fig:abstandsentwicklung2}) dargestellt. In der X-Achse sind die zurückgelegten Rennkilometer und in der Y-Achse die Rückstände in Sekunden. Für das Aufnahmegerät an der Spitze ist diese Kurve komplett flach, daher wird diese weggelassen.
@@ -173,13 +173,13 @@ Sämtliche Rückstände werden in einer Grafik (vgl. Abbildung  \ref{fig:abstand
 Mit der internen \gls{api} wird die Schnittstelle zwischen den Aufnahmesystemen und dem TourLive Server bezeichnet. Diese Schnittstelle wird genauer im Kapitel \ref{sec:tourliveserverapi} erklärt.
 
 \subsection{Public API}
-Für die aufgezeichneten Daten wurde ebenfalls eine öffentliche Schnittstelle erstellt. Drittentwicklern wird es ermöglicht die Positionsdaten in ihren Anwendungen zu verwenden und die Bilder als auch die Videosequenzen abzurufen. Die Schnittstelle ist zum jetzigen Zeitpunkt uneingeschränkt nutzbar. Für den produktiven Betrieb von TourLive wäre eine Authentifizierung für die Benutzung der Schnittstelle wünschenswert, eine solche ist aber nicht Teil dieser Arbeit. Die öffentliche Schnittstelle ist im Kapitel \ref{sec:tourlivepublicapi} detailliert beschrieben.
+Für die aufgezeichneten Daten wurde ebenfalls eine öffentliche Schnittstelle erstellt. Drittentwicklern wird es ermöglicht die Positionsdaten in ihren Anwendungen zu verwenden und die Bilder als auch die Videosequenzen abzurufen. Die Schnittstelle ist zum jetzigen Zeitpunkt uneingeschränkt nutzbar. Für den produktiven Betrieb von TourLive wäre eine Authentifizierung für die Benutzung der Schnittstelle wünschenswert, eine solche ist aber nicht Teil dieser Arbeit. Die öffentliche Schnittstelle wird im Kapitel \ref{sec:tourlivepublicapi} detailliert erläutert.
 
 \subsection{XML basierte Konfiguration}
-Die Konfiguration in Spring geschieht einerseits über Java Annotationen wie Sie beim TourLive Server z.B. bei den Controllern zum Einsatz kommen, andererseits werden Servlet und Datenbankeinstellungen sowie sämtliche Abhängigkeiten zu anderen Libraries in XML Dateien konfiguriert. Die wichtigsten Dateien werden im folgenden aufgezeigt.
+Die Konfiguration in Spring geschieht einerseits über Java Annotationen wie sie beim TourLive Server z.B. bei den Controllern zum Einsatz kommen, andererseits werden Servlet und Datenbankeinstellungen sowie sämtliche Abhängigkeiten zu anderen Libraries in XML Dateien konfiguriert. Die wichtigsten Dateien werden im folgenden aufgezeigt.
 
 \subsubsection{web.xml}
-Im web.xml wird zugewiesen welches Servlet welche Ressource ansteuert. Weiter werde die Filter definiert, welche angewendet werden sollen. Filter erlaube es Anfragen vor oder nach zu bearbeiten. Im TourLive Server werden die zwei Filter verwendet, zum einen der Sitemesh Filter welcher wiederverwendbare Elemente (z.B. Menu oder Footer) in den JSP Seiten auslagert. Der zweite Filter schützt den Administrationsbereich vor nicht authentifiziertem Zugriff. Bei diesem Security Filter kann eine Ressource komplett geschützt werden. Die weitere Konfiguration findet dann in der security.xml Datei statt.
+Im web.xml wird zugewiesen, welches Servlet welche Ressource ansteuert. Weiter werden die Filter definiert, welche angewendet werden sollen. Filter erlauben es Anfragen vor oder nach zu bearbeiten. Im TourLive Server werden zwei Filter verwendet, der Sitemesh Filter welcher wiederverwendbare Elemente (z.B. Menu oder Footer) in den JSP Seiten auslagert. Der zweite Filter schützt den Administrationsbereich vor nicht authentifiziertem Zugriff. Bei diesem Security Filter kann eine Ressource komplett geschützt werden. Die weitere Konfiguration findet in der security.xml Datei statt.
 
 \subsubsection{tourlive-servlet.xml}
 Damit die von den Controllern erstellten Models auch auf den JSP Seiten abgebildet werden können wird ein ViewResolver verwendet. In der XML Datei wird zusätzlich angegeben wo sich die JSP Seiten befinden. Weiter werden die Internationalisierung und die Auslieferung von statischen Ressourcen, wie Bilder und StyleSheets, definiert.
@@ -191,10 +191,10 @@ Das Datenbankmapping geschieht mit Hibernate. In der hibernate.xml Datei werden 
 Im Root Context wird definiert, dass die weitere Konfiguration durch Java Annotationen interpretiert werden soll. Weiter werden die Konfigurationen der Datenbank sowie umgebungsspezifische Einstellungen importiert. Das Pendant zum Root Context für die Testumgebung ist der Test Context.
 
 \subsubsection{security.xml}
-Die Sicherheitsparameter welche von Spring geladen werden, sind in der security.xml Datei definiert. So kann eine Login und eine Logout Seite angegeben werden. An dieser Stelle wird auch definiert, dass sämtliche Zugriffe auf die Administrationsseiten nur nach Authentifizierung stattfinden können.
+Die Sicherheitsparameter, welche von Spring geladen werden, sind in der security.xml Datei definiert. So kann eine Login- und eine Logout-Seite angegeben werden. An dieser Stelle wird auch definiert, dass sämtliche Zugriffe auf die Administrationsseiten nur nach Authentifizierung stattfinden können.
 \\
 
-Die TourLive Server Anwendung verfügt nur über zwei Benutzergruppen, nicht authentifizierte Besucher und Administratoren. Daher wurde auf eine Aufwändige Benutzerverwaltung verzichtet und nur ein Administrationsbenutzer fest in der XML Datei definiert.
+Die TourLive Server Anwendung verfügt nur über zwei Benutzergruppen, nicht authentifizierte Besucher und Administratoren. Daher wurde auf eine aufwändige Benutzerverwaltung verzichtet und nur ein Administrationsbenutzer fest in der XML Datei definiert.
 
 \section{Realisierung}
 Der für die Öffentlichkeit sichtbare Teil dieser Arbeit besteht aus den aufbereiteten Daten. Auf der Startseite wird jeweils die aktuellste Etappe angezeigt alle anderen Rennen können über die Navigation im Kopfbereich erreicht werden. In der Abbildung \ref{fig:tourlivewebansicht} ist ein fiktives Beispiel der ersten Etappe der Tour de Suisse 2013 dargestellt.

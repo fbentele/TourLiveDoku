@@ -1,10 +1,12 @@
 \chapter{Einleitung}
 
-In der Einleitung werden die Systemkomponenten der Arbeit erläutert. Dadurch erhält man einen Überblick wie das Aufnahmesystem mit dem Server zusammenspielt. Für das Verständnis wird das Aufgabenumfeld in einem abstrakten Kontext dargestellt. Die konkrete Implementierung und detailierte Analyse werden dann in den folgenden Kapitel behandelt.
+Im folgenden werden die Systemkomponenten der Arbeit erläutert, so dass man einen Überblick erhält wie das Aufnahmesystem mit dem Server zusammenspielt. Für das Verständnis wird das Aufgabenumfeld in einem abstrakten Kontext dargestellt. Die konkrete Implementierung und detailierte Analyse werden dann in den folgenden Kapitel behandelt.
 
 \section{Big Picture}
-Zur Übersicht werden die verschiedenen Komponenten des Projektes in einem Big Picture zusammengefasst. Die Grafik \ref{fig:bigpicture} ist in drei Abschnitte unterteilt. Im obersten Abschnitt befinden sich alle Geräte, welche Daten erfassen. Diese Aufnahmesysteme bestehen aus der Android TourLiveApp, als Teil dieser Arbeit, sowie dem Android RadioTourSpeaker welcher im Rahmen einer anderen Arbeit entwickelt wurde.\\
+Zur Übersicht werden die verschiedenen Komponenten des Projektes in einem Big Picture zusammengefasst. Die untenstehende Grafik \ref{fig:bigpicture} ist in drei Abschnitte unterteilt. Im obersten Abschnitt befinden sich alle Geräte, welche Daten erfassen. Diese Aufnahmesysteme bestehen aus der Android TourLiveApp, als Teil dieser Arbeit, sowie dem Android RadioTourSpeaker welcher im Rahmen einer Semesterarbeit \cite{radiotourspeaker2012} entwickelt wurde.\\
+
 Im mittleren Teil befinden sich die Serversysteme. Diese besteht aus einem TourLive Server, welcher die Renndaten empfängt und verarbeitet sowie dem Geräteverwaltungsserver. Der Geräteverwaltungsserver bietet eine Übersicht über die registrierten Aufnahmesysteme und ermöglicht es deren Einstellungen zu Verwalten sowie allfällige Fehlerquellen frühzeitig zu erkennen.\\
+
 Der unterste Abschnitt zeigt die Anwendergruppen, die mit den Daten beliefert werden. Dies sind zum einen die Besucher der Webseite, welche in dieser Arbeit umgesetzt wurde, sowie auch Drittentwickler, die Interesse an diesen Daten haben.\\
 Teil dieser Arbeit sind die farblich hervorgehobenen Komponenten: Die Aufnahmesysteme TourLiveApp in Form einer Android App [rot], das Serversystem TourLive Server in Form einer Spring Webapplikation [blau] sowie das Serversystem Device Management Server ebenfalls in Form einer Spring Webapplikation [grün].
 
@@ -18,10 +20,8 @@ Teil dieser Arbeit sind die farblich hervorgehobenen Komponenten: Die Aufnahmesy
 \pagebreak
 
 \section{Kernelemente}
-Die drei oben erwähnten Kernsysteme werden im folgenden kurz beschrieben.
-
 \subsection{TourLive Server}
-Auf der zentralen Webapplikation TourLive Server werden die eingehenden Daten von den Aufnahmesystemen gespeichert, verarbeitet, aufbereitet und weitergegeben. Bild und Positionsdaten werden in Form einer Webseite für Radsportbegeisterte aufbereitet und für mögliche Drittentwickler zur Verfügung gestellt. Die Architektur wurde dabei so gewählt, dass das System bei hoher Last gut skaliert. Diese Komponente wird im Kapitel \ref{sec:tourliveserver} genauer behandelt.
+Auf der zentralen Webapplikation TourLive Server werden die eingehenden Daten von den Aufnahmesystemen gespeichert, verarbeitet, aufbereitet und weitergegeben. Bild und Positionsdaten werden in Form einer Webseite für Radsportbegeisterte aufbereitet und für mögliche Drittentwickler zur Verfügung gestellt. Die Architektur wurde dabei so gewählt, dass das System bei hoher Last gut skaliert. Diese Komponente wird in Kapitel \ref{sec:tourliveserver} genauer behandelt.
 
 \subsection{Device Management Server}
 Der Device Management Server hilft dabei, die aktiven Aufnahmegeräte zu verwalten. Es ersetzt das existierende Portal, dass nur wenig Funktionalität besitzt. Sollte der Device Management Server nicht verfügbar sein, sind die Aufnahmegeräte trotzdem einsatzfähig, da die Einstellungen lokal am Smartphone gesetzt werden können.
