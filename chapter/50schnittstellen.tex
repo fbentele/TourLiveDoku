@@ -1,6 +1,12 @@
 \chapter{Schnittstellen}
 
-Das Aufnahmesystem kommuniziert sowohl mit dem TourLive Server als auch mit dem DeviceManagement Server in beide Richtungen. In diesem Kapitel werden die Schnittstellen zwischen Aufnahmesystem, TourLive Server sowie DeviceManagement Server und die öffentliche Schnittstelle erläutert.
+Das Aufnahmesystem kommuniziert sowohl mit dem TourLive Server als auch mit dem Device Management Server in beide Richtungen. In diesem Kapitel werden die Schnittstellen zwischen Aufnahmesystem, TourLive Server sowie Device Management Server und die öffentliche Schnittstelle erläutert. Die folgende Graphik gibt einen Überblick über alle Schnittstellen.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=150mm]{images/uebersicht_schnittstelle.png}
+	\caption{Übersicht Schnittstellen}
+\end{figure}
 
 \section{TourLive Interne Schnittstelle}
 \label{sec:tourliveserverapi}
@@ -57,7 +63,7 @@ Die Aufnahmegeräte liefern an dieser Stelle die ValueContainer, Bilder und Vide
 		& Body: & Custom JSON-String \\	
 	\textbf{Bemerkung:} & \multicolumn{2}{p{10cm}}{Im Body der Response wird eine eigens kreierte HashMap ausgeliefert, darin sind aktuelle Etappeninformationen für das angegebene Gerät. Diese Informationen werden für den Rennbegleiter auf dem Gerät dargestellt} \\
 \hline
-\hline 
+\hline  \\
 \caption{Schnittstellen TourLive Server - Aufnahmegerät}
 \end{longtable} }
 
@@ -120,14 +126,18 @@ Die Renn- und Etappeninformationen stehen für Drittentwickler zur Verfügung. Z
 		& Body: & JSON-Array 'Riders'\\
 	\textbf{Bemerkung:} & \multicolumn{2}{p{10cm}}{Sämtliche Fahrer, welche dieser Etappe zugeordnet sind} \\
 \hline
-\hline
+\hline \\
 \caption{TourLive Public API}
 \end{longtable}}
 
 \section{Device Management Portal Schnittstelle}
+
+\subsection{Einstellungen posten}
+Sobald die Einstellungen in der App geändert werden, müssen sie über diese Schnittstelle an den Server gesendet werden.
+
 {\renewcommand{\arraystretch}{1}
     \begin{longtable}{ p{2.5cm} p{3.5cm} p{6cm}}
-	\textbf{URL:} & \multicolumn{2}{l}{/devmgmtsrv/api/postdevicemanagementcontainer} \\
+	\textbf{URL:} & \multicolumn{2}{l}{/devmgmtsrv/api/postdevmgmtsrv} \\
 	\textbf{Request:} & Method: & POST \\
 		& Content-Type: & application/json \\
 		& Body: & JSON-String 'DeviceManagementContainer'\\
@@ -135,9 +145,24 @@ Die Renn- und Etappeninformationen stehen für Drittentwickler zur Verfügung. Z
 		& Body: & <empty>	\\
 	\textbf{Eigenschaft:} & \multicolumn{2}{p{10cm}}{Wird einmalig beim App Start ausgeführt sowie bei lokalen Änderungen in den Einstellungen} \\
 	\textbf{Interval:} & \multicolumn{2}{p{10cm}}{unregelmässig} \\
-\hline
-\hline    
-	\textbf{URL:} & \multicolumn{2}{l}{/devmgmtsrv/api/getdevicemanagementcontainer} \\
+	\\
+\caption{Schnittstelle Einstellungen}
+\end{longtable}}
+
+\subsubsection{Einstellungen JSON}
+\begin{figure}[H]
+	\centering
+	\lstinputlisting[language=json]{jsonfiles/settings.json}
+	\caption{Einstellungen JSON}
+\end{figure}
+
+\subsection{Status posten und Einstellungen erhalten}
+
+Um den aktuellen Status des Aufnahmesystems dem Server mitzuteilen kann diese Methode aufgerufen werden. Als Antwort erhält man die im Moment aktuellen Einstellungen.
+
+{\renewcommand{\arraystretch}{1}
+    \begin{longtable}{ p{2.5cm} p{3.5cm} p{6cm}} 
+	\textbf{URL:} & \multicolumn{2}{l}{/devmgmtsrv/api/getdevmgmtsrv} \\
 	\textbf{Request:} & Content-Type: & application/json \\
 		& Method: & POST \\
 		& Body: & JSON-String 'StatusData' \\
@@ -146,39 +171,9 @@ Die Renn- und Etappeninformationen stehen für Drittentwickler zur Verfügung. Z
 		& Body: & JSON-String 'DeviceManagementContainer' \\
 	\textbf{Eigenschaft:} & \multicolumn{2}{p{10cm}}{Wird regelmässig als Service ausgeführt.} \\ 
 	\textbf{Interval:} & \multicolumn{2}{p{10cm}}{regelmässig - alle 60 Sekunden} \\
-\hline
-\hline    
-	\textbf{URL:} & \multicolumn{2}{p{10cm}}{/devmgmtsrv/api/postlog} \\
-	\textbf{Request:} & Method: & POST \\
-		& Content-Type: & application/json \\
-		& Body: & JSON-String 'TourLiveLog' \\
-	\textbf{Response:} &  Header: & HTTP/1.1 200 OK \\
-		& Body: & <empty>	\\
-	\textbf{Eigenschaft:} &  \multicolumn{2}{p{10cm}}{Wird regelmässig als Service ausgeführt.}\\ 
-	\textbf{Interval:} &  \multicolumn{2}{p{10cm}}{regelmässig - alle 60 Sekunden}\\
-\hline
-\hline 
-	\textbf{URL:} & \multicolumn{2}{p{10cm}}{/devmgmtsrv/api/getMsg/\{deviceId\}} \\
-	\textbf{Request:} & Method: & GET \\
-		& Body: & <empty> \\
-	\textbf{Response:} & Method: & POST \\
-		& Content-Type: & application/json \\
-		& Body: & JSON-String 'Message' \\
-	\textbf{Eigenschaft:} & \multicolumn{2}{p{10cm}}{ Wenn das 'messageAvailable'-Flag gesetzt ist in einem empfangenen DeviceManagementContainer.} \\
-	\textbf{Interval:} & \multicolumn{2}{p{10cm}}{unregelmässig}\\
-\hline
-\hline 
-
-\caption{Schnittstellen DeviceManagement Portal Übersicht}
-\end{longtable} }
-
-\pagebreak
-\subsection{Status posten und Einstellungen erhalten}
-
-Um den aktuellen Status des Aufnahmesystems dem Server mitzuteilen kann diese Methode aufgerufen werden. Als Antwort erhält man die im Moment aktuellen Einstellungen.
-
-{\bf URL: }http://tlng.cnlab.ch/devmgmtsrv/api/getdevicemanagementcontainer 
-
+	\\
+\caption{Schnittstelle Status}
+\end{longtable}	}
 \subsubsection{Status JSON}
 
 Das JSON eines Status Posts sieht folgendermassen aus:
@@ -190,23 +185,23 @@ Das JSON eines Status Posts sieht folgendermassen aus:
 \end{figure}
 
 
-\pagebreak
-\subsubsection{Einstellungen JSON}
-
-Die Antwort die man bei dieser Anfrage erhält ist die folgende:
-
-\begin{figure}[H]
-	\centering
-	\lstinputlisting[language=json]{jsonfiles/settings.json}
-	\caption{Einstellungen JSON}
-\end{figure}
-
-
 \subsection{Log posten}
 
 Um neue Logeinträge dem Server zu übermitteln kann diese Methode benutzt werden.
 
-{\bf URL: }http://tlng.cnlab.ch/devmgmtsrv/api/postlog
+{\renewcommand{\arraystretch}{1}
+    \begin{longtable}{ p{2.5cm} p{3.5cm} p{6cm}}
+	\textbf{URL:} & \multicolumn{2}{p{10cm}}{/devmgmtsrv/api/postlog} \\
+	\textbf{Request:} & Method: & POST \\
+		& Content-Type: & application/json \\
+		& Body: & JSON-String 'TourLiveLog' \\
+	\textbf{Response:} &  Header: & HTTP/1.1 200 OK \\
+		& Body: & <empty>	\\
+	\textbf{Eigenschaft:} &  \multicolumn{2}{p{10cm}}{Wird regelmässig als Service ausgeführt.}\\ 
+	\textbf{Interval:} &  \multicolumn{2}{p{10cm}}{regelmässig - alle 60 Sekunden}\\
+	\\
+\caption{Schnittstelle Log}
+\end{longtable}}
 
 \subsubsection{Log JSON}
 
@@ -222,7 +217,20 @@ Das JSON eines Log Posts sieht folgendermassen aus:
 
 Sofern eine neue Nachricht für das Gerät vorhanden ist kann sie über diese Methoden abgeholt werden.
 
-{\bf URL: }http://tlng.cnlab.ch/devmgmtsrv/api/getmsg/{deviceId}
+{\renewcommand{\arraystretch}{1}
+    \begin{longtable}{ p{2.5cm} p{3.5cm} p{6cm}}
+
+	\textbf{URL:} & \multicolumn{2}{p{10cm}}{/devmgmtsrv/api/getMsg/\{deviceId\}} \\
+	\textbf{Request:} & Method: & GET \\
+		& Body: & <empty> \\
+	\textbf{Response:} & Method: & POST \\
+		& Content-Type: & application/json \\
+		& Body: & JSON-String 'Message' \\
+	\textbf{Eigenschaft:} & \multicolumn{2}{p{10cm}}{ Wenn das 'messageAvailable'-Flag gesetzt ist in einem empfangenen DeviceManagementContainer.} \\
+	\textbf{Interval:} & \multicolumn{2}{p{10cm}}{unregelmässig}\\
+\\
+\caption{Schnittstelle Nachricht abholen}
+\end{longtable} }
 
 \subsubsection{Nachrichten JSON}
 Das JSON für die Nachrichten ist das folgende:
