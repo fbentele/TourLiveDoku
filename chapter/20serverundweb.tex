@@ -131,14 +131,7 @@ Die Aufnahme der Bilder funktioniert nach einem ähnlichen Muster. Die aufgezeic
 \end{figure}
 
 \subsection{Positionsdaten}
-Die Positionsdaten werden in Form eines ValueContainers gespeichert und übertragen. Ein beispielhafter ValueContainer ist im Folgenden in der \textit{\gls{json}} Notation dargestellt.
-
-\begin{figure}[H]
-	\centering
-	\lstinputlisting[language=json]{jsonfiles/valuecontainer.json}
-	\caption{Beipsiel ValueContainer in der JSON Notation}
-	\label{fig:valuecontainerjson}	
-\end{figure}
+Die Positionsdaten werden in Form eines ValueContainers gespeichert und übertragen. Ein beispielhafter ValueContainer ist im Kapitel \ref{sec:tourliveserverapi} in der Abbildung \ref{fig:valuecontainer} dargestellt.
 
 Der Container setzt sich aus den drei Objekten \textit{netData}, \textit{positionData} und \textit{stageData} zusammen, hinzu kommt zu jedem Container das Device Objekt sowie der aktuelle Zeitpunkt als Timestamp. Daher auch der Name ValueContainer, weil darin verschiedene Daten gesammelt und übermittelt werden.
 \\

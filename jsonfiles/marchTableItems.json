@@ -1,0 +1,18 @@
+[
+	{
+		marchTableItemId: 25,
+		icon: "verpflegung",
+		altitude: 319,
+		distance: 0,
+		distanceToGo: 181.5,
+		settlement: "Gippingen, Start",
+		advertisingColumn: "12:30:00",
+		raceSlow: "13:30:00",
+		raceMedium: "13:30:00",
+		raceFast: "13:30:00"
+	},
+	{
+		marchTableItemId: 26,
+		icon: "tunnel",
+...
+]

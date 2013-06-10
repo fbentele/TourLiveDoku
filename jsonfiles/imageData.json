@@ -1,0 +1,13 @@
+[
+	{
+		imageDataId: 136,
+		device: {
+			...
+		},
+		imageLocation: "images/awesome_image.png",
+		realTimestamp: 1369494910108
+	},
+	{
+		imageDataId: 137,
+...
+]

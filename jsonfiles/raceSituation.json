@@ -1,0 +1,33 @@
+{
+	"timestamp":1338284032350,
+	"situation":
+		[
+			{
+				"riderNumber":[11, 15, 3],
+				"isLeader":true,
+				"groupnr":0,
+				"handicaptime":-1234000,
+				"isField":false
+			},
+			{
+				"isLeader":false,
+				"groupnr":1,
+				"handicaptime":-2334000,
+				"isField":true
+			},
+			{
+				"riderNumber":[7, 8, 4, 5],
+				"isLeader":false,
+				"groupnr":2,
+				"handicaptime":3456000,
+				"isField":false
+			},
+			{
+				"riderNumber":[1, 2, 10],
+				"isLeader":false,
+				"groupnr":3,
+				"handicaptime":0,
+				"isField":false
+			}
+		]
+}

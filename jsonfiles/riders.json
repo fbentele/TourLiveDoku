@@ -1,0 +1,20 @@
+[
+	{
+		riderId: 321,
+		startNr: 1,
+		name: "Keizer Martijn",
+		team: "Vacansoleil - DCM",
+		teamShort: "VCD",
+		country: "NED",
+		note: null,
+		neo: false,
+		timeOff: "00:00",
+		timeRueck: "00:00",
+		timeVirt: "00:00"
+	},
+	{
+		riderId: 322,
+		startNr: 2,
+		name: "Kreder Wesley",
+...
+]

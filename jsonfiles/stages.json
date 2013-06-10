@@ -1,0 +1,14 @@
+[
+	{
+		stageId: 1,
+		stageName: "Tour de Rappi",
+		stageSlug: "tour-de-rappi",
+		stageDescription: "Tour um Rapperswil",
+		starttime: "25.05.2013 - 17:00",
+		endtime: "25.05.2013 - 19:30",
+		offsettime: "00:00:00",
+		distance: 22,
+		bannerImage: "stage1/stageBanner.png",
+		stageProfileImage: "stage1/stageProfile.png",
+	...
+]
