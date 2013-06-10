@@ -9,49 +9,30 @@ In diesem Kapitel wird genauer auf das Android Aufnahmesystem eingegangen.
 Um die Anforderungen zu evaluieren wurde das bestehende Aufnahmesystem auf Basis einer Nokia Symbian App analysiert. Alle vorhandenen Funktionen wurden erfasst und mit dem Industriepartner um weitere ergänzt. 
 Eine kurze Übersicht über die bereits bestehenden Funktionen und den neu erfassten Anforderungen folgt in tabellarischer Form.
 
-{\renewcommand{\arraystretch}{2}%
-    \begin{longtable}{  p{3.5cm} | p{4.3cm} | p{4.3cm} }
+\begin{longtable}{  p{3.5cm} | p{4.3cm} | p{4.3cm} }
     
-    \textbf{Requirements} & \textbf{Altes System} & \textbf{Neues System} \\ \hline
-\hline
-    Positionsdaten übertragen & Geschwindigkeit, H\"{o}he, Richtung/Beschleunigung, Steigung, Longitude, Latitude & Geschwindigkeit, H\"{o}he, Richtung, Steigung, Longitude, Latitude \\ \hline
-    Etappendaten & Zeit, Höhe, Distanz, Durchschnittliche Geschwindigkeit, UTC Zeit, Datum & Zeit, Höhe, Distanz, Durchschnittliche Geschwindigkeit \\
-    \hline
-     Tour Total & Zeit Total, Zeit Tour, Distanz Total, Distanz Tour, Höhe Total, H\"{o}he Tour & - \\
-    \hline
-    Netzdaten übertragen & Zellen ID, Location Area, Signal, Akku, Netzwerk, Netzwerk ID & Zellen ID, Area, Signal, Netzwerk ID, Technologie, Datenrate, RTT, Packet Loss\\
-    \hline
-    Bilder \"{u}bertragen & Bilder wurden \"{u}bertragen & Bilder werden \"{u}bertragen\\
-    \hline
-    Videostream \"{u}bertragen & Einzelne Bilder wurden \"{u}bertragen und serverseitig zu einem Stream zusammengef\"{u}gt & Videosequenzen werden \"{u}bertragen und serverseitig zu einem Stream zusammengesetzt\\
-    \hline
-    Lokales Caching & nur Bilder wurden gecacht & S\"{a}mtliche aufgenommene Daten werden lokal gespeichert\\
-    \hline
-	Aufnahme- systemstatus \"{u}bertragen & nur der Akkustand wurde an das Device Management Portal \"{u}bertragen & Detaillierte Statusinformation an das Device Management Portal\\
-    \hline    
-    Betriebsmodi & - & Managed - Einstellungen \"{u}ber das Portal / Unmanaged - Einstellungen am Ger\"{a}t\\
-    \hline
-	Auto-Start der App & - & App wird beim Ger\"{a}testart automatisch gestartet\\
-    \hline    
-    Externe Ger\"{a}te & ODB (Onboard Diagnose Bus) und Pulsinfo Ger\"{a}te wurden angesteuert & -\\
-    \hline  
-    Smartphone tauglich & Symbian App & Android App\\
-    \hline 
-    Log & Position und Bilder gesendet & Daten, Bilder, Status und Einstellungen gesendet / Exceptions\\
-    \hline 
-    Aufnahmestart Modi & Aufnahme hat automatisch bei App Start gestartet & Manuell, Zeitbasiert, Fernverwaltet oder bei Aktivierung einer externen Stromquelle\\
-    \hline 
-   	Power Management & - & Bei niedrigem Akkustand wird ein Energiesparmodus aktiviert\\
-    \hline 
-    Alarming Funktion & - & Treten Probleme auf, so wird darauf hingewiesen (z.B. keine GPS Daten w\"{a}hrend 2 Minuten)\\
-    \hline 
-    Mehrsprachig- keit & - & Deutsch und Englisch, einfach erweiterbar\\
-    \hline 
-    Fehlerkorrektur der GPS Daten & - & Ausreisser bei den GPS Daten werden herausgefiltert\\
-    
+    \textbf{Requirements} & \textbf{Altes System} & \textbf{Neues System} \\ [1ex] \hline \hline & &  \\ [-1.5ex]
+    Positionsdaten übertragen & Geschwindigkeit, H\"{o}he, Richtung/Beschleunigung, Steigung, Longitude, Latitude & Geschwindigkeit, H\"{o}he, Richtung, Steigung, Longitude, Latitude \\ [1ex] \hline & &  \\ [-1.5ex]
+    Etappendaten & Zeit, Höhe, Distanz, Durchschnittliche Geschwindigkeit, UTC Zeit, Datum & Zeit, Höhe, Distanz, Durchschnittliche Geschwindigkeit \\ [1ex] \hline & &  \\ [-1.5ex]
+     Tour Total & Zeit Total, Zeit Tour, Distanz Total, Distanz Tour, Höhe Total, H\"{o}he Tour & - \\ [1ex] \hline & &  \\ [-1.5ex]
+    Netzdaten übertragen & Zellen ID, Location Area, Signal, Akku, Netzwerk, Netzwerk ID & Zellen ID, Area, Signal, Netzwerk ID, Technologie, Datenrate, RTT, Packet Loss\\ [1ex] \hline & &  \\ [-1.5ex]
+    Bilder \"{u}bertragen & Bilder wurden \"{u}bertragen & Bilder werden \"{u}bertragen\\ [1ex] \hline & &  \\ [-1.5ex]
+    Videostream \"{u}bertragen & Einzelne Bilder wurden \"{u}bertragen und serverseitig zu einem Stream zusammengef\"{u}gt & Videosequenzen werden \"{u}bertragen und serverseitig zu einem Stream zusammengesetzt\\ [1ex] \hline & &  \\ [-1.5ex]
+    Lokales Caching & nur Bilder wurden gecacht & S\"{a}mtliche aufgenommene Daten werden lokal gespeichert\\ [1ex] \hline & &  \\ [-1.5ex]
+	Aufnahme- systemstatus \"{u}bertragen & nur der Akkustand wurde an das Device Management Portal \"{u}bertragen & Detaillierte Statusinformation an das Device Management Portal\\ [1ex] \hline & &  \\ [-1.5ex]   
+    Betriebsmodi & - & Managed - Einstellungen \"{u}ber das Portal / Unmanaged - Einstellungen am Ger\"{a}t\\ [1ex] \hline & &  \\ [-1.5ex]
+	Auto-Start der App & - & App wird beim Ger\"{a}testart automatisch gestartet\\ [1ex] \hline & &  \\ [-1.5ex]
+    Externe Ger\"{a}te & ODB (Onboard Diagnose Bus) und Pulsinfo Ger\"{a}te wurden angesteuert & -\\ [1ex] \hline & &  \\ [-1.5ex]
+    Smartphone tauglich & Symbian App & Android App\\ [1ex] \hline & &  \\ [-1.5ex]
+    Log & Position und Bilder gesendet & Daten, Bilder, Status und Einstellungen gesendet / Exceptions\\ [1ex] \hline & &  \\ [-1.5ex]
+    Aufnahmestart Modi & Aufnahme hat automatisch bei App Start gestartet & Manuell, Zeitbasiert, Fernverwaltet oder bei Aktivierung einer externen Stromquelle\\ [1ex] \hline & &  \\ [-1.5ex]
+   	Power Management & - & Bei niedrigem Akkustand wird ein Energiesparmodus aktiviert\\ [1ex] \hline & &  \\ [-1.5ex]
+    Alarming Funktion & - & Treten Probleme auf, so wird darauf hingewiesen (z.B. keine GPS Daten w\"{a}hrend 2 Minuten)\\ [1ex] \hline & &  \\ [-1.5ex]
+    Mehrsprachig- keit & - & Deutsch und Englisch, einfach erweiterbar\\ [1ex] \hline & &  \\ [-1.5ex]
+    Fehlerkorrektur der GPS Daten & - & Ausreisser bei den GPS Daten werden herausgefiltert\\ [1ex]
     
 \caption{Anforderungen Android Aufnahme System}
-\end{longtable}}
+\end{longtable}
 
 Eine detaillierte Beschreibung aller Anforderungen befindet sich im Anhang im Kapitel \ref{sec:anforderungenandroiddevmgmt}. Folgend werden die aus unserer Sicht wichtigsten Anforderungen beschrieben.
 
@@ -194,7 +175,7 @@ Mit dem Recording Button links kann die Aufnahme gestartet und gestoppt werden. 
 \subsubsection{Hauptbereich}
 Der Inhalt des Hauptbereichs hängt vom selektierten Tab ab. Bei jedem Tab wird ein Fragment hinzugefügt. Dieses Fragment besitzt jeweils eine ListView, in der alle Felder angezeigt werden. 
 
-
+\pagebreak
 \subsection{Berechtigungen}
 Beim installieren der App wird angezeigt, welche Berechtigungen benötigt werden. Hier wird aufgelistet, für was welche Berechtigungen gebraucht werden.
 \begin{figure}[H]
@@ -259,6 +240,7 @@ In der folgenden Grafik sieht man alle Tasks, die ausgeführt werden, während d
 Alle paar Minuten wird ein StatusData an den Device Management Server versendet. Das Intervall kann nur im Code verändert werden. Als Antwort wird der aktuellste DeviceManagementContainer zurückgegeben und damit die lokalen Einstellungen gefüllt. Wurde in diesem DeviceManagementContainer das Flag \textit{messageAvailable} gesetzt, so wird die neue Nachricht vom Server geholt.\\
 Ebenso wird in diesem Intervall geprüft, ob die StageInfo vorhanden ist, oder veraltet. Ist diese der Fall, so wird die StageInfo neu vom Server bezogen.
 
+\pagebreak
 \subsubsection{Recording}
 Die folgende Abbildung zeigt den Ablauf, beim Starten der Aufnahme.
 \begin{figure}[H]
