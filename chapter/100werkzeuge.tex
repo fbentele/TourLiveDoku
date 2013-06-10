@@ -11,6 +11,7 @@ Für die drei Teilprojekte TourLive Server, Device Management Server und Aufnahm
 \end{itemize}
 
 \subsubsection{Installation und Deployment}
+\label{sec:installationdeploymenttourliveserver}
 Um das Projekt zu builden und auf einem Webserver zu betreiben sind folgende Schritte notwendig.
 
 \begin{itemize}
@@ -55,9 +56,23 @@ RadioTourWebsite $> /etc/init.d/tomcat7 restart
 Sämtliche Videos und Bilder werden nicht direkt über die Webapplikation ausgeliefert, sondern über einen konfigurierbaren Pfad (im Profil ganz unten im pom.xml) abgelegt und von dort aus zur Verfügung gestellt. Der empfohlene Webserver für den Betrieb ist ein Tomcat für die Auslieferung der Bilder und Videodateien kann ein anderer Server verwendet werden, um den Hauptwebserver zu entlasten. Dabei kann aber auch ein Tomcat verwendet werden, die Aussage, dass der Tomcat Server statische Inhalte langsamer ausliefert, wirkt sich gemäss Mark Thomas im Betrieb kaum auf die Performance aus \cite{thomas2010}.
 
 \subsection{Device Management Server}
-Java
-%TODO Device Management Server beschreiben
+\begin{itemize}
+\item Entwicklungsumgebung: Spring Tool Suite (STS), basierend auf Eclipse, \url{http://www.springsource.org/sts}
+\item Framework: Spring MVC, Java Webframework, \url{http://www.springsource.org/}
+\item Mockups: Evolus Pencil für erste Entwürfe, \url{http://pencil.evolus.vn/}
+\item Versionierungssystem: git, \url{http://git-scm.com/}
+\end{itemize}
+
+\subsubsection{Installation und Deployment}
+Um den Device Management Server zu builden, können die gleichen Schritte ausgeführt werden wie beim TourLive Server. Was alles gemacht werden muss ist im Kapitel \ref{sec:installationdeploymenttourliveserver} beschrieben.
 
 \subsection{Aufnahmesystem}
-Android Java
-%TODO Aufnahmesystem beschreiben
+\begin{itemize}
+\item Entwicklungsumgebung: Android Development Tools (ADT), basierend auf Eclipse, \url{https://dl-ssl.google.com/android/eclipse/}
+\item Mockups: Evolus Pencil für erste Entwürfe, \url{http://pencil.evolus.vn/}
+\item Versionierungssystem: git, \url{http://git-scm.com/}
+\end{itemize}
+
+\paragraph{Android Version}
+Eine Anwendung wird f"{u}r eine spezifische Android Version entwickelt und getestet. Somit kann garantiert werden, dass das Verhalten der Anwendung immer gleich ist. In dieser Arbeit ist dies die Version 4.0 mit dem Versionsnamen Ice Cream Sandwich\footnote{Android Ice Cream Sandwich, \url{http://www.android.com/about/ice-cream-sandwich/}, aufgerufen am 29.04.2013}.
+Die Entwicklung auf einer Version schliesst jedoch nicht aus, dass die Anwendung in neueren Versionen nicht mehr lauff"{a}hig ist.

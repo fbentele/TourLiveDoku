@@ -53,8 +53,7 @@ Eine kurze Übersicht über die bereits bestehenden Funktionen und den neu erfas
 \caption{Anforderungen Android Aufnahme System}
 \end{longtable}}
 
-Eine detaillierte Beschreibung aller Anforderungen befindet sich im Anhang. Folgend werden die aus unserer Sicht wichtigsten Anforderungen beschrieben.
-%TODO referenz auf Anhang
+Eine detaillierte Beschreibung aller Anforderungen befindet sich im Anhang im Kapitel \ref{sec:anforderungenandroiddevmgmt}. Folgend werden die aus unserer Sicht wichtigsten Anforderungen beschrieben.
 
 \subsubsection{Funktionale Anforderungen}
 \paragraph{Positionsaufnahme}
@@ -97,18 +96,6 @@ Ein Rest Client für Android von den Entwicklern des populären Java Spring Fram
 \paragraph{ORMLite\footnote{ORMLite, \url{ormlite.com}, aufgerufen am 02.05.2013}} ORMLite ist eine OpenSource Java Library, welche das Objectrelational mapping
 (ORM) übernimmt. ORMLite bietet eine speziell auf Android angepasste Distribution.\\
 Um eine Klasse mit ihren Feldern zur Persistierung zu markieren, werden Java Annotationen verwendet. Aus diesen Annotationen erstellt ORMLite die Datenbank. Darüber hinaus werden mit ORMLite alle Zugriffe auf die SQLite Datenbank ausgeführt. In dieser Arbeit wird die ORMLite Version 4.45 verwendet. Diese Library wird verwendet um die gesammelten Informationen lokal in einer Datenbank speichern zu können und um somit die Datenkonsistenz bei Verbindungsunterbrüchen sicherstellen zu können.
-
-\subsection{Entwicklungsumgebung}
-Die von Android empfohlene Entwicklungsumgebung ist Eclipse\footnote{Eclipse, \url{http://eclipse.org}, aufgerufen am 29.04.2013}  mit einem Plugin zur Entwicklung von Android Applikationen. Auf der Entwicklerseite von Android steht dazu folgendes:
-\begin{quotation}
-Android Development Tools (ADT) is a plugin for the Eclipse IDE that is designed to give you a powerful, integrated environment in which to build Android applications.\footnote{Android Plugin f\"{u}r Eclipse, \url{http://developer.android.com/tools/sdk/eclipse-adt.html}, aufgerufen am 29.04.2013} 
-\end{quotation}
-Eclipse ist eine weit verbreitete IDE und wird aktiv weiter entwickelt. Mit dem Plugin zusammen bildet sie eine solide Grundlage f"{u}r dieses Projekt.
-Damit die Android Applikation direkt auf dem Computer getestet werden kann, stellt Google einen Emulator zur Verf"{u}gung. Der Emulator ist allerdings auch als solcher zu betrachten, da die Bedienung nicht vergleichbar mit einem richtigen Smartphone ist.
-
-\paragraph{Android Version}
-Eine Anwendung wird f"{u}r eine spezifische Android Version entwickelt und getestet. Somit kann garantiert werden, dass das Verhalten der Anwendung immer gleich ist. In dieser Arbeit ist dies die Version 4.0 mit dem Versionsnamen Ice Cream Sandwich\footnote{Android Ice Cream Sandwich, \url{http://www.android.com/about/ice-cream-sandwich/}, aufgerufen am 29.04.2013}.
-Die Entwicklung auf einer Version schliesst jedoch nicht aus, dass die Anwendung in neueren Versionen nicht mehr lauff"{a}hig ist.
 
 \subsection{Paper Protoypes}
 Nach dem die Anforderungen definiert waren, haben wir Paper Prototypes erstellt. Diese wurden mit dem Industriepartner besprochen. So konnten mögliche Missverständnise eliminiert werden. Hier eine Übersicht über alle erstellten Mockups. Eine genauere Beschreibung befindet sich im Anhang.

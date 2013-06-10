@@ -1,4 +1,5 @@
-\section{Anforderungen Android und Device Management Portal}
+\section{Anforderungen Android und Device Management Server}
+\label{sec:anforderungenandroiddevmgmt}
 
 \subsection{Funktionsumfang bestehendes Aufnahmesystem}
 Das bestehende TourLive System basiert auf einer Symbian App, die über Nokia Modelle (z.B. Nokia N82 und Nokia X6) betrieben werden. Die Daten (Positionsdaten, Bilder, Videostream) werden über das Mobilfunknetz via ein proprietäres Protokoll zum bestehenden TourLive-Server übertragen. Über eine Gerätestatusseite\footnote{bisherige Gerätestatusseite, \url{http://www.tourlive.ch/tds12/status.php}, aufgerufen am 27.02.2013}   können einfache Geräteverwaltungsaufgaben durchgeführt werden. Folgende Übersicht bietet einen groben Überblick über das aktuelle System: \url{
@@ -250,7 +251,14 @@ Der Betriebsmodus „unmanaged“ funktioniert genau umgekehrt. Die Einstellunge
 \paragraph{Notfallwiederherstellung}
 Über einen weiteren Management-Kanal (z.Bsp.: SMS) soll eine Notfallwiederherstellung des Systems ermöglicht werden. Beispielsweise wenn das Gerät über das Mobilfunkdatennetz nicht mehr erreichbar ist. Dieser Notfallwiederherstellungsservice wird ein eine Zweit-App ausgegliedert, damit beim Crash der Haupt-App zumindest der Notfallwiederherstellungsservice noch funktioniert.
 \paragraph{Betriebslog}
-TODO
+Geloggt wird unter anderem folgendes:
+\begin{itemize}
+\item ganze Kommunikation mit dem Server
+\item Aufnahme Start/Stop
+\item Exceptions
+\end{itemize}
+
+
 \subsubsection{Funktionalität TourLive App}
 \paragraph{Allgemein}
 Die nachfolgend beschriebenen Daten die gesammelt werden (Bilder, Positionen, etc.) werden einem Rennen bzw. einer Etappe zugeordnet. Eine Etappe (z.Bsp.: Etappe 1 des Rennens Tour de Suisse) ist einem Rennen (z.Bsp. Tour de Suisse) zugeordnet. Es gibt Rennen, welche nur eine Etappe haben. Dies als Einführung ins Gesamtsystem. Am Aufnahmesystem beziehungsweise in der Android-App ist es nicht möglich Rennen oder Etappen zu definieren. Die gesammelten Daten werden versehen mit einem Zeitstempel und einer eindeutigen Geräteidentifikationsnummer an den TourLiveServer gesendet. Das matching zum entsprechenden Rennen beziehungsweise der Etappe erfolgt erst auf dem Server. \\
