@@ -64,7 +64,7 @@ Die primäre Funktion des Aufnahmesystems besteht in der Aufnahme von Geopositio
 \item Aktuelle Zeit (GPS Timestamp) [unix\_time]
 \item Geschwindigkeit (wird gelesen) [km/h]
 \item Richtung (in Azimut, wird berechnet) [°]
-\item Steigung (\"{u}ber die letzten 100m, wird berechnet) [%]
+\item Steigung (\"{u}ber die letzten 100m, wird berechnet) [\%]
 \item Anzahl Satelliten mit denen das Aufnahmeger\"{a}t verbunden ist
 \end{itemize}
 
@@ -245,7 +245,7 @@ public class Device {
 
 Die Klasse \textit{DatabaseHelper} führt den Zugriff auf die Datenbank aus. Beim ersten Start der App werden alle Tabellen generiert. Werden später neue Attribute hinzugefügt, so muss die Datenbankversion erhöht und in der \textit{onUpgrade} Methode ein UpdateScript zur Verfügung gestellt werden.\\
 
-Der Datenbankmanager, eine Singleton Klasse, ermöglicht den Zugriff über den \textit{DatabaseHelper} auf die Datenbank. Hier werden alle benötigten CRUD Methoden aufgerufen.
+Der DatenbankManager, eine Singleton Klasse, ermöglicht den Zugriff über den \textit{DatabaseHelper} auf die Datenbank. Hier werden alle benötigten CRUD Methoden aufgerufen.
 
 \subsection{Abläufe}
 
