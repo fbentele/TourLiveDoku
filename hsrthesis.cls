@@ -33,6 +33,7 @@
 \usepackage{booktabs, multicol, multirow}
 \usepackage{makecell}
 \usepackage{inconsolata}
+\usepackage{enumitem}
 
 \colorlet{punct}{red!60!black}
 \definecolor{background}{HTML}{EEEEEE}
