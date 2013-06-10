@@ -15,7 +15,7 @@ Eine kurze Übersicht über die bereits bestehenden Funktionen und den neu erfas
     \textbf{Requirements} & \textbf{Altes System} & \textbf{Neues System} \\ \hline
 \hline
     Positionsdaten übertragen & Geschwindigkeit, H\"{o}he, Richtung/Beschleunigung, Steigung, Longitude, Latitude & Geschwindigkeit, H\"{o}he, Richtung, Steigung, Longitude, Latitude \\ \hline
-    Etappendaten & Zeit, Höhe, Distanz, Durchschnittliche Geschwindigkeit, UTC Zeit,Datum & Zeit, Höhe, Distanz, Durchschnittliche Geschwindigkeit \\
+    Etappendaten & Zeit, Höhe, Distanz, Durchschnittliche Geschwindigkeit, UTC Zeit, Datum & Zeit, Höhe, Distanz, Durchschnittliche Geschwindigkeit \\
     \hline
      Tour Total & Zeit Total, Zeit Tour, Distanz Total, Distanz Tour, Höhe Total, H\"{o}he Tour & - \\
     \hline
@@ -24,8 +24,6 @@ Eine kurze Übersicht über die bereits bestehenden Funktionen und den neu erfas
     Bilder \"{u}bertragen & Bilder wurden \"{u}bertragen & Bilder werden \"{u}bertragen\\
     \hline
     Videostream \"{u}bertragen & Einzelne Bilder wurden \"{u}bertragen und serverseitig zu einem Stream zusammengef\"{u}gt & Videosequenzen werden \"{u}bertragen und serverseitig zu einem Stream zusammengesetzt\\
-    \hline
-    Anpassung der Bild- / Videoaufl"osung & - & Adaptive Angleichung der Auflo"osung an die verfu"ugbare Bandbreite\\
     \hline
     Lokales Caching & nur Bilder wurden gecacht & S\"{a}mtliche aufgenommene Daten werden lokal gespeichert\\
     \hline
@@ -45,7 +43,7 @@ Eine kurze Übersicht über die bereits bestehenden Funktionen und den neu erfas
     \hline 
    	Power Management & - & Bei niedrigem Akkustand wird ein Energiesparmodus aktiviert\\
     \hline 
-    Alarming Funktion & - & Treten Probleme aus, so wird darauf hingewiesen (z.B. keine GPS Daten w\"{a}hrend 2 Minuten)\\
+    Alarming Funktion & - & Treten Probleme auf, so wird darauf hingewiesen (z.B. keine GPS Daten w\"{a}hrend 2 Minuten)\\
     \hline 
     Mehrsprachig- keit & - & Deutsch und Englisch, einfach erweiterbar\\
     \hline 
@@ -126,13 +124,14 @@ Nach dem die Anforderungen definiert waren, haben wir Paper Prototypes erstellt.
 
 \section{Software Design}
 \subsection{Architektur und Übersicht}
-Die Android Applikation sammelt Daten für die beiden Server. In der Abbildung ??? %TODO 
+Die Android Applikation sammelt Daten für die beiden Server. In der Abbildung \ref{fig:grobstrukturandroid}
  wird veranschaulicht, welche Daten an welchen Server verschickt werden.
 
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=120mm]{images/android/uebersicht.png}
 	\caption{Grobstruktur der Android App}
+	\label{fig:grobstrukturandroid} 
 \end{figure}
 
 
@@ -163,3 +162,33 @@ In der nächsten Schicht ist die ganz Businesslogik enthalten. Hier werden bei e
 In der letzten Schicht enthält die Domäne des Aufnahmesystems.
 
 \section{Realisierung}
+
+\subsection{GUI}
+Die \textit{MainActivity} ist die Hauptansicht der Applikation. Sie ist in drei Teile unterteilt, Header, Footer und Hauptbereich. Diese Klasse wird direkt nach der Erstellung der TourLiveApplication erstellt.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=150mm]{images/android/status.png}
+	\caption{Aufnahmesystem MainActivity}
+\end{figure}
+
+
+\subsubsection{Header}
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=150mm]{images/android/header.png}
+	\caption{Aufnahmesystem Header}
+\end{figure}
+
+
+
+\subsubsection{Footer}
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=150mm]{images/android/footer.png}
+	\caption{Aufnahmesystem Footer}
+\end{figure}
+
+\subsubsection{Hauptbereich}
+
+\subsection{Berechtigungen}
