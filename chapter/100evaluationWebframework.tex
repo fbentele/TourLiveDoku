@@ -58,6 +58,7 @@ Die Grundlage für Dependency Injection basiert auf dem Prinzip, dass möglichst
 \end{figure}
 Die Funktionsweise kann am einfachsten anhand des Beispiels von Martin Fowler in Abbildung ~\ref{fig:dpendencyinjection} aufgezeigt werden. Die Klasse MovieLister zeigt und filtert Filme, dabei spielt die Quelle woher die Filme kommen keine Rolle. MovieLister benötigt nur eine Liste von Filmen (Abhängigkeit). Die MovieFinderImpl Klasse bietet genau diese Möglichkeit und zeigt dies durch die Implementation des MovieFinder Interfaces an. Der Assembler fügt die Abhängigkeit in den MovieLister ein (Injection).
 \\
+
 In dieser Weise können die Filme in einer Excel Datei, in einer Datenbank oder in einer Textdatei gespeichert werden, die Klasse MovieLister kann in jedem Fall verwendet werden.
 
 \subsection{Spring Framework}
@@ -72,4 +73,8 @@ Für die Entwicklung von Webapplikationen bietet Spring das integrierte Modul \t
 
 Die Anfragen werden durch den Front Controller empfangen und an den passenden Controller der Applikation weitergeleitet. Dieser fügt die angeforderten Daten (Model) hinzu. Das Model wird dann in die View Templates eingefügt und via den Front Controller an den Client zurückgeschickt.
 \\
+
 Dieses Abstrakte vorgehen kann durch ein konkretes Beispiel sehr gut dargestellt werden. Eine Anfrage wird durch den Aufruf einer URL im Browser ausgelöst (z.B. http://www.tourlive.ch/rennen). Der Front Controller sucht den Applikations Controller für die Ressource \textit{/rennen}. Bereitet das Model, in diesem Fall alle sichtbaren Rennen, vor und sendet dieses zurück. Der Front Controller sucht den View Resolver übergibt das Model (alle sichtbaren Rennen). Dort wird das Model zur Darstellung gebracht und schlussendlich via den Front Controller an den Browser zurückgesendet. Für jede Ressource gibt es also einen Controller, dabei können aber auch generische Elemente wie z.B. der Rennname in der Ressource verwendet werden (z.B. http://www.tourlive.ch/rennen/tourdesuisse).
+\\
+
+Für die Einarbeitung in das Spring Framework wurden verschiedene Quellen verwendet, alle Angaben dazu befinden sich im Literaturverzeichnis, der obige Abschnitt ist eine Zusammenfassung von Inhalte aus den SpingSource Tutorials \cite{springsourcemvc2011} und Mkyong \cite{springmvcexamples2011} .
