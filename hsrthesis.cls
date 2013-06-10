@@ -34,6 +34,9 @@
 \usepackage{makecell}
 \usepackage{inconsolata}
 \usepackage{enumitem}
+\usepackage{caption}
+
+\captionsetup[table]{skip=8pt}
 
 \colorlet{punct}{red!60!black}
 \definecolor{background}{HTML}{EEEEEE}
