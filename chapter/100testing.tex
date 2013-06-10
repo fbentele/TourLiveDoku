@@ -1,0 +1,16 @@
+\section{Testing}
+Sämtliche Komponenten wurden kleineren Feldtests unterzogen. Am 6. Juni 2013 konnte das System an den Radsporttagen in Gippingen im realen Rennumfeld getestet werden. Dazu wurde folgender Testbericht erstellt.
+
+\subsection{Testbericht Gippingen}
+\label{sec:testberichtgippingen}
+%TODO bitte reviewen und ergänzen / korrigieren
+Für den Testlauf an den Radsporttagen in Gippingen wurden drei verschiedene Androidgeräte mit der aktuellsten Version der TourLive App ausgerüstet. Auf dem TourLive Server wurde ein Rennen und eine Etappe erstellt und die Fahrerliste sowie die Marschtabelle importiert. Die drei Aufnahmegeräte wurden dann im RadioTour Wagen bzw. bei zwei weiteren Kommissären im Auto installiert. Zwei zusätzliche Androidgeräte wurden parallel betrieben, jedoch nicht in einem der offiziellen Rennbegleitfahrzeug sondern um weitere Testparameter festzustellen.
+\\
+
+Nach wenigen Minuten konnte kein Kontakt mehr zum ersten Aufnahmegerät hergestellt werden. Das Gerät konnte durch die Notfallwiederherstellung per SMS neu gestartet werden, jedoch war nach kurzem Kontakt die Verbindung zum Gerät wieder abgebrochen. Die erste Analyse ergab, dass das Gerät stark überhitzt war und sich deshalb selbst ausschaltete. Ein weiteres Gerät versuchte sich mit dem naheliegenden Deutschen Mobilfunknetz zu verbinden, was aber daran scheiterte, das dass Datenroaming deaktiviert war.
+\\
+
+Das dritte Gerät sowie die zusätzlichen Testgeräten hielten den Test durch, obwohl alle Geräte extrem warm geworden sind. Die eingelieferten Daten wurden vom TourLive Server empfangen und verarbeitet. Die Kommunikation zwischen Aufnahmegeräten und Server verlief problemlos.
+
+\subsection{Unit Test}
+Für den TourLive Server existieren grundlegende JUnit Tests. Diese dienen in erster Linie dazu, die Serverkomponente zu testen und die Entwicklung von weiteren Tests beispielhaft zu dokumentieren.
