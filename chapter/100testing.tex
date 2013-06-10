@@ -13,6 +13,7 @@ Das Testing des Gesamtsystems und der einzelnen Komponenten wurde mit verschiede
 3 & 02.06.2013 & Basel-Zürich \\ [1ex] \hline & &  \\ [-1.5ex]
 4 & 06.06.2013 & Gippingen \\ [1ex] \hline & &  \\ [-1.5ex]
 5 & 09.06.2013 & Tour de Suisse \\ [1ex]
+
 \caption{Übersicht aller durchgeführten Systemtests}
 \end{longtable} 
 
@@ -24,32 +25,45 @@ Ein erster Praxistest um das Zusammenspiel aller drei Komponenten zu testen. Auf
 \end{itemize}
 
 \paragraph*{Resultate} \mbox{} \\
-Folgende Erkenntnisse konnten aus dem Systemtest gewonnen werden:
+Folgende Erkenntnisse wurden aus dem Systemtest gewonnen:
 \begin{itemize}[noitemsep,topsep=0pt]
-	\item Fehlberechnung bei der Distanz
-	\item{Fehlberechnung bei der Renndauer}
-	\item{Reproduzierbare Abstürze der App (NullPointerExceptions,...)}
-	\item{Funktionierendes Zusammenspiel der Komponenten}
-	\item{Fehlerhafte Übertragung einzelner Attribute}
+	\item App: Fehlberechnung bei der Distanz
+	\item App: Fehlberechnung bei der Renndauer
+	\item App: Reproduzierbare Abstürze (NullPointerExceptions,...)
+	\item App: NullPointerException wenn Gerät im Landscape-Modus
+	\item TourLive Server: DataIntegrityDataViolation Exception
+	\item TourLive Server: Inkonsistenzen I18N
+	\item TourLive Server: durchschnittliche Geschwindigkeit
+	\item Funktionierendes Zusammenspiel der Komponenten
+	\item Fehlerhafte Übertragung einzelner Werte
 \end{itemize}
 
-\begin{tabular}[l]{p{4cm}|p{8cm}}
-
-\textbf{Verwendete Geräte} & lala
-	\begin{itemize} \itemsep0pt \parskip0pt \parsep0pt \parsep0pt \topsep0pt
-		\item{Google Galaxy Nexus}
-		\item{Samsung Galaxy S3}
-	\end{itemize} \\ [1ex] \hline &  \\ [-1.5ex]
-\textbf{Ziel des Systemtests} & Ein erster Praxistest um das Zusammenspiel aller drei Komponenten zu testen. \\ [1ex] \hline &  \\ [-1.5ex]
-\textbf{Testablauf} & Eine Rundfahrt rund um Rapperswil mit einem Mobility-Auto. \\ [1ex] \hline &  \\ [-1.5ex]
-\textbf{Erkenntnisse} & - Fehlberechnung bei der Distanz \linebreak - Fehlberechnung bei der Renndauer \linebreak - reproduzierbare Abstürze der App \linebreak - Funktionierendes Zusammenspiel der Komponenten \linebreak - Fehlerhafte Übertragung einzelner Attribute  \\ [1ex] 
-\end{tabular} 
-
 \subsubsection{\#2 - Systemtest Langzeittest über Nacht}
+Aufgrund wiederkehrender Abstürze der TourLive App bei Laufender Aufnahme wurde über Nacht ein Langzeitest durchgeführt. Beide Geräte wurden einer 8 stündigen Etappe zugewiesen und sollten über Nacht Positionsdaten und Bilder übertragen. 
+\begin{itemize} [noitemsep,topsep=0pt]
+	\item{Google Galaxy Nexus}
+	\item{Samsung Galaxy S3}
+\end{itemize}
+
+\paragraph*{Resultate} \mbox{} \\
+Folgende Erkenntnisse wurden aus dem Systemtest gewonnen:
+\begin{itemize}[noitemsep,topsep=0pt]
+	\item Google Galaxy Nexus: hat den Test erfolgreich bestanden. Im Log konnten keine Verdächtigen Einträge festgestellt werden.
+	\item Samsung Galaxy S3: App ist nach rund 2 Stunden aufgrund eines SIG-9 FATAL ERROR's abgestürzt. Grund für solche Abstürze sind Schreib-/Lesekonflikte im Speicherbereich und treten auf wenn zwei Threads gleichzeitig eine gemeinsame Variabel lesen / schreiben. Aufgrund dieser Erkenntnis wurden die diversen AsyncTasks, die parallel ausgeführt werden, optimiert.1
+\end{itemize}
+
 
 
 \subsubsection{\#3 - Systemtest Basel - Zürich}
+Während einer längeren Autofahrt wurde das System als Ganzes erneut einem grundlegenden Test unterzogen. Die Aufnahmegeräte wurden so konfiguriert, dass von beiden Geräten Bilder übertragen wurde.
 
+\begin{itemize} [noitemsep,topsep=0pt]
+	\item Google Galaxy Nexus [Orange SIM-Karte]
+	\item Samsung Galaxy S3 [Swisscom SIM-Karte]
+\end{itemize}
+
+\paragraph*{Resultate} \mbox{} \\
+Beide Geräte sendeten Bilder und Positionsdaten an den TourLive Server. Beim Google Galaxy Nexus mit der Orange SIM-Karte wurden aufgrund der schlechteren Netzabdeckung weniger Übertragungen registriert. Die TourLive Applikation auf dem Samsung Galaxy S3 musste 2x aufgrund eines Crashes neugestartet werden.
 
 \subsubsection{\#4 - Systemtest Radsporttage Gippingen}
 \label{sec:testberichtgippingen}
