@@ -1,13 +1,13 @@
 \chapter{Android Aufnahmesystem}
 
-In diesem Kapitel wird genauer auf das Android Aufnahmesystem eingegangen.
+Folgendes Kapitel behandelt das auf Google Android basierende Aufnahmesystem. Das Aufnahmesystem besteht aus zwei separaten Android Applikationen mit der Bezeichnung \textit{TourLive.apk} sowie \textit{TourLiveRecoveryService.apk}. Der Fokus folgender Unterkapitel liegt auf den Spezifikationen und der technischen Umsetzung des Aufnahmesystems und ist für Entwickler gedacht, die das Aufnahmesystem gerne erweitern möchten.
 
 \section{Software Analyse}
 
 \subsection{Anforderungen}
 
-Um die Anforderungen zu evaluieren wurde das bestehende Aufnahmesystem auf Basis einer Nokia Symbian App analysiert. Alle vorhandenen Funktionen wurden erfasst und mit dem Industriepartner um weitere ergänzt. 
-Eine kurze Übersicht über die bereits bestehenden Funktionen und den neu erfassten Anforderungen folgt in tabellarischer Form.
+Um die Anforderungen zu evaluieren wurde das bestehende Aufnahmesystem auf Basis von Nokia Symbian analysiert. Alle vorhandenen Funktionen wurden erfasst und gemeinsam mit dem Industriepartner um weitere ergänzt. 
+Eine kurze Übersicht über die bereits bestehenden Funktionen und den neu erfassten Anforderungen liegt in tabellarischer Form vor.
 
 {\renewcommand{\arraystretch}{2}%
     \begin{longtable}{  p{3.5cm} | p{4.3cm} | p{4.3cm} }
@@ -87,13 +87,13 @@ Die gesammelten Daten (Positionen, Bilder,..) werden parallel auf dem lokalen Ge
 \subsection{Technologien}
 
 \subsubsection{Android}
-Die native Programmiersprache f\"{u}r das Android Betriebssystem ist Java. Die Programmierung in Java bringt den Vorteil, dass auf die gesamte Application Programming Interface (API) von Android zugegriffen werden kann. Weiter sind die Ger\"{a}te genau dafu\"{u}r ausgelegt und eine optimale Performance kann erreicht werden. S\"{a}mtliche Komponenten dieser Arbeit sind in Java geschrieben.
+Java ist die native Programmiersprache des Android Betriebssystems. Die Programmierung in Java bringt den Vorteil, dass auf die gesamte Application Programming Interface (API) von Android zugegriffen werden kann. Da sämtliche Komponenten des TourLive Projektes in Java geschrieben sind kann teilweise auf Server- wie auch Clientseite auf dieselben Bibliotheken zurückgegriffen werden was mögliche Inkompatibilitäten vermindert. 
 
 \subsubsection{Externe Libraries}
-Um den geforderten Funktionsumfang umzusetzen nutzt die Applikation folgende zwei externe Libraries.
+Um den geforderten Funktionsumfang umzusetzen, wird einfachheitshalber auf folgende zwei externe Libraries zurückgegriffen.
 \paragraph{Spring for Android\footnote{Spring for Android, \url{http://www.springsource.org/spring-android}, aufgerufen am 29.04.2013} }
-Ein Rest Client für Android von den Entwicklern des populären Java Spring Frameworks. Der Rest Client bietet einfache Deserialisierung eines JSON-Strings in ein Java Objekt. Diese Library wird benötigt um die Kommunikation zwischen dem Aufnahmesystem und den beiden Serversystemen zu ermöglichen.
-\paragraph{ORMLite\footnote{ORMLite, \url{ormlite.com}, aufgerufen am 02.05.2013}} ORMLite ist eine OpenSource Java Library, welche das Objectrelational mapping
+Ein Rest Client für Android von den Entwicklern des Java Spring Frameworks. Der Rest Client bietet die einfache Möglichker von Serialisierung/Deserialisierung von Java Objekten in JSON-Strings. 
+\paragraph{ORMLite\footnote{ORMLite, \url{ormlite.com}, aufgerufen am 02.05.2013}} ORMLite ist eine OpenSource Java Library, welche das Object-Relational Mapping
 (ORM) übernimmt. ORMLite bietet eine speziell auf Android angepasste Distribution.\\
 Um eine Klasse mit ihren Feldern zur Persistierung zu markieren, werden Java Annotationen verwendet. Aus diesen Annotationen erstellt ORMLite die Datenbank. Darüber hinaus werden mit ORMLite alle Zugriffe auf die SQLite Datenbank ausgeführt. In dieser Arbeit wird die ORMLite Version 4.45 verwendet. Diese Library wird verwendet um die gesammelten Informationen lokal in einer Datenbank speichern zu können und um somit die Datenkonsistenz bei Verbindungsunterbrüchen sicherstellen zu können.
 
@@ -151,7 +151,7 @@ In der letzten Schicht enthält die Domäne des Aufnahmesystems.
 \section{Realisierung}
 
 \subsection{GUI}
-Die \textit{MainActivity} ist die Hauptansicht der Applikation. Sie ist in drei Teile unterteilt, Header, Footer und Hauptbereich. Diese Klasse wird direkt nach der Erstellung der TourLiveApplication erstellt. Header und Footer sind in allen Tabs sichtbar.
+Die \textit{MainActivity} ist die Hauptansicht der Applikation. Sie ist in drei Teile unterteilt, Header, Footer und Hauptbereich. Diese Klasse wird direkt nach der Erstellung der TourLiveApplication erstellt.
 
 \begin{figure}[H]
 	\centering
@@ -166,19 +166,7 @@ Die \textit{MainActivity} ist die Hauptansicht der Applikation. Sie ist in drei 
 	\includegraphics[width=150mm]{images/android/header.png}
 	\caption{Aufnahmesystem Header}
 \end{figure}
-Der Header beinhaltet in der Action Bar die aktuelle Versionsnummer sowie den Settings Button. Um auf einen Blick zu sehen, dass die App am aufnehmen ist, steht oben Rechts REC. \\
-In der Top Bar werden die verschiedenen Tabs angezeigt. Mit einem Swipe nach rechts und links kann zwischen den Tabs hin und her gewechselt werden.
 
-\paragraph{Settings Button}
-Bei einem Klick in der Action Bar auf den Settings Button, erscheint das folgende Menu.
-
-\begin{figure}[H]
-	\centering
-	\includegraphics[width=150mm]{images/android/settingsclicked.png}
-	\caption{Aufnahmesystem Settings Button Clicked}
-\end{figure}
-
-Läuft die Aufnahme, so wird das Einstellungs Menu disabled. Die restlichen Aktionen sind trotzdem Verfügbar.
 
 
 \subsubsection{Footer}
@@ -187,85 +175,7 @@ Läuft die Aufnahme, so wird das Einstellungs Menu disabled. Die restlichen Akti
 	\includegraphics[width=150mm]{images/android/footer.png}
 	\caption{Aufnahmesystem Footer}
 \end{figure}
-Der Footer zeigt auf einen Blick den Status der App. Die Icons werden je nach Wert rot, gelb oder grün angezeigt. Welche Farben wann angezeigt werden, ist in den Reqirements im Anhang im Kapitel \ref{par:alarming} beschrieben.\\
-Mit dem Recording Button links kann die Aufnahme gestartet und gestoppt werden. Dieser ist nur sichtbar, wenn der Aufnahmemodus auf Manuell gesetzt ist.
-
 
 \subsubsection{Hauptbereich}
-Der Inhalt des Hauptbereichs hängt vom selektierten Tab ab. Bei jedem Tab wird ein Fragment hinzugefügt. Dieses Fragment besitzt jeweils eine ListView, in der alle Felder angezeigt werden. 
-
 
 \subsection{Berechtigungen}
-Beim installieren der App wird angezeigt, welche Berechtigungen benötigt werden. Hier wird aufgelistet, für was welche Berechtigungen gebraucht werden.
-\begin{figure}[H]
-	\centering
-	\includegraphics[width=100mm]{images/android/berechtigungen.png}
-	\caption{Aufnahmesystem Berechtigungen}
-\end{figure}
-\subsubsection{Datenschutz}
-\textbf{Telefonstatus und Identität abrufen:} Mit dieser Berechtigung kann die Telefonnummer ausgelesen werden\\
-\textbf{Bilder und Videos aufnehmen:} Um Bilder und Videos aufzunehmen wird diese Berechtigung gebraucht\\
-\textbf{Audio aufnehmen:} Während dem Video aufnehmen wird auch Audio aufgenommen\\
-\textbf{Genauer Standort:} Hiermit kann die aktuelle Position ausgelesen werde\\
-\textbf{USB Speicherinhalte ändern und löschen:} Die Bilder und Videos sowie die exportierte Datenbank werden auf der externen Speicherkarte gespeichert \\
-
-\subsubsection{Gerätezugriff}
-\textbf{Netzwerkverbindungen anzeigen:} Dank dieser Berechtigung kann geprüft werden, ob die Verbindung gut ists \\
-\textbf{Beim Start ausführen:} Beim Start des Telefons wird das Aufnahmesystem automatisch gestartet sofern diese Einstellung aktiviert ist \\
-\textbf{Zugriff auf geschützten Speicher testen:} Seiteneffekt beim Zugriff auf den USB Speicher
-
-\subsection{Services}
-Um wiederkehrende Aktionen auszuführen wird ein Timer mit einem TimerTask benötigt. Der TimerTask implementiert das Interface Runnable. Bei Ablauf des Timers wird die Methode \textit{run} ausgeführt. 
-
-\subsection{Kommunikation zum Server}
-Die ganze Kommunikation zu den Servern wird in den abgeleiteten Klassen des AsyncTasks ausgeführt. Der AsyncTask wurde verwendet da nach der Abfrage auf dem Server das GUI aktualisiert werden muss und dies nur aus dem GUI Thread erlaubt ist. \\
-Der AsyncTask wird mittel \textit{execute} ausgeführt, dies führt die Methode \textit{doInBackground} aus. Diese wiederum ruft am Schluss \textit{onPostExecute} auf. Die \textit{onPostExecute} Methode läuft im Gegensatz zur Methode \textit{doInBackground} im GUI Thread, somit kann hier das GUI aktualisiert werden.
-\\Für jede Kommunikation mit dem Server wurde eine eigene AsyncTask Klasse erstellt.
-
-\subsection{Datenbank}
-Für das lokale Caching werden Daten mittels ORMLite in die Datenbank geschrieben. Eine Klasse wird mittels Annotation als Datenbankklasse erkannt.
-
-\begin{lstlisting}[language=Java, caption=ORMLite Annotations]
-@DatabaseTable
-public class Device {
-	@JsonIgnore
-	@DatabaseField(generatedId = true)
-	private int id;
-	@DatabaseField
-	private String deviceId;
-	@DatabaseField
-	private String username;
-	@DatabaseField
-	private String phoneNr;
-}
-\end{lstlisting}
-
-\textbf{\textit{@DatabaseTable}:} mit dieser Annotation wird angegeben, dass diese Klasse eine gemappte Datenbank Klasse ist.\\
-\textbf{\textit{@DatabaseField}:} das folgende Attribut ist eine Spalte in der Datenbank. Mittels generatedID = true wird für das Attribut eine eindeutige ID generiert.\\
-
-Die Klasse \textit{DatabaseHelper} führt den Zugriff auf die Datenbank aus. Beim ersten Start der App werden alle Tabellen generiert. Werden später neue Attribute hinzugefügt, so muss die Datenbankversion erhöht und in der \textit{onUpgrade} Methode ein UpdateScript zur Verfügung gestellt werden.\\
-
-Der Datenbankmanager, eine Singleton Klasse, ermöglicht den Zugriff über den \textit{DatabaseHelper} auf die Datenbank. Hier werden alle benötigten CRUD Methoden aufgerufen.
-
-\subsection{Abläufe}
-
-\subsubsection{Permanente Tasks}
-In der folgenden Grafik sieht man alle Tasks, die ausgeführt werden, während die App läuft. 
-\begin{figure}[H]
-	\centering
-	\includegraphics[width=150mm]{images/android/permanent_taskes.jpg}
-	\caption{Aufnahmesystem Permanente Tasks}
-\end{figure}
-Alle paar Minuten wird ein StatusData an den Device Management Server versendet. Das Intervall kann nur im Code verändert werden. Als Antwort wird der aktuellste DeviceManagementContainer zurückgegeben und damit die lokalen Einstellungen gefüllt. Wurde in diesem DeviceManagementContainer das Flag \textit{messageAvailable} gesetzt, so wird die neue Nachricht vom Server geholt.\\
-Ebenso wird in diesem Intervall geprüft, ob die StageInfo vorhanden ist, oder veraltet. Ist diese der Fall, so wird die StageInfo neu vom Server bezogen.
-
-\subsubsection{Recording}
-Die folgende Abbildung zeigt den Ablauf, beim Starten der Aufnahme.
-\begin{figure}[H]
-	\centering
-	\includegraphics[width=150mm]{images/android/recording.jpg}
-	\caption{Aufnahmesystem Aufnahme}
-\end{figure}
-
-Beim Starten der Aufnahme werden alle Services gestartet. Beim ValueContainerService wird ein Listener für Positionsänderungen hinzugefügt, welcher in einem in den Einstellungen definierten Intervall die aktuelle Position mitteilt. Wird auf dem Listener \textit{onLocationChanged} aufgerufen, so wird ein neuer ValueContainer kreiiert und an den Server gesendet.\\
-Zusätzlich zum ValueContainerService wird der ImageService oder VideoService gestartet. Welcher von beiden benutzt wird hängt von dem definierten MediaRecording Modus ab. Bei beiden wird ein Timer gestartet, welcher periodisch Fotos oder Videos aufnimmt und diese an den TourLive Server sendet.
