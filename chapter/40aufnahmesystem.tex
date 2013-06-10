@@ -263,15 +263,22 @@ Der Datenbankmanager, eine Singleton Klasse, ermöglicht den Zugriff über den \
 \subsection{Abläufe}
 
 \subsubsection{Permanente Tasks}
+In der folgenden Grafik sieht man alle Tasks, die ausgeführt werden, während die App läuft. 
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=150mm]{images/android/permanent_taskes.jpg}
 	\caption{Aufnahmesystem Permanente Tasks}
 \end{figure}
+Alle paar Minuten wird ein StatusData an den Device Management Server versendet. Das Intervall kann nur im Code verändert werden. Als Antwort wird der aktuellste DeviceManagementContainer zurückgegeben und damit die lokalen Einstellungen gefüllt. Wurde in diesem DeviceManagementContainer das Flag \textit{messageAvailable} gesetzt, so wird die neue Nachricht vom Server geholt.\\
+Ebenso wird in diesem Intervall geprüft, ob die StageInfo vorhanden ist, oder veraltet. Ist diese der Fall, so wird die StageInfo neu vom Server bezogen.
 
 \subsubsection{Recording}
+Die folgende Abbildung zeigt den Ablauf, beim Starten der Aufnahme.
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=150mm]{images/android/recording.jpg}
 	\caption{Aufnahmesystem Aufnahme}
 \end{figure}
+
+Beim Starten der Aufnahme werden alle Services gestartet. Beim ValueContainerService wird ein Listener für Positionsänderungen hinzugefügt, welcher in einem in den Einstellungen definierten Intervall die aktuelle Position mitteilt. Wird auf dem Listener \textit{onLocationChanged} aufgerufen, so wird ein neuer ValueContainer kreiiert und an den Server gesendet.\\
+Zusätzlich zum ValueContainerService wird der ImageService oder VideoService gestartet. Welcher von beiden benutzt wird hängt von dem definierten MediaRecording Modus ab. Bei beiden wird ein Timer gestartet, welcher periodisch Fotos oder Videos aufnimmt und diese an den TourLive Server sendet.
