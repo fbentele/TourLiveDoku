@@ -1,13 +1,14 @@
 \chapter{Android Aufnahmesystem}
 
-In diesem Kapitel wird genauer auf das Android Aufnahmesystem eingegangen.
+Folgendes Kapitel behandelt das auf Google Android basierende Aufnahmesystem. Das Aufnahmesystem besteht aus zwei separaten Android Applikationen mit der Bezeichnung \textit{TourLive.apk} sowie \textit{TourLiveRecoveryService.apk}. Der Fokus folgender Unterkapitel liegt auf den Spezifikationen und der technischen Umsetzung des Aufnahmesystems und ist für Entwickler gedacht, die das Aufnahmesystem gerne erweitern möchten.
 
 \section{Software Analyse}
+Dieses Kapitel beschreibt die Anforderungen ans Aufnahmesystem und gibt einen groben Übersicht über die vorhandene Funktionalität.
 
-\subsection{Anforderungen}
+\subsection{Anforderungen an das Aufnahmesystem}
 
-Um die Anforderungen zu evaluieren wurde das bestehende Aufnahmesystem auf Basis einer Nokia Symbian App analysiert. Alle vorhandenen Funktionen wurden erfasst und mit dem Industriepartner um weitere ergänzt. 
-Eine kurze Übersicht über die bereits bestehenden Funktionen und den neu erfassten Anforderungen folgt in tabellarischer Form.
+Um die Anforderungen zu evaluieren wurde das bestehende Aufnahmesystem auf Basis von Nokia Symbian analysiert. Alle vorhandenen Funktionen wurden erfasst und gemeinsam mit dem Industriepartner um weitere ergänzt. 
+Eine kurze Übersicht über die bereits bestehenden Funktionen und den neu erfassten Anforderungen liegt in tabellarischer Form vor.
 
 \begin{longtable}{  p{3.5cm} | p{4.3cm} | p{4.3cm} }
     
@@ -16,7 +17,7 @@ Eine kurze Übersicht über die bereits bestehenden Funktionen und den neu erfas
     Etappendaten & Zeit, Höhe, Distanz, Durchschnittliche Geschwindigkeit, UTC Zeit, Datum & Zeit, Höhe, Distanz, Durchschnittliche Geschwindigkeit \\ [1ex] \hline & &  \\ [-1.5ex]
      Tour Total & Zeit Total, Zeit Tour, Distanz Total, Distanz Tour, Höhe Total, H\"{o}he Tour & - \\ [1ex] \hline & &  \\ [-1.5ex]
     Netzdaten übertragen & Zellen ID, Location Area, Signal, Akku, Netzwerk, Netzwerk ID & Zellen ID, Area, Signal, Netzwerk ID, Technologie, Datenrate, RTT, Packet Loss\\ [1ex] \hline & &  \\ [-1.5ex]
-    Bilder \"{u}bertragen & Bilder wurden \"{u}bertragen & Bilder werden \"{u}bertragen\\ [1ex] \hline & &  \\ [-1.5ex]
+    Bilder \"{u}bertragen & wird unterstützt & wird unterstützt \\ [1ex] \hline & &  \\ [-1.5ex]
     Videostream \"{u}bertragen & Einzelne Bilder wurden \"{u}bertragen und serverseitig zu einem Stream zusammengef\"{u}gt & Videosequenzen werden \"{u}bertragen und serverseitig zu einem Stream zusammengesetzt\\ [1ex] \hline & &  \\ [-1.5ex]
     Lokales Caching & nur Bilder wurden gecacht & S\"{a}mtliche aufgenommene Daten werden lokal gespeichert\\ [1ex] \hline & &  \\ [-1.5ex]
 	Aufnahme- systemstatus \"{u}bertragen & nur der Akkustand wurde an das Device Management Portal \"{u}bertragen & Detaillierte Statusinformation an das Device Management Portal\\ [1ex] \hline & &  \\ [-1.5ex]   
@@ -28,55 +29,34 @@ Eine kurze Übersicht über die bereits bestehenden Funktionen und den neu erfas
     Aufnahmestart Modi & Aufnahme hat automatisch bei App Start gestartet & Manuell, Zeitbasiert, Fernverwaltet oder bei Aktivierung einer externen Stromquelle\\ [1ex] \hline & &  \\ [-1.5ex]
    	Power Management & - & Bei niedrigem Akkustand wird ein Energiesparmodus aktiviert\\ [1ex] \hline & &  \\ [-1.5ex]
     Alarming Funktion & - & Treten Probleme auf, so wird darauf hingewiesen (z.B. keine GPS Daten w\"{a}hrend 2 Minuten)\\ [1ex] \hline & &  \\ [-1.5ex]
-    Mehrsprachig- keit & - & Deutsch und Englisch, einfach erweiterbar\\ [1ex] \hline & &  \\ [-1.5ex]
-    Fehlerkorrektur der GPS Daten & - & Ausreisser bei den GPS Daten werden herausgefiltert\\ [1ex]
+    Mehrsprachig- keit & - & Deutsch und Englisch, einfach erweiterbar\\ [1ex] \hline & &  \\ 
+    [-1.5ex] Fehlerkorrektur der GPS Daten & - & Ausreisser bei den GPS Daten werden herausgefiltert\\ [1ex] \hline & &  \\ 
+    [-1.5ex] Notfallwiederherstel- lung per SMS & wird unterstützt & wird unterstützt\\ [1ex]
     
-\caption{Anforderungen Android Aufnahme System}
+\caption{Anforderungen Android Aufnahmesystem}
 \end{longtable}
 
-Eine detaillierte Beschreibung aller Anforderungen befindet sich im Anhang im Kapitel \ref{sec:anforderungenandroiddevmgmt}. Folgend werden die aus unserer Sicht wichtigsten Anforderungen beschrieben.
+Eine detaillierte Beschreibung aller Anforderungen befindet sich im Anhang im Kapitel \ref{sec:anforderungenandroiddevmgmt}.
 
-\subsubsection{Funktionale Anforderungen}
-\paragraph{Positionsaufnahme}
-Die primäre Funktion des Aufnahmesystems besteht in der Aufnahme von Geopositionsdaten, deren Weiterverarbeitung und der Übermittlung an den TourLive Server. Über das GPS-Modul des Mobilfunkgerätes werden folgende Daten ermittelt:
-\begin{itemize}
-\item Aktuelle Position [GPS Longitude / Latitude]
-\item Aktuelle H\"{o}he (GPS H\"{o}he) [m]
-\item Aktuelle Zeit (GPS Timestamp) [unix\_time]
-\item Geschwindigkeit (wird gelesen) [km/h]
-\item Richtung (in Azimut, wird berechnet) [°]
-\item Steigung (\"{u}ber die letzten 100m, wird berechnet) [\%]
-\item Anzahl Satelliten mit denen das Aufnahmeger\"{a}t verbunden ist
-\end{itemize}
-
-\paragraph{Bildaufnahme}
-Ein wesentlicher Bestandteil des Aufnahmesystems ist die \"{U}bertragung von Bildmaterial in Form von einzelnen Bildern oder einem Videostream bestehend aus Videosequenzen. Folgende Funktionalit\"{a}t muss dabei beachtet werden:
-\begin{itemize}
-\item Anpassung der Bildaufl\"{o}sung adaptiv an die verf\"{u}gbare Datenraten (optional)
-\item Bilder sollen automatisch, in der korrekten Ausrichtung an den Server geschickt werden (Stichwort Ger\"{a}tesensoren)
-\end{itemize}
-
-
-\subsubsection{Nichtfunktionale Anforderungen}
-
-\paragraph{Sicherheit}
-In Bezug auf Vertraulichkeit und Integrit\"{a}t werden keine speziellen Anforderungen gestellt. Die Daten\"{u}bertragung erfolgt unverschl\"{u}sselt. Das Aufnahmeger\"{a}t muss sich am TourLive Server nicht explizit authentisieren. In Bezug auf Verf\"{u}gbarkeit sind die Anforderungen hoch. W\"{a}hrend dem Rennen soll es keine L\"{u}cken ohne Daten von mehr als 5 Minuten geben. K\"{o}nnen w\"{a}hrend einer bestimmten Zeitspanne keine Daten \"{u}bertragen werden, sollen diese gepuffert und zu einem sp\"{a}teren Zeitpunkt \"{u}bertragen werden. 
-
-\paragraph{Ausfallsicherheit}
-Die gesammelten Daten (Positionen, Bilder,..) werden parallel auf dem lokalen Ger\"{a}tespeicher abgelegt. Erreicht dieser 80\% der verf\"{u}gbaren Kapazit\"{a}t werden automatisch alte Eventdaten gel\"{o}scht. Über dieses lokale Caching wird sichergestellt, dass die  gesammelten Daten aufgrund technischer Probleme bei der Daten\"{u}bertragung nicht verloren gehen. 
-
-\subsection{Technologien}
+\subsection{Verwendete Technologien}
 
 \subsubsection{Android}
-Die native Programmiersprache f\"{u}r das Android Betriebssystem ist Java. Die Programmierung in Java bringt den Vorteil, dass auf die gesamte Application Programming Interface (API) von Android zugegriffen werden kann. Weiter sind die Ger\"{a}te genau dafu\"{u}r ausgelegt und eine optimale Performance kann erreicht werden. S\"{a}mtliche Komponenten dieser Arbeit sind in Java geschrieben.
+Eine Voraussetzung für das Aufnahmesystem ist, dass dieses in Form einer Android Applikation entwickelt wird. Die native Programmiersprache für Android Applikationen ist Android Java, ein der Java Standard Edition sehr ähnliches Java Derivat. Die Programmierung in Java bringt den Vorteil, dass die gesamte Android-\gls{api} benutzt werden kann. Da sämtliche Komponenten des TourLive Projektes in Java geschrieben sind kann teilweise auf Server- wie auch Clientseite auf dieselben Klassen-Bibliotheken zurückgegriffen werden, was mögliche Inkompatibilitäten vermindert. 
+
+\paragraph{Android Version}
+Eine Anwendung wird f"{u}r eine konkrete Android Version (Minimum Required SDK) entwickelt. Im Rahmen dieses Projektes wird als minimale SDK Version Android 4.0 (Versionsname: Ice Cream Sandwich\footnote{Android Ice Cream Sandwich, \url{http://www.android.com/about/ice-cream-sandwich/}, aufgerufen am 29.04.2013}, , API-Level: 14) verwendet. Die Applikation sollte gemäss Android Richtlinien kompatibel mit allen darauffolgenden Android Versionen sein.
 
 \subsubsection{Externe Libraries}
-Um den geforderten Funktionsumfang umzusetzen nutzt die Applikation folgende zwei externe Libraries.
+Um den geforderten Funktionsumfang umzusetzen, wird auf folgende zwei externe Bibliotheken zurückgegriffen.
+
 \paragraph{Spring for Android\footnote{Spring for Android, \url{http://www.springsource.org/spring-android}, aufgerufen am 29.04.2013} }
-Ein Rest Client für Android von den Entwicklern des populären Java Spring Frameworks. Der Rest Client bietet einfache Deserialisierung eines JSON-Strings in ein Java Objekt. Diese Library wird benötigt um die Kommunikation zwischen dem Aufnahmesystem und den beiden Serversystemen zu ermöglichen.
-\paragraph{ORMLite\footnote{ORMLite, \url{ormlite.com}, aufgerufen am 02.05.2013}} ORMLite ist eine OpenSource Java Library, welche das Objectrelational mapping
-(ORM) übernimmt. ORMLite bietet eine speziell auf Android angepasste Distribution.\\
-Um eine Klasse mit ihren Feldern zur Persistierung zu markieren, werden Java Annotationen verwendet. Aus diesen Annotationen erstellt ORMLite die Datenbank. Darüber hinaus werden mit ORMLite alle Zugriffe auf die SQLite Datenbank ausgeführt. In dieser Arbeit wird die ORMLite Version 4.45 verwendet. Diese Library wird verwendet um die gesammelten Informationen lokal in einer Datenbank speichern zu können und um somit die Datenkonsistenz bei Verbindungsunterbrüchen sicherstellen zu können.
+Ein Rest Client für Android von den Entwicklern des Java Spring Frameworks. Der Rest Client bietet die einfache Möglichker von Serialisierung / Deserialisierung von Java Objekten in JSON-Strings. 
+
+Verwendete Version: spring-android-1.0.1
+
+\paragraph{ORMLite\footnote{ORMLite, \url{ormlite.com}, aufgerufen am 02.05.2013}} ORMLite ist eine OpenSource Java Library, welche das Object-Relational Mapping (ORM) übernimmt. ORMLite bietet eine speziell auf Android angepasste Distribution an. Um Objekte und ihre Attribute zu persistieren, werden diese in den Modelklassen mit Java Annotationen markiert. ORMLite wird verwendet um die gesammelten Informationen lokal in einer Datenbank zu speichern und damit Datenverlust bei Verbindungsunterbrüchen verhindern zu können.
+
+Verwendete Version: ORMLite-4.45
 
 \subsection{Paper Protoypes}
 Nach dem die Anforderungen definiert waren, haben wir Paper Prototypes erstellt. Diese wurden mit dem Industriepartner besprochen. So konnten mögliche Missverständnise eliminiert werden. Hier eine Übersicht über alle erstellten Mockups. Eine genauere Beschreibung befindet sich im Anhang im Kapitel \ref{sec:externesdesignandroid}.
@@ -88,14 +68,6 @@ Nach dem die Anforderungen definiert waren, haben wir Paper Prototypes erstellt.
 \end{figure}
 
 \subsection{Domain Model}
-Das Domain Model des Aufnahmesystems setzt sich aus den Domain Models des TourLive Servers und des Device Management Servers zusammen. Im Aufnahmesystem kommen keine neuen Domänenobjekte hinzu.
-
-\begin{figure}[H]
-	\centering
-	\includegraphics[width=150mm]{images/android/domainmodel.jpg}
-	\caption{Aufnahmesystem Domain Model}
-\end{figure}
-
 
 
 \section{Software Design}
@@ -265,18 +237,11 @@ Das Aufnahmesystem enthält einige Algorithmen zur Berechnung von Distanzen, Ste
 \subsubsection{Berechnung der Renndauer}
 Die Renndauer ist in der TourLive Applikation im Tab Etappe (eng. Stage) zu finden und beschreibt die Renndauer seit dem offiziellen Etappenstart gemäss \textit{StageInfo}. Die Berechnung der Renndauer erfolgt durch eine einfache Subtraktion.
 
-
-\begin{algorithm}[H]
-	\begin{algorithmic}[1]
-		\vspace{5pt}
-		\If {$StageInfo \neq  null$}
-    		\State \Return $now$ - $StageInfo.StageStartTime$;
-		\Else
-    	 	\State \Return $0$;
-		\EndIf
-	\end{algorithmic}
-	\caption{Berechnung der Renndauer}
-\end{algorithm}
+\begin{center}
+\textit{if StageInfo is available \\
+ return now - StageInfo.StageStartTime \\
+else return 0} 
+\end{center}
 
 
 Die Renndauer wird bei der Erstellung eines \textit{ValueContainers} im assoziierten \textit{StageData} im Attribut \textit{stageTime} gespeichert.
@@ -284,62 +249,37 @@ Die Renndauer wird bei der Erstellung eines \textit{ValueContainers} im assoziie
 \subsubsection{Berechnung der überwundenen Höhenmeter}
 Die überwundenen Höhenmeter repräsentieren das Total der positiv überwundenen Höhenmeter während einer Etappe. Der Wert wird in der TourLive Applikation im Tab Etappe (eng. Stage) angezeigt. Die Berechnung erfolgt nach folgendem Algorithmus.
 
-\begin{algorithm}[H]
-	\begin{algorithmic}[1]
-		\vspace{5pt}
-		\State $Altitude \gets 0$;
-		\State $CurrentAltitude \gets null$;
-		\State $NextAltitude \gets null$;
-		\ForAll{$ValueContainers$ since $StageInfo.StageStartTime$}
-			\If {$NextAltitude \neq null$}
-				\State $CurrentAltitude \gets ValueContainer.Altitude$;
-				\If {$CurrentAltitude \leq NextAltitude$}
-    				\State $Altitude\gets Altitude + (NextAltitude - CurrentAltitude)$
-				\EndIf
-			 \Else
-				\State $NextAltitude \gets ValueContainer.Altitude$;
-			\EndIf
-		\EndFor
-	\end{algorithmic}
-	\caption{Berechnung der überwundenen Höhenmeter}
-\end{algorithm}
-
+\begin{center}
+\textit{var Altitude = 0\\
+getAllValueContainers since StageInfo.StageStartTime\\
+if CurrentValueContainer.Altitude < NextValueContainer.Altitude\\
+Altitude += NextValueContainer.Altitude - CurrentValueContainer.Altitude}
+\end{center}
 
 Die überwundenen Höhenmeter werden bei der Erstellung eines \textit{ValueContainers} im assoziierten \textit{StageData} im Attribut \textit{stageUpAltitude} gespeichert.
-
 \subsubsection{Berechnung der Steigung}
 Die Angabe zur Steigung beziehen sich auf die letzten 100m Horizontaldistanz. Die Steigung wird im Tab Etappe (eng. Stage) angezeigt und bei der Erstellung eines \textit{ValueContainers} im assoziierten \textit{StageData} als Attribut \textit{incline} gespeichert. Die Berechnung erfolgt nach folgendem Algorithmus.
 
+\begin{center}
+var Altitude = 0\\
+var Distance = 0\\
+lastValueContainer = null\\
+List valueContainers getAllValueContainersAsReverseList()\\
+while valueContainers.hastNext\\
+if valueContainer is in currentStage\\
+	Altitude += lastValueContainer.Altitude - valueContainer.Altitude\\
+	Distane += lastValueContainer.Distance - valueContaienr.Distance\\
+	lastValueContainer = ValueContainer\\
 
-\begin{algorithm}[H]
-	\begin{algorithmic}[1]
-		\vspace{5pt}
-		\State $Altitude \gets 0$;
-		\State $Distance \gets 0$;
-		\State $LastAltitude \gets null$;
-		\State $LastDistance \gets null$;
-		\ForAll{$ValueContainers.Reverse$}
-			\If {$valueContainer$ is in $currentStage$}
-				\State $CurrAltitude \gets ValueContainer.Altitude$;
-				\State $CurrDistance \gets ValueContainer.Distance$;
-				\If {$LastAltitude \neq null$ \textbf{and} $LastDistance \neq null$ }
-					\State $Altitude \gets Altitude + (LastAltitude - CurrAltitude)$;
-					\State $Distance \gets Distance + (LastDistance - CurrDistance)$;
-				\EndIf
-				\State $LastAltitude \gets CurrAltitude$;
-				\State $LastDistance \gets CurrDistance$;
-				\If {$Distance \geq 100$}
-					\State BREAK;
-				\EndIf
-			\Else
-				\State BREAK;
-			\EndIf
-		\EndFor
-		\State $Incline \gets altitude/distance$;
-		\State \Return $arctan(incline.toDegrees)$;
-	\end{algorithmic}
-	\caption{Berechnung der Steigung}
-\end{algorithm}
+	if distance > 100\\
+		break\\
+else\\
+	break\\
+
+incline = altitude / distance\\
+return arctan(incline.toDegrees)\\
+
+\end{center}
 
 \subsubsection{Allgemeine Algorithmen zur Vermeidung von Berechnungsfehlern}
 Die Erstellung eines ValueContainers erfolgt sobald das Aufnahmegerät eine neue Position meldet. Es kann vorkommen, dass die GPS-API von Android fehlerhafte Positionsdaten sammelt. Aus diesem Grund werden erstellte ValueContainer auf ihre Datenkonsistenz überprüft und gegebenenfalls wieder verworfen. Der ValueContainer wird nach folgenden Kriterien überprüft:
