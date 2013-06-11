@@ -61,7 +61,7 @@
 \definecolor{mymauve}{rgb}{0.58,0,0.82}
 
 \lstdefinelanguage{json}{
-    basicstyle=\footnotesize\ttfamily,
+    basicstyle=\fontsize{7}{9}\ttfamily,
     numbers=none,
     showstringspaces=false,
     breaklines=true,
