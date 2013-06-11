@@ -16,18 +16,7 @@
 				"isField":true
 			},
 			{
-				"riderNumber":[7, 8, 4, 5],
-				"isLeader":false,
-				"groupnr":2,
-				"handicaptime":3456000,
-				"isField":false
-			},
-			{
-				"riderNumber":[1, 2, 10],
-				"isLeader":false,
-				"groupnr":3,
-				"handicaptime":0,
-				"isField":false
+				...				
 			}
 		]
 }
