@@ -58,7 +58,7 @@ Ein Rest Client für Android von den Entwicklern des Java Spring Frameworks. Der
 
 Verwendete Version: spring-android-1.0.1
 
-\paragraph{ORMLite\footnote{ORMLite, \url{ormlite.com}, aufgerufen am 02.05.2013}} ORMLite ist eine OpenSource Java Library, welche das Object-Relational Mapping (ORM) übernimmt. ORMLite bietet eine speziell auf Android angepasste Distribution an. Um Objekte und ihre Attribute zu persistieren, werden diese in den Modelklassen mit Java Annotationen markiert. ORMLite wird verwendet um die gesammelten Informationen lokal in einer Datenbank zu speichern und damit Datenverlust bei Verbindungsunterbrüchen verhindern zu können.
+\paragraph{ORMLite\footnote{ORMLite, \url{ormlite.com}, aufgerufen am 02.05.2013}} ORMLite ist eine OpenSource Java Library, welche das Object-Relational Mapping (ORM) übernimmt. ORMLite bietet eine speziell auf Android angepasste Distribution an. 
 
 Verwendete Version: ORMLite-4.45
 
@@ -75,7 +75,7 @@ Die Android Applikation zeichnet Daten für den TourLive Server wie auch den Dev
 	\label{fig:grobstrukturandroid} 
 \end{figure}
 
-\subsubsection{Schichtenmodell und Paketdiagramm}
+\subsubsection{Schichtenmodell}
 Die Android Applikation teilt sich in 3 Schichten auf.
 
 \begin{figure}[H]
@@ -95,10 +95,20 @@ Das Domain Model des Aufnahmesystems setzt sich aus den Domain Models des TourLi
 \caption{Aufnahmesystem Domain Model}
 \end{figure}
 
+\subsubsection{Paketdiagramm}
+%TODO Paketdiagramm
+
 \subsection{Architekturentscheide}
 
-\subsubsection{Globaler Service Provider - Repository.java}
-Um die verschiedenen Services und Container überall zur Verfügung zu haben und somit lange Aufrufketten zu verhindern, wurde ein Singleton Repository eingeführt. In diesem Repository können über Methoden auf alle Daten zugegriffen werden, die von diversen Klassen gebraucht werden.
+\subsubsection{Globaler Daten Provider - Repository.java}
+Das Repository.java implementiert mit dem Singleton-Pattern fungiert als globaler Daten Provider und verhindert lange Aufrufketten. Das Repository bietet auf folgende Daten Zugriff:
+
+\begin{itemize} [noitemsep,topsep=0pt]
+	\item diverse Services
+	\item das TourLiveLog
+	\item Liste mit ValueContainers
+	\item diverse globale Domänen Objekte
+\end{itemize}
 
 \subsubsection{Start der Applikation - TourLiveApplication.java}
 Beim Start der TourLive Applikation müssen diverse Daten initialisiert werden. Um diese Initialisierung vor der ersten View durchzuführen wurde eine projektspezifische Klasse \textit{TourLiveApplication.java} geschrieben, die von der Android Klasse \textit{Application} ableitet. Eine von \textit{Application} abgeleitete Klasse darf nur einmalig vorkommen und wird als erste Klasse bei einem App-Start initialisiert.
@@ -110,11 +120,64 @@ Beim Start der TourLive Applikation müssen diverse Daten initialisiert werden. 
 \textit{Interface to global information about an application environment. This is an abstract class whose implementation is provided by the Android system. It allows access to application-specific resources and classes, as well as up-calls for application-level operations such as launching activities, broadcasting and receiving intents, etc. }\footnote{Context class, \url{http://developer.android.com/reference/android/content/Context.html} besucht am: 13.04.2013}
 \end{quotation}
 
+\subsubsection{Caching der Daten}
+Um einen lokalen Cache zu realisieren wird der auf SQLite basierende OR-Mapper ORMLite verwendet. Der Cache verhindert Datenverlust bei Applikationsabstürzen. In der SQLite-Datenbank werden folgende Objekte gespeichert:
+
+\begin{itemize} [noitemsep,topsep=0pt]
+	\item Bildinformationen (Binärdatei liegt im Dateisystem)
+	\item Videoinformationen (Binrädatei leigt im Dateisystem)
+	\item Positions-, Etappen- \& Netzdaten (ValueContainer)
+	\item Geräteinformationen (Device)
+	\item Log-Einträge
+\end{itemize}
+
+Um Objekte und ihre Attribute zu persistieren, werden diese in den Modelklassen mit Java Annotationen markiert. 
+
+\subsubsection{Factory Pattern - DataCreator.java}
+Das erstellen der ValueContainer, DeviceManagementContainer und anderen Datenstrukturen unterliegt einem relativ komplexen Vorgang, da unzählige Werte aus den verschiedensten Android Listener,  Android Provider und Android Services zusammengezogen werden müssen. Das Factory Pattern schafft Abbhilfe dies über ein einzelnes Objekt, den DataCreator, zu realisieren.
+
+\subsubsection{Primärer / Sekundärer TourLive Server - URLProvider.java}
+Eine Anforderung an das TourLive Aufnahmesystem ist die Implementation eines sekundären TourLive Servers der bei Ausfall des primären Servers die Daten empfangen und verarbeiten kann. Dies wurde über die Klasse URLProvider.java realisiert. Schlägt die Verbindung zum aktuell ausgewählten Server, in der Regel ist dies der primäre Server, mehrmals fehl, stellt der URLProvider den Zweitserver zur Verfügung. Die Anzahl möglicher Fehlschläge vor einem Wechsel ist in der Config.java definiert. Sämtliche genutzten URLs werden über den URLProvider bezogen.
+
+\subsubsection{Unveränderbare Applikationskonfiguration - Config.java}
+In der Config.java werden unveränderbare Applikationseinstellungen gespeichert. Diese sind direkt über public static final Attribute aufrufbar. Die Config.java enthält folgende Konfigurationen:
+\begin{itemize} [noitemsep,topsep=0pt]
+	\item sämtliche API-URLs des TourLive Servers und des Device Management Servers
+	\item Speicherort im Dateisystem der Bilddateien
+	\item Speicherort im Dateisystem der Videodateien
+	\item Intervall wie oft der Gerätezustand dem Device Management Server übertragen werden soll
+	\item Angaben zur Genauigkeit die eine GPS Location haben muss, damit sie nicht verworfen wird
+\end{itemize}
 
 \section{Realisierung}
+Das Kapitel Realisation gibt Hinweise zur Umsetzung des TourLive Aufnahmesystems. Es werden interne Abläufe und Funktionen erläutert und bietet eine kurze Einführung wie das Ausnahmesystem funktioniert. 
 
-\subsection{GUI}
-Die \textit{MainActivity} ist die Hauptansicht der Applikation. Sie ist in drei Teile unterteilt, Header, Footer und Hauptbereich. Diese Klasse wird direkt nach der Erstellung der TourLiveApplication erstellt. Header und Footer sind in allen Tabs sichtbar.
+\subsection{Grafische Oberfläche}
+\subsubsection{Einführung in die grafische Oberfläche von Android}
+
+Die grafische Oberfläche einer Android Applikation besteht in erster Linie aus Activities. Gemäss Android Developer Reference wird eine Activity wie folgt definiert.
+
+\begin{quotation}
+\textit{An activity is a single, focused thing that the user can do. Almost all activities interact with the user, so the Activity class takes care of creating a window for you in which you can place your UI.} \footnote{Activity, \url{http://developer.android.com/reference/android/app/Activity.html}, besucht am: 25.03.2013}
+\end{quotation}
+
+Die TourLive Applikation wurde mit folgenden drei Activities realisiert.
+\begin{itemize} [noitemsep,topsep=0pt]
+	\item MainActivity.java
+	\item SettingsActivity.java
+	\item AboutActivity.java
+\end{itemize}
+
+Zu einer Activity gehört jeweils eine *.java Datei sowie eine *.xml Datei die das Layout definiert. Innerhalb einer Activity wird mit Fragments gearbeitet, welche wie folgt definiert sind:
+
+\begin{quotation}
+\textit{A Fragment represents a behavior or a portion of user interface in an Activity.} \footnote{Fragment, \url{http://developer.android.com/reference/android/app/Fragment.html}, besucht am: 25.03.2013}
+\end{quotation}
+
+Fragments werden für die verschiedenen Tabs innerhalb der MainActivity verwendet wie nachfolgende Screenshots zeigen.
+
+\subsubsection{Konkrete Umsetzung der grafischen Oberfläche}
+Die \textit{MainActivity} bestehend aus MainActivity.java und main\_activity.xml ist die Hauptansicht der Applikation. Sie ist in drei Teile unterteilt, Header, Footer und Hauptbereich. Header und Footer sind in allen Tabs sichtbar.
 
 \begin{figure}[H]
 	\centering
@@ -122,18 +185,23 @@ Die \textit{MainActivity} ist die Hauptansicht der Applikation. Sie ist in drei 
 	\caption{Aufnahmesystem MainActivity}
 \end{figure}
 
+\paragraph{Hauptbereich}
+Der Inhalt des Hauptbereichs hängt vom selektierten Tab ab. Die einzelnen Ansichten Status, GPS, Etappe, Netz und Log wurden mit Fragments realisiert und basieren jeweils auf einer ListView.
 
-\subsubsection{Header}
+\begin{quotation}
+\textit{ListView is a view group that displays a list of scrollable items. The list items are automatically inserted to the list using an Adapter that pulls content from a source such as an array or database query and converts each item result into a view that's placed into the list.} \footnote{ListView, \url{http://developer.android.com/guide/topics/ui/layout/listview.html}, besucht am: 25.03.2013}
+\end{quotation}
+
+\paragraph{Header}
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=60mm]{images/android/header.png}
 	\caption{Aufnahmesystem Header}
 \end{figure}
-Der Header beinhaltet in der Action Bar die aktuelle Versionsnummer sowie den Settings Button. Um auf einen Blick zu sehen, dass die App am aufnehmen ist, steht oben Rechts REC. \\
-In der Top Bar werden die verschiedenen Tabs angezeigt. Mit einem Swipe nach rechts und links kann zwischen den Tabs hin und her gewechselt werden.
+Der Header beinhaltet in der \textit{Action Bar} die aktuelle Versionsnummer, den Namen der Applikation sowie den Settings Button. Befindet sich die Applikation um Aufnahmemodus wird in roter Farbe der Text \textit{REC} eingeblendet. Unterhalb der \textit{Action Bar} befindet sich die \textit{Top Bar}, in der die verschiedenen Tabs angezeigt werden. Innerhalb des Content Bereiches kann mit einem Swipe zwischen den verschiedenen Views  hin und hergewechselt werden.
 
 \paragraph{Settings Button}
-Bei einem Klick in der Action Bar auf den Settings Button, erscheint das folgende Menu.
+Über den Settings Button wird folgendes Menü eingeblendet. Befindet sich die Applikation im Aufnahmemodus ist der Menüeintrag \textit{Einstellungen} deaktiviert. Die restlichen Aktionen sind trotzdem Verfügbar.
 
 \begin{figure}[H]
 	\centering
@@ -141,49 +209,83 @@ Bei einem Klick in der Action Bar auf den Settings Button, erscheint das folgend
 	\caption{Aufnahmesystem Settings Button Clicked}
 \end{figure}
 
-Läuft die Aufnahme, so wird das Einstellungs Menu disabled. Die restlichen Aktionen sind trotzdem Verfügbar.
 
 
-\subsubsection{Footer}
+\paragraph{Footer}
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=60mm]{images/android/footer.png}
 	\caption{Aufnahmesystem Footer}
 \end{figure}
-Der Footer zeigt auf einen Blick den Status der App. Die Icons werden je nach Wert rot, gelb oder grün angezeigt. Welche Farben wann angezeigt werden, ist in den Reqirements im Anhang im Kapitel \ref{par:alarming} beschrieben.\\
-Mit dem Recording Button links kann die Aufnahme gestartet und gestoppt werden. Dieser ist nur sichtbar, wenn der Aufnahmemodus auf Manuell gesetzt ist.
+Der Footer zeigt den Status der App. Die Symbole werden je nach Gesundheitszustand der Applikation rot, gelb oder in grün dargestellt. Welche Farben welchem Gesundheitszustand entspricht, ist in den Anforderungen im Anhang im Kapitel \ref{par:alarming} beschrieben.\\
 
-
-\subsubsection{Hauptbereich}
-Der Inhalt des Hauptbereichs hängt vom selektierten Tab ab. Bei jedem Tab wird ein Fragment hinzugefügt. Dieses Fragment besitzt jeweils eine ListView, in der alle Felder angezeigt werden. 
+Mit dem Recording Button links kann die Aufnahme gestartet und gestoppt werden. Der Button ist nur aktiviert, wenn der Aufnahmemodus auf Manuell gesetzt ist.
 
 \pagebreak
 \subsection{Berechtigungen}
-Beim installieren der App wird angezeigt, welche Berechtigungen benötigt werden. Hier wird aufgelistet, für was welche Berechtigungen gebraucht werden.
+Das Starten einer Android Applikation erfordert je nach Funktionalität der Applikation bestimmte Systemberechtigungen, die bei der Installation \textit{Akzeptiert} werden müssen.
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=60mm]{images/android/berechtigungen.png}
 	\caption{Aufnahmesystem Berechtigungen}
 \end{figure}
 \subsubsection{Datenschutz}
-\textbf{Telefonstatus und Identität abrufen:} Mit dieser Berechtigung kann die Telefonnummer ausgelesen werden\\
-\textbf{Bilder und Videos aufnehmen:} Um Bilder und Videos aufzunehmen wird diese Berechtigung gebraucht\\
-\textbf{Audio aufnehmen:} Während dem Video aufnehmen wird auch Audio aufgenommen\\
-\textbf{Genauer Standort:} Hiermit kann die aktuelle Position ausgelesen werde\\
-\textbf{USB Speicherinhalte ändern und löschen:} Die Bilder und Videos sowie die exportierte Datenbank werden auf der externen Speicherkarte gespeichert \\
+
+\begin{itemize} [noitemsep,topsep=0pt]
+	\item \textbf{Telefonstatus und Identität abrufen:} Berechtigt das auslesen der Telefonnummer
+	\item \textbf{Bilder und Videos aufnehmen:} Berechtigt die Aufnahme von Bildens und Videos
+	\item \textbf{Audio aufnehmen:} Berechtigt die Aufnahme von Audio
+	\item \textbf{Genauer Standort:} Berechtigt die Nutzung des GPS Providers
+	\item \textbf{USB Speicherinhalte ändern und löschen:} Berechtigt den Zugriff auf das Dateisystem (Bilder und Videos)
+\end{itemize}
 
 \subsubsection{Gerätezugriff}
-\textbf{Netzwerkverbindungen anzeigen:} Dank dieser Berechtigung kann geprüft werden, ob die Verbindung gut ists \\
-\textbf{Beim Start ausführen:} Beim Start des Telefons wird das Aufnahmesystem automatisch gestartet sofern diese Einstellung aktiviert ist \\
-\textbf{Zugriff auf geschützten Speicher testen:} Seiteneffekt beim Zugriff auf den USB Speicher
+\begin{itemize} [noitemsep,topsep=0pt]
+	\item \textbf{Netzwerkverbindungen:} Berechtigt zur Nutzung des mobilen Netzwerks
+	\item \textbf{Beim Start ausführen:} Berechtigt die Nutzung des Auto-Starts
+	\item \textbf{Zugriff auf geschützten Speicher testen:} Berechtigt den Zugriff auf das Dateisystem (SQLite)
+\end{itemize}
+
+\subsection{I18N}
+Die Applikation ist in deutscher sowie englischer Sprache verfügbar. Weitere Sprachen lassen sich einfach durch erstellen  und übersetzen der Ordnerstruktur TourLive/res/values-SPRACHE hinzufügen.
 
 \subsection{Services}
-Um wiederkehrende Aktionen auszuführen wird ein Timer mit einem TimerTask benötigt. Der TimerTask implementiert das Interface Runnable. Bei Ablauf des Timers wird die Methode \textit{run} ausgeführt. 
+Die TourLive Applikation arbeitet mit mehreren Services. Diese implementieren in der Regel das eigens für diese Applikation entworfene Interface \textit{TourLiveService.java}. Die Services werden meistens in Verbindung mit einem \textit{Timer} genutzt der wiederum einen \textit{TimerTask} voraussetzt.
 
-\subsection{Kommunikation zum Server}
+\begin{quotation}
+\textit{Each timer has one thread on which tasks are executed sequentially. When this thread is busy running a task, runnable tasks may be subject to delays.} \footnote{Timer, \url{http://developer.android.com/reference/java/util/Timer.html}, besucht am: 11.04.2013}
+\end{quotation}
+
+\begin{quotation}
+\textit{The TimerTask class represents a task to run at a specified time. The task may be run once or repeatedly.} \footnote{TimerTask, \url{http://developer.android.com/reference/java/util/TimerTask.html}, besucht am: 11.04.2013}
+\end{quotation}
+
+Folgende Services, Timer und TimerTask werden in der TourLive Applikation verwendet:
+
+\begin{itemize} [noitemsep,topsep=0pt]
+	\item RecordingService.java
+	\item ValueContainerService.java
+	\item ImageService.java
+	\item StartUpService.java
+	\item StatusDataService.java
+	\item VideoService.java
+\end{itemize}
+
+\subsection{Kommunikation zu den Servern}
 Die Kommunikation zu den Servern wird in den abgeleiteten Klassen des AsyncTasks ausgeführt. Der AsyncTask wurde verwendet da nach der Abfrage auf dem Server das GUI aktualisiert werden muss und dies nur aus dem GUI Thread erlaubt ist. \\
 Der AsyncTask wird mittel \textit{execute} ausgeführt, dies führt die Methode \textit{doInBackground} aus. Diese wiederum ruft am Schluss \textit{onPostExecute} auf. Die \textit{onPostExecute} Methode läuft im Gegensatz zur Methode \textit{doInBackground} im GUI Thread, somit kann hier das GUI aktualisiert werden.
 \\Für jede Kommunikation mit dem Server wurde eine eigene AsyncTask Klasse erstellt.
+
+
+\begin{quotation}
+\textit{AsyncTask enables proper and easy use of the UI thread. This class allows to perform background operations and publish results on the UI thread without having to manipulate threads and/or handlers. An asynchronous task is defined by a computation that runs on a background thread and whose result is published on the UI thread. An asynchronous task is defined by 3 generic types, called Params, Progress and Result, and 4 steps, called onPreExecute, doInBackground, onProgressUpdate and onPostExecute.} \footnote{AsyncTask, \url{http://developer.android.com/reference/android/os/AsyncTask.html}, besucht am: 13.04.2013}
+\end{quotation}
+
+\subsection{Listener}
+%TODO GPSListener, SignalStrengthListener, PowerBatterBlaBlaListener
+
+\subsection{Aufnahme von Bildern und Videosequenzen}
+%TODO Problematik CameraPreview
 
 \subsection{Datenbank}
 Für das lokale Caching werden Daten mittels ORMLite in die Datenbank geschrieben. Eine Klasse wird mittels Annotation als Datenbankklasse erkannt.
@@ -210,7 +312,7 @@ Die Klasse \textit{DatabaseHelper} führt den Zugriff auf die Datenbank aus. Bei
 
 Der DatenbankManager, eine Singleton Klasse, ermöglicht den Zugriff über den \textit{DatabaseHelper} auf die Datenbank. Hier werden alle benötigten CRUD Methoden aufgerufen.
 
-\subsection{Abläufe}
+\subsection{Systemsequenzdiagramme}
 
 \subsubsection{Permanente Tasks}
 In der folgenden Grafik sieht man alle Tasks, die ausgeführt werden, während die App läuft. 
@@ -318,10 +420,13 @@ Die Angabe zur Steigung beziehen sich auf die letzten 100m Horizontaldistanz. Di
 \end{algorithm}
 
 \subsubsection{Allgemeine Algorithmen zur Vermeidung von Berechnungsfehlern}
-Die Erstellung eines ValueContainers erfolgt sobald das Aufnahmegerät eine neue Position meldet. Es kann vorkommen, dass die GPS-API von Android fehlerhafte Positionsdaten sammelt. Aus diesem Grund werden erstellte ValueContainer auf ihre Datenkonsistenz überprüft und gegebenenfalls wieder verworfen. Der ValueContainer wird nach folgenden Kriterien überprüft:
+Die Erstellung eines ValueContainers erfolgt sobald das Aufnahmegerät eine neue Position meldet. Es kann vorkommen, dass die GPS-API von Android fehlerhafte Positionsdaten liefert. Aus diesem Grund werden erstellte ValueContainer auf ihre Datenkonsistenz überprüft und gegebenenfalls wieder verworfen. Der ValueContainer wird nach folgenden Kriterien überprüft:
 \begin{itemize} [noitemsep,topsep=0pt]
 \item longitude != 0
 \item latitude != 0
 \item accuracy < 100m
 \item returned location from GPS\_PROVIDER != null
 \end{itemize}
+
+\subsection{TourLive Recovery Service}
+%TODO Recovery Service
