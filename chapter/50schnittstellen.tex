@@ -18,15 +18,16 @@ Folgende Abbildung bietet eine grobe Übersicht über alle verfügbaren privaten
 Die Aufnahmegeräte liefern über diese Schnittstellen ValueContainer, Bilder und Videos an den TourLive Server.
 
 \subsubsection{ValueContainer an den TourLive Server senden}
-\begin{longtable}{ p{2.5cm} p{3.5cm} p{6cm}}
-	\textbf{URL:} & \multicolumn{2}{p{10cm}}{/api/valuecontainer} \\
+\begin{longtable}{ p{2.5cm} || p{3.5cm} p{5.5cm}}
+&  \\ [-1.5ex]
+	\textbf{URL:} & \multicolumn{2}{p{9cm}}{/api/valuecontainer} \\ [1ex] \hline & &  \\ [-1.5ex]
 	\textbf{Request:} & Method: & POST \\
 		& Content-Type: & application/json \\
-		& Body: & JSON-String \textit{ValueContainer}\\
+		& Body: & JSON-String \textit{ValueContainer}\\ [1ex] \hline & &  \\ [-1.5ex]
 	\textbf{Response:} & Header: & HTTP/1.1 200 OK \\
-		& Body: & <empty> \\
-	\textbf{Zeitpunkt:} & \multicolumn{2}{p{10cm}}{Bei laufender Aufnahme} \\ 
-	\textbf{Interval:} & \multicolumn{2}{p{10cm}}{konfigurierbar} \\ 
+		& Body: & <empty> \\ [1ex] \hline & &  \\ [-1.5ex]
+	\textbf{Zeitpunkt:} & \multicolumn{2}{p{9cm}}{Bei laufender Aufnahme} \\ [1ex] \hline & &  \\ [-1.5ex]
+	\textbf{Interval:} & \multicolumn{2}{p{9cm}}{konfigurierbar} \\ [1ex] 
 	\caption{Schnittstelle ValueContainer}
 \end{longtable}
 
@@ -40,86 +41,98 @@ Der TourLive Server erwartet das folgende JSON-Struktur für die Darstellung ein
 	\label{fig:valuecontainer}
 \end{figure}
 
+\newpage
 \subsubsection{Bild an den TourLive Server senden}
-\begin{longtable}{ p{2.5cm} p{3.5cm} p{6cm}}
-	\textbf{URL:} & \multicolumn{2}{p{10cm}}{/api/image} \\
+\begin{longtable}{ p{2.5cm} || p{3.5cm} p{5.5cm}}
+&  \\ [-1.5ex]
+	\textbf{URL:} & \multicolumn{2}{p{9cm}}{/api/image} \\ [1ex] \hline & &  \\ [-1.5ex]
 	\textbf{Request:} & Method: & POST \\
 		& Content-Type: & multipart/form-data [3 Boundaries] \\
 		& Body-Boundary 1: & text/plain (timestamp) \\
 		& Body-Boundary 2: & text/plain (deviceId) \\
-		& Body-Boundary 3: & application/octet-stream (Bild) \\
+		& Body-Boundary 3: & application/octet-stream (Bild)  \\ [1ex] \hline & &  \\ [-1.5ex]
 	\textbf{Response:} & Header: & HTTP/1.1 200 OK \\
-		& Body: & <empty> \\
-	\textbf{Zeitpunkt:} & \multicolumn{2}{p{10cm}}{Bei laufender Aufnahme, falls Image aktiviert ist} \\ 
-	\textbf{Interval:} & \multicolumn{2}{p{10cm}}{konfigurierbar}
+		& Body: & <empty>  \\ [1ex] \hline & &  \\ [-1.5ex]
+	\textbf{Zeitpunkt:} & \multicolumn{2}{p{9cm}}{Bei laufender Aufnahme, falls Image aktiviert ist}  \\ [1ex] \hline & &  \\ [-1.5ex]
+	\textbf{Interval:} & \multicolumn{2}{p{9cm}}{konfigurierbar} \\ [1ex]  
+	\caption{Schnittstelle Bild senden}
 \end{longtable}
 
 \subsubsection{Video an den TourLive Server senden}
-\begin{longtable}{ p{2.5cm} p{3.5cm} p{6cm}}
-	\textbf{URL:} & \multicolumn{2}{p{10cm}}{/api/video} \\
+\begin{longtable}{ p{2.5cm} || p{3.5cm} p{5.5cm}}
+&  \\ [-1.5ex]
+	\textbf{URL:} & \multicolumn{2}{p{9cm}}{/api/video}  \\ [1ex] \hline & &  \\ [-1.5ex]
 	\textbf{Request:} & Method: & POST \\
 		& Content-Type: & multipart/form-data [3 Boundaries] \\
 		& Body-Boundary 1: & text/plain (timestamp) \\
 		& Body-Boundary 2: & text/plain (deviceId) \\
-		& Body-Boundary 3: & application/octet-stream (Video) \\
+		& Body-Boundary 3: & application/octet-stream (Video)  \\ [1ex] \hline & &  \\ [-1.5ex]
 	\textbf{Response:} & Header: & HTTP/1.1 200 OK \\
-		& Body: & <empty> \\
-	\textbf{Zeitpunkt:} & \multicolumn{2}{p{10cm}}{Bei laufender Aufnahme, falls der Videostream aktiviert ist} \\ 
-	\textbf{Interval:} & \multicolumn{2}{p{10cm}}{konfigurierbar} 
+		& Body: & <empty>  \\ [1ex] \hline & &  \\ [-1.5ex]
+	\textbf{Zeitpunkt:} & \multicolumn{2}{p{9cm}}{Bei laufender Aufnahme, falls der Videostream aktiviert ist}  \\ [1ex] \hline & &  \\ [-1.5ex]
+	\textbf{Interval:} & \multicolumn{2}{p{9cm}}{konfigurierbar}  \\ [1ex] 
+	\caption{Schnittstelle Video senden} 
 \end{longtable}
 
-\subsubsection{Rennsituation an dn TourLive Server senden}
-\begin{longtable}{ p{2.5cm} p{3.5cm} p{6cm}}
-	\textbf{URL:} & \multicolumn{2}{p{10cm}}{/api/racesituation/stage/\{stageId\}} \\
+\newpage
+\subsubsection{Rennsituation an den TourLive Server senden}
+\begin{longtable}{ p{2.5cm} || p{3.5cm} p{5.5cm}}
+&  \\ [-1.5ex]
+	\textbf{URL:} & \multicolumn{2}{p{9cm}}{/api/racesituation/stage/\{stageId\}}  \\ [1ex] \hline & &  \\ [-1.5ex]
 	\textbf{Request:} & Method: & POST \\
-		& Body: & JSON-String 'RaceSituation'\\	
+		& Body: & JSON-String 'RaceSituation' \\ [1ex] \hline & &  \\ [-1.5ex]
 	\textbf{Response:} & Header: & HTTP/1.1 200 OK \\
-		& Body: & <empty> \\	
-	\textbf{Bemerkung:} & \multicolumn{2}{p{10cm}}{Der RadioTourSpeaker sendet (unabhängig von den TourLive Aufnahmegeräten) periodisch die Rennsituation an den Server}
+		& Body: & <empty>  \\ [1ex] \hline & &  \\ [-1.5ex]	
+	\textbf{Bemerkung:} & \multicolumn{2}{p{9cm}}{Der RadioTourSpeaker sendet (unabhängig von den TourLive Aufnahmegeräten) periodisch die Rennsituation an den Server} \\ [1ex] 
+	\caption{Schnittstelle Rennsituation senden}
 \end{longtable}
 
-\paragraph{JSON Beispiel - RaceSituation}
+\paragraph{JSON Beispiel - Rennsituation}
 Der TourLive Server erwartet das folgende JSON-Struktur für die Darstellung der Rennsituation.
 \begin{figure}[H]
 	\centering
 	\lstinputlisting[language=json]{jsonfiles/raceSituation.json}
-	\caption{JSON-Struktur: RaceSituation}
+	\caption{JSON-Struktur: Rennsituation}
 \end{figure}
 
-\subsection{Renninformationn vom TourLive Server abfragen}
-\begin{longtable}{ p{2.5cm} p{3.5cm} p{6cm}}
-	\textbf{URL:} & \multicolumn{2}{p{10cm}}{/api/getstageinfo/\{deviceId\}} \\
+\newpage
+\subsection{Renninformation vom TourLive Server abfragen}
+\begin{longtable}{ p{2.5cm} || p{3.5cm} p{5.5cm}}
+&  \\ [-1.5ex]
+	\textbf{URL:} & \multicolumn{2}{p{9cm}}{/api/getstageinfo/\{deviceId\}}  \\ [1ex] \hline & &  \\ [-1.5ex]
 	\textbf{Request:} & Method: & GET \\
-		& Body: & <empty>\\	
+		& Body: & <empty> \\ [1ex] \hline & &  \\ [-1.5ex]
 	\textbf{Response:} & Header: & HTTP/1.1 200 OK \\
 		& Content-Type: & application/json \\
-		& Body: & Custom JSON-String \\	
-	\textbf{Bemerkung:} & \multicolumn{2}{p{10cm}}{Im Body der Response wird eine eigens kreierte HashMap ausgeliefert, darin sind aktuelle Etappeninformationen für das angegebene Gerät. Diese Informationen werden für den Rennbegleiter auf dem Gerät dargestellt} \\ [1ex] 
-\caption{Schnittstellen StageInfo}
+		& Body: & Custom JSON-String  \\ [1ex] \hline & &  \\ [-1.5ex]
+	\textbf{Bemerkung:} & \multicolumn{2}{p{9cm}}{Im Body der Response wird eine eigens kreierte HashMap ausgeliefert, darin sind aktuelle Etappeninformationen für das angegebene Gerät. Diese Informationen werden für den Rennbegleiter auf dem Gerät dargestellt} \\ [1ex] 
+\caption{Schnittstelle Renninformation abfragen}
 \end{longtable}
 
-\paragraph{JSON Beispiel - StageInfo}
+\paragraph{JSON Beispiel - Renninformation}
 \begin{figure}[H]
 	\centering
 	\lstinputlisting[language=json]{jsonfiles/stageInfo.json}
-	\caption{JSON-Struktur: StageInfo}
+	\caption{JSON-Struktur: Renninformation}
 \end{figure}
 
+\newpage
 \subsection{Device Management Server Schnittstellen}
 
 \subsubsection{Einstellungen an den Device Management Server senden}
 Sobald  Einstellungen im TourLive Aufnahmesystem geändert werden, müssen die Einstellungen über diese Schnittstelle mit dem Device Management Server synchronisiert werden.
 
 {\renewcommand{\arraystretch}{1}
-    \begin{longtable}{ p{2.5cm} p{3.5cm} p{6cm}}
-	\textbf{URL:} & \multicolumn{2}{l}{/devmgmtsrv/api/postdevmgmtsrv} \\
+\begin{longtable}{ p{2.5cm} || p{3.5cm} p{5.5cm}}
+&  \\ [-1.5ex]
+	\textbf{URL:} & \multicolumn{2}{l}{/devmgmtsrv/api/postdevmgmtsrv} \\ [1ex] \hline & &  \\ [-1.5ex]
 	\textbf{Request:} & Method: & POST \\
 		& Content-Type: & application/json \\
-		& Body: & JSON-String 'DeviceManagementContainer'\\
+		& Body: & JSON-String 'DeviceManagementContainer' \\ [1ex] \hline & &  \\ [-1.5ex]
 	\textbf{Response:} &  Header: & HTTP/1.1 200 OK \\
-		& Body: & <empty>	\\
-	\textbf{Eigenschaft:} & \multicolumn{2}{p{10cm}}{Wird einmalig beim App Start ausgeführt sowie bei lokalen Änderungen in den Einstellungen} \\
-	\textbf{Interval:} & \multicolumn{2}{p{10cm}}{unregelmässig} \\
+		& Body: & <empty>	 \\ [1ex] \hline & &  \\ [-1.5ex]
+	\textbf{Eigenschaft:} & \multicolumn{2}{p{9cm}}{Wird einmalig beim App Start ausgeführt sowie bei lokalen Änderungen in den Einstellungen}  \\ [1ex] \hline & &  \\ [-1.5ex]
+	\textbf{Interval:} & \multicolumn{2}{p{9cm}}{unregelmässig}  \\ [1ex] 
 	
 \caption{Schnittstelle Einstellungen}
 \end{longtable}}
@@ -136,16 +149,17 @@ Sobald  Einstellungen im TourLive Aufnahmesystem geändert werden, müssen die E
 Um den aktuellen Gesundheitszustand des Aufnahmesystems dem Device Management Server mitzuteilen wird diese Schnittstelle benutzt. Vom Device Management Server wird mit einem DeviceSettingsContainer geantwortet.
 
 {\renewcommand{\arraystretch}{1}
-    \begin{longtable}{ p{2.5cm} p{3.5cm} p{6cm}} 
-	\textbf{URL:} & \multicolumn{2}{l}{/devmgmtsrv/api/getdevmgmtsrv} \\
+\begin{longtable}{ p{2.5cm} || p{3.5cm} p{5.5cm}}
+&  \\ [-1.5ex] 
+	\textbf{URL:} & \multicolumn{2}{l}{/devmgmtsrv/api/getdevmgmtsrv}  \\ [1ex] \hline & &  \\ [-1.5ex]
 	\textbf{Request:} & Content-Type: & application/json \\
 		& Method: & POST \\
-		& Body: & JSON-String 'StatusData' \\
+		& Body: & JSON-String 'StatusData'  \\ [1ex] \hline & &  \\ [-1.5ex]
 	\textbf{Response:} & Method: & POST \\
 		& Content-Type: & application/json \\
-		& Body: & JSON-String 'DeviceManagementContainer' \\
-	\textbf{Eigenschaft:} & \multicolumn{2}{p{10cm}}{Wird regelmässig als Service ausgeführt.} \\ 
-	\textbf{Interval:} & \multicolumn{2}{p{10cm}}{regelmässig - alle 60 Sekunden} \\
+		& Body: & JSON-String 'DeviceManagementContainer'  \\ [1ex] \hline & &  \\ [-1.5ex]
+	\textbf{Eigenschaft:} & \multicolumn{2}{p{9cm}}{Wird regelmässig als Service ausgeführt.}  \\ [1ex] \hline & &  \\ [-1.5ex]
+	\textbf{Interval:} & \multicolumn{2}{p{9cm}}{regelmässig - alle 60 Sekunden}  \\ [1ex] 
 	
 \caption{Schnittstelle Status}
 \end{longtable}	}
@@ -160,20 +174,22 @@ Das JSON eines Status Posts sieht folgendermassen aus:
 \end{figure}
 
 
+\newpage
 \subsubsection{Log an den Device Management Server übertragen}
 
 Über diese Schnittstelle werden die Log-Einträge des Aufnahmesystems an den Device Management Server übertragen.
 
 {\renewcommand{\arraystretch}{1}
-    \begin{longtable}{ p{2.5cm} p{3.5cm} p{6cm}}
-	\textbf{URL:} & \multicolumn{2}{p{10cm}}{/devmgmtsrv/api/postlog} \\
+\begin{longtable}{ p{2.5cm} || p{3.5cm} p{5.5cm}}
+&  \\ [-1.5ex]
+	\textbf{URL:} & \multicolumn{2}{p{9cm}}{/devmgmtsrv/api/postlog}  \\ [1ex] \hline & &  \\ [-1.5ex]
 	\textbf{Request:} & Method: & POST \\
 		& Content-Type: & application/json \\
-		& Body: & JSON-String 'TourLiveLog' \\
+		& Body: & JSON-String 'TourLiveLog'  \\ [1ex] \hline & &  \\ [-1.5ex]
 	\textbf{Response:} &  Header: & HTTP/1.1 200 OK \\
-		& Body: & <empty>	\\
-	\textbf{Eigenschaft:} &  \multicolumn{2}{p{10cm}}{Wird regelmässig als Service ausgeführt.}\\ 
-	\textbf{Interval:} &  \multicolumn{2}{p{10cm}}{regelmässig - alle 60 Sekunden}\\
+		& Body: & <empty>	 \\ [1ex] \hline & &  \\ [-1.5ex]
+	\textbf{Eigenschaft:} &  \multicolumn{2}{p{9cm}}{Wird regelmässig als Service ausgeführt.} \\ [1ex] \hline & &  \\ [-1.5ex]
+	\textbf{Interval:} &  \multicolumn{2}{p{9cm}}{regelmässig - alle 60 Sekunden} \\ [1ex] 
 	
 \caption{Schnittstelle Log}
 \end{longtable}}
@@ -188,21 +204,23 @@ Das JSON eines Log Posts sieht folgendermassen aus:
 	\caption{JSON-Struktur: Log}
 \end{figure}
 
+\newpage
 \subsubsection{Nachricht vom Device Management Portal abholen}
 
 Ob eine neue Nachricht für ein Gerät verfügbar ist, wird dem Gerät im DeviceManagementContainer über das Flag \textit{messageAvailable} bekannt gegeben. Über diese Schnittstelle kann das Gerät die Nachricht dann abrufen. Ist keine Nachricht verfügbar, wird ein leerer String zurückgegeben.
 
 {\renewcommand{\arraystretch}{1}
-    \begin{longtable}{ p{2.5cm} p{3.5cm} p{6cm}}
+\begin{longtable}{ p{2.5cm} || p{3.5cm} p{5.5cm}}
+&  \\ [-1.5ex]
 
-	\textbf{URL:} & \multicolumn{2}{p{10cm}}{/devmgmtsrv/api/getMsg/\{deviceId\}} \\
+	\textbf{URL:} & \multicolumn{2}{p{9cm}}{/devmgmtsrv/api/getMsg/\{deviceId\}}  \\ [1ex] \hline & &  \\ [-1.5ex]
 	\textbf{Request:} & Method: & GET \\
-		& Body: & <empty> \\
+		& Body: & <empty>  \\ [1ex] \hline & &  \\ [-1.5ex]
 	\textbf{Response:} & Method: & POST \\
 		& Content-Type: & application/json \\
-		& Body: & JSON-String 'Message' \\
-	\textbf{Eigenschaft:} & \multicolumn{2}{p{10cm}}{ Wenn das 'messageAvailable'-Flag gesetzt ist in einem empfangenen DeviceManagementContainer.} \\
-	\textbf{Interval:} & \multicolumn{2}{p{10cm}}{unregelmässig}\\
+		& Body: & JSON-String 'Message' \\ [1ex] \hline & &  \\ [-1.5ex]
+	\textbf{Eigenschaft:} & \multicolumn{2}{p{9cm}}{ Wenn das 'messageAvailable'-Flag gesetzt ist in einem empfangenen DeviceManagementContainer.}  \\ [1ex] \hline & &  \\ [-1.5ex]
+	\textbf{Interval:} & \multicolumn{2}{p{9cm}}{unregelmässig} \\ [1ex] 
 	
 \caption{Schnittstelle Nachricht abholen}
 \end{longtable} }
@@ -212,9 +230,10 @@ Das JSON für die Nachrichten ist das folgende:
 \begin{figure}[H]
 	\centering
 	\lstinputlisting[language=json]{jsonfiles/message.json}
-	\caption{JSON-Struktur: Message}
+	\caption{JSON-Struktur: Nachricht}
 \end{figure}
 
+\newpage
 \subsection{Öffentliche Schnittstellen}
 \label{sec:tourlivepublicapi}
 
@@ -226,16 +245,18 @@ Die Renn- und Etappeninformationen stehen auch für Drittentwickler zur Verfügu
 	\caption{Übersicht öffentliche Schnittstellen}
 \end{figure}
 
-
+\newpage
 \subsubsection{Etappen beim TourLive Server abfragen}
-\begin{longtable}{ p{2.5cm} p{3.5cm} p{6cm}}
-	\textbf{URL:} & \multicolumn{2}{l}{/public/stages} \\
+\begin{longtable}{ p{2.5cm} || p{3.5cm} p{5.5cm}}
+&  \\ [-1.5ex]
+	\textbf{URL:} & \multicolumn{2}{l}{/public/stages}  \\ [1ex] \hline & &  \\ [-1.5ex]
 	\textbf{Request:} & Method: & GET \\
-		& Body: & <empty>\\
+		& Body: & <empty> \\ [1ex] \hline & &  \\ [-1.5ex]
 	\textbf{Response:} &  Header: & HTTP/1.1 200 OK \\
 		& Content-Type: & application/json \\
-		& Body: & JSON-Array 'Stages'\\
-	\textbf{Bemerkung:} & \multicolumn{2}{p{10cm}}{Alle sichtbaren Etappen} 
+		& Body: & JSON-Array 'Stages' \\ [1ex] \hline & &  \\ [-1.5ex]
+	\textbf{Bemerkung:} & \multicolumn{2}{p{9cm}}{Alle sichtbaren Etappen} \\ [1ex] 
+\caption{Schnittstelle Etappen abfragen}
 \end{longtable}
 \paragraph{Beispiel JSON - Array Stages}
 \begin{figure}[H]
@@ -244,88 +265,101 @@ Die Renn- und Etappeninformationen stehen auch für Drittentwickler zur Verfügu
 	\caption{JSON-Struktur: Etappen}
 \end{figure}
 
+\newpage
 \subsubsection{ValueContainer beim TourLive Server abfragen}
-\begin{longtable}{ p{2.5cm} p{3.5cm} p{6cm}}
-	\textbf{URL:} & \multicolumn{2}{l}{/public/stage/\{stageId\}/valuecontainer} \\
+\begin{longtable}{ p{2.5cm} || p{3.5cm} p{5.5cm}}
+&  \\ [-1.5ex]
+	\textbf{URL:} & \multicolumn{2}{l}{/public/stage/\{stageId\}/valuecontainer}  \\ [1ex] \hline & &  \\ [-1.5ex]
 	\textbf{Request:} & Method: & GET \\
-		& Body: & <empty>\\
+		& Body: & <empty> \\ [1ex] \hline & &  \\ [-1.5ex]
 	\textbf{Response:} &  Header: & HTTP/1.1 200 OK \\
 		& Content-Type: & application/json \\
-		& Body: & JSON-Array 'ValueContainers'\\
-	\textbf{Bemerkung:} & \multicolumn{2}{p{10cm}}{Alle ValueContainers einer Etappe}
+		& Body: & JSON-Array 'ValueContainers' \\ [1ex] \hline & &  \\ [-1.5ex]
+	\textbf{Bemerkung:} & \multicolumn{2}{p{9cm}}{Alle ValueContainers einer Etappe} \\ [1ex] 
+\caption{Schnittstelle ValueContainer abfragen}
 \end{longtable}
 
-\subsubsection{Bilderdaten beim TourLive Server abfragen}
-\begin{longtable}{ p{2.5cm} p{3.5cm} p{6cm}}
-	\textbf{URL:} & \multicolumn{2}{l}{/public/stage/\{stageId\}/imagedata} \\
+\subsubsection{Bilddaten beim TourLive Server abfragen}
+\begin{longtable}{ p{2.5cm} || p{3.5cm} p{5.5cm}}
+&  \\ [-1.5ex]
+	\textbf{URL:} & \multicolumn{2}{l}{/public/stage/\{stageId\}/imagedata}  \\ [1ex] \hline & &  \\ [-1.5ex]
 	\textbf{Request:} & Method: & GET \\
-		& Body: & <empty>\\
+		& Body: & <empty> \\ [1ex] \hline & &  \\ [-1.5ex]
 	\textbf{Response:} &  Header: & HTTP/1.1 200 OK \\
 		& Content-Type: & application/json \\
-		& Body: & JSON-Array 'ImageData'\\
-	\textbf{Bemerkung:} & \multicolumn{2}{p{10cm}}{Alle ImageData Objekte zu dieser Etappe, nicht aber die eigentlichen Bilder. Die Bilder können aber mit dem Feld \textit{imageLocation} entweder direkt verlinkt oder heruntergeladen werden}
+		& Body: & JSON-Array 'ImageData' \\ [1ex] \hline & &  \\ [-1.5ex]
+	\textbf{Bemerkung:} & \multicolumn{2}{p{9cm}}{Alle ImageData Objekte zu dieser Etappe, nicht aber die eigentlichen Bilder. Die Bilder können aber mit dem Feld \textit{imageLocation} entweder direkt verlinkt oder heruntergeladen werden} \\ [1ex]
+\caption{Schnittstelle Bilddaten abfragen}
 \end{longtable}
 
-\paragraph{Beispiel JSON - ImageData}
+\paragraph{Beispiel JSON - Bilddaten}
 \begin{figure}[H]
 	\centering
 	\lstinputlisting[language=json]{jsonfiles/imageData.json}
-	\caption{JSON-Struktur: ImageData}
+	\caption{JSON-Struktur: Bilddaten}
 \end{figure}
 
-\subsubsection{Videodaten beim TourLive Server abfragen}	
-\begin{longtable}{ p{2.5cm} p{3.5cm} p{6cm}}
-	\textbf{URL:} & \multicolumn{2}{l}{/public/stage/\{stageId\}/videodata} \\
+\newpage
+\subsubsection{Videodaten beim TourLive Server abfragen}
+\begin{longtable}{ p{2.5cm} || p{3.5cm} p{5.5cm}}
+&  \\ [-1.5ex]
+	\textbf{URL:} & \multicolumn{2}{l}{/public/stage/\{stageId\}/videodata}  \\ [1ex] \hline & &  \\ [-1.5ex]
 	\textbf{Request:} & Method: & GET \\
-		& Body: & <empty>\\
+		& Body: & <empty> \\ [1ex] \hline & &  \\ [-1.5ex]
 	\textbf{Response:} &  Header: & HTTP/1.1 200 OK \\
 		& Content-Type: & application/json \\
-		& Body: & JSON-Array 'VideoData'\\
-	\textbf{Bemerkung:} & \multicolumn{2}{p{10cm}}{Alle VideoData Objekte zu dieser Etappe, nicht aber die eigentlichen Videosequenzen. Die Videos können aber mit dem Feld \textit{videoLocation} entweder direkt verlinkt oder heruntergeladen werden}
+		& Body: & JSON-Array 'VideoData' \\ [1ex] \hline & &  \\ [-1.5ex]
+	\textbf{Bemerkung:} & \multicolumn{2}{p{9cm}}{Alle VideoData Objekte zu dieser Etappe, nicht aber die eigentlichen Videosequenzen. Die Videos können aber mit dem Feld \textit{videoLocation} entweder direkt verlinkt oder heruntergeladen werden} \\ [1ex] 
+\caption{Schnittstelle Videodaten abfragen}
 \end{longtable}
 
-\paragraph{Beispiel JSON - VideoData}
+\paragraph{Beispiel JSON - Videodaten}
 \begin{figure}[H]
 	\centering
 	\lstinputlisting[language=json]{jsonfiles/videoData.json}
-	\caption{JSON-Struktur: VideoData}
+	\caption{JSON-Struktur: Videodaten}
 \end{figure}
 
-\subsubsection{Marschtablle beim TourLive Server abfragen}
-\begin{longtable}{ p{2.5cm} p{3.5cm} p{6cm}}
-	\textbf{URL:} & \multicolumn{2}{l}{/public/stage/\{stageId\}/marchtableitem} \\
+\newpage
+\subsubsection{Marschtabelle beim TourLive Server abfragen}
+\begin{longtable}{ p{2.5cm} || p{3.5cm} p{5.5cm}}
+&  \\ [-1.5ex]
+	\textbf{URL:} & \multicolumn{2}{l}{/public/stage/\{stageId\}/marchtableitem}  \\ [1ex] \hline & &  \\ [-1.5ex]
 	\textbf{Request:} & Method: & GET \\
-		& Body: & <empty>\\
+		& Body: & <empty> \\ [1ex] \hline & &  \\ [-1.5ex]
 	\textbf{Response:} &  Header: & HTTP/1.1 200 OK \\
 		& Content-Type: & application/json \\
-		& Body: & JSON-Array 'MarchTableItem'\\
-	\textbf{Bemerkung:} & \multicolumn{2}{p{10cm}}{Die Marschtabelle ist aufgeteilt in Einheiten. Jede Reihe bedeutet eine Einheit. Pro Etappe können alle Marschtabelleneinheiten abgerufen werden.}
+		& Body: & JSON-Array 'MarchTableItem' \\ [1ex] \hline & &  \\ [-1.5ex]
+	\textbf{Bemerkung:} & \multicolumn{2}{p{9cm}}{Die Marschtabelle ist aufgeteilt in Einheiten. Jede Reihe bedeutet eine Einheit. Pro Etappe können alle Marschtabelleneinheiten abgerufen werden.} \\ [1ex] 
+\caption{Schnittstelle Marschtabelle abfragen}
 \end{longtable}
 
-\paragraph{JSON Beispiel - Array MarchTableItem}
+\paragraph{JSON Beispiel - Array Marschtabelle}
 \begin{figure}[H]
 	\centering
 	\lstinputlisting[language=json]{jsonfiles/marchTableItems.json}
-	\caption{JSON-Struktur: MarchTableItem}
+	\caption{JSON-Struktur: Marschtabelle}
 \end{figure}
 
+\newpage
 \subsection{Rennfahrer beim TourLive Server abfragen}
-\begin{longtable}{ p{2.5cm} p{3.5cm} p{6cm}}	
-	\textbf{URL:} & \multicolumn{2}{l}{/public/stage/\{stageId\}/riders} \\
+\begin{longtable}{ p{2.5cm} || p{3.5cm} p{5.5cm}}
+&  \\ [-1.5ex]	
+	\textbf{URL:} & \multicolumn{2}{l}{/public/stage/\{stageId\}/riders}  \\ [1ex] \hline & &  \\ [-1.5ex]
 	\textbf{Request:} & Method: & GET \\
-		& Body: & <empty>\\
+		& Body: & <empty> \\ [1ex] \hline & &  \\ [-1.5ex]
 	\textbf{Response:} &  Header: & HTTP/1.1 200 OK \\
 		& Content-Type: & application/json \\
-		& Body: & JSON-Array 'Riders'\\
-	\textbf{Bemerkung:} & \multicolumn{2}{p{10cm}}{Sämtliche Fahrer, welche dieser Etappe zugeordnet sind} \\ [1ex] 
-\caption{TourLive Public API}
+		& Body: & JSON-Array 'Riders' \\ [1ex] \hline & &  \\ [-1.5ex]
+	\textbf{Bemerkung:} & \multicolumn{2}{p{9cm}}{Sämtliche Fahrer, welche dieser Etappe zugeordnet sind} \\ [1ex] 
+\caption{Schnittstelle Rennfahrer abfragen}
 \end{longtable}
 
-\paragraph{JSON Beispiel - Array Riders}
+\paragraph{JSON Beispiel - Array Rennfahrer}
 \begin{figure}[H]
 	\centering
 	\lstinputlisting[language=json]{jsonfiles/riders.json}
-	\caption{JSON-Struktur: Riders}
+	\caption{JSON-Struktur: Rennfahrer}
 \end{figure}
 
 
