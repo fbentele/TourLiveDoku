@@ -35,8 +35,17 @@
 \usepackage{inconsolata}
 \usepackage{enumitem}
 \usepackage{caption}
-
+\usepackage{algpseudocode}
+\usepackage[Algorithmus]{algorithm} 
+   
 \captionsetup[table]{skip=8pt}
+
+\DeclareCaptionFormat{algor}{%
+  \par\offinterlineskip\vskip2pt%
+    \textbf{#1#2}#3\offinterlineskip\vskip1pt}
+\DeclareCaptionStyle{algori}{singlelinecheck=off,format=algor,labelsep=space}
+
+\captionsetup[algorithm]{style=algori}
 
 \setlist{itemsep=2pt,parsep=2pt,topsep=0pt}
 
@@ -52,7 +61,7 @@
 \definecolor{mymauve}{rgb}{0.58,0,0.82}
 
 \lstdefinelanguage{json}{
-    basicstyle=\normalfont\ttfamily,
+    basicstyle=\footnotesize\ttfamily,
     numbers=none,
     showstringspaces=false,
     breaklines=true,

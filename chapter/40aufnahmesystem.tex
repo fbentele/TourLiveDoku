@@ -257,11 +257,18 @@ Das Aufnahmesystem enthält einige Algorithmen zur Berechnung von Distanzen, Ste
 \subsubsection{Berechnung der Renndauer}
 Die Renndauer ist in der TourLive Applikation im Tab Etappe (eng. Stage) zu finden und beschreibt die Renndauer seit dem offiziellen Etappenstart gemäss \textit{StageInfo}. Die Berechnung der Renndauer erfolgt durch eine einfache Subtraktion.
 
-\begin{center}
-\textit{if StageInfo is available \\
- return now - StageInfo.StageStartTime \\
-else return 0} 
-\end{center}
+
+\begin{algorithm}[H]
+	\begin{algorithmic}[1]
+		\vspace{5pt}
+		\If {$StageInfo \neq  null$}
+    		\State \Return $now$ - $StageInfo.StageStartTime$;
+		\Else
+    	 	\State \Return $0$;
+		\EndIf
+	\end{algorithmic}
+	\caption{Berechnung der Renndauer}
+\end{algorithm}
 
 
 Die Renndauer wird bei der Erstellung eines \textit{ValueContainers} im assoziierten \textit{StageData} im Attribut \textit{stageTime} gespeichert.
@@ -269,37 +276,62 @@ Die Renndauer wird bei der Erstellung eines \textit{ValueContainers} im assoziie
 \subsubsection{Berechnung der überwundenen Höhenmeter}
 Die überwundenen Höhenmeter repräsentieren das Total der positiv überwundenen Höhenmeter während einer Etappe. Der Wert wird in der TourLive Applikation im Tab Etappe (eng. Stage) angezeigt. Die Berechnung erfolgt nach folgendem Algorithmus.
 
-\begin{center}
-\textit{var Altitude = 0\\
-getAllValueContainers since StageInfo.StageStartTime\\
-if CurrentValueContainer.Altitude < NextValueContainer.Altitude\\
-Altitude += NextValueContainer.Altitude - CurrentValueContainer.Altitude}
-\end{center}
+\begin{algorithm}[H]
+	\begin{algorithmic}[1]
+		\vspace{5pt}
+		\State $Altitude \gets 0$;
+		\State $CurrentAltitude \gets null$;
+		\State $NextAltitude \gets null$;
+		\ForAll{$ValueContainers$ since $StageInfo.StageStartTime$}
+			\If {$NextAltitude \neq null$}
+				\State $CurrentAltitude \gets ValueContainer.Altitude$;
+				\If {$CurrentAltitude \leq NextAltitude$}
+    				\State $Altitude\gets Altitude + (NextAltitude - CurrentAltitude)$
+				\EndIf
+			 \Else
+				\State $NextAltitude \gets ValueContainer.Altitude$;
+			\EndIf
+		\EndFor
+	\end{algorithmic}
+	\caption{Berechnung der überwundenen Höhenmeter}
+\end{algorithm}
+
 
 Die überwundenen Höhenmeter werden bei der Erstellung eines \textit{ValueContainers} im assoziierten \textit{StageData} im Attribut \textit{stageUpAltitude} gespeichert.
+
 \subsubsection{Berechnung der Steigung}
 Die Angabe zur Steigung beziehen sich auf die letzten 100m Horizontaldistanz. Die Steigung wird im Tab Etappe (eng. Stage) angezeigt und bei der Erstellung eines \textit{ValueContainers} im assoziierten \textit{StageData} als Attribut \textit{incline} gespeichert. Die Berechnung erfolgt nach folgendem Algorithmus.
 
-\begin{center}
-var Altitude = 0\\
-var Distance = 0\\
-lastValueContainer = null\\
-List valueContainers getAllValueContainersAsReverseList()\\
-while valueContainers.hastNext\\
-if valueContainer is in currentStage\\
-	Altitude += lastValueContainer.Altitude - valueContainer.Altitude\\
-	Distane += lastValueContainer.Distance - valueContaienr.Distance\\
-	lastValueContainer = ValueContainer\\
 
-	if distance > 100\\
-		break\\
-else\\
-	break\\
-
-incline = altitude / distance\\
-return arctan(incline.toDegrees)\\
-
-\end{center}
+\begin{algorithm}[H]
+	\begin{algorithmic}[1]
+		\vspace{5pt}
+		\State $Altitude \gets 0$;
+		\State $Distance \gets 0$;
+		\State $LastAltitude \gets null$;
+		\State $LastDistance \gets null$;
+		\ForAll{$ValueContainers.Reverse$}
+			\If {$valueContainer$ is in $currentStage$}
+				\State $CurrAltitude \gets ValueContainer.Altitude$;
+				\State $CurrDistance \gets ValueContainer.Distance$;
+				\If {$LastAltitude \neq null$ \textbf{and} $LastDistance \neq null$ }
+					\State $Altitude \gets Altitude + (LastAltitude - CurrAltitude)$;
+					\State $Distance \gets Distance + (LastDistance - CurrDistance)$;
+				\EndIf
+				\State $LastAltitude \gets CurrAltitude$;
+				\State $LastDistance \gets CurrDistance$;
+				\If {$Distance \geq 100$}
+					\State BREAK;
+				\EndIf
+			\Else
+				\State BREAK;
+			\EndIf
+		\EndFor
+		\State $Incline \gets altitude/distance$;
+		\State \Return $arctan(incline.toDegrees)$;
+	\end{algorithmic}
+	\caption{Berechnung der Steigung}
+\end{algorithm}
 
 \subsubsection{Allgemeine Algorithmen zur Vermeidung von Berechnungsfehlern}
 Die Erstellung eines ValueContainers erfolgt sobald das Aufnahmegerät eine neue Position meldet. Es kann vorkommen, dass die GPS-API von Android fehlerhafte Positionsdaten sammelt. Aus diesem Grund werden erstellte ValueContainer auf ihre Datenkonsistenz überprüft und gegebenenfalls wieder verworfen. Der ValueContainer wird nach folgenden Kriterien überprüft:
