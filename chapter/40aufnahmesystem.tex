@@ -1,4 +1,5 @@
 \chapter{Android Aufnahmesystem}
+\label{sec:androidaufnahmesystem}
 
 Folgendes Kapitel behandelt das auf Google Android basierende Aufnahmesystem. Das Aufnahmesystem besteht aus zwei separaten Android Applikationen mit der Bezeichnung \textit{TourLive.apk} sowie \textit{TourLiveRecoveryService.apk}. Der Fokus folgender Unterkapitel liegt auf den Spezifikationen und der technischen Umsetzung des Aufnahmesystems und ist für Entwickler gedacht, die das Aufnahmesystem gerne erweitern möchten.
 
@@ -38,6 +39,9 @@ Eine kurze Übersicht über die bereits bestehenden Funktionen und den neu erfas
 
 Eine detaillierte Beschreibung aller Anforderungen befindet sich im Anhang im Kapitel \ref{sec:anforderungenandroiddevmgmt}.
 
+\section{Software Design}
+Dieses Kapitel dokumentiert das Software Design, verwendete Technologien und die Architektur des Aufnahmesystems.
+
 \subsection{Verwendete Technologien}
 
 \subsubsection{Android}
@@ -58,22 +62,11 @@ Verwendete Version: spring-android-1.0.1
 
 Verwendete Version: ORMLite-4.45
 
-\subsection{Paper Protoypes}
-Nach dem die Anforderungen definiert waren, haben wir Paper Prototypes erstellt. Diese wurden mit dem Industriepartner besprochen. So konnten mögliche Missverständnise eliminiert werden. Hier eine Übersicht über alle erstellten Mockups. Eine genauere Beschreibung befindet sich im Anhang im Kapitel \ref{sec:externesdesignandroid}.
+\newpage
 
-\begin{figure}[H]
-	\centering
-	\includegraphics[width=150mm]{images/android/OverviewAndroid.png}
-	\caption{Übersicht Android Mockups}
-\end{figure}
-
-\subsection{Domain Model}
-
-
-\section{Software Design}
-\subsection{Architektur und Übersicht}
-Die Android Applikation sammelt Daten für die beiden Server. In der Abbildung \ref{fig:grobstrukturandroid}
- wird veranschaulicht, welche Daten an welchen Server verschickt werden.
+\subsection{Architektur des Aufnahmesystems}
+Die Android Applikation zeichnet Daten für den TourLive Server wie auch den Device Management Server auf. In der Abbildung \ref{fig:grobstrukturandroid}
+ wird veranschaulicht, welche Daten an welchen Server übertragen werden.
 
 \begin{figure}[H]
 	\centering
@@ -82,19 +75,7 @@ Die Android Applikation sammelt Daten für die beiden Server. In der Abbildung \
 	\label{fig:grobstrukturandroid} 
 \end{figure}
 
-
-\subsubsection{Architekturentscheide}
-
-\paragraph{Caching}
-Um sämtliche aufgenommene Daten zu Cachen, haben wir uns für die Objektrelationale Abbildung der Klassen in der SQLite Datenbank entschieden. Dies ermöglicht mit Annotation eine schnelle Einbindung. Alternativen wären die Speicherung in ein Textfile oder die Speicherung in der Datenbank ohne Objektrelationale Abbildung, jedoch stand beides nicht zur Diskussion, da sie einem ORM gegenüber viele Nachteile bringen.
-
-\paragraph{Datenhaltung}
-Um die verschiedenen Services und Container überall zur Verfügung zu haben und somit lange Aufrufketten zu verhindern, wurde ein Singleton Repository eingeführt. In diesem Repository können über Methoden auf alle Daten zugegriffen werden, die von diversen Klassen gebraucht werden.
-
-\paragraph{TourLiveApplication}
-Beim Start der Applikation müssen viele Daten initialisiert werden. Um dies bereits zu machen, bevor eine View geladen wurde, wurde eine TourLiveApplication erstellt, welche von der Android Klasse Application abgeleitet wird. 
-
-\subsection{Schichtenmodell und Paketdiagramm}
+\subsubsection{Schichtenmodell und Paketdiagramm}
 Die Android Applikation teilt sich in 3 Schichten auf.
 
 \begin{figure}[H]
@@ -103,9 +84,32 @@ Die Android Applikation teilt sich in 3 Schichten auf.
 	\caption{Packagediagramm des Aufnahmesystems}
 \end{figure}
 
-Die oberste Schicht stellt die Schnittstelle zum Benutzer dar. Diese Klassen sind für die Darstellung zuständig.\\
-In der nächsten Schicht ist die ganz Businesslogik enthalten. Hier werden bei einer Aufnahme alle Timer gestartet und verwaltet und die jeweiligen Aktionen ausgeführt. \\
-In der letzten Schicht enthält die Domäne des Aufnahmesystems.
+Die oberste Schicht stellt die Schnittstelle zum Benutzer dar. Diese Klassen in dieser Schicht sind für die Darstellung / Views zuständig. Die mittlere Schicht enthält die ganze Businesslogik. Dazu gehören Services, Timer, Listener, etc. Die unterste Schicht enthält die Domänenobjekte die die effektiven Daten (Positionsdaten, Konfigurationen, ...) enthalten. 
+
+\subsubsection{Domain Model}
+Das Domain Model des Aufnahmesystems setzt sich aus den Domain Models des TourLive Servers und des Device Management Servers zusammen. Im Aufnahmesystem kommen keine neuen Domänenobjekte hinzu.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=150mm]{images/android/domainmodel.jpg}
+\caption{Aufnahmesystem Domain Model}
+\end{figure}
+
+\subsection{Architekturentscheide}
+
+\subsubsection{Globaler Service Provider - Repository.java}
+Um die verschiedenen Services und Container überall zur Verfügung zu haben und somit lange Aufrufketten zu verhindern, wurde ein Singleton Repository eingeführt. In diesem Repository können über Methoden auf alle Daten zugegriffen werden, die von diversen Klassen gebraucht werden.
+
+\subsubsection{Start der Applikation - TourLiveApplication.java}
+Beim Start der TourLive Applikation müssen diverse Daten initialisiert werden. Um diese Initialisierung vor der ersten View durchzuführen wurde eine projektspezifische Klasse \textit{TourLiveApplication.java} geschrieben, die von der Android Klasse \textit{Application} ableitet. Eine von \textit{Application} abgeleitete Klasse darf nur einmalig vorkommen und wird als erste Klasse bei einem App-Start initialisiert.
+\begin{quotation}
+\textit{Base class for those who need to maintain global application state}.\footnote{Application class, \url{http://developer.android.com/reference/android/app/Application.html} besucht am: 10.04.2013}
+\end{quotation}
+Über die Klasse TourLiveApplication kann ausserdem auf den globalen Application-Context zugegriffen werden. Der zur Initialisierung diverser Objekte benötigt wird und wie folgt in den Android Developer Reference beschrieben ist.
+\begin{quotation}
+\textit{Interface to global information about an application environment. This is an abstract class whose implementation is provided by the Android system. It allows access to application-specific resources and classes, as well as up-calls for application-level operations such as launching activities, broadcasting and receiving intents, etc. }\footnote{Context class, \url{http://developer.android.com/reference/android/content/Context.html} besucht am: 13.04.2013}
+\end{quotation}
+
 
 \section{Realisierung}
 
@@ -237,11 +241,18 @@ Das Aufnahmesystem enthält einige Algorithmen zur Berechnung von Distanzen, Ste
 \subsubsection{Berechnung der Renndauer}
 Die Renndauer ist in der TourLive Applikation im Tab Etappe (eng. Stage) zu finden und beschreibt die Renndauer seit dem offiziellen Etappenstart gemäss \textit{StageInfo}. Die Berechnung der Renndauer erfolgt durch eine einfache Subtraktion.
 
-\begin{center}
-\textit{if StageInfo is available \\
- return now - StageInfo.StageStartTime \\
-else return 0} 
-\end{center}
+
+\begin{algorithm}[H]
+\begin{algorithmic}[1]
+\vspace{5pt}
+\If {$StageInfo \neq null$}
+     \State \Return $now$ - $StageInfo.StageStartTime$;
+\Else
+     \State \Return $0$;
+\EndIf
+\end{algorithmic}
+\caption{Berechnung der Renndauer}
+\end{algorithm}
 
 
 Die Renndauer wird bei der Erstellung eines \textit{ValueContainers} im assoziierten \textit{StageData} im Attribut \textit{stageTime} gespeichert.
@@ -249,43 +260,68 @@ Die Renndauer wird bei der Erstellung eines \textit{ValueContainers} im assoziie
 \subsubsection{Berechnung der überwundenen Höhenmeter}
 Die überwundenen Höhenmeter repräsentieren das Total der positiv überwundenen Höhenmeter während einer Etappe. Der Wert wird in der TourLive Applikation im Tab Etappe (eng. Stage) angezeigt. Die Berechnung erfolgt nach folgendem Algorithmus.
 
-\begin{center}
-\textit{var Altitude = 0\\
-getAllValueContainers since StageInfo.StageStartTime\\
-if CurrentValueContainer.Altitude < NextValueContainer.Altitude\\
-Altitude += NextValueContainer.Altitude - CurrentValueContainer.Altitude}
-\end{center}
+\begin{algorithm}[H]
+\begin{algorithmic}[1]
+\vspace{5pt}
+\State $Altitude \gets 0$;
+\State $CurrentAltitude \gets null$;
+\State $NextAltitude \gets null$;
+\ForAll{$ValueContainers$ since $StageInfo.StageStartTime$}
+\If {$NextAltitude \neq null$}
+\State $CurrentAltitude \gets ValueContainer.Altitude$;
+\If {$CurrentAltitude \leq NextAltitude$}
+     \State $Altitude\gets Altitude + (NextAltitude - CurrentAltitude)$
+\EndIf
+\Else
+\State $NextAltitude \gets ValueContainer.Altitude$;
+\EndIf
+\EndFor
+\end{algorithmic}
+\caption{Berechnung der überwundenen Höhenmeter}
+\end{algorithm}
+
 
 Die überwundenen Höhenmeter werden bei der Erstellung eines \textit{ValueContainers} im assoziierten \textit{StageData} im Attribut \textit{stageUpAltitude} gespeichert.
+
 \subsubsection{Berechnung der Steigung}
 Die Angabe zur Steigung beziehen sich auf die letzten 100m Horizontaldistanz. Die Steigung wird im Tab Etappe (eng. Stage) angezeigt und bei der Erstellung eines \textit{ValueContainers} im assoziierten \textit{StageData} als Attribut \textit{incline} gespeichert. Die Berechnung erfolgt nach folgendem Algorithmus.
 
-\begin{center}
-var Altitude = 0\\
-var Distance = 0\\
-lastValueContainer = null\\
-List valueContainers getAllValueContainersAsReverseList()\\
-while valueContainers.hastNext\\
-if valueContainer is in currentStage\\
-	Altitude += lastValueContainer.Altitude - valueContainer.Altitude\\
-	Distane += lastValueContainer.Distance - valueContaienr.Distance\\
-	lastValueContainer = ValueContainer\\
 
-	if distance > 100\\
-		break\\
-else\\
-	break\\
-
-incline = altitude / distance\\
-return arctan(incline.toDegrees)\\
-
-\end{center}
+\begin{algorithm}[H]
+\begin{algorithmic}[1]
+\vspace{5pt}
+\State $Altitude \gets 0$;
+\State $Distance \gets 0$;
+\State $LastAltitude \gets null$;
+\State $LastDistance \gets null$;
+\ForAll{$ValueContainers.Reverse$}
+\If {$valueContainer$ is in $currentStage$}
+\State $CurrAltitude \gets ValueContainer.Altitude$;
+\State $CurrDistance \gets ValueContainer.Distance$;
+\If {$LastAltitude \neq null$ \textbf{and} $LastDistance \neq null$ }
+\State $Altitude \gets Altitude + (LastAltitude - CurrAltitude)$;
+\State $Distance \gets Distance + (LastDistance - CurrDistance)$;
+\EndIf
+\State $LastAltitude \gets CurrAltitude$;
+\State $LastDistance \gets CurrDistance$;
+\If {$Distance \geq 100$}
+\State BREAK;
+\EndIf
+\Else
+\State BREAK;
+\EndIf
+\EndFor
+\State $Incline \gets altitude/distance$;
+\State \Return $arctan(incline.toDegrees)$;
+\end{algorithmic}
+\caption{Berechnung der Steigung}
+\end{algorithm}
 
 \subsubsection{Allgemeine Algorithmen zur Vermeidung von Berechnungsfehlern}
 Die Erstellung eines ValueContainers erfolgt sobald das Aufnahmegerät eine neue Position meldet. Es kann vorkommen, dass die GPS-API von Android fehlerhafte Positionsdaten sammelt. Aus diesem Grund werden erstellte ValueContainer auf ihre Datenkonsistenz überprüft und gegebenenfalls wieder verworfen. Der ValueContainer wird nach folgenden Kriterien überprüft:
 \begin{itemize} [noitemsep,topsep=0pt]
-	\item longitude != 0
-	\item latitude != 0
-	\item accuracy < 100m
-	\item returned location from GPS\_PROVIDER != null
+\item longitude != 0
+\item latitude != 0
+\item accuracy < 100m
+\item returned location from GPS\_PROVIDER != null
 \end{itemize}
