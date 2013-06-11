@@ -1,0 +1,13 @@
+[
+	{
+		videoDataId: 136,
+		device: {
+			...
+		},
+		videoLocation: "images/awesome_image.png",
+		realTimestamp: 1369494910108
+	},
+	{
+		videoDataId: 137,
+...
+]
