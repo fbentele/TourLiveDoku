@@ -114,8 +114,6 @@ Um die verschiedenen Services und Container überall zur Verfügung zu haben und
 \paragraph{TourLiveApplication}
 Beim Start der Applikation müssen viele Daten initialisiert werden. Um dies bereits zu machen, bevor eine View geladen wurde, wurde eine TourLiveApplication erstellt, welche von der Android Klasse Application abgeleitet wird. 
 
-\paragraph{Berechnungen}
-
 \subsection{Schichtenmodell und Paketdiagramm}
 Die Android Applikation teilt sich in 3 Schichten auf.
 
@@ -199,7 +197,7 @@ Beim installieren der App wird angezeigt, welche Berechtigungen benötigt werden
 Um wiederkehrende Aktionen auszuführen wird ein Timer mit einem TimerTask benötigt. Der TimerTask implementiert das Interface Runnable. Bei Ablauf des Timers wird die Methode \textit{run} ausgeführt. 
 
 \subsection{Kommunikation zum Server}
-Die ganze Kommunikation zu den Servern wird in den abgeleiteten Klassen des AsyncTasks ausgeführt. Der AsyncTask wurde verwendet da nach der Abfrage auf dem Server das GUI aktualisiert werden muss und dies nur aus dem GUI Thread erlaubt ist. \\
+Die Kommunikation zu den Servern wird in den abgeleiteten Klassen des AsyncTasks ausgeführt. Der AsyncTask wurde verwendet da nach der Abfrage auf dem Server das GUI aktualisiert werden muss und dies nur aus dem GUI Thread erlaubt ist. \\
 Der AsyncTask wird mittel \textit{execute} ausgeführt, dies führt die Methode \textit{doInBackground} aus. Diese wiederum ruft am Schluss \textit{onPostExecute} auf. Die \textit{onPostExecute} Methode läuft im Gegensatz zur Methode \textit{doInBackground} im GUI Thread, somit kann hier das GUI aktualisiert werden.
 \\Für jede Kommunikation mit dem Server wurde eine eigene AsyncTask Klasse erstellt.
 
@@ -251,3 +249,63 @@ Die folgende Abbildung zeigt den Ablauf, beim Starten der Aufnahme.
 
 Beim Starten der Aufnahme werden alle Services gestartet. Beim ValueContainerService wird ein Listener für Positionsänderungen hinzugefügt, welcher in einem in den Einstellungen definierten Intervall die aktuelle Position mitteilt. Wird auf dem Listener \textit{onLocationChanged} aufgerufen, so wird ein neuer ValueContainer kreiiert und an den Server gesendet.\\
 Zusätzlich zum ValueContainerService wird der ImageService oder VideoService gestartet. Welcher von beiden benutzt wird hängt von dem definierten MediaRecording Modus ab. Bei beiden wird ein Timer gestartet, welcher periodisch Fotos oder Videos aufnimmt und diese an den TourLive Server sendet.
+
+\subsection{Algorithmen}
+Das Aufnahmesystem enthält einige Algorithmen zur Berechnung von Distanzen, Steigungen und Zeit. Diese werden in folgendem Unterkapitel kurz beschrieben. Damit eine Berechnung durchgeführt werden kann wird ein \textit{StageInfo}-Objekt vorausgesetzt der beschreibt in welchem Rennen beziehungsweise in welcher Etappe sich das Aufnahmegerät aktuell befindet.
+\\
+
+\subsubsection{Berechnung der Renndauer}
+Die Renndauer ist in der TourLive Applikation im Tab Etappe (eng. Stage) zu finden und beschreibt die Renndauer seit dem offiziellen Etappenstart gemäss \textit{StageInfo}. Die Berechnung der Renndauer erfolgt durch eine einfache Subtraktion.
+
+\begin{center}
+\textit{if StageInfo is available \\
+ return now - StageInfo.StageStartTime \\
+else return 0} 
+\end{center}
+
+
+Die Renndauer wird bei der Erstellung eines \textit{ValueContainers} im assoziierten \textit{StageData} im Attribut \textit{stageTime} gespeichert.
+
+\subsubsection{Berechnung der überwundenen Höhenmeter}
+Die überwundenen Höhenmeter repräsentieren das Total der positiv überwundenen Höhenmeter während einer Etappe. Der Wert wird in der TourLive Applikation im Tab Etappe (eng. Stage) angezeigt. Die Berechnung erfolgt nach folgendem Algorithmus.
+
+\begin{center}
+\textit{var Altitude = 0\\
+getAllValueContainers since StageInfo.StageStartTime\\
+if CurrentValueContainer.Altitude < NextValueContainer.Altitude\\
+Altitude += NextValueContainer.Altitude - CurrentValueContainer.Altitude}
+\end{center}
+
+Die überwundenen Höhenmeter werden bei der Erstellung eines \textit{ValueContainers} im assoziierten \textit{StageData} im Attribut \textit{stageUpAltitude} gespeichert.
+\subsubsection{Berechnung der Steigung}
+Die Angabe zur Steigung beziehen sich auf die letzten 100m Horizontaldistanz. Die Steigung wird im Tab Etappe (eng. Stage) angezeigt und bei der Erstellung eines \textit{ValueContainers} im assoziierten \textit{StageData} als Attribut \textit{incline} gespeichert. Die Berechnung erfolgt nach folgendem Algorithmus.
+
+\begin{center}
+var Altitude = 0\\
+var Distance = 0\\
+lastValueContainer = null\\
+List valueContainers getAllValueContainersAsReverseList()\\
+while valueContainers.hastNext\\
+if valueContainer is in currentStage\\
+	Altitude += lastValueContainer.Altitude - valueContainer.Altitude\\
+	Distane += lastValueContainer.Distance - valueContaienr.Distance\\
+	lastValueContainer = ValueContainer\\
+
+	if distance > 100\\
+		break\\
+else\\
+	break\\
+
+incline = altitude / distance\\
+return arctan(incline.toDegrees)\\
+
+\end{center}
+
+\subsubsection{Allgemeine Algorithmen zur Vermeidung von Berechnungsfehlern}
+Die Erstellung eines ValueContainers erfolgt sobald das Aufnahmegerät eine neue Position meldet. Es kann vorkommen, dass die GPS-API von Android fehlerhafte Positionsdaten sammelt. Aus diesem Grund werden erstellte ValueContainer auf ihre Datenkonsistenz überprüft und gegebenenfalls wieder verworfen. Der ValueContainer wird nach folgenden Kriterien überprüft:
+\begin{itemize} [noitemsep,topsep=0pt]
+	\item longitude != 0
+	\item latitude != 0
+	\item accuracy < 100m
+	\item returned location from GPS\_PROVIDER != null
+\end{itemize}
