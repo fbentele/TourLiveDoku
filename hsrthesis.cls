@@ -37,6 +37,7 @@
 \usepackage{caption}
 \usepackage{algpseudocode}
 \usepackage[Algorithmus]{algorithm} 
+\usepackage{titlesec}
    
 \captionsetup[table]{skip=8pt}
 
@@ -48,6 +49,16 @@
 \captionsetup[algorithm]{style=algori}
 
 \setlist{itemsep=2pt,parsep=2pt,topsep=0pt}
+
+
+\titleformat{\paragraph}
+{\normalfont\normalsize\bfseries}{\theparagraph}{1em}{}
+\titleformat{\subparagraph}
+{\normalfont\normalsize\bfseries}{\thesubparagraph}{1em}{}
+
+
+\titlespacing*{\paragraph} {0pt}{1.75ex plus 1ex minus .2ex}{0em}
+\titlespacing*{\subparagraph} {\parindent}{1.25ex plus 1ex minus .2ex}{-.5em}
 
 \colorlet{punct}{red!60!black}
 \definecolor{background}{HTML}{EEEEEE}
