@@ -38,6 +38,8 @@
 
 \captionsetup[table]{skip=8pt}
 
+\setlist{itemsep=2pt,parsep=2pt,topsep=0pt}
+
 \colorlet{punct}{red!60!black}
 \definecolor{background}{HTML}{EEEEEE}
 \definecolor{delim}{RGB}{20,105,176}

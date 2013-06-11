@@ -7,7 +7,7 @@ Das Testing des Gesamtsystems und der einzelnen Komponenten wurde mit verschiede
 \subsubsection{Übersicht Systemtests}
 \begin{longtable}{p{0.3cm}|p{1.8cm}|p{9.3cm}}
 & &  \\ [-1.5ex]
-\textbf{\#} & \textbf{Datum} & \textbf{Systemtest} \\ [1ex] \hline & &  \\ [-1.5ex]
+\textbf{\#} & \textbf{Datum} & \textbf{Systemtest} \\ [1ex] \hline \hline & &  \\ [-1.5ex]
 1 & 25.05.2013 & Rapperswiler Rundfahrt \\ [1ex] \hline & &  \\ [-1.5ex]
 2 & 01.06.2013 & Langzeittest über Nacht \\ [1ex] \hline & &  \\ [-1.5ex]
 3 & 02.06.2013 & Basel-Zürich \\ [1ex] \hline & &  \\ [-1.5ex]
@@ -18,21 +18,21 @@ Das Testing des Gesamtsystems und der einzelnen Komponenten wurde mit verschiede
 \end{longtable} 
 
 Nachfolgend werden sämtlich durchgeführten Systemtests beschrieben und ausgewertet. Im Kapitel Resultate werden die Erkenntnisse aus den Systemtests zusammengefasst und wie folgt klassifiziert:
-\begin{itemize} [noitemsep,topsep=0pt]
+\begin{itemize}
 	\item (+) \textit{positive Erkenntnis}
 	\item (-) \textit{negative Erkenntnis}
 \end{itemize}
 
 \subsubsection{\#1 - Systemtest Rapperswiler Rundfahrt}
 Ein erster Praxistest um das Zusammenspiel aller drei Komponenten zu testen. Auf einer Rundfahrt durch Rapperswil mit einem einzelnen Auto konnte der eine oder andere Fehler eruiert werden. Folgende Geräte wurden zu Testzwecken eingesetzt:
-\begin{itemize} [noitemsep,topsep=0pt]
+\begin{itemize}
 	\item{Google Galaxy Nexus}
 	\item{Samsung Galaxy S3}
 \end{itemize}
 
 \paragraph*{Resultate} \mbox{} \\
 Folgende Erkenntnisse wurden aus dem Systemtest gewonnen:
-\begin{itemize}[noitemsep,topsep=0pt]
+\begin{itemize}
 	\item App: Fehlberechnung bei der Distanz
 	\item App: Fehlberechnung bei der Renndauer
 	\item App: Reproduzierbare Abstürze (NullPointerExceptions,...)
@@ -46,14 +46,14 @@ Folgende Erkenntnisse wurden aus dem Systemtest gewonnen:
 
 \subsubsection{\#2 - Systemtest Langzeittest über Nacht}
 Aufgrund wiederkehrender Abstürze der TourLive App bei Laufender Aufnahme wurde über Nacht ein Langzeitest durchgeführt. Beide Geräte wurden einer 8 stündigen Etappe zugewiesen und sollten über Nacht Positionsdaten und Bilder übertragen. 
-\begin{itemize} [noitemsep,topsep=0pt]
+\begin{itemize} 
 	\item{Google Galaxy Nexus}
 	\item{Samsung Galaxy S3}
 \end{itemize}
 
 \paragraph*{Resultate} \mbox{} \\
 Folgende Erkenntnisse wurden aus dem Systemtest gewonnen:
-\begin{itemize}[noitemsep,topsep=0pt]
+\begin{itemize}
 	\item Google Galaxy Nexus: hat den Test erfolgreich bestanden. Im Log konnten keine Verdächtigen Einträge festgestellt werden.
 	\item Samsung Galaxy S3: App ist nach rund 2 Stunden aufgrund eines SIG-9 FATAL ERROR's abgestürzt. Grund für solche Abstürze sind Schreib-/Lesekonflikte im Speicherbereich und treten auf wenn zwei Threads gleichzeitig eine gemeinsame Variabel lesen / schreiben. Aufgrund dieser Erkenntnis wurden die diversen AsyncTasks, die parallel ausgeführt werden, optimiert.1
 \end{itemize}
@@ -63,7 +63,7 @@ Folgende Erkenntnisse wurden aus dem Systemtest gewonnen:
 \subsubsection{\#3 - Systemtest Basel - Zürich}
 Während einer längeren Autofahrt wurde das System als Ganzes erneut einem grundlegenden Test unterzogen. Die Aufnahmegeräte wurden so konfiguriert, dass von beiden Geräten Bilder übertragen wurde.
 
-\begin{itemize} [noitemsep,topsep=0pt]
+\begin{itemize}
 	\item Google Galaxy Nexus [Orange SIM-Karte]
 	\item Samsung Galaxy S3 [Swisscom SIM-Karte]
 \end{itemize}
@@ -74,7 +74,7 @@ Beide Geräte sendeten Bilder und Positionsdaten an den TourLive Server. Beim Go
 \subsubsection{\#4 - Systemtest Radsporttage Gippingen}
 \label{sec:testberichtgippingen}
 Im Rahmen der Radsporttage Gippingen konnte das Gesamtsystem ein erstes Mal praxisnah an einem Radrennen getestet werden. Für den Testlauf an den Radsporttagen in Gippingen wurden drei verschiedene Androidgeräte mit der aktuellsten Version der TourLive App ausgerüstet. Auf dem TourLive Server wurde ein Rennen und eine Etappe erstellt und die Fahrerliste sowie die Marschtabelle importiert. Im Einsatz waren folgende Gerätetypen:
-\begin{itemize} [noitemsep,topsep=0pt]
+\begin{itemize}
 	\item Google Galaxy Nexus [Orange SIM-Karte] im VIP-Auto
 	\item Samsung Galaxy S3 [Swisscom SIM-Karte] im VIP-Auto
 	\item HTC One [Sunrise SIM-Karte] im Feld
@@ -99,5 +99,4 @@ Ein letzter Systemtest konnte an der 2. Etappe der Tour de Suisse durchgeführt 
 
 \subsection{Unit Tests}
 \label{sec:unittests}
-\subsection{Unit Tests - TourLive Server}
 Für den TourLive Server existieren grundlegende JUnit Tests. Diese dienen in erster Linie dazu, die Serverkomponente zu testen und die Entwicklung von weiteren Tests beispielhaft zu dokumentieren.
