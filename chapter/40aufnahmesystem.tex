@@ -3,6 +3,7 @@
 Folgendes Kapitel behandelt das auf Google Android basierende Aufnahmesystem. Das Aufnahmesystem besteht aus zwei separaten Android Applikationen mit der Bezeichnung \textit{TourLive.apk} sowie \textit{TourLiveRecoveryService.apk}. Der Fokus folgender Unterkapitel liegt auf den Spezifikationen und der technischen Umsetzung des Aufnahmesystems und ist für Entwickler gedacht, die das Aufnahmesystem gerne erweitern möchten.
 
 \section{Software Analyse}
+Dieses Kapitel beschreibt die Anforderungen ans Aufnahmesystem und gibt einen groben Übersicht über die vorhandene Funktionalität.
 
 \subsection{Anforderungen an das Aufnahmesystem}
 
@@ -40,18 +41,22 @@ Eine detaillierte Beschreibung aller Anforderungen befindet sich im Anhang im Ka
 \subsection{Verwendete Technologien}
 
 \subsubsection{Android}
-Eine Voraussetzung für das Aufnahmesystem ist, dass dieses in Form einer Android Applikation entwickelt wird. Die native Programmiersprache für Android Applikationen ist Android Java, ein der Java Standard Edition sehr ähnliches Java Derivat. Die Programmierung in Java bringt den Vorteil, dass die gesamte \gls{api} von Android benutzt werden kann. Da sämtliche Komponenten des TourLive Projektes in Java geschrieben sind kann teilweise auf Server- wie auch Clientseite auf dieselben Klassen-Bibliotheken zurückgegriffen werden, was mögliche Inkompatibilitäten vermindert. 
+Eine Voraussetzung für das Aufnahmesystem ist, dass dieses in Form einer Android Applikation entwickelt wird. Die native Programmiersprache für Android Applikationen ist Android Java, ein der Java Standard Edition sehr ähnliches Java Derivat. Die Programmierung in Java bringt den Vorteil, dass die gesamte Android-\gls{api} benutzt werden kann. Da sämtliche Komponenten des TourLive Projektes in Java geschrieben sind kann teilweise auf Server- wie auch Clientseite auf dieselben Klassen-Bibliotheken zurückgegriffen werden, was mögliche Inkompatibilitäten vermindert. 
 
 \paragraph{Android Version}
 Eine Anwendung wird f"{u}r eine konkrete Android Version (Minimum Required SDK) entwickelt. Im Rahmen dieses Projektes wird als minimale SDK Version Android 4.0 (Versionsname: Ice Cream Sandwich\footnote{Android Ice Cream Sandwich, \url{http://www.android.com/about/ice-cream-sandwich/}, aufgerufen am 29.04.2013}, , API-Level: 14) verwendet. Die Applikation sollte gemäss Android Richtlinien kompatibel mit allen darauffolgenden Android Versionen sein.
 
 \subsubsection{Externe Libraries}
-Um den geforderten Funktionsumfang umzusetzen, wird einfachheitshalber auf folgende zwei externe Libraries zurückgegriffen.
+Um den geforderten Funktionsumfang umzusetzen, wird auf folgende zwei externe Bibliotheken zurückgegriffen.
 
 \paragraph{Spring for Android\footnote{Spring for Android, \url{http://www.springsource.org/spring-android}, aufgerufen am 29.04.2013} }
-Ein Rest Client für Android von den Entwicklern des Java Spring Frameworks. Der Rest Client bietet die einfache Möglichker von Serialisierung/Deserialisierung von Java Objekten in JSON-Strings. 
+Ein Rest Client für Android von den Entwicklern des Java Spring Frameworks. Der Rest Client bietet die einfache Möglichker von Serialisierung / Deserialisierung von Java Objekten in JSON-Strings. 
 
-\paragraph{ORMLite\footnote{ORMLite, \url{ormlite.com}, aufgerufen am 02.05.2013}} ORMLite ist eine OpenSource Java Library, welche das Object-Relational Mapping (ORM) übernimmt. ORMLite bietet eine speziell auf Android angepasste Distribution. Um Objektattribute zur Persistierung zu markieren, werden Java Annotationen verwendet. Aufgrund dieser Annotationen erstellt ORMLite die SQLite Datenbank. Darüber hinaus werden mit ORMLite alle Zugriffe auf die SQLite Datenbank ausgeführt. In dieser Arbeit wird die ORMLite Version 4.45 verwendet. Diese Library wird verwendet um die gesammelten Informationen lokal in einer Datenbank speichern zu können und um die Datenkonsistenz bei Verbindungsunterbrüchen sicherstellen zu können.
+Verwendete Version: spring-android-1.0.1
+
+\paragraph{ORMLite\footnote{ORMLite, \url{ormlite.com}, aufgerufen am 02.05.2013}} ORMLite ist eine OpenSource Java Library, welche das Object-Relational Mapping (ORM) übernimmt. ORMLite bietet eine speziell auf Android angepasste Distribution an. Um Objekte und ihre Attribute zu persistieren, werden diese in den Modelklassen mit Java Annotationen markiert. ORMLite wird verwendet um die gesammelten Informationen lokal in einer Datenbank zu speichern und damit Datenverlust bei Verbindungsunterbrüchen verhindern zu können.
+
+Verwendete Version: ORMLite-4.45
 
 \subsection{Paper Protoypes}
 Nach dem die Anforderungen definiert waren, haben wir Paper Prototypes erstellt. Diese wurden mit dem Industriepartner besprochen. So konnten mögliche Missverständnise eliminiert werden. Hier eine Übersicht über alle erstellten Mockups. Eine genauere Beschreibung befindet sich im Anhang im Kapitel \ref{sec:externesdesignandroid}.
