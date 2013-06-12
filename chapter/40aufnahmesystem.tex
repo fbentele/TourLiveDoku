@@ -310,7 +310,9 @@ Mit diesem Sachverhalt gibt es zwei Konflikte mit den Anforderungen an die TourL
 
 Das erste Problem mit der geforderten View die als Vorschau benötigt wird,  kann mit einer 1x1 Pixel grossen View die "unsichtbar" in einer Ecke angezeigt wird, umgangen werden. 
 
-Das zweite, etwas grössere Problem besteht darin, dass Bilder und Videosequenzen auch aufgenommen werden sollen wenn die Applikation im Hintergrund oder mit abgedunkelten Bildschirm läuft. Da in diesem beiden Fällen die Möglichkeit besteht, dass die MainActivity in einen anderen 
+Das zweite, etwas grössere Problem besteht darin, dass Bilder und Videosequenzen auch aufgenommen werden sollen wenn die Applikation im Hintergrund oder mit abgedunkelten Bildschirm läuft. Da in diesem beiden Fällen die Möglichkeit besteht, dass die MainActivity in einen anderen Status als \textit{active} wechselt, kann es vorkommen, dass die View für die Kamera Vorschau vom Garbage Collector aufgeräumt wird. In diesem Fall muss die MainActivity neu gestartet und die View für die Kamera Vorschau neu initialisiert werden. 
+
+Da die Android Kamera nicht für einen solchen Verwendungszweck ausgelegt ist (Aufnahme ohne Vorschau, Aufnahme bei abgedunkeltem Bildschirm / Applikation im Hintergrund) kann es während dem Betrieb zu unvorhergesehenen Problemen (Exceptions) kommen.
 
 
 \begin{quotation}
