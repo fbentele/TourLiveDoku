@@ -249,7 +249,7 @@ Das Starten einer Android Applikation erfordert je nach Funktionalität der Appl
 \subsection{I18N}
 Die Applikation ist in deutscher sowie englischer Sprache verfügbar. Weitere Sprachen lassen sich einfach durch erstellen  und übersetzen der Ordnerstruktur TourLive/res/values-SPRACHE hinzufügen.
 
-\subsection{Services}
+\subsection{Services, Tasks \& TimerTasks}
 Die TourLive Applikation arbeitet mit mehreren Services. Diese implementieren in der Regel das eigens für diese Applikation entworfene Interface \textit{TourLiveService.java}. Die Services werden meistens in Verbindung mit einem \textit{Timer} genutzt der wiederum einen \textit{TimerTask} voraussetzt.
 
 \begin{quotation}
@@ -260,28 +260,48 @@ Die TourLive Applikation arbeitet mit mehreren Services. Diese implementieren in
 \textit{The TimerTask class represents a task to run at a specified time. The task may be run once or repeatedly.} \footnote{TimerTask, \url{http://developer.android.com/reference/java/util/TimerTask.html}, besucht am: 11.04.2013}
 \end{quotation}
 
-Folgende Services, Timer und TimerTask werden in der TourLive Applikation verwendet:
+Folgende Services, Timer und TimerTask werden in der TourLive Applikation verwendet.
+\subsubsection{RecordingService} 
+\textit{RecordingService.java} ist verantwortlich für die Aufnahme von Live Informationen. Wird entweder manuell über den Start-Button, via Device Management Server über den fernstart, strom- oder zeitbasiert gestartet. Direkt mit dem RecordingService verknüpft sind folgende Services: ValueContainerService, ImageService und der VideoService.
+\subsubsection{ValueContainerService} 
+\textit{ValueContainerService.java} ist für die Übertragung von Positionsdaten (ValueContainer) verantwortlich. Der ValueContainerService registriert einen LocationListener der GPS-Updates meldet und diese dann mit Hilfe des DataCreators in ValueContainer-Objekt erstellt und per ValueContainerTask an den TourLive Server überträgt.
+\subsubsection{ImageService} 
+\textit{ImageService.java} ist für die Übertragung von Bilddaten verantwortlich. Der ImageService terminiert mit der Unterstützung eines Timers den TimerTask \textit{ImageTimerTask.java} der in regelmässigem Intervall ein Einzelbild aufnimmt und dieses per \textit{UploadMediaTask.java} an den TourLive Server sendet. 
+\subsubsection{VideoService} 
+\textit{VideoService.java} ist für die  Übertragung von Videodaten verantwortlich. Analog zum ImageServer nutzt der VideoService den \textit{VideoTimerTask.java} zur Aufnahme von Videosequenzen und den gemeinsamen UploadMediaTask.java zur Übertragung der Videosequenzen an den TourLive Server.
+\subsubsection{StartUpService} 
+\textit{StartUpService.java} ist für den Auto-Start der Applikation nach dem Gerätestart verantwortlich, sofern dieser in den Einstellungen aktiviert ist.
+\subsubsection{StatusDataService} 
+\textit{StatusDataService.java} ist für die  Übertragung des Gerätezustandes verantwortlich. Mit Hilfe eines Timers und des \textit{StatusDataTimerTask.java} wird in regelmässigem Intervall der Gerätezustand an den Device Management Server übertragen.
 
-\begin{itemize} [noitemsep,topsep=0pt]
-	\item RecordingService.java
-	\item ValueContainerService.java
-	\item ImageService.java
-	\item StartUpService.java
-	\item StatusDataService.java
-	\item VideoService.java
-\end{itemize}
-
-\subsection{Kommunikation zu den Servern}
-Die Kommunikation zu den Servern wird in den abgeleiteten Klassen des AsyncTasks ausgeführt. Der AsyncTask wurde verwendet da nach der Abfrage auf dem Server das GUI aktualisiert werden muss und dies nur aus dem GUI Thread erlaubt ist. \\
-Der AsyncTask wird mittel \textit{execute} ausgeführt, dies führt die Methode \textit{doInBackground} aus. Diese wiederum ruft am Schluss \textit{onPostExecute} auf. Die \textit{onPostExecute} Methode läuft im Gegensatz zur Methode \textit{doInBackground} im GUI Thread, somit kann hier das GUI aktualisiert werden.
-\\Für jede Kommunikation mit dem Server wurde eine eigene AsyncTask Klasse erstellt.
-
+\subsection{Kommunikation mit den Servern}
+Für die Übertragung der Daten an die beiden Server wurden AsyncTasks verwendet. Diese ermöglichen eine einfache Anwendung von Threads und sind in der Android Developer Reference wie folgt definiert: 
 
 \begin{quotation}
 \textit{AsyncTask enables proper and easy use of the UI thread. This class allows to perform background operations and publish results on the UI thread without having to manipulate threads and/or handlers. An asynchronous task is defined by a computation that runs on a background thread and whose result is published on the UI thread. An asynchronous task is defined by 3 generic types, called Params, Progress and Result, and 4 steps, called onPreExecute, doInBackground, onProgressUpdate and onPostExecute.} \footnote{AsyncTask, \url{http://developer.android.com/reference/android/os/AsyncTask.html}, besucht am: 13.04.2013}
 \end{quotation}
 
-\subsection{Listener}
+Es folgt eine kurze Auflistung der implementieren AsyncTasks.
+\begin{itemize} [noitemsep,topsep=0pt]
+	\item \textit{DeviceManagementTask.java} überträgt die Einstellungen an den Device Management Server und registriert das Gerät beim Applikationsstart.
+	\item \textit{LogReaderTask.java} aktualisiert die LogView in alle 5 Sekunden.
+	\item \textit{MessageTask.java} bezieht Nachrichten vom Device Management Server, sofern welche vorhanden sind
+	\item \textit{StageInfoTask.java} bezieht Renn- und Etappeninformationen vom TourLive Server
+	\item \textit{StatusDataTask.java} sendet den Gerätezustand an den Device Management Server und empfängt allfällige Konfigurationsänderungen vom Device Management Server. 
+	\item \textit{UploadMediaTask.java} sendet Bild- und Videodaten an den TourLive Server
+	\item \textit{ValueContainerTask.java} sendet Positionsdaten an den TourLive Server
+\end{itemize}
+
+\subsection{Listener \& BroadcastReceiver}
+Listener und BroadcastReceiver empfangen System- und andere Events. 
+\begin{itemize} [noitemsep,topsep=0pt]
+	\item \textit{LocationChangedListener.java} meldet Positionsupdates.
+	\item \textit{PreferenceChangedListener.java} meldet Einstellungsänderungen.
+	\item \textit{SignalStrengthListener.java} meldet Signalstärkenänderungen.
+	\item \textit{BootUpReceiver.java} meldet einen Gerätestart.
+	\item \textit{PowerConnectionReceiver.java} meldet Änderungen in der Stromversorgung.
+\end{itemize}
+
 %TODO GPSListener, SignalStrengthListener, PowerBatterBlaBlaListener
 
 \subsection{Aufnahme von Bildern und Videosequenzen}
