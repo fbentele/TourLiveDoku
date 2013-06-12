@@ -303,23 +303,22 @@ Listener und BroadcastReceiver empfangen System- und andere Events.
 \end{itemize}
 
 \subsection{Aufnahme von Bildern und Videosequenzen}
-Die Aufnahme von Bild- und Videosequenzen kann über die Android API grundsätzlich ziemlich komfortabel realisiert werden. Vorausgesetzt wird lediglich eine View die als Kamera Vorschau, wie man sie aus den nativen Kamera Applikationen kennt, genutzt werden kann. Eine View wiederum muss mit einer Activity verknüpft werden und diese wiederum kennt verschiedene Status (\textit{active}, \textit{paused}, \textit{stopped}, \textit{destroyed}). Welche Activity sich in welchem Status befindet wird vom Android Betriebssystem verwaltet. Grundsätzlich kann aber davon ausgegangen werden, dass eine Activity sich nicht mehr im Status \textit{active} befindet, wenn die Applikation sich im Hintergrund befindet oder der Bildschirm sich abdunkelt. Befindet sich eine Activity nicht mehr im Status \textit{active} kann es vorkommen, dass der Garbage Collector View-Objekte aufräumt die beim reaktivieren der Activity neu initialisiert werden.
-\\
-
-Mit diesem Sachverhalt gibt es zwei Konflikte mit den Anforderungen an die TourLive Applikation. Zum ersten wird keine Vorschau-View gewünscht und zum zweiten sollen auch Bilder / Videosequenzen aufgenommen werden, wenn die Applikation im Hintergrund oder mit abgedunkeltem Bildschirm läuft. 
-
-Das erste Problem mit der geforderten View die als Vorschau benötigt wird,  kann mit einer 1x1 Pixel grossen View die "unsichtbar" in einer Ecke angezeigt wird, umgangen werden. 
-
-Das zweite, etwas grössere Problem besteht darin, dass Bilder und Videosequenzen auch aufgenommen werden sollen wenn die Applikation im Hintergrund oder mit abgedunkelten Bildschirm läuft. Da in diesem beiden Fällen die Möglichkeit besteht, dass die MainActivity in einen anderen Status als \textit{active} wechselt, kann es vorkommen, dass die View für die Kamera Vorschau vom Garbage Collector aufgeräumt wird. In diesem Fall muss die MainActivity neu gestartet und die View für die Kamera Vorschau neu initialisiert werden. 
-
-Da die Android Kamera nicht für einen solchen Verwendungszweck ausgelegt ist (Aufnahme ohne Vorschau, Aufnahme bei abgedunkeltem Bildschirm / Applikation im Hintergrund) kann es während dem Betrieb zu unvorhergesehenen Problemen (Exceptions) kommen.
-
+Die Aufnahme von Bild- und Videosequenzen kann über die Android API grundsätzlich ziemlich komfortabel realisiert werden. Vorausgesetzt wird lediglich eine View (Bereich auf dem Bildschirm) die als Kamera Vorschau genutzt werden kann. 
 
 \begin{quotation}
 \textit{Sets the Surface to be used for live preview. Either a surface or surface texture is necessary for preview, and preview is necessary to take pictures.} \footnote{AsyncTask, \url{http://developer.android.com/reference/android/hardware/Camera.html\#setPreviewDisplay\%28android.view.SurfaceHolder\%29}, besucht am: 17.04.2013}
 \end{quotation}
 
+Eine View wiederum muss mit einer Activity verknüpft werden und eine Activity wiederum kennt verschiedene Status (\textit{active}, \textit{paused}, \textit{stopped}, \textit{destroyed}). Welche Activity sich in welchem Status befindet wird vom Android Betriebssystem verwaltet. Grundsätzlich kann aber davon ausgegangen werden, dass eine Activity sich nicht mehr im Status \textit{active} befindet, wenn die Applikation sich im Hintergrund befindet oder der Bildschirm sich abdunkelt. Befindet sich eine Activity nicht mehr im Status \textit{active} kommt es vor, dass der Garbage Collector View-Objekte aufräumt die beim reaktivieren der Activity neu initialisiert werden.
+\\
 
+Mit diesem Verhalten der Android API gibt es zwei Konflikte mit den Anforderungen an die TourLive Applikation. 
+
+Das erste Problem mit der geforderten View die als Vorschau benötigt wird,  kann mit einer 1x1 Pixel grossen View die "unsichtbar" in einer Ecke angezeigt wird, gelöst werden. 
+
+Das zweite, etwas grössere Problem besteht darin, dass Bilder und Videosequenzen auch aufgenommen werden sollen wenn die Applikation im Hintergrund oder mit abgedunkelten Bildschirm läuft. Da in diesem beiden Fällen die Möglichkeit besteht, dass die MainActivity in einen anderen Status als \textit{active} wechselt, kann es vorkommen, dass die View für die Kamera Vorschau vom Garbage Collector aufgeräumt wird. In diesem Fall muss die MainActivity neu gestartet und die View für die Kamera Vorschau neu initialisiert werden. 
+
+Da die Android Kamera Design Prinzipien nicht für einen solchen Verwendungszweck ausgelegt ist (Aufnahme ohne Vorschau, Aufnahme bei abgedunkeltem Bildschirm / Applikation im Hintergrund) kann es während dem Betrieb zu unvorhergesehenen Problemen (Exceptions) kommen.
 
 \subsection{Datenbank}
 Für das lokale Caching werden Daten mittels ORMLite in die Datenbank geschrieben. Eine Klasse wird mittels Annotation als Datenbankklasse erkannt.
