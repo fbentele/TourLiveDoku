@@ -28,31 +28,34 @@ Eine detaillierte Beschreibung aller Anforderungen befindet sich im Anhang im Ka
 \paragraph{Betriebsmodi}
 Die Geräte sollen sowohl über ein Management Server, analog zur bisherigen Verwaltungsseite , fernverwaltet als auch über ein „Einstellungen“-Menü direkt am Gerät konfiguriert werden können. 
 
-Daraus resultieren zwei Betriebsmodi: «managed» (TourLive App wird über den Device Management Server verwaltet) und «unmanaged» (TourLive App wird in den lokalen App Einstellungen verwaltet). Die Standardkonfiguration sieht den Modus «managed» vor. Die beiden Modi lassen sich jedoch am Gerät wie auch auf dem Device Management Server jederzeit ändern. 
+Daraus resultieren zwei Betriebsmodi: «managed» (TourLive App wird über den Device Management Server verwaltet) und «unmanaged» (TourLive App wird in den lokalen App Einstellungen verwaltet). Die Standardkonfiguration sieht den Modus «managed» vor. Die beiden Modi lassen sich am Gerät wie auch auf dem Device Management Server jederzeit ändern. 
 
 
 \paragraph{Alarming Funktionen}
 Treten Probleme auf, so soll auf dem Telefon sowie in der Management Konsole darüber informiert werden. Als zu meldende Probleme gelten folgende:
 \begin{itemize}
-\item Keine GPS-Daten während 2 Minuten
-\item Keine Bild-Daten während 2 Minuten
-\item Keine Verbindung zum TourLive Server während 2 Minuten
-\item Smartphone wird nicht mehr geladen (Stromzufuhr unterbrochen)
 \item Smartphone Akkustand liegt unter 30%
+\item Smartphone wird nicht mehr geladen (Stromzufuhr unterbrochen)
+\item Keine Medien-Daten seit mehr als 3 Minuten
+\item Keine Positions-Daten seit mehr als 3 Minuten
+\item Keine Status Updates seit mehr als 3 Minuten
+\item Weniger als 30\% freier Speicher intern und extern
+\item Mehr als 50 MByte
+\item Keine Satelliten verfügbar
 \end{itemize}
 	
 \subsection{Technologien}
-Für die Entwicklung des Device Management Servers wurden dieselben Technologien verwendet die bereits für den TourLive Server evaluiert wurden. Mehr Informationen dazu im Kapitel  \ref{sec:tourliveserverevaluationwebframework} Evaluation Webframework.
+Für die Entwicklung des Device Management Servers wurden dieselben Technologien verwendet die bereits für den TourLive Server evaluiert wurden. Mehr Informationen dazu im Kapitel  \ref{sec:tourliveserverevaluationwebframework} Evaluation Webframework und Kapitel \ref{sec:tourlivetechnologien} weitere Technologien.
 
 \subsection{Domain Model}
 Folgende Abbildung zeigt das Domain Model des Device Management Servers. Das Domain Model kann grundsätzlich in 4 Kategorien unterteilt werden die immer mit einem Gerät (der Klasse Device) assoziiert sind:
 
 
 \begin{itemize}
-\item Die Klasse TourLiveLog mit sämtlichen Gerätelogs in Form der Klasse LogEntry. 
-\item Die Klasse DeviceManagementContainer die sämtliche Geräteeinstellungen verteilt auf die Klassen DeviceSettings, RecordingSettings und AdditionalSettings speichert.
-\item Die Klasse StatusData die den aktuellen Gesundheitszustand eines Aufnahmegerätes wiederspiegelt.
-\item Die Klasse Message die allfällige Nachrichten vom Device Management Server an ein Aufnahmegerät speichert.
+\item Die Klasse TourLiveLog (1) mit sämtlichen Gerätelogs in Form der Klasse LogEntry. 
+\item Die Klasse DeviceManagementContainer (2) die sämtliche Geräteeinstellungen verteilt auf die Klassen DeviceSettings, RecordingSettings und AdditionalSettings enthält.
+\item Die Klasse StatusData (3) die den aktuellen Gesundheitszustand eines Aufnahmegerätes wiederspiegelt.
+\item Die Klasse Message (4) die allfällige Nachrichten vom Device Management Server an ein Aufnahmegerät speichert.
 \end{itemize}
 
 \begin{figure}[H]
@@ -64,19 +67,20 @@ Folgende Abbildung zeigt das Domain Model des Device Management Servers. Das Dom
 
 \section{Software Design}
 \subsection{Architektur und Übersicht}
-Der Device Management Server hat zwei Hauptaufgaben. Zum einen wird die Bearbeitung der Daten ermöglicht und zum anderen wird dem Aufnahmesystemen eine API zur Verfügung gestellt.
+Der Device Management Server unterteilt sich in Webseite und API. Die API wird von den Aufnahmesystemen angesprochen wohingegen die Webseite hauptsächlich von Administratoren genutzt wird.
+
 
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=120mm]{images/devmgmtsrv/uebersicht.png}
+	\includegraphics[width=150mm]{images/devmgmtsrv/uebersicht.png}
 	\caption{Grobstruktur des Device Management Servers}
 \end{figure}
 
 Wie beim TourLive Server besteht dank der gewählten Struktur die Möglichkeit, die Webseite und die API auf verschiedene Server aufzuteilen. Da die Auslastung des Device Management Servers jedoch gering ist, wird darauf nicht weiter eingegangen.
 
 \subsection{Schichtenmodell und Paketdiagramm}
-Der Device Management Server ist in vier Schichten unterteilt. Die Schichten wurden an die Struktur des Spring Frameworks angepasst. Folgende Abbildung zeigt diese vier Schichten auf.
+Der Device Management Server ist in vier Schichten unterteilt. Die Schichten wurden an die vorgegebene Struktur des Spring Frameworks angepasst. Folgende Abbildung zeigt diese vier Schichten auf. Jede Schicht kann nur auf die darunterliegenden Schichten zugreifen.
 
 \begin{figure}[H]
 	\centering
@@ -88,7 +92,7 @@ Der Device Management Server ist in vier Schichten unterteilt. Die Schichten wur
 Die View Schicht enthält alle *.jsp Dateien, die für die Darstellung der Webseite benötigt werden. 
 
 \subsubsection{Controller}
-Die Controller widerspiegeln die HTTP-Methoden (GET, POST,...) die für die Anzeige der Webseite und die RESTful JSON-Schnittstelle benötigt werden.
+Die Controller widerspiegeln die HTTP-Methoden (GET, POST,...) die für die Anzeige der Webseite und die RESTful JSON-Schnittstelle benötigt werden. Die Controller besitzen zwei verschiedene Methodentypen. Die einen werden für die Webseite zur Verfügung gestellt und die anderen für die Aufnahmesystemen. An den Methoden sieht man lediglich den Unterschied, dass bei den Webseitenemthoden ein ViewModel vorhanden ist, welches für die Anzeige gebraucht wird.
 
 \subsubsection{Service}
 Die Service Klassen sind für die Businesslogik auf den von den DAO's gelieferten Objekten verantwortlich.
@@ -108,8 +112,8 @@ Die Domäne des Device Management Servers wird in der Model Schicht abgebildet. 
 \section{Realisierung}
 Folgendes Kapitel beschreibt die Umsetzung des Device Management Servers.
 
-\subsection{API}
-Die API wird mittels Spring Annotations definiert. 
+\subsection{Definition Requests}
+Die Requests werden mittels Spring Annotations definiert. 
 
 \begin{lstlisting}[language=Java, caption=Spring Annotation]
 @RequestMapping(value = "/api/getdevmgmtcontainer", method = RequestMethod.POST)
@@ -117,16 +121,19 @@ Die API wird mittels Spring Annotations definiert.
 public DeviceManagementContainer getDeviceManagementContainer(@RequestBody final StatusData request)
 
 \end{lstlisting}
-\textbf{\textit{@RequestMapping}:} gibt an, welche URL auf diese Methode gemappt wird und welche Request Methode erlaubt ist.\\
-\textbf{\textit{@ResponseBody}: } definiert, dass die Methode eine Antwort zurück gibt.\\
-\textbf{\textit{@RequestBody}: } der Parameter der Methode wird als Body des Requests definiert.\\
-Diese annotierten Methoden müssen in einer Klasse enthalten sein, welche als \textit{@Controller} annotiert ist.
+
+\begin{itemize}
+\item \textbf{\textit{@RequestMapping}:} gibt an, welche URL auf diese Methode gemappt wird und welche HTTP Request Methode erlaubt ist.
+\item\textbf{\textit{@ResponseBody}: } definiert, dass die Methode eine HTTP Response zurückgibt.
+\item\textbf{\textit{@RequestBody}: } der Parameter der Methode wird als Body des Requests definiert.
+\end{itemize}
+Diese annotierten Methoden müssen in einer Klasse enthalten sein, welche als \textit{\textbf{@Controller}} annotiert ist.
 
 
 \subsection{Webseite}
-Die Webseiten wurden mit JSP umgesetzt. Als Erweiterung wurde Javascript sowie das JQuery Plugin verwendet. Um die grafische Oberfläche möglichst einfach zu gestalten, wurde das Twitter Bootstrap \footnote{Twitter Bootstrap, \url{http://twitter.github.io/bootstrap/}, besucht am 25. Mai 2013} CSS benutzt.
+Die Webseiten wurden mit JSP umgesetzt. Als Erweiterung wurde Javascript sowie das JQuery Plugin verwendet. Um die grafische Oberfläche möglichst einfach zu gestalten, wurde das Twitter Bootstrap \footnote{Twitter Bootstrap, \url{http://twitter.github.io/bootstrap/}, besucht am 25. Mai 2013} benutzt.
 
-Die Webseite wird in drei Teile unterteilt, Header, Footer sowie der Hauptbereich. 
+Die Webseite wird in drei Teile unterteilt, Header, Footer sowie den Hauptbereich. 
 
 \begin{figure}[H]
 	\centering
@@ -156,13 +163,15 @@ Der Footer enthält detaillierte Informationen zum Projekt TourLive.
 
 
 \subsubsection{Hauptbereich}
-Der Hauptbereich unterteilt sich wieder in zwei Teile. So hat man Links eine neue Navigation, mit welcher man sich zwischen den verschiedenen Seiten hin und her bewegen kann. 
+Der Hauptbereich unterteilt sich wieder in zwei Teile. So hat man Links eine Navigation, mit welcher man sich zwischen den verschiedenen Funktionen hin und her bewegen kann. 
  
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=120mm]{images/devmgmtsrv/settings.png}
 	\caption{DevMgmt Webseite Hauptbereich}
 \end{figure}
+
+\paragraph{Einstellungen}
 
 \pagebreak
 \subsection{Datenbank}
@@ -181,8 +190,10 @@ public class Device {
 	private String phoneNr;
 }
 \end{lstlisting}
+\begin{itemize}
+\item \textbf{\textit{@Entity}:} mit dieser Annotation wird angegeben, dass diese Klasse eine gemappte Hibernate Klasse ist.
+\item \textbf{\textit{@Table}:} optional, bei der Angabe dieses Attributs, kann der Name der Tabelle definiert werden.
+\item \textbf{\textit{@Id}:} definiert das folgende Attribut als Primärschlüssel.
+\item \textbf{\textit{@Column}:} das folgende Attribut definiert die Spalte.
+\end{itemize}
 
-\textbf{\textit{@Entity}:} mit dieser Annotation wird angegeben, dass diese Klasse eine gemappte Hibernate Klasse ist.\\
-\textbf{\textit{@Table}:} optional, bei der Angabe dieses Attributs, kann der Name der Tabelle definiert werden.\\
-\textbf{\textit{@Id}:} definiert das folgende Attribut als Primärschlüssel.\\
-\textbf{\textit{@Column}:} das folgende Attribut definiert die Spalte.
