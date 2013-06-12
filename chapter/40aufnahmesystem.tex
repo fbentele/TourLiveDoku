@@ -96,7 +96,46 @@ Das Domain Model des Aufnahmesystems setzt sich aus den Domain Models des TourLi
 \end{figure}
 
 \subsubsection{Paketdiagramm}
-%TODO Paketdiagramm
+Die TourLive Applikation hat folgende Paketstruktur. Als Grundstruktur wurde analog zum TourLive Server und dem Device Management Server \textit{ch.hsr.ba.tourlive} verwendet. Die TourLive Applikation verwendet zusätzlich die Subkategorie \textit{.android} sowie folgende applikationsspezifische Struktur:
+
+\begin{longtable}{p{5.0cm} | p{7.1cm}}
+\textbf{Paket} & \textbf{Inhalt} \\
+\hline \hline 
+. & enthält die initialisierende TourLiveApplication.java Klasse sowie Config.java \\ 
+\hline 
+.adapter & enthält Daten-Adapter um Listen darzustellen \\ 
+\hline 
+.adapter.row & enthält individuelle Listen Einträge \\ 
+\hline 
+.domain & enthält projektübergreifende Domain Klassen \\ 
+\hline 
+.domain.devmgmtsrv & enthält Device Management Server spezifische Domain Klassen \\ 
+\hline 
+.domain.devmgmtsrv.enums & enthält Device Management Service spezifische Enums \\ 
+\hline 
+.domain.tourliveserver & enthält TourLive Server spezifische Domain Klassen \\ 
+\hline 
+.domain.tourliveserver.enums & enthält TourLive Server spezifische Enums \\  
+\hline 
+.helper & enthält Hilfsklassen zur Berechnung von Werten \\ 
+\hline 
+.listener & enthält System Event-Listener \\ 
+\hline 
+.receiver & enthält Broadcast Receiver \\ 
+\hline 
+.service & enthält sämtliche Services \\ 
+\hline 
+.task & enthält sämtliche AsyncTasks \\ 
+\hline 
+.task.timer & enthält sämtliche TimerTasks \\ 
+\hline 
+.view & enthält Activities und Fragments \\ 
+\hline 
+.view.helper & enthält individuelle Dialoge \\ 
+\hline 
+.view.helptext & enthält die Hilfstext Klassen \\ 
+\hline 
+\end{longtable} 
 
 \subsection{Architekturentscheide}
 
@@ -221,7 +260,41 @@ Der Footer zeigt den Status der App. Die Symbole werden je nach Gesundheitszusta
 
 Mit dem Recording Button links kann die Aufnahme gestartet und gestoppt werden. Der Button ist nur aktiviert, wenn der Aufnahmemodus auf Manuell gesetzt ist.
 
-\pagebreak
+\paragraph{Einstellungen}
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=60mm]{images/android/settings.png}
+	\caption{Aufnahmesystem Einstellungen}
+\end{figure}
+
+Der oben abgebildete Screenshot zeigt einen Ausschnitt der Aufnahmesystemeinstellungen. Sämtliche Einstellungen können auch am Device Management Server verwaltet werden und werden regelmässig synchronisiert. Folgende Einstellungen sind möglich:
+
+\begin{itemize}
+	\item Konfigurationsversion (read-only)
+	\item Betriebsmodus (managed / unmanaged)
+	\item Device ID (read-only)
+	\item Benutername (String)
+	\item Hintergrundbeleichtung (on / off)
+	\item Auto-Start bei Gerätestart (on / off)
+	\item Kritischer Akku-Stand (0 - 100 \%)
+	\item TourLive Server primär (String)
+	\item TourLive Server sekundär (String)
+	\item Device Management Server primär (String)
+	\item Aufnamemodus (manuell, strombasiert, ferngesteuert, zeitbasiert)
+	\item Startzeit (DateTimePicker - nur bei Aufnahmemodus zeitbasiert)
+	\item Endzeit (DateTimePicker - nur bei Aufnahmemodus zeitbasiert)
+	\item Datenübertragunsintervall (Integer)
+	\item Kamera automatisch ausrichten (on / off)
+	\item Kamera (front / back)
+	\item Streamingmodus (Bilder / Videos / Nichts)
+	\item Bildauflösung (320x240, 640x480, 1280x960, 1600x1200)
+	\item Bildübertragunsintervall (Integer)
+	\item Videoauflösung (176x144, 720x480, 1280x720)
+	\item Renndistanzkorrektur (Integer)
+\end{itemize}
+
+Es ist ausserdem möglich sämtliche lokal gespeicherten Etappen und Positionsdaten zu löschen, sämtliche Bilder und Videodaten zu löschen und die Telefonnummer beim Wechsel der SIM-Karte anzupassen.
+
 \subsection{Berechtigungen}
 Das Starten einer Android Applikation erfordert je nach Funktionalität der Applikation bestimmte Systemberechtigungen, die bei der Installation \textit{Akzeptiert} werden müssen.
 \begin{figure}[H]
