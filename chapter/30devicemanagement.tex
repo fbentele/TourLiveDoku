@@ -1,66 +1,66 @@
 \chapter{Device Management Server}
 \label{sec:devmgmtsrv}
-
+%TODO : Review > Fokus Satz umschreiben
 In diesem Kapitel wird der Device Management Server behandelt. Der Fokus liegt dabei auf der Spezifikation und deren technischen Umsetzung. Zielperson dieses Kapitels sind Entwickler sowie Personen, die an technischen Details Interesse haben.
 
 \section{Software Analyse}
 
-\subsection{Anforderungen}
+\subsection{Spezifikationen}
 Um die Anforderungen zu evaluieren wurde das bestehende Geräteverwaltungsportal analysiert. Da beim bestehenden System der Funktionsumfang stark eingeschränkt war, wurde vom Industriepartner zusätzliche Funktionalität gewünscht.
 Um eine kurze Übersicht über die vorhandenen Funktionen und erfassten Anforderungen zu geben folgt die Tabelle \ref{tab:anforderungendevmgmtsrv}.
 
 \begin{longtable}{  p{3.5cm} | p{4.3cm} | p{4.3cm} }
 
-    \textbf{Anforderung} & \textbf{Altes System} & \textbf{Neues System} \\ [1ex] \hline \hline & &  \\ [-1.5ex]
+    \textbf{Spezifikation} & \textbf{Altes System} & \textbf{Neues System} \\ [1ex] \hline \hline & &  \\ [-1.5ex]
     Einstellungen anpassen & Nur Renndistanzkorrektur & Detaillierte Verwaltung der Geräteeinstellungen\\ [1ex] \hline & &  \\ [-1.5ex]
     Status der Geräte & Rudimentäre Anzeige des Gerätestatus & Detaillierte Anzeige des Gerätestatus\\ [1ex] \hline & &  \\ [-1.5ex]
      Alarming bei schlechtem Gerätezustand & Dauer seit letztem Positionsupdate / Bildempfang zu gross & Visuelle Hervorhebung bei Problemen mit dem Gerätestatus \\ [1ex] \hline & &  \\ [-1.5ex]
     Neustarten des Gerätes & Neustarten des Gerätes via Portal & nur Neustarten der App möglich\\ [1ex] \hline & &  \\ [-1.5ex]
     Gerätelog anzeigen & - & Gerätelog anzeigen\\ [1ex] \hline & &  \\ [-1.5ex]
-    Versand von Nachrichten & - & Versand von Nachrichte möglich\\ [1ex] 
+    Versand von Nachrichten & - & Versand von Nachrichten möglich\\ [1ex] 
 \caption{Anforderungen Device Management Server}
 \end{longtable}
 \label{tab:anforderungendevmgmtsrv}
 
 Eine detaillierte Beschreibung aller Anforderungen befindet sich im Anhang im Kapitel \ref{sec:anforderungenandroiddevmgmt}. Nachfolgend ein kurzer Überblick der wichtigsten Anforderungen.
 
-\subsubsection{Funktionale Anforderungen}
-\paragraph{Betriebsmodi}
-Die Geräte sollen sowohl über ein Management Server, analog zur bisherigen Verwaltungsseite , fernverwaltet als auch über ein „Einstellungen“-Menü direkt am Gerät konfiguriert werden können. 
+\subsection{Funktionale Anforderungen}
+\subsubsection{Betriebsmodi}
+Die Geräte sollen sowohl über einen Management Server, analog zur bisherigen Verwaltungsseite, fernverwaltet als auch über ein „Einstellungen“-Menü direkt am Gerät konfiguriert werden können. 
 
 Daraus resultieren zwei Betriebsmodi: «managed» (TourLive App wird über den Device Management Server verwaltet) und «unmanaged» (TourLive App wird in den lokalen App Einstellungen verwaltet). Die Standardkonfiguration sieht den Modus «managed» vor. Die beiden Modi lassen sich am Gerät wie auch auf dem Device Management Server jederzeit ändern. 
 
 
-\paragraph{Alarming Funktionen}
+\subsubsection{Alarming Funktionen}
 Treten Probleme auf, so soll auf dem Telefon sowie in der Management Konsole darüber informiert werden. Als zu meldende Probleme gelten folgende:
 \begin{itemize}
-\item Smartphone Akkustand liegt unter 30%
+\item Smartphone Akkustand liegt unter 30\%
 \item Smartphone wird nicht mehr geladen (Stromzufuhr unterbrochen)
 \item Keine Medien-Daten seit mehr als 3 Minuten
 \item Keine Positions-Daten seit mehr als 3 Minuten
 \item Keine Status Updates seit mehr als 3 Minuten
 \item Weniger als 30\% freier Speicher intern und extern
-\item Mehr als 50 MByte
-\item Keine Satelliten verfügbar
+\item Keine GPS-Satelliten verfügbar sind
 \end{itemize}
 	
 \subsection{Technologien}
-Für die Entwicklung des Device Management Servers wurden dieselben Technologien verwendet die bereits für den TourLive Server evaluiert wurden. Mehr Informationen dazu im Kapitel  \ref{sec:tourliveserverevaluationwebframework} Evaluation Webframework und Kapitel \ref{sec:tourlivetechnologien} weitere Technologien.
+Für die Entwicklung des Device Management Servers wurden die selben Technologien verwendet, die bereits für den TourLive Server evaluiert wurden. Mehr Informationen dazu im Kapitel \ref{sec:tourliveserverevaluationwebframework} und \ref{sec:tourlivetechnologien}.
 
 \subsection{Domain Model}
-Folgende Abbildung zeigt das Domain Model des Device Management Servers. Das Domain Model kann grundsätzlich in 4 Kategorien unterteilt werden die immer mit einem Gerät (der Klasse Device) assoziiert sind:
+Abbildung \ref{fig:domainmodeldevmgmtsrv} zeigt das Domain Model des Device Management Servers. Das Domain Model kann grundsätzlich in vier Kategorien unterteilt werden. Jede dieser vier Kategorien wird jeweils einem Gerät (der Klasse \textit{Device.java}) assoziiert. Die vier Kategorien sind: 
 
 
 \begin{itemize}
-\item Die Klasse TourLiveLog (1) mit sämtlichen Gerätelogs in Form der Klasse LogEntry. 
-\item Die Klasse DeviceManagementContainer (2) die sämtliche Geräteeinstellungen verteilt auf die Klassen DeviceSettings, RecordingSettings und AdditionalSettings enthält.
-\item Die Klasse StatusData (3) die den aktuellen Gesundheitszustand eines Aufnahmegerätes wiederspiegelt.
-\item Die Klasse Message (4) die allfällige Nachrichten vom Device Management Server an ein Aufnahmegerät speichert.
+\item Die Klasse \textit{TourLiveLog.java} (1) mit sämtlichen Gerätelogs in Form der Klasse LogEntry. 
+\item Die Klasse \textit{DeviceManagementContainer.java} (2), die die Geräteeinstellungen auf die Klassen \textit{DeviceSettings.java}, \textit{RecordingSettings.java} und \textit{AdditionalSettings.java}, aufteilt.
+\item Die Klasse \textit{StatusData.java} (3), die den aktuellen Gesundheitszustand eines Aufnahmegerätes widerspiegelt.
+\item Die Klasse \textit{Message.java} (4), die allfällige Nachrichten vom Device Management Server an ein Aufnahmegerät speichert.
 \end{itemize}
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=120mm]{images/devmgmtsrv/domainmodel.jpg}
+	\includegraphics[width=130mm]{images/devmgmtsrv/domainmodel.jpg}
+	\label{fig:domainmodeldevmgmtsrv}
 	\caption{Domain Model des Device Management Servers}
 \end{figure}
 
@@ -73,18 +73,19 @@ Der Device Management Server unterteilt sich in Webseite und API. Die API wird v
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=150mm]{images/devmgmtsrv/uebersicht.png}
+	\includegraphics[width=130mm]{images/devmgmtsrv/uebersicht.png}
 	\caption{Grobstruktur des Device Management Servers}
 \end{figure}
 
-Wie beim TourLive Server besteht dank der gewählten Struktur die Möglichkeit, die Webseite und die API auf verschiedene Server aufzuteilen. Da die Auslastung des Device Management Servers jedoch gering ist, wird darauf nicht weiter eingegangen.
+Wie beim TourLive Server besteht dank der gewählten Struktur die Möglichkeit, die Webseite und die API auf verschiedene Server aufzuteilen. Da die Auslastung des Device Management Servers gering sein wird, wird darauf verzichtet.
 
-\subsection{Schichtenmodell und Paketdiagramm}
-Der Device Management Server ist in vier Schichten unterteilt. Die Schichten wurden an die vorgegebene Struktur des Spring Frameworks angepasst. Folgende Abbildung zeigt diese vier Schichten auf. Jede Schicht kann nur auf die darunterliegenden Schichten zugreifen.
+\subsection{Schichtenmodell und Packagediagramm}
+Der Device Management Server ist in vier Schichten unterteilt. Die Schichten wurden an die vorgegebene Struktur des Spring Frameworks angepasst. Abbildung \ref{fig:devmgmtsrvschichten} zeigt diese vier Schichten auf. Jede Schicht kann nur auf die darunterliegenden Schichten zugreifen.
 
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=80mm]{images/devmgmtsrv/schichten.jpg}
+	\label{fig:devmgmtsrvschichten}
 	\caption{Schichtendiagramm des Device Management Servers}
 \end{figure}
 
@@ -92,12 +93,12 @@ Der Device Management Server ist in vier Schichten unterteilt. Die Schichten wur
 Die View Schicht enthält alle *.jsp Dateien, die für die Darstellung der Webseite benötigt werden. 
 
 \subsubsection{Controller}
-Die Controller widerspiegeln die HTTP-Methoden (GET, POST,...) die für die Anzeige der Webseite und die RESTful JSON-Schnittstelle benötigt werden. Die Controller besitzen zwei verschiedene Methodentypen. Die einen werden für die Webseite zur Verfügung gestellt und die anderen für die Aufnahmesystemen. An den Methoden sieht man lediglich den Unterschied, dass bei den Webseitenemthoden ein ViewModel vorhanden ist, welches für die Anzeige gebraucht wird.
+Die Controller widerspiegeln die HTTP-Methoden (GET, POST,...) die für die Anzeige der Webseite und die RESTful JSON-Schnittstelle benötigt werden. Die Controller besitzen zwei verschiedene Methodentypen. Die einen werden für die Webseite zur Verfügung gestellt und die anderen für die Aufnahmesysteme. An den Methoden sieht man lediglich den Unterschied, dass bei den Webseitenemthoden ein ViewModel vorhanden ist, welches für die Anzeige gebraucht wird.
 
 \subsubsection{Service}
 Die Service Klassen sind für die Businesslogik auf den von den DAO's gelieferten Objekten verantwortlich.
 
-\paragraph{DeviceManagementContainerService}
+\paragraph{Device Management Container Service}
 Der Device Management Container Service speichert und liefert die Container mit den Geräteeinstellungen sowie das Flag \textit{'messageAvailable'} falls auf dem Device Management Portal eine Nachricht für das Gerät vorhanden ist.
 
 \subsubsection{DAO}
@@ -124,21 +125,21 @@ public DeviceManagementContainer getDeviceManagementContainer(@RequestBody final
 
 \begin{itemize}
 \item \textbf{\textit{@RequestMapping}:} gibt an, welche URL auf diese Methode gemappt wird und welche HTTP Request Methode erlaubt ist.
-\item\textbf{\textit{@ResponseBody}: } definiert, dass die Methode eine HTTP Response zurückgibt.
+\item\textbf{\textit{@ResponseBody}: } definiert, dass die Methode einen HTTP Response Body zurück gibt und nicht eine JSP-Seite rendert.
 \item\textbf{\textit{@RequestBody}: } der Parameter der Methode wird als Body des Requests definiert.
 \end{itemize}
 Diese annotierten Methoden müssen in einer Klasse enthalten sein, welche als \textit{\textbf{@Controller}} annotiert ist.
 
 
 \subsection{Webseite}
-Die Webseiten wurden mit JSP umgesetzt. Als Erweiterung wurde Javascript sowie das JQuery Plugin verwendet. Um die grafische Oberfläche möglichst einfach zu gestalten, wurde das Twitter Bootstrap \footnote{Twitter Bootstrap, \url{http://twitter.github.io/bootstrap/}, besucht am 25. Mai 2013} benutzt.
+Die Webseiten wurden mit JSP umgesetzt und mit der JavaScript Library JQuery angereichert. Um die grafische Oberfläche möglichst einfach zu gestalten, wurde  Twitter Bootstrap \footnote{Twitter Bootstrap, \url{http://twitter.github.io/bootstrap/}, besucht am 25. Mai 2013} benutzt.
 
 Die Webseite wird in drei Teile unterteilt, Header, Footer sowie den Hauptbereich. 
 
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=120mm]{images/devmgmtsrv/all.png}
-	\caption{Übersicht der DevMgmt Webseite}
+	\caption{Übersicht der Device Management Server Webseite}
 \end{figure}
 
 \subsubsection{Header}
@@ -146,7 +147,7 @@ Der Header bietet die Möglichkeit, über eine Schnellnavigation auf ein Gerät 
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=120mm]{images/devmgmtsrv/header.png}
-	\caption{DevMgmt Webseite Header}
+	\caption{Device Management Server Webseite - Header}
 \end{figure}
 
 
@@ -158,42 +159,16 @@ Der Footer enthält detaillierte Informationen zum Projekt TourLive.
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=120mm]{images/devmgmtsrv/footer.png}
-	\caption{DevMgmt Webseite Footer}
+	\caption{Device Management Server Webseite - Footer}
 \end{figure}
 
 
 \subsubsection{Hauptbereich}
-Der Hauptbereich unterteilt sich wieder in zwei Teile. So hat man Links eine Navigation, mit welcher man sich zwischen den verschiedenen Funktionen hin und her bewegen kann. 
+Der Hauptbereich ist in zwei Teile unterteilt. So befindet sich Links eine Navigation, mit welcher zwischen den verschiedenen Funktionen navigiert werden kann. 
  
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=120mm]{images/devmgmtsrv/settings.png}
-	\caption{DevMgmt Webseite Hauptbereich}
+	\caption{Device Management Server Webseite - Hauptbereich}
 \end{figure}
-
-\paragraph{Einstellungen}
-
-\pagebreak
-\subsection{Datenbank}
-Die Speicherung der Daten in der Datenbank erfolgt mittels Hibernate Annotations.
-
-\begin{lstlisting}[language=Java, caption=Hibernate Annotation]
-@Entity
-@Table(name = "Device")
-public class Device {
-	@Id
-	@Column(name = "deviceId")
-	private String deviceId;
-	@Column
-	private String username;
-	@Column
-	private String phoneNr;
-}
-\end{lstlisting}
-\begin{itemize}
-\item \textbf{\textit{@Entity}:} mit dieser Annotation wird angegeben, dass diese Klasse eine gemappte Hibernate Klasse ist.
-\item \textbf{\textit{@Table}:} optional, bei der Angabe dieses Attributs, kann der Name der Tabelle definiert werden.
-\item \textbf{\textit{@Id}:} definiert das folgende Attribut als Primärschlüssel.
-\item \textbf{\textit{@Column}:} das folgende Attribut definiert die Spalte.
-\end{itemize}
 

@@ -25,14 +25,12 @@ Die Aufnahmegeräte liefern über diese Schnittstellen ValueContainer, Bilder un
 		& Content-Type: & application/json \\
 		& Body: & JSON-String \textit{ValueContainer}\\ [1ex] \hline & &  \\ [-1.5ex]
 	\textbf{Response:} & Header: & HTTP/1.1 200 OK \\
-		& Body: & <empty> \\ [1ex] \hline & &  \\ [-1.5ex]
-	\textbf{Zeitpunkt:} & \multicolumn{2}{p{9cm}}{Bei laufender Aufnahme} \\ [1ex] \hline & &  \\ [-1.5ex]
-	\textbf{Interval:} & \multicolumn{2}{p{9cm}}{konfigurierbar} \\ [1ex] 
+		& Body: & <empty> \\ [1ex] 
 	\caption{Schnittstelle ValueContainer}
 \end{longtable}
 
 \paragraph{JSON Beispiel - ValueContainer}
-Der TourLive Server erwartet das folgende JSON-Struktur für die Darstellung eines ValueContainers.
+Der TourLive Server erwartet die folgende JSON-Struktur für die Darstellung eines ValueContainers.
 
 \begin{figure}[htb]
 	\centering
@@ -52,9 +50,7 @@ Der TourLive Server erwartet das folgende JSON-Struktur für die Darstellung ein
 		& Body-Boundary 2: & text/plain (deviceId) \\
 		& Body-Boundary 3: & application/octet-stream (Bild)  \\ [1ex] \hline & &  \\ [-1.5ex]
 	\textbf{Response:} & Header: & HTTP/1.1 200 OK \\
-		& Body: & <empty>  \\ [1ex] \hline & &  \\ [-1.5ex]
-	\textbf{Zeitpunkt:} & \multicolumn{2}{p{9cm}}{Bei laufender Aufnahme, falls Image aktiviert ist}  \\ [1ex] \hline & &  \\ [-1.5ex]
-	\textbf{Interval:} & \multicolumn{2}{p{9cm}}{konfigurierbar} \\ [1ex]  
+		& Body: & <empty>  \\ [1ex]  
 	\caption{Schnittstelle Bild senden}
 \end{longtable}
 
@@ -68,9 +64,7 @@ Der TourLive Server erwartet das folgende JSON-Struktur für die Darstellung ein
 		& Body-Boundary 2: & text/plain (deviceId) \\
 		& Body-Boundary 3: & application/octet-stream (Video)  \\ [1ex] \hline & &  \\ [-1.5ex]
 	\textbf{Response:} & Header: & HTTP/1.1 200 OK \\
-		& Body: & <empty>  \\ [1ex] \hline & &  \\ [-1.5ex]
-	\textbf{Zeitpunkt:} & \multicolumn{2}{p{9cm}}{Bei laufender Aufnahme, falls der Videostream aktiviert ist}  \\ [1ex] \hline & &  \\ [-1.5ex]
-	\textbf{Interval:} & \multicolumn{2}{p{9cm}}{konfigurierbar}  \\ [1ex] 
+		& Body: & <empty>  \\ [1ex]
 	\caption{Schnittstelle Video senden} 
 \end{longtable}
 
@@ -88,7 +82,7 @@ Der TourLive Server erwartet das folgende JSON-Struktur für die Darstellung ein
 \end{longtable}
 
 \paragraph{JSON Beispiel - Rennsituation}
-Der TourLive Server erwartet das folgende JSON-Struktur für die Darstellung der Rennsituation.
+Der TourLive Server erwartet die folgende JSON-Struktur für die Darstellung der Rennsituation.
 \begin{figure}[H]
 	\centering
 	\lstinputlisting[language=json]{jsonfiles/raceSituation.json}
@@ -226,7 +220,7 @@ Ob eine neue Nachricht für ein Gerät verfügbar ist, wird dem Gerät im Device
 \end{longtable} }
 
 \paragraph{JSON Beispiel - Message}
-Das JSON für die Nachrichten ist das folgende:
+Das JSON für die Nachrichten ist das Folgende:
 \begin{figure}[H]
 	\centering
 	\lstinputlisting[language=json]{jsonfiles/message.json}
@@ -234,10 +228,10 @@ Das JSON für die Nachrichten ist das folgende:
 \end{figure}
 
 \newpage
-\subsection{Öffentliche Schnittstellen}
+\section{Öffentliche Schnittstellen}
 \label{sec:tourlivepublicapi}
 
-Die Renn- und Etappeninformationen stehen auch für Drittentwickler zur Verfügung. Zu jeder Etappe können zusätzlich die ValueContainer und Bilddaten abgefragt werden. Folgende Abbildung gibt eine grobe Übersicht über öffentlichen Schnittstellen.
+Die Renn- und Etappeninformationen stehen auch für Drittentwickler zur Verfügung. Zu jeder Etappe können zusätzlich die ValueContainer und Bilddaten abgefragt werden. Folgende Abbildung gibt eine grobe Übersicht über die öffentlichen Schnittstellen.
 
 \begin{figure}[H]
 	\centering

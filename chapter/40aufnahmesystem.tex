@@ -1,36 +1,36 @@
 \chapter{Android Aufnahmesystem}
 \label{sec:androidaufnahmesystem}
 
-Folgendes Kapitel behandelt das auf Google Android basierende Aufnahmesystem. Das Aufnahmesystem besteht aus zwei separaten Android Applikationen mit der Bezeichnung \textit{TourLive.apk} sowie \textit{TourLiveRecoveryService.apk}. Der Fokus folgender Unterkapitel liegt auf den Spezifikationen und der technischen Umsetzung des Aufnahmesystems und ist für Entwickler gedacht, die das Aufnahmesystem gerne erweitern möchten.
+Folgendes Kapitel behandelt das auf Google Android basierende Aufnahmesystem. Das Aufnahmesystem besteht aus zwei separaten Android Applikationen mit der Bezeichnung \textit{TourLive.apk} sowie \textit{TourLiveRecoveryService.apk}. Das Augenmerk folgender Unterkapitel liegt auf den Spezifikationen und der technischen Umsetzung des Aufnahmesystems und ist für Entwickler gedacht, die das Aufnahmesystem erweitern möchten.
 
 \section{Software Analyse}
-Dieses Kapitel beschreibt die Anforderungen ans Aufnahmesystem und gibt einen groben Übersicht über die vorhandene Funktionalität.
+Dieses Kapitel beschreibt die Anforderungen an das Aufnahmesystem und gibt eine grobe  Übersicht über die vorhandene Funktionalität.
 
-\subsection{Anforderungen an das Aufnahmesystem}
+\subsection{Spezifikation}
 
 Um die Anforderungen zu evaluieren wurde das bestehende Aufnahmesystem auf Basis von Nokia Symbian analysiert. Alle vorhandenen Funktionen wurden erfasst und gemeinsam mit dem Industriepartner um weitere ergänzt. 
 Eine kurze Übersicht über die bereits bestehenden Funktionen und den neu erfassten Anforderungen liegt in tabellarischer Form vor.
 
 \begin{longtable}{  p{3.5cm} | p{4.3cm} | p{4.3cm} }
     
-    \textbf{Requirements} & \textbf{Altes System} & \textbf{Neues System} \\ [1ex] \hline \hline & &  \\ [-1.5ex]
+    \textbf{Spezifikation} & \textbf{Altes System} & \textbf{Neues System} \\ [1ex] \hline \hline & &  \\ [-1.5ex]
     Positionsdaten übertragen & Geschwindigkeit, H\"{o}he, Richtung/Beschleunigung, Steigung, Longitude, Latitude & Geschwindigkeit, H\"{o}he, Richtung, Steigung, Longitude, Latitude \\ [1ex] \hline & &  \\ [-1.5ex]
     Etappendaten & Zeit, Höhe, Distanz, Durchschnittliche Geschwindigkeit, UTC Zeit, Datum & Zeit, Höhe, Distanz, Durchschnittliche Geschwindigkeit \\ [1ex] \hline & &  \\ [-1.5ex]
      Tour Total & Zeit Total, Zeit Tour, Distanz Total, Distanz Tour, Höhe Total, H\"{o}he Tour & - \\ [1ex] \hline & &  \\ [-1.5ex]
-    Netzdaten übertragen & Zellen ID, Location Area, Signal, Akku, Netzwerk, Netzwerk ID & Zellen ID, Area, Signal, Netzwerk ID, Technologie, Datenrate, RTT, Packet Loss\\ [1ex] \hline & &  \\ [-1.5ex]
+    Netzdaten übertragen & Zellen ID, Location Area, Signal, Akku, Netzwerk, Netzwerk ID & Zellen ID, Area, Signal, Netzwerk ID, Technologie, Datenrate\\ [1ex] \hline & &  \\ [-1.5ex]
     Bilder \"{u}bertragen & wird unterstützt & wird unterstützt \\ [1ex] \hline & &  \\ [-1.5ex]
     Videostream \"{u}bertragen & Einzelne Bilder wurden \"{u}bertragen und serverseitig zu einem Stream zusammengef\"{u}gt & Videosequenzen werden \"{u}bertragen und serverseitig zu einem Stream zusammengesetzt\\ [1ex] \hline & &  \\ [-1.5ex]
     Lokales Caching & nur Bilder wurden gecacht & S\"{a}mtliche aufgenommene Daten werden lokal gespeichert\\ [1ex] \hline & &  \\ [-1.5ex]
-	Aufnahme- systemstatus \"{u}bertragen & nur der Akkustand wurde an das Device Management Portal \"{u}bertragen & Detaillierte Statusinformation an das Device Management Portal\\ [1ex] \hline & &  \\ [-1.5ex]   
+	Aufnahmegerät Systemstatus \"{u}bertragen & nur der Akkustand wurde an das Device Management Portal \"{u}bertragen & Detaillierte Statusinformation an das Device Management Portal\\ [1ex] \hline & &  \\ [-1.5ex]   
     Betriebsmodi & - & Managed - Einstellungen \"{u}ber das Portal / Unmanaged - Einstellungen am Ger\"{a}t\\ [1ex] \hline & &  \\ [-1.5ex]
 	Auto-Start der App & - & App wird beim Ger\"{a}testart automatisch gestartet\\ [1ex] \hline & &  \\ [-1.5ex]
     Externe Ger\"{a}te & ODB (Onboard Diagnose Bus) und Pulsinfo Ger\"{a}te wurden angesteuert & -\\ [1ex] \hline & &  \\ [-1.5ex]
-    Smartphone tauglich & Symbian App & Android App\\ [1ex] \hline & &  \\ [-1.5ex]
+    Betriebssystem & Symbian App & Android App\\ [1ex] \hline & &  \\ [-1.5ex]
     Log & Position und Bilder gesendet & Daten, Bilder, Status und Einstellungen gesendet / Exceptions\\ [1ex] \hline & &  \\ [-1.5ex]
     Aufnahmestart Modi & Aufnahme hat automatisch bei App Start gestartet & Manuell, Zeitbasiert, Fernverwaltet oder bei Aktivierung einer externen Stromquelle\\ [1ex] \hline & &  \\ [-1.5ex]
    	Power Management & - & Bei niedrigem Akkustand wird ein Energiesparmodus aktiviert\\ [1ex] \hline & &  \\ [-1.5ex]
-    Alarming Funktion & - & Treten Probleme auf, so wird darauf hingewiesen (z.B. keine GPS Daten w\"{a}hrend 2 Minuten)\\ [1ex] \hline & &  \\ [-1.5ex]
-    Mehrsprachig- keit & - & Deutsch und Englisch, einfach erweiterbar\\ [1ex] \hline & &  \\ 
+    Alarming Funktion & - & Treten Probleme auf, so wird darauf hingewiesen (z.B. keine GPS Daten w\"{a}hrend x Minuten)\\ [1ex] \hline & &  \\ [-1.5ex]
+    Mehrsprachigkeit & - & Deutsch und Englisch, einfach erweiterbar\\ [1ex] \hline & &  \\ 
     [-1.5ex] Fehlerkorrektur der GPS Daten & - & Ausreisser bei den GPS Daten werden herausgefiltert\\ [1ex] \hline & &  \\ 
     [-1.5ex] Notfallwiederherstel- lung per SMS & wird unterstützt & wird unterstützt\\ [1ex]
     
@@ -40,32 +40,30 @@ Eine kurze Übersicht über die bereits bestehenden Funktionen und den neu erfas
 Eine detaillierte Beschreibung aller Anforderungen befindet sich im Anhang im Kapitel \ref{sec:anforderungenandroiddevmgmt}.
 
 \section{Software Design}
-Dieses Kapitel dokumentiert das Software Design, verwendete Technologien und die Architektur des Aufnahmesystems.
+Dieser Abschnitt dokumentiert das Software Design, verwendete Technologien und die Architektur des Aufnahmesystems.
 
 \subsection{Verwendete Technologien}
 
 \subsubsection{Android}
-Eine Voraussetzung für das Aufnahmesystem ist, dass dieses in Form einer Android Applikation entwickelt wird. Die native Programmiersprache für Android Applikationen ist Android Java, ein der Java Standard Edition sehr ähnliches Java Derivat. Die Programmierung in Java bringt den Vorteil, dass die gesamte Android-\gls{api} benutzt werden kann. Da sämtliche Komponenten des TourLive Projektes in Java geschrieben sind kann teilweise auf Server- wie auch Clientseite auf dieselben Klassen-Bibliotheken zurückgegriffen werden, was mögliche Inkompatibilitäten vermindert. 
+Eine Voraussetzung für das Aufnahmesystem ist, dass dieses in Form einer Android Applikation entwickelt wird. Die native Programmiersprache für Android Applikationen ist Android Java, ein der Java Standard Edition sehr ähnliches Java Derivat. Die Programmierung in Java bringt den Vorteil, dass die gesamte Android-\gls{api} benutzt werden kann. Da sämtliche Komponenten des TourLive Projektes in Java geschrieben sind,  kann teilweise auf Server- wie auch Clientseite auf dieselben Klassen-Bibliotheken zurückgegriffen werden, was mögliche Inkompatibilitäten vermindert. 
 
 \paragraph{Android Version}
-Eine Anwendung wird f"{u}r eine konkrete Android Version (Minimum Required SDK) entwickelt. Im Rahmen dieses Projektes wird als minimale SDK Version Android 4.0 (Versionsname: Ice Cream Sandwich\footnote{Android Ice Cream Sandwich, \url{http://www.android.com/about/ice-cream-sandwich/}, aufgerufen am 29.04.2013}, , API-Level: 14) verwendet. Die Applikation sollte gemäss Android Richtlinien kompatibel mit allen darauffolgenden Android Versionen sein.
+Eine Anwendung wird f"{u}r eine konkrete Android Version (Minimum Required SDK) entwickelt. Im Rahmen dieses Projektes wird als minimale SDK Version Android 4.0 (Versionsname: Ice Cream Sandwich\footnote{Android Ice Cream Sandwich, \url{http://www.android.com/about/ice-cream-sandwich/}, aufgerufen am 29.04.2013},  API-Level: 14) verwendet. Die Applikation sollte gemäss Android Richtlinien kompatibel mit allen darauffolgenden Android Versionen sein.
 
-\subsubsection{Externe Libraries}
+\subsection{Externe Libraries}
 Um den geforderten Funktionsumfang umzusetzen, wird auf folgende zwei externe Bibliotheken zurückgegriffen.
 
-\paragraph{Spring for Android\footnote{Spring for Android, \url{http://www.springsource.org/spring-android}, aufgerufen am 29.04.2013} }
-Ein Rest Client für Android von den Entwicklern des Java Spring Frameworks. Der Rest Client bietet die einfache Möglichker von Serialisierung / Deserialisierung von Java Objekten in JSON-Strings. 
+\subsubsection{Spring for Android\footnote{Spring for Android, \url{http://www.springsource.org/spring-android}, aufgerufen am 29.04.2013} }
+Ein Rest Client für Android von den Entwicklern des Java Spring Frameworks. Der Rest Client bietet die einfache Möglichkeit der Serialisierung / Deserialisierung von Java Objekten in JSON-Strings. 
 
 Verwendete Version: spring-android-1.0.1
 
-\paragraph{ORMLite\footnote{ORMLite, \url{ormlite.com}, aufgerufen am 02.05.2013}} ORMLite ist eine OpenSource Java Library, welche das Object-Relational Mapping (ORM) übernimmt. ORMLite bietet eine speziell auf Android angepasste Distribution an. 
+\subsubsection{ORMLite\footnote{ORMLite, \url{ormlite.com}, aufgerufen am 02.05.2013}} ORMLite ist eine OpenSource Java Library, welche das Object-Relational Mapping (ORM) übernimmt. ORMLite bietet eine speziell auf Android angepasste Distribution an. 
 
 Verwendete Version: ORMLite-4.45
 
-\newpage
-
 \subsection{Architektur des Aufnahmesystems}
-Die Android Applikation zeichnet Daten für den TourLive Server wie auch den Device Management Server auf. In der Abbildung \ref{fig:grobstrukturandroid}
+Die Android Applikation zeichnet Daten für den TourLive Server sowie den Device Management Server auf. In der Abbildung \ref{fig:grobstrukturandroid}
  wird veranschaulicht, welche Daten an welchen Server übertragen werden.
 
 \begin{figure}[H]
@@ -84,63 +82,63 @@ Die Android Applikation teilt sich in 3 Schichten auf.
 	\caption{Packagediagramm des Aufnahmesystems}
 \end{figure}
 
-Die oberste Schicht stellt die Schnittstelle zum Benutzer dar. Diese Klassen in dieser Schicht sind für die Darstellung / Views zuständig. Die mittlere Schicht enthält die ganze Businesslogik. Dazu gehören Services, Timer, Listener, etc. Die unterste Schicht enthält die Domänenobjekte die die effektiven Daten (Positionsdaten, Konfigurationen, ...) enthalten. 
+Die oberste Schicht stellt die Schnittstelle zum Benutzer dar. Die Klassen in dieser Schicht sind für die Darstellung zuständig. Die mittlere Schicht enthält die ganze Businesslogik. Dazu gehören Services, Timer, Listener, etc. Die unterste Schicht enthält die Domänenobjekte die die effektiven Daten (Positionsdaten, Konfigurationen, ...) enthalten. 
 
 \subsubsection{Domain Model}
 Das Domain Model des Aufnahmesystems setzt sich aus den Domain Models des TourLive Servers und des Device Management Servers zusammen. Im Aufnahmesystem kommen keine neuen Domänenobjekte hinzu.
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=150mm]{images/android/domainmodel.jpg}
+\includegraphics[width=130mm]{images/android/domainmodel.jpg}
 \caption{Aufnahmesystem Domain Model}
 \end{figure}
 
-\subsubsection{Paketdiagramm}
+\subsubsection{Packagediagramm}
 Die TourLive Applikation hat folgende Paketstruktur. Als Grundstruktur wurde analog zum TourLive Server und dem Device Management Server \textit{ch.hsr.ba.tourlive} verwendet. Die TourLive Applikation verwendet zusätzlich die Subkategorie \textit{.android} sowie folgende applikationsspezifische Struktur:
 
 \begin{longtable}{p{5.0cm} | p{7.1cm}}
 \textbf{Paket} & \textbf{Inhalt} \\
 \hline \hline 
-. & enthält die initialisierende TourLiveApplication.java Klasse sowie Config.java \\ 
+. & die initialisierende TourLiveApplication.java Klasse sowie Config.java \\ 
 \hline 
-.adapter & enthält Daten-Adapter um Listen darzustellen \\ 
+.adapter & Daten-Adapter um Listen darzustellen \\ 
 \hline 
-.adapter.row & enthält individuelle Listen Einträge \\ 
+.adapter.row & individuelle Listen Einträge \\ 
 \hline 
-.domain & enthält projektübergreifende Domain Klassen \\ 
+.domain & projektübergreifende Domain Klassen \\ 
 \hline 
-.domain.devmgmtsrv & enthält Device Management Server spezifische Domain Klassen \\ 
+.domain.devmgmtsrv & Device Management Server spezifische Domain Klassen \\ 
 \hline 
-.domain.devmgmtsrv.enums & enthält Device Management Service spezifische Enums \\ 
+.domain.devmgmtsrv.enums & Device Management Service spezifische Enums \\ 
 \hline 
-.domain.tourliveserver & enthält TourLive Server spezifische Domain Klassen \\ 
+.domain.tourliveserver & TourLive Server spezifische Domain Klassen \\ 
 \hline 
-.domain.tourliveserver.enums & enthält TourLive Server spezifische Enums \\  
+.domain.tourliveserver.enums & TourLive Server spezifische Enums \\  
 \hline 
-.helper & enthält Hilfsklassen zur Berechnung von Werten \\ 
+.helper & Hilfsklassen zur Berechnung von Werten \\ 
 \hline 
-.listener & enthält System Event-Listener \\ 
+.listener & System Event-Listener \\ 
 \hline 
-.receiver & enthält Broadcast Receiver \\ 
+.receiver & Broadcast Receiver \\ 
 \hline 
-.service & enthält sämtliche Services \\ 
+.service & sämtliche Services \\ 
 \hline 
-.task & enthält sämtliche AsyncTasks \\ 
+.task & sämtliche AsyncTasks \\ 
 \hline 
-.task.timer & enthält sämtliche TimerTasks \\ 
+.task.timer & sämtliche TimerTasks \\ 
 \hline 
-.view & enthält Activities und Fragments \\ 
+.view & Activities und Fragments \\ 
 \hline 
-.view.helper & enthält individuelle Dialoge \\ 
+.view.helper & individuelle Dialoge \\ 
 \hline 
-.view.helptext & enthält die Hilfstext Klassen \\ 
+.view.helptext & die Hilfstext Klassen \\ 
 \hline 
 \end{longtable} 
 
 \subsection{Architekturentscheide}
 
 \subsubsection{Globaler Daten Provider - Repository.java}
-Das Repository.java implementiert mit dem Singleton-Pattern fungiert als globaler Daten Provider und verhindert lange Aufrufketten. Das Repository bietet auf folgende Daten Zugriff:
+Das Repository.java implementiert das Singleton-Pattern und fungiert als globaler Daten Provider. Damit werden lange Aufrufsketten verhindert. Das Repository bietet auf folgende Daten Zugriff:
 
 \begin{itemize} [noitemsep,topsep=0pt]
 	\item diverse Services
@@ -152,11 +150,11 @@ Das Repository.java implementiert mit dem Singleton-Pattern fungiert als globale
 \subsubsection{Start der Applikation - TourLiveApplication.java}
 Beim Start der TourLive Applikation müssen diverse Daten initialisiert werden. Um diese Initialisierung vor der ersten View durchzuführen wurde eine projektspezifische Klasse \textit{TourLiveApplication.java} geschrieben, die von der Android Klasse \textit{Application} ableitet. Eine von \textit{Application} abgeleitete Klasse darf nur einmalig vorkommen und wird als erste Klasse bei einem App-Start initialisiert.
 \begin{quotation}
-\textit{Base class for those who need to maintain global application state}.\footnote{Application class, \url{http://developer.android.com/reference/android/app/Application.html} besucht am: 10.04.2013}
+\textit{``Base class for those who need to maintain global application state''}.\footnote{Application class, \url{http://developer.android.com/reference/android/app/Application.html} besucht am: 10.04.2013}
 \end{quotation}
 Über die Klasse TourLiveApplication kann ausserdem auf den globalen Application-Context zugegriffen werden. Der zur Initialisierung diverser Objekte benötigt wird und wie folgt in den Android Developer Reference beschrieben ist.
 \begin{quotation}
-\textit{Interface to global information about an application environment. This is an abstract class whose implementation is provided by the Android system. It allows access to application-specific resources and classes, as well as up-calls for application-level operations such as launching activities, broadcasting and receiving intents, etc. }\footnote{Context class, \url{http://developer.android.com/reference/android/content/Context.html} besucht am: 13.04.2013}
+\textit{``Interface to global information about an application environment. This is an abstract class whose implementation is provided by the Android system. It allows access to application-specific resources and classes, as well as up-calls for application-level operations such as launching activities, broadcasting and receiving intents, etc.'' }\footnote{Context class, \url{http://developer.android.com/reference/android/content/Context.html} besucht am: 13.04.2013}
 \end{quotation}
 
 \subsubsection{Caching der Daten}
@@ -173,13 +171,13 @@ Um einen lokalen Cache zu realisieren wird der auf SQLite basierende OR-Mapper O
 Um Objekte und ihre Attribute zu persistieren, werden diese in den Modelklassen mit Java Annotationen markiert. 
 
 \subsubsection{Factory Pattern - DataCreator.java}
-Das erstellen der ValueContainer, DeviceManagementContainer und anderen Datenstrukturen unterliegt einem relativ komplexen Vorgang, da unzählige Werte aus den verschiedensten Android Listener,  Android Provider und Android Services zusammengezogen werden müssen. Das Factory Pattern schafft Abbhilfe dies über ein einzelnes Objekt, den DataCreator, zu realisieren.
+Das erstellen der ValueContainer, DeviceManagementContainer und anderen Datenstrukturen unterliegt einem relativ komplexen Vorgang, da unzählige Werte aus den verschiedensten Android Listener,  Android Provider und Android Services zusammengezogen werden müssen. Das Factory Pattern schafft Abhilfe dies über ein einzelnes Objekt, den DataCreator, zu realisieren.
 
 \subsubsection{Primärer / Sekundärer TourLive Server - URLProvider.java}
-Eine Anforderung an das TourLive Aufnahmesystem ist die Implementation eines sekundären TourLive Servers der bei Ausfall des primären Servers die Daten empfangen und verarbeiten kann. Dies wurde über die Klasse URLProvider.java realisiert. Schlägt die Verbindung zum aktuell ausgewählten Server, in der Regel ist dies der primäre Server, mehrmals fehl, stellt der URLProvider den Zweitserver zur Verfügung. Die Anzahl möglicher Fehlschläge vor einem Wechsel ist in der Config.java definiert. Sämtliche genutzten URLs werden über den URLProvider bezogen.
+Eine Anforderung an das TourLive Aufnahmesystem ist die Implementation eines sekundären TourLive Servers, der bei Ausfall des primären Servers die Daten empfangen und verarbeiten kann. Dies wurde über die Klasse URLProvider.java realisiert. Schlägt die Verbindung zum aktuell ausgewählten Server, in der Regel ist dies der primäre Server, mehrmals fehl, stellt der URLProvider den Zweitserver zur Verfügung. Die Anzahl möglicher Fehlschläge vor einem Wechsel ist in der Config.java definiert. Sämtliche genutzten URLs werden über den URLProvider bezogen.
 
 \subsubsection{Unveränderbare Applikationskonfiguration - Config.java}
-In der Config.java werden unveränderbare Applikationseinstellungen gespeichert. Diese sind direkt über public static final Attribute aufrufbar. Die Config.java enthält folgende Konfigurationen:
+In der \textit{Config.java} werden unveränderbare Applikationseinstellungen gespeichert. Diese sind direkt über \textit{public static final} Attribute aufrufbar. Die Config.java enthält folgende Konfigurationen:
 \begin{itemize} [noitemsep,topsep=0pt]
 	\item sämtliche API-URLs des TourLive Servers und des Device Management Servers
 	\item Speicherort im Dateisystem der Bilddateien
@@ -197,7 +195,7 @@ Das Kapitel Realisation gibt Hinweise zur Umsetzung des TourLive Aufnahmesystems
 Die grafische Oberfläche einer Android Applikation besteht in erster Linie aus Activities. Gemäss Android Developer Reference wird eine Activity wie folgt definiert.
 
 \begin{quotation}
-\textit{An activity is a single, focused thing that the user can do. Almost all activities interact with the user, so the Activity class takes care of creating a window for you in which you can place your UI.} \footnote{Activity, \url{http://developer.android.com/reference/android/app/Activity.html}, besucht am: 25.03.2013}
+\textit{``An activity is a single, focused thing that the user can do. Almost all activities interact with the user, so the Activity class takes care of creating a window for you in which you can place your UI.''} \footnote{Activity, \url{http://developer.android.com/reference/android/app/Activity.html}, besucht am: 25.03.2013}
 \end{quotation}
 
 Die TourLive Applikation wurde mit folgenden drei Activities realisiert.
@@ -210,13 +208,13 @@ Die TourLive Applikation wurde mit folgenden drei Activities realisiert.
 Zu einer Activity gehört jeweils eine *.java Datei sowie eine *.xml Datei die das Layout definiert. Innerhalb einer Activity wird mit Fragments gearbeitet, welche wie folgt definiert sind:
 
 \begin{quotation}
-\textit{A Fragment represents a behavior or a portion of user interface in an Activity.} \footnote{Fragment, \url{http://developer.android.com/reference/android/app/Fragment.html}, besucht am: 25.03.2013}
+\textit{``A Fragment represents a behavior or a portion of user interface in an Activity.''} \footnote{Fragment, \url{http://developer.android.com/reference/android/app/Fragment.html}, besucht am: 25.03.2013}
 \end{quotation}
 
 Fragments werden für die verschiedenen Tabs innerhalb der MainActivity verwendet wie nachfolgende Screenshots zeigen.
 
 \subsubsection{Konkrete Umsetzung der grafischen Oberfläche}
-Die \textit{MainActivity} bestehend aus MainActivity.java und main\_activity.xml ist die Hauptansicht der Applikation. Sie ist in drei Teile unterteilt, Header, Footer und Hauptbereich. Header und Footer sind in allen Tabs sichtbar.
+Die MainActivity, bestehend aus \textit{MainActivity.java} und \textit{main\_activity.xml}, ist die Hauptansicht der Applikation. Sie ist in drei Teile unterteilt, Header, Footer und Hauptbereich. Header und Footer sind in allen Tabs sichtbar.
 
 \begin{figure}[H]
 	\centering
@@ -228,7 +226,7 @@ Die \textit{MainActivity} bestehend aus MainActivity.java und main\_activity.xml
 Der Inhalt des Hauptbereichs hängt vom selektierten Tab ab. Die einzelnen Ansichten Status, GPS, Etappe, Netz und Log wurden mit Fragments realisiert und basieren jeweils auf einer ListView.
 
 \begin{quotation}
-\textit{ListView is a view group that displays a list of scrollable items. The list items are automatically inserted to the list using an Adapter that pulls content from a source such as an array or database query and converts each item result into a view that's placed into the list.} \footnote{ListView, \url{http://developer.android.com/guide/topics/ui/layout/listview.html}, besucht am: 25.03.2013}
+\textit{``ListView is a view group that displays a list of scrollable items. The list items are automatically inserted to the list using an Adapter that pulls content from a source such as an array or database query and converts each item result into a view that's placed into the list.''} \footnote{ListView, \url{http://developer.android.com/guide/topics/ui/layout/listview.html}, besucht am: 25.03.2013}
 \end{quotation}
 
 \paragraph{Header}
@@ -237,7 +235,7 @@ Der Inhalt des Hauptbereichs hängt vom selektierten Tab ab. Die einzelnen Ansic
 	\includegraphics[width=60mm]{images/android/header.png}
 	\caption{Aufnahmesystem Header}
 \end{figure}
-Der Header beinhaltet in der \textit{Action Bar} die aktuelle Versionsnummer, den Namen der Applikation sowie den Settings Button. Befindet sich die Applikation um Aufnahmemodus wird in roter Farbe der Text \textit{REC} eingeblendet. Unterhalb der \textit{Action Bar} befindet sich die \textit{Top Bar}, in der die verschiedenen Tabs angezeigt werden. Innerhalb des Content Bereiches kann mit einem Swipe zwischen den verschiedenen Views  hin und hergewechselt werden.
+Der Header beinhaltet in der \textit{Action Bar} die aktuelle Versionsnummer, den Namen der Applikation sowie den Settings Button. Befindet sich die Applikation im Aufnahmemodus wird in roter Farbe der Text \textit{REC} eingeblendet. Unterhalb der \textit{Action Bar} befindet sich die \textit{Top Bar}, in der die verschiedenen Tabs angezeigt werden. Innerhalb des Content Bereiches kann mit einem Swipe zwischen den verschiedenen Views  hin und hergewechselt werden.
 
 \paragraph{Settings Button}
 Über den Settings Button wird folgendes Menü eingeblendet. Befindet sich die Applikation im Aufnahmemodus ist der Menüeintrag \textit{Einstellungen} deaktiviert. Die restlichen Aktionen sind trotzdem Verfügbar.
@@ -256,9 +254,9 @@ Der Header beinhaltet in der \textit{Action Bar} die aktuelle Versionsnummer, de
 	\includegraphics[width=60mm]{images/android/footer.png}
 	\caption{Aufnahmesystem Footer}
 \end{figure}
-Der Footer zeigt den Status der App. Die Symbole werden je nach Gesundheitszustand der Applikation rot, gelb oder in grün dargestellt. Welche Farben welchem Gesundheitszustand entspricht, ist in den Anforderungen im Anhang im Kapitel \ref{par:alarming} beschrieben.\\
+Der Footer zeigt den Status der App. Die Symbole werden je nach Gesundheitszustand der Applikation rot, gelb oder grün dargestellt. Welche Farbe welchem Gesundheitszustand entspricht, ist in den Anforderungen im Kapitel \ref{par:alarming} beschrieben.\\
 
-Mit dem Recording Button links kann die Aufnahme gestartet und gestoppt werden. Der Button ist nur aktiviert, wenn der Aufnahmemodus auf Manuell gesetzt ist.
+Mit dem Recording Button links kann die Aufnahme gestartet und gestoppt werden. Der Button ist nur aktiviert, wenn der Aufnahmemodus auf manuell gesetzt ist.
 
 \paragraph{Einstellungen}
 \begin{figure}[H]
@@ -322,25 +320,25 @@ Das Starten einer Android Applikation erfordert je nach Funktionalität der Appl
 Die Applikation ist in deutscher sowie englischer Sprache verfügbar. Weitere Sprachen lassen sich einfach durch erstellen  und übersetzen der Ordnerstruktur TourLive/res/values-SPRACHE hinzufügen.
 
 \subsection{Services, Tasks \& TimerTasks}
-Die TourLive Applikation arbeitet mit mehreren Services. Diese implementieren in der Regel das eigens für diese Applikation entworfene Interface \textit{TourLiveService.java}. Die Services werden meistens in Verbindung mit einem \textit{Timer} genutzt der wiederum einen \textit{TimerTask} voraussetzt.
+Die TourLive Applikation arbeitet mit mehreren Services. Diese implementieren in der Regel das eigens für diese Applikation entworfene Interface \textit{TourLiveService.java}. Die Services werden in der Regel in Verbindung mit einem \textit{Timer} genutzt der wiederum einen \textit{TimerTask} voraussetzt.
 
 \begin{quotation}
-\textit{Each timer has one thread on which tasks are executed sequentially. When this thread is busy running a task, runnable tasks may be subject to delays.} \footnote{Timer, \url{http://developer.android.com/reference/java/util/Timer.html}, besucht am: 11.04.2013}
+\textit{``Each timer has one thread on which tasks are executed sequentially. When this thread is busy running a task, runnable tasks may be subject to delays.''} \footnote{Timer, \url{http://developer.android.com/reference/java/util/Timer.html}, besucht am: 11.04.2013}
 \end{quotation}
 
 \begin{quotation}
-\textit{The TimerTask class represents a task to run at a specified time. The task may be run once or repeatedly.} \footnote{TimerTask, \url{http://developer.android.com/reference/java/util/TimerTask.html}, besucht am: 11.04.2013}
+\textit{``The TimerTask class represents a task to run at a specified time. The task may be run once or repeatedly.''} \footnote{TimerTask, \url{http://developer.android.com/reference/java/util/TimerTask.html}, besucht am: 11.04.2013}
 \end{quotation}
 
 Folgende Services, Timer und TimerTask werden in der TourLive Applikation verwendet.
 \subsubsection{RecordingService} 
-\textit{RecordingService.java} ist verantwortlich für die Aufnahme von Live Informationen. Wird entweder manuell über den Start-Button, via Device Management Server über den fernstart, strom- oder zeitbasiert gestartet. Direkt mit dem RecordingService verknüpft sind folgende Services: ValueContainerService, ImageService und der VideoService.
+\textit{RecordingService.java} ist verantwortlich für die Aufnahme von Live Informationen. Wird entweder manuell über den Start-Button, via Device Management Server über den Fernstart, strom- oder zeitbasiert gestartet. Direkt mit dem RecordingService verknüpft sind folgende Services: ValueContainerService, ImageService und der VideoService.
 \subsubsection{ValueContainerService} 
 \textit{ValueContainerService.java} ist für die Übertragung von Positionsdaten (ValueContainer) verantwortlich. Der ValueContainerService registriert einen LocationListener der GPS-Updates meldet und diese dann mit Hilfe des DataCreators in ValueContainer-Objekt erstellt und per ValueContainerTask an den TourLive Server überträgt.
 \subsubsection{ImageService} 
 \textit{ImageService.java} ist für die Übertragung von Bilddaten verantwortlich. Der ImageService terminiert mit der Unterstützung eines Timers den TimerTask \textit{ImageTimerTask.java} der in regelmässigem Intervall ein Einzelbild aufnimmt und dieses per \textit{UploadMediaTask.java} an den TourLive Server sendet. 
 \subsubsection{VideoService} 
-\textit{VideoService.java} ist für die  Übertragung von Videodaten verantwortlich. Analog zum ImageServer nutzt der VideoService den \textit{VideoTimerTask.java} zur Aufnahme von Videosequenzen und den gemeinsamen UploadMediaTask.java zur Übertragung der Videosequenzen an den TourLive Server.
+\textit{VideoService.java} ist für die  Übertragung von Videodaten verantwortlich. Analog zum ImageService nutzt der VideoService den \textit{VideoTimerTask.java} zur Aufnahme von Videosequenzen und den gemeinsamen UploadMediaTask.java zur Übertragung der Videosequenzen an den TourLive Server.
 \subsubsection{StartUpService} 
 \textit{StartUpService.java} ist für den Auto-Start der Applikation nach dem Gerätestart verantwortlich, sofern dieser in den Einstellungen aktiviert ist.
 \subsubsection{StatusDataService} 
@@ -350,13 +348,13 @@ Folgende Services, Timer und TimerTask werden in der TourLive Applikation verwen
 Für die Übertragung der Daten an die beiden Server wurden AsyncTasks verwendet. Diese ermöglichen eine einfache Anwendung von Threads und sind in der Android Developer Reference wie folgt definiert: 
 
 \begin{quotation}
-\textit{AsyncTask enables proper and easy use of the UI thread. This class allows to perform background operations and publish results on the UI thread without having to manipulate threads and/or handlers. An asynchronous task is defined by a computation that runs on a background thread and whose result is published on the UI thread. An asynchronous task is defined by 3 generic types, called Params, Progress and Result, and 4 steps, called onPreExecute, doInBackground, onProgressUpdate and onPostExecute.} \footnote{AsyncTask, \url{http://developer.android.com/reference/android/os/AsyncTask.html}, besucht am: 13.04.2013}
+\textit{``AsyncTask enables proper and easy use of the UI thread. This class allows to perform background operations and publish results on the UI thread without having to manipulate threads and/or handlers. An asynchronous task is defined by a computation that runs on a background thread and whose result is published on the UI thread. An asynchronous task is defined by 3 generic types, called Params, Progress and Result, and 4 steps, called onPreExecute, doInBackground, onProgressUpdate and onPostExecute.''} \footnote{AsyncTask, \url{http://developer.android.com/reference/android/os/AsyncTask.html}, besucht am: 13.04.2013}
 \end{quotation}
 
 Es folgt eine kurze Auflistung der implementieren AsyncTasks.
 \begin{itemize} [noitemsep,topsep=0pt]
 	\item \textit{DeviceManagementTask.java} überträgt die Einstellungen an den Device Management Server und registriert das Gerät beim Applikationsstart.
-	\item \textit{LogReaderTask.java} aktualisiert die LogView in alle 5 Sekunden.
+	\item \textit{LogReaderTask.java} aktualisiert die LogView alle 5 Sekunden.
 	\item \textit{MessageTask.java} bezieht Nachrichten vom Device Management Server, sofern welche vorhanden sind
 	\item \textit{StageInfoTask.java} bezieht Renn- und Etappeninformationen vom TourLive Server
 	\item \textit{StatusDataTask.java} sendet den Gerätezustand an den Device Management Server und empfängt allfällige Konfigurationsänderungen vom Device Management Server. 
@@ -378,27 +376,25 @@ Listener und BroadcastReceiver empfangen System- und andere Events.
 Die Aufnahme von Bild- und Videosequenzen kann über die Android API grundsätzlich ziemlich komfortabel realisiert werden. Vorausgesetzt wird lediglich eine View (Bereich auf dem Bildschirm) die als Kamera Vorschau genutzt werden kann. 
 
 \begin{quotation}
-\textit{Sets the Surface to be used for live preview. Either a surface or surface texture is necessary for preview, and preview is necessary to take pictures.} \footnote{AsyncTask, \url{http://developer.android.com/reference/android/hardware/Camera.html\#setPreviewDisplay\%28android.view.SurfaceHolder\%29}, besucht am: 17.04.2013}
+\textit{``Sets the Surface to be used for live preview. Either a surface or surface texture is necessary for preview, and preview is necessary to take pictures.''} \footnote{AsyncTask, \url{http://developer.android.com/reference/android/hardware/Camera.html\#setPreviewDisplay\%28android.view.SurfaceHolder\%29}, besucht am: 17.04.2013}
 \end{quotation}
 
 Eine View wiederum muss mit einer Activity verknüpft werden und eine Activity wiederum kennt verschiedene Status (\textit{active}, \textit{paused}, \textit{stopped}, \textit{destroyed}). Welche Activity sich in welchem Status befindet wird vom Android Betriebssystem verwaltet. Grundsätzlich kann aber davon ausgegangen werden, dass eine Activity sich nicht mehr im Status \textit{active} befindet, wenn die Applikation sich im Hintergrund befindet oder der Bildschirm sich abdunkelt. Befindet sich eine Activity nicht mehr im Status \textit{active} kommt es vor, dass der Garbage Collector View-Objekte aufräumt die beim reaktivieren der Activity neu initialisiert werden.
-\\
 
 Mit diesem Verhalten der Android API gibt es zwei Konflikte mit den Anforderungen an die TourLive Applikation. 
 
-Das erste Problem mit der geforderten View die als Vorschau benötigt wird,  kann mit einer 1x1 Pixel grossen View die "unsichtbar" in einer Ecke angezeigt wird, gelöst werden. 
+Das erste Problem mit der geforderten View die als Vorschau benötigt wird,  kann mit einer 1x1 Pixel grossen View die ``unsichtbaren'' in einer Ecke angezeigt wird, gelöst werden. 
 
-Das zweite, etwas grössere Problem besteht darin, dass Bilder und Videosequenzen auch aufgenommen werden sollen wenn die Applikation im Hintergrund oder mit abgedunkelten Bildschirm läuft. Da in diesem beiden Fällen die Möglichkeit besteht, dass die MainActivity in einen anderen Status als \textit{active} wechselt, kann es vorkommen, dass die View für die Kamera Vorschau vom Garbage Collector aufgeräumt wird. In diesem Fall muss die MainActivity neu gestartet und die View für die Kamera Vorschau neu initialisiert werden. 
+Das zweite, etwas grössere Problem besteht darin, dass Bilder und Videosequenzen auch aufgenommen werden sollen, wenn die Applikation im Hintergrund oder mit abgedunkelten Bildschirm läuft. Da in diesen beiden Fällen die Möglichkeit besteht, dass die MainActivity in einen anderen Status als \textit{active} wechselt, kann es vorkommen, dass die View für die Kamera Vorschau vom Garbage Collector aufgeräumt wird. In diesem Fall muss die MainActivity neu gestartet und die View für die Kamera Vorschau neu initialisiert werden. 
 
 Da die Android Kamera Design Prinzipien nicht für einen solchen Verwendungszweck ausgelegt ist (Aufnahme ohne Vorschau, Aufnahme bei abgedunkeltem Bildschirm / Applikation im Hintergrund) kann es während dem Betrieb zu unvorhergesehenen Problemen (Exceptions) kommen.
 
 \subsection{Datenbank}
-Für das lokale Caching werden Daten mittels ORMLite in die Datenbank geschrieben. Eine Klasse wird mittels Annotation als Datenbankklasse erkannt.
+Für das lokale Caching werden Daten mittels ORMLite in die Datenbank geschrieben. Eine Klasse wird mittels Annotation als Datenbankklasse definiert.
 
 \begin{lstlisting}[language=Java, caption=ORMLite Annotations]
 @DatabaseTable
 public class Device {
-	@JsonIgnore
 	@DatabaseField(generatedId = true)
 	private int id;
 	@DatabaseField
@@ -424,7 +420,7 @@ Der \textit{DatenbankManager.java}, eine Singleton Klasse, ermöglicht den Zugri
 Dieses Kapitel beschreibt die Abläufe innerhalb der Applikation in Form von Systemsequenzdiagrammen. Sie geben eine grobe Übersicht wie die bisher erwähnten Klassen zusammenarbeiten.
 
 \subsubsection{Applikation im Ruhezustand}
-Folgendes Diagramm beschreibt die Applikation im Ruhezustand. In regelmässigem Intervall (wird in der \textit{Config.java} definiert.) wird der Gesundheitszustand des Gerätes an den Device Management Server übertragen. Der Device Management Server antwortet mit der gespeicherten Gerätekonfiguration des Gerätes sowie einem Message-Flag, dass kennzeichnet wenn eine Nachricht für das Gerät vorhanden ist. 
+Diagramm \ref{fig:permanenttasks} beschreibt die Applikation im Ruhezustand. In regelmässigem Intervall (wird in der \textit{Config.java} definiert.) wird der Gesundheitszustand des Gerätes an den Device Management Server übertragen. Der Device Management Server antwortet mit der gespeicherten Gerätekonfiguration des Gerätes sowie einem Message-Flag, dass kennzeichnet wenn eine Nachricht für das Gerät vorhanden ist. 
 
 Sind keine Renn- und Etappeninformationen vorhanden oder sind diese veraltet, werden diese nach Beendigung des ersten Requests beim TourLive Server abgerufen.
 
@@ -434,21 +430,22 @@ Wurde zudem das Message-Flag gesetzt, wird in einem weiteren Request die Nachric
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=150mm]{images/android/permanent_taskes.jpg}
-	\caption{Aufnahmesystem Permanente Tasks}
+	\label{fig:permanenttasks}
+	\caption{Aufnahmesystem permanente Tasks}
 \end{figure}
 
-\pagebreak
-\subsubsection{Applikation im Aufnahemodus}
-Folgendes Diagramm zeigt die Abläufe beim Starten des Aufnahmemodus (\textit{RecordingService.java}). Die Operation \textit{startRecording()} entspricht dem \textit{RecordingService.java}. Der Start des RecordingServices beinhaltet auf jeden Fall den Start des  \textit{ValueContainerService.java}. Je nach Konfiguration wird zudem der \textit{VideoService.java}, der \textit{ImageService.java} oder keiner der beiden gestartet.
+\subsubsection{Applikation im Aufnahmemodus}
+Diagramm \ref{fig:recording} zeigt die Abläufe beim Starten des Aufnahmemodus (\textit{RecordingService.java}). Die Operation \textit{startRecording()} entspricht dem \textit{RecordingService.java}. Der Start des RecordingServices beinhaltet auf jeden Fall den Start des  \textit{ValueContainerService.java}. Je nach Konfiguration wird zudem der \textit{VideoService.java}, der \textit{ImageService.java} oder keiner der beiden gestartet.
 
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=150mm]{images/android/recording.jpg}
+	\label{fig:recording}
 	\caption{Aufnahmesystem Aufnahme}
 \end{figure}
 
 \subsection{Algorithmen}
-Das Aufnahmesystem enthält einige Algorithmen zur Berechnung von Distanzen, Steigungen und Zeit. Diese werden in folgendem Unterkapitel kurz beschrieben. Damit eine Berechnung durchgeführt werden kann wird ein \textit{StageInfo}-Objekt vorausgesetzt der beschreibt in welchem Rennen beziehungsweise in welcher Etappe sich das Aufnahmegerät aktuell befindet.
+Das Aufnahmesystem enthält einige Algorithmen zur Berechnung von Distanzen, Steigungen und Zeit. Diese werden im folgenden Abschnitt kurz beschrieben. Damit eine Berechnung durchgeführt werden kann wird ein \textit{StageInfo}-Objekt vorausgesetzt, das beschreibt, in welchem Rennen beziehungsweise in welcher Etappe sich das Aufnahmegerät aktuell befindet.
 \\
 
 \subsubsection{Berechnung der Renndauer}

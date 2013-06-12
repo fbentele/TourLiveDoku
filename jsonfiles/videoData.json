@@ -4,7 +4,7 @@
 		device: {
 			...
 		},
-		videoLocation: "videos/awesome_video.png",
+		videoLocation: "videos/awesome_video.mp4",
 		realTimestamp: 1369494910108
 	},
 	{

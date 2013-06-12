@@ -23,7 +23,7 @@ Nachfolgend werden sämtlich durchgeführten Systemtests beschrieben und ausgewe
 	\item[-] \textit{negative Erkenntnis} 
 \end{itemize}
 
-Zu jeder negativen Erkenntnis wird zudem eine Massnahme vorgeschlagen. Massnahmen die nicht mehr im Rahmen dieser Arbeit umgesetzt werden können werden mit einem  \textsuperscript{*} markiert.
+Zu jeder negativen Erkenntnis wird eine Massnahme vorgeschlagen. Massnahmen die nicht mehr im Rahmen dieser Arbeit umgesetzt werden können werden mit einem  \textsuperscript{*} markiert.
 
 \subsubsection{\#1 - Systemtest Rapperswiler Rundfahrt}
 Ein erster Praxistest um das Zusammenspiel aller drei Komponenten zu testen. Auf einer Rundfahrt durch Rapperswil mit einem einzelnen Auto konnte der eine oder andere Fehler eruiert werden. Folgende Geräte wurden zu Testzwecken eingesetzt:
@@ -49,7 +49,7 @@ Folgende Erkenntnisse wurden aus dem Systemtest gewonnen:
 Sämtliche negativen Erkenntnisse wurden behoben und werden an dieser Stelle daher nicht weiter erläutert.
 
 \subsubsection{\#2 - Systemtest Langzeittest über Nacht}
-Aufgrund wiederkehrender Abstürze der TourLive App bei Laufender Aufnahme wurde über Nacht ein Langzeitest durchgeführt. Beide Geräte wurden einer 8 stündigen Etappe zugewiesen und sollten über Nacht Positionsdaten und Bilder übertragen. 
+Aufgrund wiederkehrender Abstürze der TourLive App bei laufender Aufnahme wurde über Nacht ein Langzeittest durchgeführt. Beide Geräte wurden einer 8 stündigen Etappe zugewiesen und sollten über Nacht Positionsdaten und Bilder übertragen. 
 \begin{itemize} [noitemsep,topsep=0pt]
 	\item{Google Galaxy Nexus}
 	\item{Samsung Galaxy S3}
@@ -91,7 +91,7 @@ Im Rahmen der Radsporttage Gippingen konnte das Gesamtsystem ein erstes Mal prax
 \end{itemize}
 
 \paragraph*{Resultate}
-Nach wenigen Minuten konnte kein Kontakt mehr zum HTC One Aufnahmegerät hergestellt werden. Das Gerät konnte durch die Notfallwiederherstellung per SMS neu gestartet werden, jedoch war nach kurzem Kontakt die Verbindung zum Gerät wieder abgebrochen. Die erste Analyse ergab, dass das Gerät stark überhitzt war und sich deshalb selbst ausschaltete. Ein weiteres Gerät versuchte sich mit dem naheliegenden Deutschen Mobilfunknetz zu verbinden, was aber daran scheiterte, das dass Datenroaming deaktiviert war. Das dritte Gerät sowie die zusätzlichen Testgeräten hielten den Test durch, obwohl alle Geräte extrem warm geworden sind. Die eingelieferten Daten wurden vom TourLive Server empfangen und verarbeitet. Die Kommunikation zwischen Aufnahmegeräten und Server verlief problemlos. Zu Bemerken ist, dass 2 der eingesetzten Geräte, mit denen es auch am meisten Probleme gab, zuvor nicht getestet werden konnten. Zusammenfassend haben wir folgende Erkenntnisse aus diesem mitgenommen:
+Nach wenigen Minuten konnte kein Kontakt mehr zum HTC One Aufnahmegerät hergestellt werden. Das Gerät konnte durch die Notfallwiederherstellung per SMS neu gestartet werden, jedoch war nach kurzem Kontakt die Verbindung zum Gerät wieder abgebrochen. Die erste Analyse ergab, dass das Gerät stark überhitzt war und sich deshalb selbst ausschaltete. Ein weiteres Gerät versuchte sich mit dem naheliegenden Deutschen Mobilfunknetz zu verbinden, was aber daran scheiterte, dass das Datenroaming deaktiviert war. Das dritte Gerät sowie die zusätzlichen Testgeräten hielten den Test durch, obwohl alle Geräte extrem warm geworden sind. Die eingelieferten Daten wurden vom TourLive Server empfangen und verarbeitet. Die Kommunikation zwischen Aufnahmegeräten und Server verlief problemlos. Zu Bemerken ist, dass 2 der eingesetzten Geräte, mit denen es auch am meisten Probleme gab, zuvor nicht getestet werden konnten. Zusammenfassend können folgende Erkenntnisse aus diesem Test mitgenommen werden:
 
 \begin{itemize} [noitemsep,topsep=0pt]
 \item[-] Grundsätzliche Probleme (Exceptions) aufgrund Programmierfehler mit den beiden Gerätetypen HTC One und Samsung Galaxy S3 mini. Excetions die nachvollzogen werden konnten wurden behoben.
@@ -125,6 +125,7 @@ Ein letzter Systemtest konnte an der 2. Etappe der Tour de Suisse durchgeführt 
 
 Aufgrund der Systemtests und spontaner Ideen während der Entwicklung und dem Testing wurden folgende Verbesserungsmöglichkeiten aller drei Komponenten zusammengestellt.
 \paragraph{TourLive Server}
+%TODO flo erweitern
 \begin{itemize}
  \item Der Algorithmus für die Abstandsentwicklung basiert aktuell auf Basis der berechneten Etappendistanzen der Aufnahmegeräte. Anstelle dieser berechneten Distanzen könnte die Abstandsentwicklung auch auf Basis der Koordinaten im ValueContainer berechnet werden. Dies würde verhindern, dass allfällige Rechnungsfehler der Aufnahmegeräte nicht in die Abstandsentwicklung einflössen.
 \end{itemize}
