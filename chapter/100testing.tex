@@ -19,13 +19,13 @@ Das Testing des Gesamtsystems und der einzelnen Komponenten wurde mit verschiede
 
 Nachfolgend werden sämtlich durchgeführten Systemtests beschrieben und ausgewertet. Im Kapitel Resultate werden die Erkenntnisse aus den Systemtests zusammengefasst und wie folgt klassifiziert:
 \begin{itemize} [noitemsep,topsep=0pt]
-	\item[+] \textit{positive Erkenntnis}
-	\item[-] \textit{negative Erkenntnis}
+	\item (+) \textit{positive Erkenntnis}
+	\item (-) \textit{negative Erkenntnis}
 \end{itemize}
 
 \subsubsection{\#1 - Systemtest Rapperswiler Rundfahrt}
 Ein erster Praxistest um das Zusammenspiel aller drei Komponenten zu testen. Auf einer Rundfahrt durch Rapperswil mit einem einzelnen Auto konnte der eine oder andere Fehler eruiert werden. Folgende Geräte wurden zu Testzwecken eingesetzt:
-\begin{itemize}
+\begin{itemize} [noitemsep,topsep=0pt]
 	\item{Google Galaxy Nexus}
 	\item{Samsung Galaxy S3}
 \end{itemize}
@@ -33,20 +33,20 @@ Ein erster Praxistest um das Zusammenspiel aller drei Komponenten zu testen. Auf
 \paragraph*{Resultate} \mbox{} \\
 Folgende Erkenntnisse wurden aus dem Systemtest gewonnen:
 \begin{itemize}[noitemsep,topsep=0pt]
-	\item[-] App: Fehlberechnung bei der Distanz
-	\item[-] App: Fehlberechnung bei der Renndauer
-	\item[-] App: Reproduzierbare Abstürze (NullPointerExceptions,...)
-	\item[-] App: NullPointerException wenn Gerät im Landscape-Modus
-	\item[-] TourLive Server: DataIntegrityDataViolation Exception
-	\item[-] TourLive Server: Inkonsistenzen I18N
-	\item[-] TourLive Server: durchschnittliche Geschwindigkeit
-	\item[+] Funktionierendes Zusammenspiel der Komponenten
-	\item[-] Fehlerhafte Übertragung einzelner Werte
+	\item App: Fehlberechnung bei der Distanz
+	\item App: Fehlberechnung bei der Renndauer
+	\item App: Reproduzierbare Abstürze (NullPointerExceptions,...)
+	\item App: NullPointerException wenn Gerät im Landscape-Modus
+	\item TourLive Server: DataIntegrityDataViolation Exception
+	\item TourLive Server: Inkonsistenzen I18N
+	\item TourLive Server: durchschnittliche Geschwindigkeit
+	\item Funktionierendes Zusammenspiel der Komponenten
+	\item Fehlerhafte Übertragung einzelner Werte
 \end{itemize}
 
 \subsubsection{\#2 - Systemtest Langzeittest über Nacht}
 Aufgrund wiederkehrender Abstürze der TourLive App bei Laufender Aufnahme wurde über Nacht ein Langzeitest durchgeführt. Beide Geräte wurden einer 8 stündigen Etappe zugewiesen und sollten über Nacht Positionsdaten und Bilder übertragen. 
-\begin{itemize} 
+\begin{itemize} [noitemsep,topsep=0pt]
 	\item{Google Galaxy Nexus}
 	\item{Samsung Galaxy S3}
 \end{itemize}
@@ -54,8 +54,8 @@ Aufgrund wiederkehrender Abstürze der TourLive App bei Laufender Aufnahme wurde
 \paragraph*{Resultate} \mbox{} \\
 Folgende Erkenntnisse wurden aus dem Systemtest gewonnen:
 \begin{itemize}[noitemsep,topsep=0pt]
-	\item[+] Google Galaxy Nexus: hat den Test erfolgreich bestanden. Im Log konnten keine Verdächtigen Einträge festgestellt werden.
-	\item[-] Samsung Galaxy S3: App ist nach rund 2 Stunden aufgrund eines SIG-9 FATAL ERROR's abgestürzt. Grund für solche Abstürze sind Schreib-/Lesekonflikte im Speicherbereich und treten auf wenn zwei Threads gleichzeitig eine gemeinsame Variabel lesen / schreiben. Aufgrund dieser Erkenntnis wurden die diversen AsyncTasks, die parallel ausgeführt werden, optimiert.1
+	\item Google Galaxy Nexus: hat den Test erfolgreich bestanden. Im Log konnten keine Verdächtigen Einträge festgestellt werden.
+	\item Samsung Galaxy S3: App ist nach rund 2 Stunden aufgrund eines SIG-9 FATAL ERROR's abgestürzt. Grund für solche Abstürze sind Schreib-/Lesekonflikte im Speicherbereich und treten auf wenn zwei Threads gleichzeitig eine gemeinsame Variabel lesen / schreiben. Aufgrund dieser Erkenntnis wurden die diversen AsyncTasks, die parallel ausgeführt werden, optimiert.1
 \end{itemize}
 
 
@@ -85,18 +85,24 @@ Im Rahmen der Radsporttage Gippingen konnte das Gesamtsystem ein erstes Mal prax
 \paragraph*{Resultate} \mbox{} \\
 Nach wenigen Minuten konnte kein Kontakt mehr zum HTC One Aufnahmegerät hergestellt werden. Das Gerät konnte durch die Notfallwiederherstellung per SMS neu gestartet werden, jedoch war nach kurzem Kontakt die Verbindung zum Gerät wieder abgebrochen. Die erste Analyse ergab, dass das Gerät stark überhitzt war und sich deshalb selbst ausschaltete. Ein weiteres Gerät versuchte sich mit dem naheliegenden Deutschen Mobilfunknetz zu verbinden, was aber daran scheiterte, das dass Datenroaming deaktiviert war. Das dritte Gerät sowie die zusätzlichen Testgeräten hielten den Test durch, obwohl alle Geräte extrem warm geworden sind. Die eingelieferten Daten wurden vom TourLive Server empfangen und verarbeitet. Die Kommunikation zwischen Aufnahmegeräten und Server verlief problemlos. Zu Bemerken ist, dass 2 der eingesetzten Geräte, mit denen es auch am meisten Probleme gab, zuvor nicht getestet werden konnten. Zusammenfassend haben wir folgende Erkenntnisse aus diesem mitgenommen:
 \begin{itemize} [noitemsep,topsep=0pt]
-	\item[+] Wichtigkeit der Fernwartungsmöglichkeiten
-	\item[+] Zuverlässig funktionierende Aufnahme mit dem Gerätetyp Samsung Galaxy S3
-	\item[+] Wenig Abweichung (< 1 km) bei der Berechnung der Tour-Distanz im Vergleich zum bestehenden TourLive System
-	\item[-] Grundsätzliche Probleme (Exceptions) mit den beiden Gerätetypen HTC One und Samsung Galaxy S3 mini. 
-	\item[-] Starke Erhitzung der Geräte aufgrund direkter Sonneneinstrahlung was zu starken Performanceeinbussen, beispielsweise bei der Bedienung des GUI's führt.
-	\item[-] Performanceeinbussen bei wachsender Grösse des lokalen Caches (ORMlite Datenbank)
-	\item[-] Optimierungsmöglichkeiten bei der Darstellung der Geräte im Device Management Portal aufgrund der praktischen Anwendung.
+	\item Grundsätzliche Probleme (Exceptions) mit den beiden Gerätetypen HTC One und Samsung Galaxy S3 mini. 
+	\item Zuverlässig funktionierende Aufnahme mit dem Gerätetyp Samsung Galaxy S3
+	\item Starke Erhitzung der Geräte aufgrund direkter Sonneneinstrahlung was zu starken Performanceeinbussen, beispielsweise bei der Bedienung des GUI's führt.
+	\item Performanceeinbussen bei wachsender Grösse des lokalen Caches (ORMlite Datenbank)
+	\item Wenig Abweichung (< 1 km) bei der Berechnung der Tour-Distanz im Vergleich zum bestehenden TourLive System
+	\item Optimierungsmöglichkeiten bei der Darstellung der Geräte im Device Management Portal aufgrund der praktischen Anwendung.
+	\item Wichtigkeit der Fernwartungsmöglichkeiten
 \end{itemize}
 
 \subsubsection{\#5 - Systemtest Tour de Suisse - 2. Etappe}
 Ein letzter Systemtest konnte an der 2. Etappe der Tour de Suisse durchgeführt werden.
 %TODO erkenntise? Start-Button soll Rot sein gemäss HEI
+
+\begin{itemize}
+	\item Abstandsentwicklung
+	\item RecordingService
+	\item 
+\end{itemize}
 
 \subsection{Unit Tests}
 \label{sec:unittests}

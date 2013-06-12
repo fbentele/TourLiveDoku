@@ -302,10 +302,24 @@ Listener und BroadcastReceiver empfangen System- und andere Events.
 	\item \textit{PowerConnectionReceiver.java} meldet Änderungen in der Stromversorgung.
 \end{itemize}
 
-%TODO GPSListener, SignalStrengthListener, PowerBatterBlaBlaListener
-
 \subsection{Aufnahme von Bildern und Videosequenzen}
-%TODO Problematik CameraPreview
+Die Aufnahme von Bild- und Videosequenzen kann über die Android API grundsätzlich ziemlich komfortabel realisiert werden. Vorausgesetzt wird lediglich eine View die als Kamera Vorschau, wie man sie aus den nativen Kamera Applikationen kennt, genutzt werden kann. Eine View wiederum muss mit einer Activity verknüpft werden und diese wiederum kennt verschiedene Status (\textit{active}, \textit{paused}, \textit{stopped}, \textit{destroyed}). Welche Activity sich in welchem Status befindet wird vom Android Betriebssystem verwaltet. Grundsätzlich kann aber davon ausgegangen werden, dass eine Activity sich nicht mehr im Status \textit{active} befindet, wenn die Applikation sich im Hintergrund befindet oder der Bildschirm sich abdunkelt. Befindet sich eine Activity nicht mehr im Status \textit{active} kann es vorkommen, dass der Garbage Collector View-Objekte aufräumt die beim reaktivieren der Activity neu initialisiert werden.
+\\
+
+Bei diesem Sachverhalt gibt es zwei Konflikte mit den Anforderungen an die TourLive Applikation. Zum ersten wird keine Vorschau-View gewünscht und zum zweiten sollen auch Bilder / Videosequenzen aufgenommen werden, wenn die Applikation im Hintergrund oder mit abgedunkeltem Bildschirm läuft. 
+
+Das erste Problem mit der geforderten View die als Vorschau benötigt wird,  kann mit einer 1x1 Pixel grossen View die "unsichtbar" in einer Ecke angezeigt wird, umgangen werden. 
+
+Das zweite, etwas grössere Problem besteht 
+
+Im Fall der TourLive Applikation sollen Bilder und Videosequenzen auch aufgenommen werden wenn die Applikation im Hintergrund oder mit abgedunkelten Bildschirm läuft. Dies führ
+
+
+\begin{quotation}
+\textit{Sets the Surface to be used for live preview. Either a surface or surface texture is necessary for preview, and preview is necessary to take pictures.} \footnote{AsyncTask, \url{http://developer.android.com/reference/android/hardware/Camera.html#setPreviewDisplay%28android.view.SurfaceHolder%29}, besucht am: 17.04.2013}
+\end{quotation}
+
+
 
 \subsection{Datenbank}
 Für das lokale Caching werden Daten mittels ORMLite in die Datenbank geschrieben. Eine Klasse wird mittels Annotation als Datenbankklasse erkannt.
@@ -325,36 +339,42 @@ public class Device {
 }
 \end{lstlisting}
 
-\textbf{\textit{@DatabaseTable}:} mit dieser Annotation wird angegeben, dass diese Klasse eine gemappte Datenbank Klasse ist.\\
-\textbf{\textit{@DatabaseField}:} das folgende Attribut ist eine Spalte in der Datenbank. Mittels generatedID = true wird für das Attribut eine eindeutige ID generiert.\\
+\begin{itemize}
+\item \textbf{\textit{@DatabaseTable}:} mit dieser Annotation wird angegeben, dass die annotierte Klasse  eine gemappte Datenbank Klasse ist.
+\item \textbf{\textit{@DatabaseField}:} das folgende Attribut ist eine Spalte in der Datenbank. Mittels generatedID = true wird für das Attribut eine eindeutige ID generiert.
+\end{itemize}
 
-Die Klasse \textit{DatabaseHelper} führt den Zugriff auf die Datenbank aus. Beim ersten Start der App werden alle Tabellen generiert. Werden später neue Attribute hinzugefügt, so muss die Datenbankversion erhöht und in der \textit{onUpgrade} Methode ein UpdateScript zur Verfügung gestellt werden.\\
 
-Der DatenbankManager, eine Singleton Klasse, ermöglicht den Zugriff über den \textit{DatabaseHelper} auf die Datenbank. Hier werden alle benötigten CRUD Methoden aufgerufen.
+Die Klasse \textit{DatabaseHelper.java} verwaltet die Zugriffe auf die Datenbank. Beim ersten Start der App werden die Tabellen generiert. Werden später neue Attribute hinzugefügt, so muss die Datenbankversion erhöht und in der \textit{onUpgrade} - Methode ein Update-Script zur Verfügung gestellt werden.\\
+
+Der \textit{DatenbankManager.java}, eine Singleton Klasse, ermöglicht den Zugriff über den \textit{DatabaseHelper.java} auf die Datenbank. Im \textit{DatenbankManager.java} sind sämtliche \textit{\gls{CRUD}}-Operationen enthalten.
 
 \subsection{Systemsequenzdiagramme}
+Dieses Kapitel beschreibt die Abläufe innerhalb der Applikation in Form von Systemsequenzdiagrammen. Sie geben eine grobe Übersicht wie die bisher erwähnten Klassen zusammenarbeiten.
 
-\subsubsection{Permanente Tasks}
-In der folgenden Grafik sieht man alle Tasks, die ausgeführt werden, während die App läuft. 
+\subsubsection{Applikation im Ruhezustand}
+Folgendes Diagramm beschreibt die Applikation im Ruhezustand. In regelmässigem Intervall (wird in der \textit{Config.java} definiert.) wird der Gesundheitszustand des Gerätes an den Device Management Server übertragen. Der Device Management Server antwortet mit der gespeicherten Gerätekonfiguration des Gerätes sowie einem Message-Flag, dass kennzeichnet wenn eine Nachricht für das Gerät vorhanden ist. 
+
+Sind keine Renn- und Etappeninformationen vorhanden oder sind diese veraltet, werden diese nach Beendigung des ersten Requests beim TourLive Server abgerufen.
+
+Wurde zudem das Message-Flag gesetzt, wird in einem weiteren Request die Nachricht abgerufen. 
+
+ 
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=150mm]{images/android/permanent_taskes.jpg}
 	\caption{Aufnahmesystem Permanente Tasks}
 \end{figure}
-Alle paar Minuten wird ein StatusData an den Device Management Server versendet. Das Intervall kann nur im Code verändert werden. Als Antwort wird der aktuellste DeviceManagementContainer zurückgegeben und damit die lokalen Einstellungen gefüllt. Wurde in diesem DeviceManagementContainer das Flag \textit{messageAvailable} gesetzt, so wird die neue Nachricht vom Server geholt.\\
-Ebenso wird in diesem Intervall geprüft, ob die StageInfo vorhanden ist, oder veraltet. Ist diese der Fall, so wird die StageInfo neu vom Server bezogen.
 
 \pagebreak
-\subsubsection{Recording}
-Die folgende Abbildung zeigt den Ablauf, beim Starten der Aufnahme.
+\subsubsection{Applikation im Aufnahemodus}
+Folgendes Diagramm zeigt die Abläufe beim Starten des Aufnahmemodus (\textit{RecordingService.java}). Die Operation \textit{startRecording()} entspricht dem \textit{RecordingService.java}. Der Start des RecordingServices beinhaltet auf jeden Fall den Start des  \textit{ValueContainerService.java}. Je nach Konfiguration wird zudem der \textit{VideoService.java}, der \textit{ImageService.java} oder keiner der beiden gestartet.
+
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=150mm]{images/android/recording.jpg}
 	\caption{Aufnahmesystem Aufnahme}
 \end{figure}
-
-Beim Starten der Aufnahme werden alle Services gestartet. Beim ValueContainerService wird ein Listener für Positionsänderungen hinzugefügt, welcher in einem in den Einstellungen definierten Intervall die aktuelle Position mitteilt. Wird auf dem Listener \textit{onLocationChanged} aufgerufen, so wird ein neuer ValueContainer kreiiert und an den Server gesendet.\\
-Zusätzlich zum ValueContainerService wird der ImageService oder VideoService gestartet. Welcher von beiden benutzt wird hängt von dem definierten MediaRecording Modus ab. Bei beiden wird ein Timer gestartet, welcher periodisch Fotos oder Videos aufnimmt und diese an den TourLive Server sendet.
 
 \subsection{Algorithmen}
 Das Aufnahmesystem enthält einige Algorithmen zur Berechnung von Distanzen, Steigungen und Zeit. Diese werden in folgendem Unterkapitel kurz beschrieben. Damit eine Berechnung durchgeführt werden kann wird ein \textit{StageInfo}-Objekt vorausgesetzt der beschreibt in welchem Rennen beziehungsweise in welcher Etappe sich das Aufnahmegerät aktuell befindet.
@@ -449,4 +469,4 @@ Die Erstellung eines ValueContainers erfolgt sobald das Aufnahmegerät eine neue
 \end{itemize}
 
 \subsection{TourLive Recovery Service}
-%TODO Recovery Service
+Die Notfallwiederherstellung wie sie in den Anforderungen ans Aufnahmesystem formuliert ist, wurde aus Gründen der Zuverlässigkeit und Stabilität als separate Android Applikation (\textit{TourLiveRecoveryService.apk}) realisiert. Der TourLiveRecoveryService startet beim Gerätestart automatisch und besteht aus zwei Komponenten. Der SmsReceiver scannt einkommende SMS nach dem Stichwort \textit{RESTART} und sendet, falls dieses Stichwort gefunden wurde, eine Nachricht (Intent) an die TourLive Applikation um diese nach einem Absturz erneut zu starten. 
