@@ -67,7 +67,7 @@ Die Android Applikation zeichnet Daten für den TourLive Server sowie den Device
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=120mm]{images/android/uebersicht.png}
+	\includegraphics[width=140mm]{images/android/uebersicht.png}
 	\caption{Grobstruktur der Android App}
 	\label{fig:grobstrukturandroid} 
 \end{figure}
@@ -131,11 +131,11 @@ Das Repository.java implementiert das Singleton-Pattern und fungiert als globale
 \subsubsection{Start der Applikation - TourLiveApplication.java}
 Beim Start der TourLive Applikation müssen diverse Daten initialisiert werden. Um diese Initialisierung vor der ersten View durchzuführen, wurde eine projektspezifische Klasse \textit{TourLiveApplication.java} geschrieben, die von der Android Klasse \textit{Application} ableitet. Eine von \textit{Application} abgeleitete Klasse darf nur einmalig vorkommen und wird als erste Klasse bei einem App-Start initialisiert.
 \begin{quotation}
-\textit{``An Application class is a base class for those who need to maintain global application state''}.\footnote{Application class, \url{http://developer.android.com/reference/android/app/Application.html} besucht am: 10.04.2013}
+\textit{``An Application class is a base class for those who need to maintain global application state''}.\footnote{Application class, \url{http://developer.android.com/reference/android/app/Application.html}, aufgerufen am 10.04.2013}
 \end{quotation}
 Über die Klasse TourLiveApplication kann ausserdem auf den globalen Application-Context zugegriffen werden, der zur Initialisierung diverser Objekte benötigt wird und wie folgt in den Android Developer Reference beschrieben ist.
 \begin{quotation}
-\textit{``Interface to global information about an application environment. This is an abstract class whose implementation is provided by the Android system. It allows access to application-specific resources and classes, as well as up-calls for application-level operations such as launching activities, broadcasting and receiving intents, etc.'' }\footnote{Context class, \url{http://developer.android.com/reference/android/content/Context.html} besucht am: 13.04.2013}
+\textit{``Interface to global information about an application environment. This is an abstract class whose implementation is provided by the Android system. It allows access to application-specific resources and classes, as well as up-calls for application-level operations such as launching activities, broadcasting and receiving intents, etc.'' }\footnote{Context class, \url{http://developer.android.com/reference/android/content/Context.html}, aufgerufen am 13.04.2013}
 \end{quotation}
 
 \subsubsection{Caching der Daten}
@@ -176,7 +176,7 @@ Das Kapitel Realisation gibt Hinweise zur Umsetzung des TourLive Aufnahmesystems
 Die grafische Oberfläche einer Android Applikation besteht in erster Linie aus Activities. Gemäss Android Developer Reference wird eine Activity wie folgt definiert.
 
 \begin{quotation}
-\textit{``An activity is a single, focused thing that the user can do. Almost all activities interact with the user, so the Activity class takes care of creating a window for you in which you can place your UI.''} \footnote{Activity, \url{http://developer.android.com/reference/android/app/Activity.html}, besucht am: 25.03.2013}
+\textit{``An activity is a single, focused thing that the user can do. Almost all activities interact with the user, so the Activity class takes care of creating a window for you in which you can place your UI.''} \footnote{Activity, \url{http://developer.android.com/reference/android/app/Activity.html},, aufgerufen am 25.03.2013}
 \end{quotation}
 
 Die TourLive Applikation wurde mit folgenden drei Activities realisiert.
@@ -189,7 +189,7 @@ Die TourLive Applikation wurde mit folgenden drei Activities realisiert.
 Zu einer Activity gehört jeweils eine *.java Datei sowie eine *.xml Datei die das Layout definiert. Innerhalb einer Activity wird mit Fragments gearbeitet, welche wie folgt definiert sind:
 
 \begin{quotation}
-\textit{``A Fragment represents a behavior or a portion of user interface in an Activity.''} \footnote{Fragment, \url{http://developer.android.com/reference/android/app/Fragment.html}, besucht am: 25.03.2013}
+\textit{``A Fragment represents a behavior or a portion of user interface in an Activity.''} \footnote{Fragment, \url{http://developer.android.com/reference/android/app/Fragment.html}, aufgerufen am 25.03.2013}
 \end{quotation}
 
 Fragments werden für die verschiedenen Tabs innerhalb der MainActivity verwendet, wie nachfolgende Screenshots zeigen.
@@ -208,7 +208,7 @@ Die MainActivity, bestehend aus \textit{MainActivity.java} und \textit{main\_act
 Der Inhalt des Hauptbereichs hängt vom selektierten Tab ab. Die einzelnen Ansichten Status, GPS, Etappe, Netz und Log wurden mit Fragments realisiert und basieren jeweils auf einer ListView. Eine ListView ist wie folgt definiert:
 
 \begin{quotation}
-\textit{``ListView is a view group that displays a list of scrollable items. The list items are automatically inserted to the list using an Adapter that pulls content from a source such as an array or database query and converts each item result into a view that's placed into the list.''} \footnote{ListView, \url{http://developer.android.com/guide/topics/ui/layout/listview.html}, besucht am: 25.03.2013}
+\textit{``ListView is a view group that displays a list of scrollable items. The list items are automatically inserted to the list using an Adapter that pulls content from a source such as an array or database query and converts each item result into a view that's placed into the list.''} \footnote{ListView, \url{http://developer.android.com/guide/topics/ui/layout/listview.html},, aufgerufen am 25.03.2013}
 \end{quotation}
 
 \paragraph{Header}
@@ -306,11 +306,11 @@ Die Applikation ist in deutscher sowie englischer Sprache verfügbar. Weitere Sp
 Die TourLive Applikation arbeitet mit mehreren Services. Diese implementieren in der Regel das eigens für diese Applikation entworfene Interface \textit{TourLiveService.java}. Die Services werden in der Regel in Verbindung mit einem \textit{Timer} genutzt, der wiederum einen \textit{TimerTask} voraussetzt.
 
 \begin{quotation}
-\textit{``Each timer has one thread on which tasks are executed sequentially. When this thread is busy running a task, runnable tasks may be subject to delays.''} \footnote{Timer, \url{http://developer.android.com/reference/java/util/Timer.html}, besucht am: 11.04.2013}
+\textit{``Each timer has one thread on which tasks are executed sequentially. When this thread is busy running a task, runnable tasks may be subject to delays.''} \footnote{Timer, \url{http://developer.android.com/reference/java/util/Timer.html},, aufgerufen am 11.04.2013}
 \end{quotation}
 
 \begin{quotation}
-\textit{``The TimerTask class represents a task to run at a specified time. The task may be run once or repeatedly.''} \footnote{TimerTask, \url{http://developer.android.com/reference/java/util/TimerTask.html}, besucht am: 11.04.2013}
+\textit{``The TimerTask class represents a task to run at a specified time. The task may be run once or repeatedly.''} \footnote{TimerTask, \url{http://developer.android.com/reference/java/util/TimerTask.html},, aufgerufen am 11.04.2013}
 \end{quotation}
 
 Folgende Services, Timer und TimerTask werden in der TourLive Applikation verwendet.
@@ -331,7 +331,7 @@ Folgende Services, Timer und TimerTask werden in der TourLive Applikation verwen
 Für die Übertragung der Daten an die beiden Server wurden AsyncTasks verwendet. Diese ermöglichen eine einfache Anwendung von Threads und sind in der Android Developer Reference wie folgt definiert: 
 
 \begin{quotation}
-\textit{``AsyncTask enables proper and easy use of the UI thread. This class allows to perform background operations and publish results on the UI thread without having to manipulate threads and/or handlers. An asynchronous task is defined by a computation that runs on a background thread and whose result is published on the UI thread. An asynchronous task is defined by 3 generic types, called Params, Progress and Result, and 4 steps, called onPreExecute, doInBackground, onProgressUpdate and onPostExecute.''} \footnote{AsyncTask, \url{http://developer.android.com/reference/android/os/AsyncTask.html}, besucht am: 13.04.2013}
+\textit{``AsyncTask enables proper and easy use of the UI thread. This class allows to perform background operations and publish results on the UI thread without having to manipulate threads and/or handlers. An asynchronous task is defined by a computation that runs on a background thread and whose result is published on the UI thread. An asynchronous task is defined by 3 generic types, called Params, Progress and Result, and 4 steps, called onPreExecute, doInBackground, onProgressUpdate and onPostExecute.''} \footnote{AsyncTask, \url{http://developer.android.com/reference/android/os/AsyncTask.html},, aufgerufen am 13.04.2013}
 \end{quotation}
 
 Es folgt eine kurze Auflistung der implementieren AsyncTasks.
@@ -359,7 +359,7 @@ Listener und BroadcastReceiver empfangen System- und andere Events.
 Die Aufnahme von Bild- und Videosequenzen kann über die Android API grundsätzlich ziemlich komfortabel realisiert werden. Vorausgesetzt wird lediglich eine SurfaceView (Bereich auf dem Bildschirm), die als Kamera Vorschau genutzt werden kann. 
 
 \begin{quotation}
-\textit{``Sets the Surface to be used for live preview. Either a surface or surface texture is necessary for preview, and preview is necessary to take pictures.''} \footnote{AsyncTask, \url{http://developer.android.com/reference/android/hardware/Camera.html\#setPreviewDisplay\%28android.view.SurfaceHolder\%29}, besucht am: 17.04.2013}
+\textit{``Sets the Surface to be used for live preview. Either a surface or surface texture is necessary for preview, and preview is necessary to take pictures.''} \footnote{AsyncTask, \url{http://developer.android.com/reference/android/hardware/Camera.html\#setPreviewDisplay\%28android.view.SurfaceHolder\%29},, aufgerufen am 17.04.2013}
 \end{quotation}
 
 Eine View wiederum muss mit einer Activity verknüpft werden und eine Activity wiederum kennt verschiedene Status (\textit{active}, \textit{paused}, \textit{stopped}, \textit{destroyed}). Welche Activity sich in welchem Status befindet wird vom Android Betriebssystem verwaltet. Grundsätzlich kann aber davon ausgegangen werden, dass eine Activity sich nicht mehr im Status \textit{active} befindet, wenn die Applikation sich im Hintergrund befindet oder der Bildschirm sich abdunkelt. Befindet sich eine Activity nicht mehr im Status \textit{active} kommt es vor, dass der Garbage Collector View-Objekte aufräumt die beim Reaktivieren der Activity neu initialisiert werden.

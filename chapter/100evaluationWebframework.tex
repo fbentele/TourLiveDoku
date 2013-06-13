@@ -8,7 +8,7 @@ Die folgende Kriterien wurden zusammen mit dem Industriepartner definiert und fe
 \item Hohe Performance und stabile Verfügbarkeit auch bei hoher Auslastung
 \item Skalierbar für mehrere Rennen und Etappen
 \item Datenbankanbindung an \textit{\gls{mariadb}}
-\item Weiterentwicklung durch cnlab AG muss möglich sein
+\item Weiterentwicklung durch cnlab Software AG muss möglich sein
 \end{itemize}
 Optionale, gewünschte Anforderungen:
 \begin{itemize}
@@ -19,8 +19,8 @@ Optionale, gewünschte Anforderungen:
 \subsection{Mögliche Lösungen}
 \subsubsection{Django}
 Django ist ein auf Python basiertes Webframework. Es wird eingesetzt bei berühmten Webseiten wie z.B. Pinterest, Instagram und The Washington Post.  Django beinhaltet einen OR Mapper, Templates zur Darstellung und einen URL Dispatcher als Controller.
-\subsubsection{Spring MVC}
-Spring MVC ist ein Framework für die Erstellung von Webprojekten. Es basiert auf Java Technologien und fördert Dependency Injection  und aspektorientierte Programmierung.
+\subsubsection{Spring Framework}
+Spring ist ein Framework für die Erstellung von Webprojekten. Es basiert auf Java Technologien und fördert Dependency Injection  und aspektorientierte Programmierung.
 \subsubsection{JavaServer Faces}
 JSF ist ein Framework-Standard für Webapplikationen in Java. Es verwendet die Java Servlet Technologie und benötigt einen Servlet Container für den Betrieb. Mit JSF können Komponenten für User Interfaces einfach in Webseiten eingebaut werden. 
 \subsubsection{Symfony}
@@ -41,12 +41,12 @@ Für die Studierenden ist der Zugang zu freier Dokumentation sowie Vorkenntnisse
 \subsubsection{DB und ORM}
 Ruby on Rails verfolgt das Ziel möglichst abstrakt mit Datenbanken zu arbeiten und kann deshalb problemlos mit verschiedenen Datenbanksystemen arbeiten. Gleiches gilt für den Ansatz bei Django, dort werden verschiedene Datenbankadapter zur Verfügung gestellt. Auch Spring arbeitet z.B. mit Hibernate als ORM problemlos mit verschiedenen Datenbanken.
 \subsubsection{Weiterentwicklung durch cnlab Software AG}
-Nach Abschluss der Arbeit wird das Projekt durch die cnlab weiterentwickelt. Daher muss bei der Auswahl des Frameworks darauf geachtet werden, dass eine weitere Entwicklung möglich ist.
+Nach Abschluss der Arbeit wird das Projekt durch die cnlab Software AG weiterentwickelt. Daher muss bei der Auswahl des Frameworks darauf geachtet werden, dass eine weitere Entwicklung möglich ist.
 \subsubsection{Schlussfolgerungen}
-Da die Frameworks sehr ähnliche Ansätze verfolgen und aktuell eine grosse Entwicklergemeinschaft geniessen, sind die Unterschiede, abgesehen von der Programmiersprache welche als Grundlage dient, sehr klein. Entscheidend sind schliesslich die Vorkenntnisse: Java ist diejenige, für die bereits das grösste Vorwissen besteht. Daher sind für die engere Wahl die beiden Lösungen Spring MVC und JSF im Rennen. Da wir in einer kleinen Projektarbeit bereits mit JSF gearbeitet haben, möchten wir nach unseren eher negativen Erfahrungen damit von einer Entwicklung mit JSF absehen und auf das Spring MVC Framework setzen.
+Da die Frameworks sehr ähnliche Ansätze verfolgen und aktuell eine grosse Entwicklergemeinschaft geniessen, sind die Unterschiede, abgesehen von der Programmiersprache welche als Grundlage dient, sehr klein. Entscheidend sind schliesslich die Vorkenntnisse: Java ist diejenige, für die bereits das grösste Vorwissen besteht. Daher sind für die engere Wahl die beiden Lösungen Spring Framework und JSF im Rennen. Da wir in einer kleinen Projektarbeit bereits mit JSF gearbeitet haben, möchten wir nach unseren eher negativen Erfahrungen damit von einer Entwicklung mit JSF absehen und auf das Spring MVC Framework setzen.
 
 \subsection{Anmerkung zum Framework}
-Das Java Spring MVC Webframework baut auf dem Prinzip \textit{Dependency Injection} auf. Dependency Injection wird unter anderem mit dem Begriff Inversion of Control zusammengefasst und im folgenden Abschnitt erläutert. Weiter fördert Spring gute Programmierpraktiken wie z.B. die Trennung von Model, View und Controller oder die Verwendung von Objekt relationalen Mappern beim Einsatz von Datenbanken in der Persitenzschicht.
+Das Java Spring Framework baut auf dem Prinzip \textit{Dependency Injection} auf. Dependency Injection wird unter anderem mit dem Begriff Inversion of Control zusammengefasst und im folgenden Abschnitt erläutert. Weiter fördert Spring gute Programmierpraktiken wie z.B. die Trennung von Model, View und Controller oder die Verwendung von Objekt relationalen Mappern beim Einsatz von Datenbanken in der Persitenzschicht.
 
 \subsubsection{Dependency Injection}
 Die Grundlage für Dependency Injection basiert auf dem Prinzip, dass möglichst wenig Abhängigkeiten eines Objekts von einem anderen Objekt besitzt werden. Die Abhängigkeiten sollen zur Verfügung gestellt werden. So kann unabhängig von der Implementation auf die Schnittstellen zugegriffen werden. Dies erlaubt zum Beispiel einen späteren Austausch der Abhängigkeit. In Spring übernimmt der Dependency Injection Container diese Aufgabe. Die benötigten Abhängigkeiten können entweder mit einer Annotation im Code oder durch Konfiguration in einer xml Datei deklariert werden. Die nachfolgende Grafik stammt von Martin Fowlers Artiekel zum Thema Dependency Injection \cite{martinfowler2004}.
@@ -67,7 +67,7 @@ Für die Entwicklung von Webapplikationen bietet Spring das integrierte Modul \t
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=130mm]{images/tourliveweb/springmvc.png}
-	\caption{Aufbau von Spring MVC \cite{springsourcemvc2011}}
+	\caption{Aufbau von Spring \cite{springsourcemvc2011}}
 	\label{fig:springmvc}
 \end{figure}
 
