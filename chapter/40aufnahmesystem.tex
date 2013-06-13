@@ -324,7 +324,7 @@ Folgende Services, Timer und TimerTask werden in der TourLive Applikation verwen
 \subsubsection{VideoService} 
 \textit{VideoService.java} ist für die  Übertragung von Videodaten verantwortlich. Analog zum ImageService nutzt der VideoService den \textit{VideoTimerTask.java} zur Aufnahme von Videosequenzen und den gemeinsamen UploadMediaTask.java zur Übertragung der Videosequenzen an den TourLive Server.
 \subsubsection{StartUpService} 
-\textit{StartUpService.java} ist für den Auto-Start der Applikation nach dem Gerätestart verantwortlich, sofern dieser in den Einstellungen aktiviert ist.
+\textit{StartUpService.java} ist für den Auto-Start der Applikation nach dem Gerätestart verantwortlich, sofern dieser in den Einstellungen aktiviert ist. \cite{androidservice2011}
 \subsubsection{StatusDataService} 
 \textit{StatusDataService.java} ist für die  Übertragung des Gerätezustandes verantwortlich. Mit Hilfe eines Timers und des \textit{StatusDataTimerTask.java} wird in regelmässigem Intervall der Gerätezustand an den Device Management Server übertragen.
 
@@ -349,11 +349,11 @@ Es folgt eine kurze Auflistung der implementieren AsyncTasks.
 \subsection{Listener \& BroadcastReceiver}
 Listener und BroadcastReceiver empfangen System- und andere Events. 
 \begin{itemize} [noitemsep,topsep=0pt]
-	\item \textit{LocationChangedListener.java} meldet Positionsupdates.
+	\item \textit{LocationChangedListener.java} meldet Positionsupdates. \cite{androidlocation2010}
 	\item \textit{PreferenceChangedListener.java} meldet Einstellungsänderungen.
 	\item \textit{SignalStrengthListener.java} meldet Signalstärkenänderungen.
 	\item \textit{BootUpReceiver.java} meldet einen Gerätestart.
-	\item \textit{PowerConnectionReceiver.java} meldet Änderungen in der Stromversorgung.
+	\item \textit{PowerConnectionReceiver.java} meldet Änderungen in der Stromversorgung. \citep{broadcastreceiver2013}
 \end{itemize}
 
 \subsection{Aufnahme von Bildern und Videosequenzen}
