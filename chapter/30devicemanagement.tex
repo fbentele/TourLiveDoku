@@ -9,7 +9,7 @@ In diesem Kapitel wird der Device Management Server behandelt. Der Fokus liegt d
 Um die Anforderungen zu evaluieren wurde das bestehende Geräteverwaltungsportal analysiert. Da beim bestehenden System der Funktionsumfang stark eingeschränkt war, wurde vom Industriepartner zusätzliche Funktionalität gewünscht.
 Um eine kurze Übersicht über die vorhandenen Funktionen und erfassten Anforderungen zu geben folgt die Tabelle \ref{tab:anforderungendevmgmtsrv}.
 
-\begin{longtable}{>{\RaggedRight}p{3.5cm} | >{\RaggedRight}p{4.3cm} | >{\RaggedRight}p{4.3cm} }
+\begin{longtable}{  p{3.5cm} | p{4.3cm} | p{4.3cm} }
 
     \textbf{Spezifikation} & \textbf{Altes System} & \textbf{Neues System} \\ [1ex] \hline \hline & &  \\ [-1.5ex]
     Einstellungen anpassen & Nur Renndistanzkorrektur & Detaillierte Verwaltung der Geräteeinstellungen\\ [1ex] \hline & &  \\ [-1.5ex]
@@ -50,17 +50,17 @@ Für die Entwicklung des Device Management Servers wurden die selben Technologie
 Abbildung \ref{fig:domainmodeldevmgmtsrv} zeigt das Domain Model des Device Management Servers. Das Domain Model kann grundsätzlich in vier Kategorien unterteilt werden. Jede dieser vier Kategorien wird jeweils einem Gerät (der Klasse \textit{Device.java}) assoziiert. Die vier Kategorien sind: 
 
 
-\begin{enumerate}
+\begin{itemize}
 \item Die Klasse \textit{TourLiveLog.java} (1) mit sämtlichen Gerätelogs in Form der Klasse LogEntry. 
 \item Die Klasse \textit{DeviceManagementContainer.java} (2), die die Geräteeinstellungen auf die Klassen \textit{DeviceSettings.java}, \textit{RecordingSettings.java} und \textit{AdditionalSettings.java}, aufteilt.
 \item Die Klasse \textit{StatusData.java} (3), die den aktuellen Gesundheitszustand eines Aufnahmegerätes widerspiegelt.
 \item Die Klasse \textit{Message.java} (4), die allfällige Nachrichten vom Device Management Server an ein Aufnahmegerät speichert.
-\end{enumerate}
+\end{itemize}
 
-\label{fig:domainmodeldevmgmtsrv}
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=130mm]{images/devmgmtsrv/domainmodel.jpg}
+	\label{fig:domainmodeldevmgmtsrv}
 	\caption{Domain Model des Device Management Servers}
 \end{figure}
 
@@ -79,13 +79,13 @@ Der Device Management Server unterteilt sich in Webseite und API. Die API wird v
 
 Wie beim TourLive Server besteht dank der gewählten Struktur die Möglichkeit, die Webseite und die API auf verschiedene Server aufzuteilen. Da die Auslastung des Device Management Servers gering sein wird, wird darauf verzichtet.
 
-\subsection{Schichtenmodell und Packagediagramm}
+\subsection{Schichtenmodell und Paketdiagramm}
 Der Device Management Server ist in vier Schichten unterteilt. Die Schichten wurden an die vorgegebene Struktur des Spring Frameworks angepasst. Abbildung \ref{fig:devmgmtsrvschichten} zeigt diese vier Schichten auf. Jede Schicht kann nur auf die darunterliegenden Schichten zugreifen.
 
-\label{fig:devmgmtsrvschichten}
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=80mm]{images/devmgmtsrv/schichten.jpg}
+	\label{fig:devmgmtsrvschichten}
 	\caption{Schichtendiagramm des Device Management Servers}
 \end{figure}
 

@@ -78,8 +78,8 @@ Die Android Applikation teilt sich in 3 Schichten auf.
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=130mm]{images/android/schichten.jpg}
-	\caption{Packagediagramm des Aufnahmesystems}
+	\includegraphics[width=150mm]{images/android/schichten.jpg}
+	\caption{Paketdiagramm des Aufnahmesystems}
 \end{figure}
 
 Die oberste Schicht stellt die Schnittstelle zum Benutzer dar. Die Klassen in dieser Schicht sind für die Darstellung zuständig. Die mittlere Schicht enthält die ganze Businesslogik. Dazu gehören Services, Timer, Listener, etc. Die unterste Schicht enthält die Domänenobjekte die die effektiven Daten (Positionsdaten, Konfigurationen, ...) enthalten. 
@@ -93,8 +93,8 @@ Das Domain Model des Aufnahmesystems setzt sich aus den Domain Models des TourLi
 \caption{Aufnahmesystem Domain Model}
 \end{figure}
 
-\subsubsection{Packagediagramm}
-Die TourLive Applikation hat folgende Paketstruktur. Als Grundstruktur wurde analog zum TourLive Server und dem Device Management Server \textit{ch.hsr.ba.tourlive} verwendet. Die TourLive Applikation verwendet zusätzlich die Subkategorie \textit{.android} sowie folgende applikationsspezifische Struktur:
+\subsubsection{Paketdiagramm}
+Die TourLive Applikation hat folgende Pakete. Als Grundstruktur wurde analog zum TourLive Server und dem Device Management Server \textit{ch.hsr.ba.tourlive} verwendet. Die TourLive Applikation verwendet zusätzlich die Subkategorie \textit{.android} sowie folgende applikationsspezifische Struktur:
 
 \begin{longtable}{>{\RaggedRight}p{5.0cm} | >{\RaggedRight}p{7.1cm}}
  & \\ [-1.5ex]
@@ -116,7 +116,7 @@ Die TourLive Applikation hat folgende Paketstruktur. Als Grundstruktur wurde ana
 .view & Activities und Fragments \\ [1ex] \hline &  \\ [-1.5ex]
 .view.helper & individuelle Dialoge \\ [1ex] \hline &  \\ [-1.5ex]
 .view.helptext & die Hilfstext Klassen \\ [1ex]
-\caption{Android Packages}
+\caption{Pakete in der Android Applikation}
 \end{longtable} 
 
 \subsection{Architekturentscheide}

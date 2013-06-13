@@ -9,7 +9,7 @@ Weite Teile der Anforderungen an die Webapplikation ergeben sich aus der Analyse
 
 Die Analyse der funktionalen Anforderungen sind im Anhang \ref{sec:tourliveusecase} umfangreich dokumentiert.
 
-\begin{longtable}{ >{\RaggedRight}p{3.5cm} | >{\RaggedRight}p{4.3cm} | >{\RaggedRight}p{4.3cm} }
+\begin{longtable}{ p{3.5cm} | p{4.3cm} | p{4.3cm} }
 	\textbf{Spezifikation} & \textbf{Altes System} & \textbf{Neues System} \\ [1ex] \hline \hline & & \\ [-1.5ex] Renn- und Etappenverwaltung & - & Benutzerfreundliche Renn- und Etappen-verwaltung\\ [1ex] \hline & &  \\ [-1.5ex]
 Bildübertragung & 1 Bild / Zeitpunkt (auch bei mehreren Aufnahmegeräten) & Bild- oder Video-übertragung \\ [1ex] \hline & &  \\ [-1.5ex]
 Streckenprofil & Alle Position statisch & Alle Positionen (HTML5, SVG\footnote{HTML5 und SVG sind zwei moderne Webtechnologien um Grafiken im Browser zu zeichnen})\\ [1ex] \hline & &  \\ [-1.5ex]
@@ -78,18 +78,18 @@ Der TourLive Server übernimmt zwei grundsätzlich Funktionen, zum einen die Pr�
 \end{figure}
 Diese Aufteilung wurde bewusst so gewählt, da es die Möglichkeit offen lässt, die Dienste auf mehrere Server aufzuteilen. Aus dem Requirements Engineering kam hervor, dass das System auch unter grosser Last für die Datenerfassung stets zur Verfügung stehen muss. In der Entwicklungsphase wurde der Einfachheit halber darauf verzichtet, das System auf mehrere Server aufzuteilen.
 
-\subsection{Schichtenmodell und Packagediagramm}
+\subsection{Schichtenmodell und Paketdiagramm}
 Ein Spring MVC Projekt legt eine gewisse Struktur vor, wie eine Webapplikation aufgebaut werden soll. Dadurch werden gute Programmierpraktiken gefördert und gewisse Standards erzeugt. Auch beim TourLive Server wurden diese Vorgaben angewendet.
 \\
 
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=130mm]{images/tourliveweb/TourLiveServer_Package_ohneRand.jpg}
-	\caption{Packagediagramm des TourLive Servers}
+	\caption{Paketdiagramm des TourLive Servers}
 	\label{fig:tourlivewebpackage}
 \end{figure}
 
-Im Packagediagramm \ref{fig:tourlivewebpackage} sind die Schichten der Applikation zu erkennen. So wurde das Domainmodel im Package \textit{Model} abgebildet, die Datenzugriffsobjekte im \textit{DAO} Package und die dazugehörige Service Schicht im Package \textit{Service}. Die Anfragen werden durch die Zugriffscontroller im Package \textit{Controller} bearbeitet. Um wiederkehrende Tasks zu zentralisieren, wurden diese im Package \textit{Utils} zusammengefasst, so z.B. das Formatieren von Zeiten und Daten.
+Im Paketdiagramm \ref{fig:tourlivewebpackage} sind die Schichten der Applikation zu erkennen. So wurde das Domainmodel im Paket \textit{Model} abgebildet, die Datenzugriffsobjekte im \textit{DAO} Paket und die dazugehörige Service Schicht im Paket \textit{Service}. Die Anfragen werden durch die Zugriffscontroller im Paket \textit{Controller} bearbeitet. Um wiederkehrende Tasks zu zentralisieren, wurden diese im Paket \textit{Utils} zusammengefasst, so z.B. das Formatieren von Zeiten und Daten.
 
 \subsection{Video}
 Eine Anforderung war es, eine Lösung zu erarbeiten, welche es ermöglicht, mit den Aufnahmegeräten Video-Streams aufzuzeichnen und diese an den Server zu übermitteln. Dazu gibt es verschiedene Ansätze mit entsprechenden Vor- und Nachteilen. Im TourLive System im Einsatz ist eine eigene Entwicklung, welche genau auf die Anforderungen des Industriepartners angepasst ist. Die Geräte nehmen Videosequenzen auf und übertragen diese an den Server. Der Server konvertiert diese Sequenzen vom mp4 in das ogg Format. Dazu wird die externe Library Xuggler\footnote{Xuggler, \url{http://www.xuggle.com/xuggler}, aufgerufen am 04.06.2013} verwendet. Mit diesem Schritt sind die Browser Google Chrome, Mozilla Firefox und Microsoft Internet Explorer fähig, die Videosequenzen abzuspielen. Zusätzlich wird ein VideoData Objekt (vgl. Abbildung \ref{fig:tourliveserverdomainmodel}) in der Datenbank angelegt, welches den Aufnahmezeitpunkt und die Geräte ID, eine allfällige Rotation, sowie den Pfad zur Videodatei enthält. Wenn nun ein Gerät einer Etappe zugewiesen ist und Videosequenzen vorhanden sind, wird die aktuellste Sequenz ausgeliefert. Der Videoplayer meldet, wenn die Videosequenz beendet ist und lädt, falls möglich, die nächste Sequenz via AJAX automatisch nach, dies wird im Quellcode \ref{code:ajaxquellcode} dargestellt. Falls kein neues Video verfügbar ist, wird nach 8 Sekunden erneut versucht ein Video zu laden. Dadurch wird auch bei einem temporären Ausfall der Aufnahmegeräte die Videowiedergabe fortgesetzt, sobald diese wieder verfügbar ist.
@@ -220,7 +220,7 @@ icon, altitude, distance, distanceToGo, settlement, advertisingColumn, raceSlow,
 {<leer>, info, achtung, bahn, tunnel, verpflegung, rechts, links, bodenwelle}
 \end{lstlisting}
 
-Die Klasse \textit{MarchTableImporter} im Package \textit{utils} (siehe Packagediagramm \ref{fig:tourlivewebpackage}) importiert die Werte zeilenweise, setzt die Etappen-ID und speichert die Zeile als \textit{MarchTableItem} in der Datenbank. Bei der Anzeige der Marschtabelle werden die Zeilen eingefärbt mit der Farbe des letzten Gerätes, welches an dieser Ortschaft vorbeigekommen ist. Dies wird aufgrund der Etappendistanz berechnet. Zudem wird die Tabelle zu dieser Zeile gescrollt, wo sich die Spitze aktuell befindet. Somit wird die Rennsituation auch in der Etappe farblich dargestellt, was das folgende Beispiel verdeutlicht.
+Die Klasse \textit{MarchTableImporter} im Paket \textit{utils} (siehe Paketdiagramm \ref{fig:tourlivewebpackage}) importiert die Werte zeilenweise, setzt die Etappen-ID und speichert die Zeile als \textit{MarchTableItem} in der Datenbank. Bei der Anzeige der Marschtabelle werden die Zeilen eingefärbt mit der Farbe des letzten Gerätes, welches an dieser Ortschaft vorbeigekommen ist. Dies wird aufgrund der Etappendistanz berechnet. Zudem wird die Tabelle zu dieser Zeile gescrollt, wo sich die Spitze aktuell befindet. Somit wird die Rennsituation auch in der Etappe farblich dargestellt, was das folgende Beispiel verdeutlicht.
 
 \begin{figure}[H]
 	\centering
@@ -235,7 +235,7 @@ Wie schon bei der Marschtabelle können auch die Fahrer einer Etappe in Form ein
 startNr, name, team, teamshort, country, official-time, deficite-time, virtual-time, neo
 \end{lstlisting}
 
-Für den Import der Fahrer wird die selbe \textit{CSV Reader Klasse} verwendet wie beim Import der Marschtabelle, die Zeilen werden aber mittels der RiderImporter Klasse interpretiert (siehe Packagediagramm \ref{fig:tourlivewebpackage}).
+Für den Import der Fahrer wird die selbe \textit{CSV Reader Klasse} verwendet wie beim Import der Marschtabelle, die Zeilen werden aber mittels der RiderImporter Klasse interpretiert (siehe Paketdiagramm \ref{fig:tourlivewebpackage}).
 \\
 
 Alle importierten Fahrer können in der Fahrertabelle gefunden werden, zusätzlich werden die Fahrer in Form einer schematischen Rennsituation (siehe Abbildung \ref{fig:rennsituationneu}) dargestellt. Alle Fahrer die nicht einer Gruppe zugeordnet sind, werden automatisch dem Feld zugewiesen. Aufgrund ihrer Anzahl werden die Namen der Fahrer im Feld nicht einzeln aufgelistet, wie in Abbildung \ref{fig:rennsituationneu} zu erkennen ist.
