@@ -11,7 +11,7 @@ Dieses Kapitel beschreibt die Anforderungen an das Aufnahmesystem und gibt eine 
 Um die Anforderungen zu evaluieren wurde das bestehende Aufnahmesystem auf Basis von Nokia Symbian analysiert. Alle vorhandenen Funktionen wurden erfasst und gemeinsam mit dem Industriepartner um weitere ergänzt. 
 Eine kurze Übersicht über die bereits bestehenden Funktionen und den neu erfassten Anforderungen liegt in tabellarischer Form vor.
 
-\begin{longtable}{  p{3.5cm} | p{4.3cm} | p{4.3cm} }
+\begin{longtable}{ >{\RaggedRight} p{3.5cm} | >{\RaggedRight}p{4.3cm} | >{\RaggedRight}p{4.3cm} }
     
     \textbf{Spezifikation} & \textbf{Altes System} & \textbf{Neues System} \\ [1ex] \hline \hline & &  \\ [-1.5ex]
     Positionsdaten übertragen & Geschwindigkeit, H\"{o}he, Richtung/Beschleunigung, Steigung, Longitude, Latitude & Geschwindigkeit, H\"{o}he, Richtung, Steigung, Longitude, Latitude \\ [1ex] \hline & &  \\ [-1.5ex]
@@ -96,7 +96,7 @@ Das Domain Model des Aufnahmesystems setzt sich aus den Domain Models des TourLi
 \subsubsection{Packagediagramm}
 Die TourLive Applikation hat folgende Paketstruktur. Als Grundstruktur wurde analog zum TourLive Server und dem Device Management Server \textit{ch.hsr.ba.tourlive} verwendet. Die TourLive Applikation verwendet zusätzlich die Subkategorie \textit{.android} sowie folgende applikationsspezifische Struktur:
 
-\begin{longtable}{p{5.0cm} | p{7.1cm}}
+\begin{longtable}{>{\RaggedRight}p{5.0cm} | >{\RaggedRight}p{7.1cm}}
  & \\ [-1.5ex]
 \textbf{Paket} & \textbf{Inhalt}  \\ [1ex] \hline \hline &  \\ [-1.5ex]
 . & die initialisierende TourLiveApplication.java Klasse sowie Config.java  \\ [1ex] \hline &  \\ [-1.5ex]
@@ -413,7 +413,7 @@ Wurde zudem das Message-Flag gesetzt, wird in einem weiteren Request die Nachric
  
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=150mm]{images/android/permanent_taskes.jpg}
+	\includegraphics[width=130mm]{images/android/permanent_taskes.jpg}
 	\label{fig:permanenttasks}
 	\caption{Aufnahmesystem permanente Tasks}
 \end{figure}
@@ -423,7 +423,7 @@ Diagramm \ref{fig:recording} zeigt die Abläufe beim Starten des Aufnahmemodus (
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=150mm]{images/android/recording.jpg}
+	\includegraphics[width=130mm]{images/android/recording.jpg}
 	\label{fig:recording}
 	\caption{Aufnahmesystem Aufnahme}
 \end{figure}

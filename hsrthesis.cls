@@ -38,7 +38,9 @@
 \usepackage{algpseudocode}
 \usepackage[Algorithmus]{algorithm} 
 \usepackage{titlesec}
-   
+\usepackage{ragged2e,array,longtable}
+  
+ 
 \captionsetup[table]{skip=8pt}
 
 \DeclareCaptionFormat{algor}{%
