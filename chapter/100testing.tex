@@ -23,10 +23,10 @@ Nachfolgend werden sämtlich durchgeführten Systemtests beschrieben und ausgewe
 	\item[-] \textit{negative Erkenntnis} 
 \end{itemize}
 
-Zu jeder negativen Erkenntnis wird eine Massnahme vorgeschlagen. Massnahmen die nicht mehr im Rahmen dieser Arbeit umgesetzt werden können werden mit einem  \textsuperscript{*} markiert.
+Zu jeder negativen Erkenntnis wird eine Massnahme vorgeschlagen. Massnahmen, die nicht mehr im Rahmen dieser Arbeit umgesetzt werden konnten, werden mit einem * markiert.
 
 \subsubsection{\#1 - Systemtest Rapperswiler Rundfahrt}
-Ein erster Praxistest um das Zusammenspiel aller drei Komponenten zu testen. Auf einer Rundfahrt durch Rapperswil mit einem einzelnen Auto konnte der eine oder andere Fehler eruiert werden. Folgende Geräte wurden zu Testzwecken eingesetzt:
+Ein erster Praxistest wurde durchgeführt, um das Zusammenspiel aller drei Komponenten zu testen. Auf einer Rundfahrt durch Rapperswil mit einem einzelnen Auto konnte der eine oder andere Fehler eruiert werden. Folgende Geräte wurden zu Testzwecken eingesetzt:
 \begin{itemize}
 	\item{Google Galaxy Nexus}
 	\item{Samsung Galaxy S3}
@@ -58,8 +58,8 @@ Aufgrund wiederkehrender Abstürze der TourLive App bei laufender Aufnahme wurde
 \paragraph*{Resultate}
 Folgende Erkenntnisse wurden aus dem Systemtest gewonnen:
 \begin{itemize}
-\item[-] Samsung Galaxy S3: App ist nach rund 2 Stunden aufgrund eines SIG-9 FATAL ERROR's abgestürzt. Grund für solche Abstürze sind Schreib-/Lesekonflikte im Speicherbereich und treten auf wenn zwei Threads gleichzeitig eine gemeinsame Variabel lesen / schreiben. Aufgrund dieser Erkenntnis wurden die diversen AsyncTasks, die parallel ausgeführt werden, optimiert.
-\item[+] Google Galaxy Nexus: Hat den Test erfolgreich bestanden. Im Log konnten keine Verdächtigen Einträge festgestellt werden.
+\item[-] Samsung Galaxy S3: App ist nach 2 Stunden aufgrund eines SIG-9 FATAL ERROR's abgestürzt. Grund für solche Abstürze sind Schreib-/Lesekonflikte im Speicherbereich und treten auf, wenn zwei Threads gleichzeitig eine gemeinsame Variabel lesen / schreiben. Aufgrund dieser Erkenntnis wurden die diversen AsyncTasks, die parallel ausgeführt werden, optimiert.
+\item[+] Google Galaxy Nexus: Hat den Test erfolgreich bestanden. Im Log konnten keine verdächtigen Einträge festgestellt werden.
 \end{itemize}
 Sämtliche negativen Erkenntnisse wurden behoben und werden daher an dieser Stelle nicht weiter erläutert.
 
@@ -91,12 +91,12 @@ Im Rahmen der Radsporttage Gippingen konnte das Gesamtsystem ein erstes Mal prax
 \end{itemize}
 
 \paragraph*{Resultate}
-Nach wenigen Minuten konnte kein Kontakt mehr zum HTC One Aufnahmegerät hergestellt werden. Das Gerät konnte durch die Notfallwiederherstellung per SMS neu gestartet werden, jedoch war nach kurzem Kontakt die Verbindung zum Gerät wieder abgebrochen. Die erste Analyse ergab, dass das Gerät stark überhitzt war und sich deshalb selbst ausschaltete. Ein weiteres Gerät versuchte sich mit dem naheliegenden Deutschen Mobilfunknetz zu verbinden, was aber daran scheiterte, dass das Datenroaming deaktiviert war. Das dritte Gerät sowie die zusätzlichen Testgeräten hielten den Test durch, obwohl alle Geräte extrem warm geworden sind. Die eingelieferten Daten wurden vom TourLive Server empfangen und verarbeitet. Die Kommunikation zwischen Aufnahmegeräten und Server verlief problemlos. Zu Bemerken ist, dass 2 der eingesetzten Geräte, mit denen es auch am meisten Probleme gab, zuvor nicht getestet werden konnten. Zusammenfassend können folgende Erkenntnisse aus diesem Test mitgenommen werden:
+Nach wenigen Minuten konnte kein Kontakt mehr zum HTC One Aufnahmegerät hergestellt werden. Das Gerät konnte durch die Notfallwiederherstellung per SMS neu gestartet werden, jedoch war nach kurzem Kontakt die Verbindung zum Gerät wieder abgebrochen. Die erste Analyse ergab, dass das Gerät stark überhitzt war und sich deshalb selbst ausschaltete. Ein weiteres Gerät versuchte sich mit dem naheliegenden Deutschen Mobilfunknetz zu verbinden, was aber daran scheiterte, dass das Datenroaming deaktiviert war. Das dritte Gerät sowie die zusätzlichen Testgeräten hielten den Test durch, obwohl alle Geräte extrem warm geworden sind. Die eingelieferten Daten wurden vom TourLive Server empfangen und verarbeitet. Die Kommunikation zwischen Aufnahmegeräten und Server verlief problemlos. Zu Bemerken ist, dass zwei der eingesetzten Geräte, mit denen es auch am meisten Probleme gab, zuvor nicht getestet werden konnten. Zusammenfassend können folgende Erkenntnisse aus diesem Test mitgenommen werden:
 
 \begin{itemize} [noitemsep,topsep=0pt]
-\item[-] Grundsätzliche Probleme (Exceptions) aufgrund Programmierfehler mit den beiden Gerätetypen HTC One und Samsung Galaxy S3 mini. Excetions die nachvollzogen werden konnten wurden behoben.
-\item[-] Starke Erhitzung der Geräte aufgrund direkter Sonneneinstrahlung was zu starken Performanceeinbussen, beispielsweise bei der Bedienung des GUI's führt. Massnahme:\textsuperscript{*} Direkte Sonneneinstrahlung wenn möglich vermeiden. Die Intervalle zur Übertragung von Daten heruntersetzen um die Auslastung der Geräte zu vermindern.
-\item[-] Performanceeinbussen bei wachsender Grösse des lokalen Caches (ORMlite Datenbank). Massnahme:\textsuperscript{*} sämtliche Daten die bereits übertragen wurden, müssen nicht mehr zwingend lokal gespeichert werden. Dies würde die Grösse der lokalen Datenbank vermindern. Eine andere Möglichkeit wäre der Einsatz eines Alternativproduktes.
+\item[-] Grundsätzliche Probleme (Exceptions) aufgrund Programmierfehler mit den beiden Gerätetypen HTC One und Samsung Galaxy S3 mini. Exceptions, die nachvollzogen werden konnten, wurden behoben.
+\item[-] Starke Erhitzung der Geräte aufgrund direkter Sonneneinstrahlung,  was zu starken Performanceeinbussen, beispielsweise bei der Bedienung des GUI's, führt. Massnahme:* Direkte Sonneneinstrahlung wenn möglich vermeiden. Die Intervalle zur Übertragung von Daten heruntersetzen um die Auslastung der Geräte zu vermindern.
+\item[-] Performanceeinbussen bei wachsender Grösse des lokalen Caches (ORMlite Datenbank). Massnahme:* sämtliche Daten, die bereits übertragen wurden, müssen nicht mehr zwingend lokal gespeichert werden. Dies würde die Grösse der lokalen Datenbank vermindern. Eine andere Möglichkeit wäre der Einsatz eines Alternativproduktes.
 \item[-] Optimierungsmöglichkeiten bei der Darstellung der Geräte im Device Management Portal aufgrund der praktischen Anwendung. Hierbei handelt es sich primär um die Sortierung entsprechender Listen, was bereits umgesetzt wurde.
 \item[+] Wichtigkeit der Fernwartungsmöglichkeiten erkannt und mit Erfolg eingesetzt.
 \item[+] Zuverlässig funktionierende Aufnahme mit dem Gerätetyp Samsung Galaxy S3
@@ -112,55 +112,54 @@ Ein letzter Systemtest konnte an der 2. Etappe der Tour de Suisse durchgeführt 
 \end{itemize}
 \paragraph*{Resultate}
 \begin{itemize}
-	\item[-] Absturz der TourLive Android Applikation auf dem Samsung Galaxy S3 während laufender Aufnahme von Positionsdaten beim Ändern des Streamingmodus per Device Management Server. Wahrscheinlich gab es Probleme beim Neustart des RecordingService. Als Massnahme\textsuperscript{*} wird empfohlen das Ändern von Einstellungen während laufender Aufnahme experimentell zu testen um das genaue Problem zu eruieren. 
-	\item[-] Bei schlechten Lichtverhältnissen wird nicht erkannt wenn der Aufnahme-Button aufgrund eines falschen Aufnahmemodus deaktiviert ist. Als Massnahme wurde die Farbe des deaktivierten Start-Button in rot geändert.
-	\item[-] Probleme gab es der Berechnung der Abstandsentwicklung auf dem TourLive Server. Grund waren falsche Rennkilometerkorrekturen auf den Aufnahmegeräten. Massnahme:\textsuperscript{*} Der Algorithmus zur Berechnung der Abstandsentwicklung auf dem TourLive Server sollte zur Berechnung der Abstandsentwicklung nicht die berechneten Distanzwerte der Aufnahmegeräte verwenden, sondern die Koordinaten im PositionDate Container.
+	\item[-] Absturz der TourLive Android Applikation auf dem Samsung Galaxy S3 während laufender Aufnahme von Positionsdaten beim Ändern des Streamingmodus per Device Management Server. Wahrscheinlich gab es Probleme beim Neustart des RecordingService. Als Massnahme* wird empfohlen, das Ändern von Einstellungen während laufender Aufnahme experimentell zu testen um das genaue Problem zu eruieren. 
+	\item[-] Bei schlechten Lichtverhältnissen wird nicht erkannt, wenn der Aufnahme-Button aufgrund eines falschen Aufnahmemodus deaktiviert ist. Als Massnahme wurde die Farbe des deaktivierten Start-Button in rot geändert.
+	\item[-] Probleme gab es der Berechnung der Abstandsentwicklung auf dem TourLive Server. Grund waren falsche Rennkilometerkorrekturen auf den Aufnahmegeräten. Massnahme:* Der Algorithmus zur Berechnung der Abstandsentwicklung auf dem TourLive Server sollte zur Berechnung der Abstandsentwicklung nicht die berechneten Distanzwerte der Aufnahmegeräte verwenden, sondern die Koordinaten im PositionDate Container.
 	\item[+] Das Aufnahmegerät Samsung Galaxy S3 lief mit Ausnahme des Absturzes aufgrund Konfigurationsänderungen während der gesamten Etappe stabil. 
 	\item[+] Das Senden von Nachrichten an die Aufnahmegeräte funktionierte
 	\item[+] Die Rennkilometerkorrektur via Device Management Server funktionierte.
 \end{itemize}
 
-\subsubsection{Fazit der Systemtests}
+\subsection{Fazit der Systemtests}
 \label{sec:fazitsystemtests}
 
-Aufgrund der Systemtests und spontaner Ideen während der Entwicklung und dem Testing wurden folgende Verbesserungsmöglichkeiten aller drei Komponenten zusammengestellt.
-\paragraph{TourLive Server}
-%TODO flo erweitern
+Aufgrund der Systemtests und weiterführenden Ideen während der Entwicklung und dem Testing wurden folgende Verbesserungsmöglichkeiten aller drei Komponenten zusammengestellt.
+\subsubsection{TourLive Server}
 \begin{itemize}
- \item Der Algorithmus für die Abstandsentwicklung basiert aktuell auf Basis der berechneten Etappendistanzen der Aufnahmegeräte (siehe Kap \ref{quot:deficitealgo}). Anstelle dieser berechneten Distanzen könnte die Abstandsentwicklung auch auf Basis der Koordinaten im ValueContainer berechnet werden. Dies würde verhindern, dass allfällige Rechnungsfehler der Aufnahmegeräte nicht in die Abstandsentwicklung einflössen.
- \item Nach dem Erstellen einer Etappe sind keine Informationen der Geräte vorhanden, dies führt dazu, dass die Etappe aus Sicht der Öffentlichkeit (Webseite) unstrukturiert und unfertig wirkt.
- \item Für den produktiven Betrieb sollte die Webapplikation auf verschiedenen Servern deployed werden, so kann ein System die API Aufgaben übernehmen und ein System die Webseite den Besuchern ausliefern.
- \item In der Etappenansicht könnte die Navigation auch via Rennkilometer im Streckenprofil ermöglichen werden.
+ \item Der Algorithmus für die Abstandsentwicklung basiert aktuell auf Basis der berechneten Etappendistanzen der Aufnahmegeräte (siehe Kap \ref{quot:deficitealgo}). Anstelle dieser berechneten Distanzen könnte die Abstandsentwicklung auch auf Basis der Koordinaten im ValueContainer berechnet werden. Dies würde verhindern, dass allfällige Rechnungsfehler der Aufnahmegeräte in die Abstandsentwicklung einflössen.
+ \item Nach dem Erstellen einer Etappe sind keine Informationen der Geräte vorhanden. Dies führt dazu, dass die Darstellung der Etappe aus Sicht der Öffentlichkeit (Webseite) unfertig wirkt.
+ \item Für den produktiven Betrieb sollte die Webapplikation auf verschiedenen Servern verteilt werden. So kann ein System die API Aufgaben übernehmen und ein weiteres System die Webseite den Besuchern ausliefern.
+ \item In der Etappenansicht könnte die Navigation auch via Rennkilometer im Streckenprofil ermöglicht werden.
  \item Aus der Administrationsansicht sollte es einen Link direkt zu der jeweiligen Etappe geben.
- \item Bei der automatische Aktualisierung der Seite sollte man die Zeit in Sekunden angeben können.
+ \item Bei der automatische Aktualisierung der Seite sollte man den Zeitintervall in Sekunden angeben können.
 \end{itemize}
 
-\paragraph{Android Aufnahmesystem}
+\subsubsection{Android Aufnahmesystem}
 \begin{itemize}
-	\item Der Start / Stop des Aufnahmemodus (RecordingService) scheint sofern Bilder- oder Videostreaming aktiviert ist sporadisch Probleme zu bereiten. Dies zeigt sich vor allem wenn der Aufnahmemodus per Fernsteuerung (Device Management Server) gestartet / gestoppt wird. Die genaue Fehlerquelle konnte bisher nicht eruiert werden.
+	\item Der Start / Stop des Aufnahmemodus (RecordingService) scheint, sofern Bilder- oder Videostreaming aktiviert ist, sporadisch Probleme zu bereiten. Dies zeigt sich vor allem wenn der Aufnahmemodus per Fernsteuerung (Device Management Server) gestartet / gestoppt wird. Die genaue Fehlerquelle konnte bisher nicht eruiert werden.
 	\item Entwicklung eines eigene Thread-Pools zur Verwaltung und Abarbeitung der Threads (inbesondere der AsyncTasks). Tests haben ergeben, dass die Anzahl möglicher paralleler Threads von Gerät zu Gerät variiert und auch der Android interne Thread-Pool teilweise unterschiedlich arbeitet. 
 	\item Die Verwendung von SQLite in Verbindung mit ORMlite führt bei grösseren Datenmengen zu erheblichen Performanceeinbussen. Die Datenmenge könnte reduziert werden, indem bereits übertragene Daten im lokalen Cache gelöscht werden oder indem ein alternatives, performanteres Produkt eingesetzt würde.
-	\item Das Ausschalten des Bildschirms / \"Schliessen\" der Applikation führt beim Einsatz von Bilder- / Videostreaming sporadisch dazu, dass die Fragments innerhalb der MainActivity nicht mehr korrekt angezeigt werden. Eine exakte Fehlerquelle konnte bisher nicht eruiert werden. 
-	\item Befindet sich die TourLive Applikation im Aufnahmemodus \"ferngesteuert\" und in einer laufenden Aufnahme, kann das Aufnahmegerät ohne Löschung der gesamten Einstellungen nicht mehr verwaltet werden. Dies liegt daran, dass die Einstellungen während einer laufenden Aufnahme gesperrt sind und die Aufnahme nicht gestoppt werden kann, da der Aufnahmemodus auf \"ferngesteuert\" gesetzt ist. 
-	\item Deaktivierung der Audioaufnahme bei Videoaufzeichnungen.
-	\item Telefonnummer wird nicht immer an den Device Management Server übermittelt.
-	\item Automatische Ausrichtung der App funktioniert auf dem Samsung S2 nicht wunschgemäss.
-	\item Ist ein Gerät im Standby Modus, kann die App mit dem RecoveryService nicht neu gestartet werden.
+	\item Das Ausschalten des Bildschirms / ``Schliessen'' der Applikation führt beim Einsatz von Bilder- / Videostreaming sporadisch dazu, dass die Fragments innerhalb der MainActivity nicht mehr korrekt angezeigt werden. Eine exakte Fehlerquelle konnte bisher nicht eruiert werden. 
+	\item Befindet sich die TourLive Applikation im Aufnahmemodus ``ferngesteuert'' und in einer laufenden Aufnahme, kann das Aufnahmegerät ohne Löschung der gesamten Einstellungen nicht mehr verwaltet werden. Dies liegt daran, dass die Einstellungen während einer laufenden Aufnahme gesperrt sind und die Aufnahme nicht gestoppt werden kann, da der Aufnahmemodus auf ``ferngesteuert'' gesetzt ist. 
+	\item Deaktivierung der Audioaufnahme bei Videoaufzeichnungen zur Einsparung von Bandbreite.
+	\item Die Telefonnummer wird nicht an den Device Management Server übermittelt, nachdem die Telefonnummer eingegeben wurde. Dies liesse sich mit dem sofortigen Ausführen des StatusDataTasks nach dem Ändern der Telefonnummer beheben.
+	\item Automatische Ausrichtung der App funktioniert auf dem Samsung S2 nicht erwartungsgemäss.
+	\item Ist ein Gerät im Standby Modus, kann die Applikation mit dem TourLiveRecoveryService nicht neu gestartet werden.
 	
 \end{itemize}
 
-\paragraph{Device Management Server}
+\subsubsection{Device Management Server}
 \begin{itemize}
-	\item I18N
-	\item Enums auf Deutsch übersetzen
-	\item Die Bild- und Videoauflösungen sind bei jedem Gerät unterschiedlich. Eine Synchronisierung der Auflösungen bei Gerätestart würde ermöglichen, dass eine gerätespezifische Auflösung ausgewählt werden kann. Aktuell können nur drei vordefinierte Auflösungen ausgewählt werden.
+	\item Implementation von I18N.
+	\item Diverse Enums auf Deutsch übersetzen.
+	\item Die Bild- und Videoauflösungen sind bei jedem Gerät unterschiedlich. Eine Synchronisierung der Auflösungen beim Gerätestart würde ermöglichen, dass eine gerätespezifische Auflösung ausgewählt werden könnte. Aktuell können nur drei vordefinierte Auflösungen ausgewählt werden.
 	\item Möglichkeit bieten, die Anzahl der anzuzeigenden Logeinträge auszuwählen.
-	\item Standardeinstellungen auf ein Gerät übernehmen.
+	\item Standardeinstellungen definieren und auf ein Gerät übertragen.
 	\item Geräteeinstellungen auf ein anderes Gerät kopieren. 
 	\item Geräteeinstellungen gleichzeitig für mehrere Geräte vornehmen.
-	\item Positions- und Etappendaten löschen.
-	\item Bild- und Videodateien löschen.
-	\item Webseite Security einbauen. Momentan ist die Seite öffentlich.
+	\item Positions- und Etappendaten per Device Management Server löschen.
+	\item Bild- und Videodateien per Device Management Server löschen.
+	\item Spring Security implementieren. Momentan ist die Seite öffentlich zugänglich.
 \end{itemize}
 
 \subsection{Unit Tests}

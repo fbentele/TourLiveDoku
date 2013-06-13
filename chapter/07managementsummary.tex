@@ -1,7 +1,7 @@
 \chapter*{Management Summary}
 \section*{Ausgangslage}
 
-Mit dem \textit{cnlab TourLive System}, werden an Radrennsportanlässen Live- Informationen (Positions-, Bild- und Videodaten) gesammelt, verarbeitet und auf einer Webseite präsentiert. Das gegenwärtig eingesetzte System aus dem Jahr 2001  umfasst Nokia Symbian Aufnahmegeräte sowie einen PHP Webservice. \textit{TourLive} wird an den verschiedensten Radrennsportanlässen in der Schweiz, unter anderem an der Tour de Suisse\footnote{Tour de Suisse, \url{http://www.tds.ch}, aufgerufen am 20.05.2013} eingesetzt. 
+Mit dem \textit{cnlab TourLive System} werden an Radrennsportanlässen Live- Informationen (Positions-, Bild- und Videodaten) gesammelt, verarbeitet und auf einer Webseite präsentiert. Das gegenwärtig eingesetzte System aus dem Jahr 2001  umfasst Nokia Symbian Aufnahmegeräte sowie einen PHP Webservice. \textit{TourLive} wird an den verschiedensten Radrennsportanlässen in der Schweiz, unter anderem an der Tour de Suisse\footnote{Tour de Suisse, \url{http://www.tds.ch}, aufgerufen am 20.05.2013}, eingesetzt. 
 \\
 
 In Zukunft soll \textit{TourLive} auch für kleinere Radrennsportanlässe zur Verfügung gestellt werden können. Dazu wurde im Rahmen dieser Bachelorarbeit das \textit{TourLive} System erneuert und erweitert. Neben den bestehenden Funktionalitäten soll im \textit{TourLive Next Generation}, kurz \textit{TourLive NG}, der Fokus auf die Fernverwaltung der Aufnahmegeräte gelegt werden. 
@@ -19,15 +19,15 @@ Das neu entwickelte System \textit{TourLive NG} basiert auf drei Komponenten, wi
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=140mm]{images/android/BigPicture_AndroidClient.png} 
-	\caption{BigPicture TourLiveNG}
+	\caption{Big Picture TourLive NG}
 	\label{fig:bigpictureandroid}
 \end{figure}
-Dies sind das auf Android basierende Aufnahmesystem, der TourLive Server und der Device Management Server. Der Device Management Server ermöglicht die Überwachung und Fernverwaltung der Aufnahmesysteme. Bei allfälligen Problemen ermöglicht ein Notfallwiederherstellungsdienst ein Neustart des Aufnahmesystems. Beide Serverkomponenten benutzen das  Java Spring Framework. Sie verwenden Twitter Bootstrap als GUI Framework und erfüllen damit, unter Anwendung von \textit{\gls{rwd}}, die Anforderung einer dynamischen Webseite, die auch auf Tablets und Smartphones korrekt angezeigt wird. 
+Das auf Android basierende Aufnahmesystem, der TourLive Server und der Device Management Server bilden die drei Komponenten. Der Device Management Server ermöglicht die Überwachung und Fernverwaltung der Aufnahmesysteme. Bei allfälligen Problemen ermöglicht ein Notfallwiederherstellungsdienst ein Neustart des Aufnahmesystems. Beide Serverkomponenten benutzen das  Java Spring Framework. Sie verwenden Twitter Bootstrap als GUI Framework und erfüllen damit, unter Anwendung von \textit{\gls{rwd}}, die Anforderung einer dynamischen Webseite, die auch auf Tablets und Smartphones korrekt angezeigt wird. 
 \\
 
-Rennen und Etappen können komfortabel über die mittels Passwort gesicherte Administrationsoberfläche des TourLive Servers verwaltet werden. Das Aufnahmesystem und die beiden Serverkomponenten kommunizieren über das \textit{\gls{http}} miteinander. Textdaten werden in einer JSON-Struktur übertragen, während Video- und Bilddaten binär an den Server gesendet  werden. Der Videostream wird mit 10- sekündigen Videosequenzen realisiert, die vom TourLive Server in ein vom Browser kompatibles Format konvertiert und mit Hilfes des HTML5 <video> Tags\footnote{HTML 5 <video> Tag,  \url{http://www.w3.org/wiki/HTML/Elements/video}, aufgerufen am 03.05.2013} ausgeliefert werden. Aufgrund fehlender Standards und Browserinkompatibilitäten werden die Videosequenzen in verschiedenen Videoformaten zur Verfügung gestellt.
+Rennen und Etappen können komfortabel über die mittels Passwort gesicherte Administrationsoberfläche des TourLive Servers verwaltet werden. Das Aufnahmesystem und die beiden Serverkomponenten kommunizieren über das \textit{\gls{http}} miteinander. Textdaten werden in einer JSON-Struktur übertragen, während Video- und Bilddaten binär an den Server gesendet  werden. Der Videostream wird mit 10-sekündigen Videosequenzen realisiert, die vom TourLive Server in ein vom Browser kompatibles Format konvertiert und mit Hilfes des HTML5 <video> Tags\footnote{HTML 5 <video> Tag,  \url{http://www.w3.org/wiki/HTML/Elements/video}, aufgerufen am 03.05.2013} ausgeliefert werden. Aufgrund fehlender Standards und Browserinkompatibilitäten werden die Videosequenzen in verschiedenen Videoformaten zur Verfügung gestellt.
 
-
+\pagebreak
 \section*{Ausblick}
 \textit{TourLive NG} wurde in der Schlussphase des Projektes unter anderem an den Radsporttagen in Gippingen und an der zweiten Etappe der Tour de Suisse ausgiebig getestet. An den beiden Rennanlässen wurde klar, wieso die Managementfunktionen so wichtig sind. Die Tests haben gezeigt, dass das System in seiner Grundfunktionalität, der Übertragung von Positionsdaten, eingesetzt werden kann. Es wurden aber auch Optimierungsmöglichkeiten eruiert und dokumentiert. Eine wichtige Erkenntnis dieser Testläufe ist die Problematik der Wärmeentwicklung der Geräte bei direkter Sonneneinstrahlung die zu Performanceeinbussen führt.
 

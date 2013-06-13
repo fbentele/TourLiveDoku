@@ -91,7 +91,7 @@ Der Device Management Server ist in vier Schichten unterteilt. Die Schichten wur
 Die View Schicht enthält alle \textit{\gls{jsp}} Dateien, die für die Darstellung der Webseite benötigt werden. 
 
 \subsubsection{Controller}
-Die Controller widerspiegeln die HTTP-Methoden (GET, POST,...) die für die Anzeige der Webseite und die RESTful JSON-Schnittstelle benötigt werden. Die Controller besitzen zwei verschiedene Methodentypen. Die einen werden für die Webseite zur Verfügung gestellt und die anderen für die Aufnahmesysteme. An den Methoden sieht man lediglich den Unterschied, dass bei den Webseitenemthoden ein ViewModel vorhanden ist, welches für die Anzeige gebraucht wird.
+Die Controller widerspiegeln die HTTP-Methoden (GET, POST,...), die für die Anzeige der Webseite und die RESTful JSON-Schnittstelle benötigt werden. Die Controller besitzen zwei verschiedene Methodentypen. Die einen werden für die Webseite zur Verfügung gestellt und die anderen für die Aufnahmesysteme. An den Methoden sieht man lediglich den Unterschied, dass bei den Webseitenmethoden ein ViewModel vorhanden ist, welches für die Anzeige gebraucht wird.
 
 \subsubsection{Service}
 Die Service Klassen sind für die Businesslogik auf den von den DAO's gelieferten Objekten verantwortlich.
@@ -100,7 +100,7 @@ Die Service Klassen sind für die Businesslogik auf den von den DAO's gelieferte
 Der Device Management Container Service speichert und liefert die Container mit den Geräteeinstellungen sowie das Flag \textit{'messageAvailable'} falls auf dem Device Management Portal eine Nachricht für das Gerät vorhanden ist.
 
 \subsubsection{DAO}
-Die DAO Schicht enthält die Datenzugriffsobjekte. Diese dient zur Entkopplung der Geschäftslogik vom Datenzugriff. Die Interfaces bilden die Schnittstelle, die Implementierung kann so je nach Persistenztechnologie unterschiedlich sein, ohne dass die Geschäftslogik geändert werden muss.
+Die DAO Schicht enthält die Datenzugriffsobjekte. Diese dient zur Entkopplung der Geschäftslogik vom Datenzugriff. Die Interfaces bilden die Schnittstelle. Die Implementierung kann so je nach Persistenztechnologie unterschiedlich sein, ohne dass die Geschäftslogik geändert werden muss.
 
 
 \subsubsection{Model}
@@ -128,9 +128,9 @@ Diese annotierten Methoden müssen in einer Klasse enthalten sein, welche als \t
 
 
 \subsection{Webseite}
-Die Webseiten wurden mit \textit{\gls{jsp}} umgesetzt und mit der JavaScript Library JQuery angereichert. Um die grafische Oberfläche möglichst einfach zu gestalten, wurde  Twitter Bootstrap \footnote{Twitter Bootstrap, \url{http://twitter.github.io/bootstrap/}, besucht am 25. Mai 2013} benutzt.
+Die Webseiten wurden mit \textit{\gls{jsp}} umgesetzt und mit der JavaScript Library JQuery angereichert. Um die grafische Oberfläche möglichst einfach zu gestalten, wurde  Twitter Bootstrap\footnote{Twitter Bootstrap, \url{http://twitter.github.io/bootstrap/}, besucht am 25. Mai 2013} benutzt.
 
-Die Webseite wird in drei Teile unterteilt, Header, Footer sowie den Hauptbereich. 
+Die Webseite wird in drei Teile unterteilt: Header, Footer, sowie den Hauptbereich. 
 
 \begin{figure}[H]
 	\centering
