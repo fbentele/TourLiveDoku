@@ -271,7 +271,7 @@
        \newpage%
        \parskip1ex%
        \par%
-       \hspace{-\mp@margwd}\rule{\mp@fullwd}{.25mm}%
+       \hspace{-\mp@margwd}\rule{\mp@fullwd}{.15mm}%
        \vspace{-\baselineskip}\par%
        \hspace{-\mp@margwd}\rule{\mp@margwd}{2mm}%
        \par\hspace{-\mp@margwd}%
@@ -403,7 +403,7 @@
 %% Dimensions
    \setlength\hoffset{0in}
    \setlength\voffset{-1in}
-   \setlength\textwidth{130mm}
+   \setlength\textwidth{140mm}
    \setlength\textheight{.86\paperheight}
    \setlength{\oddsidemargin}{45mm}
    \setlength{\evensidemargin}{45mm}
