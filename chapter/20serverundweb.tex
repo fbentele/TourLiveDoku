@@ -9,7 +9,7 @@ Weite Teile der Anforderungen an die Webapplikation ergeben sich aus der Analyse
 
 Die Analyse der funktionalen Anforderungen sind im Anhang \ref{sec:tourliveusecase} umfangreich dokumentiert.
 
-\begin{longtable}{ p{3.5cm} | p{4.3cm} | p{4.3cm} }
+\begin{longtable}{ >{\RaggedRight}p{3.5cm} | >{\RaggedRight}p{4.3cm} | >{\RaggedRight}p{4.3cm} }
 	\textbf{Spezifikation} & \textbf{Altes System} & \textbf{Neues System} \\ [1ex] \hline \hline & & \\ [-1.5ex] Renn- und Etappenverwaltung & - & Benutzerfreundliche Renn- und Etappen-verwaltung\\ [1ex] \hline & &  \\ [-1.5ex]
 Bildübertragung & 1 Bild / Zeitpunkt (auch bei mehreren Aufnahmegeräten) & Bild- oder Video-übertragung \\ [1ex] \hline & &  \\ [-1.5ex]
 Streckenprofil & Alle Position statisch & Alle Positionen (HTML5, SVG\footnote{HTML5 und SVG sind zwei moderne Webtechnologien um Grafiken im Browser zu zeichnen})\\ [1ex] \hline & &  \\ [-1.5ex]
@@ -45,7 +45,7 @@ Folgende weitere Technologien wurden für die Umsetzung des TourLive Servers ver
 Für die Persistierung sämtlicher Daten wird die MySQL ähnliche, quelloffene Datenbank MariaDB\footnote{MariaDB, \url{https://mariadb.org/}, aufgerufen am 16.05.2013} verwendet. Dies ist eine Anforderung des Industriepartners cnlab Software AG.
 \\
 
-Die Abbildung des Models auf der Datenbank übernimmt das Java ORM Framework Hibernate\footnote{Hibernate ORM, \url{http://www.hibernate.org/}, aufgerufen am 16.05.2013}. Dank unzähliger Datenbanktreiber kann ein beliebiges Datenbanksystem, unter anderem auch MariaDB, verwendet werden.
+Die Abbildung des Models auf der Datenbank übernimmt das Java ORM Framework Hibernate\footnote{Hibernate ORM, \url{http://www.hibernate.org/}, aufgerufen am 16.05.2013}. Dank unzähliger Datenbanktreiber kann ein beliebiges Datenbanksystem, unter anderem auch \textit{\gls{mariadb}}, verwendet werden.
 
 \subsubsection{Maven}
 Für die Verwaltung der externen Java Libraries wird Apache Maven\footnote{Apache Maven, \url{http://maven.apache.org/}, aufgerufen am 16.05.2013} verwendet. Maven lädt die definierten Abhängigkeiten automatisch und kompiliert das Projekt. Weiter generiert Maven die Javadoc\footnote{Javadoc, \url{http://de.wikipedia.org/wiki/Javadoc}, aufgerufen am 16.05.2013} Dokumentation zum Projekt und kann Auswertungen und statische Codeanalysen erzeugen.
@@ -176,10 +176,10 @@ Für die aufgezeichneten Daten wurde eine öffentliche Schnittstelle erstellt. D
 Die Konfiguration in Spring wird einerseits über Java Annotationen vorgenommen, wie sie beim TourLive Server z.B. bei den Controllern zum Einsatz kommen, andererseits werden Servlet und Datenbankeinstellungen sowie sämtliche Abhängigkeiten zu anderen Libraries in XML Dateien konfiguriert. Die wichtigsten Dateien werden im Folgenden aufgezeigt.
 
 \subsubsection{web.xml}
-Im web.xml wird zugewiesen, welches Java Servlet welche Ressource ansteuert. Weiter werden die Filter definiert, welche angewendet werden sollen. Filter erlauben es, Anfragen zu bearbeiten, zu verändern oder gar umzuleiten. Im TourLive Server werden zwei Filter verwendet, der Sitemesh Filter, welcher wiederverwendbare Elemente (z.B. Menu oder Footer) in den JSP Seiten auslagert. Der zweite Filter schützt den Administrationsbereich vor nicht authentifiziertem Zugriff. Bei diesem Security Filter kann eine Ressource komplett geschützt werden. Die weitere Konfiguration findet in der security.xml Datei statt.
+Im web.xml wird zugewiesen, welches Java Servlet welche Ressource ansteuert. Weiter werden die Filter definiert, welche angewendet werden sollen. Filter erlauben es, Anfragen zu bearbeiten, zu verändern oder gar umzuleiten. Im TourLive Server werden zwei Filter verwendet, der Sitemesh Filter, welcher wiederverwendbare Elemente (z.B. Menu oder Footer) in den \textit{\gls{jsp}} Seiten auslagert. Der zweite Filter schützt den Administrationsbereich vor nicht authentifiziertem Zugriff. Bei diesem Security Filter kann eine Ressource komplett geschützt werden. Die weitere Konfiguration findet in der security.xml Datei statt.
 
 \subsubsection{tourlive-servlet.xml}
-Damit die von den Controllern erstellten Models auch auf den JSP Seiten abgebildet werden können, wird ein ViewResolver verwendet. Dieser beschreibt, wo sich die, für die Darstellung benötigten, JSP Seiten befinden. Weiter werden die Internationalisierung und die Auslieferung von statischen Ressourcen, wie Bilder und StyleSheets, in der \textit{tourlive-servlet.xml} Datei definiert.
+Damit die von den Controllern erstellten Models auch auf den \textit{\gls{jsp}} Seiten abgebildet werden können, wird ein ViewResolver verwendet. Dieser beschreibt, wo sich die, für die Darstellung benötigten, \textit{\gls{jsp}} Seiten befinden. Weiter werden die Internationalisierung und die Auslieferung von statischen Ressourcen, wie Bilder und StyleSheets, in der \textit{tourlive-servlet.xml} Datei definiert.
 
 \subsubsection{hibernate.xml}
 Das Datenbankmapping geschieht mit Hibernate. In der hibernate.xml Datei werden die Datenbankeinstellungen vorgenommen. Zusätzlich wird hier die SessionBean deklariert, damit werden die Abfragen auf der Datenbank letztendlich ausgeführt.
