@@ -137,14 +137,22 @@ Aufgrund der Systemtests und spontaner Ideen während der Entwicklung und dem Te
 	\item Die Verwendung von SQLite in Verbindung mit ORMlite führt bei grösseren Datenmengen zu erheblichen Performanceeinbussen. Die Datenmenge könnte reduziert werden, indem bereits übertragene Daten im lokalen Cache gelöscht werden oder indem ein alternatives, performanteres Produkt eingesetzt würde.
 	\item Das Ausschalten des Bildschirms / \"Schliessen\" der Applikation führt beim Einsatz von Bilder- / Videostreaming sporadisch dazu, dass die Fragments innerhalb der MainActivity nicht mehr korrekt angezeigt werden. Eine exakte Fehlerquelle konnte bisher nicht eruiert werden. 
 	\item Befindet sich die TourLive Applikation im Aufnahmemodus \"ferngesteuert\" und in einer laufenden Aufnahme, kann das Aufnahmegerät ohne Löschung der gesamten Einstellungen nicht mehr verwaltet werden. Dies liegt daran, dass die Einstellungen während einer laufenden Aufnahme gesperrt sind und die Aufnahme nicht gestoppt werden kann, da der Aufnahmemodus auf \"ferngesteuert\" gesetzt ist. 
+	\item Deaktivierung der Audioaufnahme bei Videoaufzeichnungen.
 	
 \end{itemize}
 
 \paragraph{Device Management Server}
 \begin{itemize}
-	\item another anything else
+	\item I18N
+	\item Enums auf Deutsch übersetzen
+	\item Die Bild- und Videoauflösungen sind bei jedem Gerät unterschiedlich. Eine Synchronisierung der Auflösungen bei Gerätestart würde ermöglichen, dass eine gerätespezifische Auflösung ausgewählt werden kann. Aktuell können nur drei vordefinierte Auflösungen ausgewählt werden.
+	\item Möglichkeit bieten, die Anzahl der anzuzeigenden Logeinträge auszuwählen.
+	\item Standardeinstellungen auf ein Gerät übernehmen.
+	\item Geräteeinstellungen auf ein anderes Gerät kopieren. 
+	\item Geräteeinstellungen gleichzeitig für mehrere Geräte vornehmen.
+	\item Positions- und Etappendaten löschen.
+	\item Bild- und Videodateien löschen.
 \end{itemize}
-%TODO whats here
 
 \subsection{Unit Tests}
 \label{sec:unittests}
