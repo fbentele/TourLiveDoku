@@ -131,7 +131,7 @@ Das Repository.java implementiert das Singleton-Pattern und fungiert als globale
 \subsubsection{Start der Applikation - TourLiveApplication.java}
 Beim Start der TourLive Applikation müssen diverse Daten initialisiert werden. Um diese Initialisierung vor der ersten View durchzuführen, wurde eine projektspezifische Klasse \textit{TourLiveApplication.java} geschrieben, die von der Android Klasse \textit{Application} ableitet. Eine von \textit{Application} abgeleitete Klasse darf nur einmalig vorkommen und wird als erste Klasse bei einem App-Start initialisiert.
 \begin{quotation}
-\textit{``An Application class is a base class for those who need to maintain global application state''}.\footnote{Application class, \url{http://developer.android.com/reference/android/app/Application.html}, aufgerufen am 10.04.2013}
+\textit{``An Application class is a base class for those who need to maintain global application state.''}\footnote{Application class, \url{http://developer.android.com/reference/android/app/Application.html}, aufgerufen am 10.04.2013}
 \end{quotation}
 Über die Klasse TourLiveApplication kann ausserdem auf den globalen Application-Context zugegriffen werden, der zur Initialisierung diverser Objekte benötigt wird und wie folgt in den Android Developer Reference beschrieben ist.
 \begin{quotation}
