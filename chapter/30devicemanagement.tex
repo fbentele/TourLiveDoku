@@ -69,8 +69,6 @@ Abbildung \ref{fig:domainmodeldevmgmtsrv} zeigt das Domain Model des Device Mana
 \subsection{Architektur und Übersicht}
 Der Device Management Server unterteilt sich in Webseite und API. Die API wird von den Aufnahmesystemen angesprochen wohingegen die Webseite hauptsächlich von Administratoren genutzt wird.
 
-
-
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=130mm]{images/devmgmtsrv/uebersicht.png}
@@ -90,7 +88,7 @@ Der Device Management Server ist in vier Schichten unterteilt. Die Schichten wur
 \end{figure}
 
 \subsubsection{View}
-Die View Schicht enthält alle *.jsp Dateien, die für die Darstellung der Webseite benötigt werden. 
+Die View Schicht enthält alle \textit{\gls{jsp}} Dateien, die für die Darstellung der Webseite benötigt werden. 
 
 \subsubsection{Controller}
 Die Controller widerspiegeln die HTTP-Methoden (GET, POST,...) die für die Anzeige der Webseite und die RESTful JSON-Schnittstelle benötigt werden. Die Controller besitzen zwei verschiedene Methodentypen. Die einen werden für die Webseite zur Verfügung gestellt und die anderen für die Aufnahmesysteme. An den Methoden sieht man lediglich den Unterschied, dass bei den Webseitenemthoden ein ViewModel vorhanden ist, welches für die Anzeige gebraucht wird.
@@ -108,8 +106,6 @@ Die DAO Schicht enthält die Datenzugriffsobjekte. Diese dient zur Entkopplung d
 \subsubsection{Model}
 Die Domäne des Device Management Servers wird in der Model Schicht abgebildet. In den Objektinstanzen der Model Klassen sind die eigentlichen Daten gespeichert. Diese Objektinstanzen werden über den OR-Mapper in der SQL-Datenbank gespeichert.
 
-
-
 \section{Realisierung}
 Folgendes Kapitel beschreibt die Umsetzung des Device Management Servers.
 
@@ -125,14 +121,14 @@ public DeviceManagementContainer getDeviceManagementContainer(@RequestBody final
 
 \begin{itemize}
 \item \textbf{\textit{@RequestMapping}:} gibt an, welche URL auf diese Methode gemappt wird und welche HTTP Request Methode erlaubt ist.
-\item\textbf{\textit{@ResponseBody}: } definiert, dass die Methode einen HTTP Response Body zurück gibt und nicht eine JSP-Seite rendert.
+\item\textbf{\textit{@ResponseBody}: } definiert, dass die Methode einen HTTP Response Body zurück gibt und nicht eine \textit{\gls{jsp}} Seite rendert.
 \item\textbf{\textit{@RequestBody}: } der Parameter der Methode wird als Body des Requests definiert.
 \end{itemize}
 Diese annotierten Methoden müssen in einer Klasse enthalten sein, welche als \textit{\textbf{@Controller}} annotiert ist.
 
 
 \subsection{Webseite}
-Die Webseiten wurden mit JSP umgesetzt und mit der JavaScript Library JQuery angereichert. Um die grafische Oberfläche möglichst einfach zu gestalten, wurde  Twitter Bootstrap \footnote{Twitter Bootstrap, \url{http://twitter.github.io/bootstrap/}, besucht am 25. Mai 2013} benutzt.
+Die Webseiten wurden mit \textit{\gls{jsp}} umgesetzt und mit der JavaScript Library JQuery angereichert. Um die grafische Oberfläche möglichst einfach zu gestalten, wurde  Twitter Bootstrap \footnote{Twitter Bootstrap, \url{http://twitter.github.io/bootstrap/}, besucht am 25. Mai 2013} benutzt.
 
 Die Webseite wird in drei Teile unterteilt, Header, Footer sowie den Hauptbereich. 
 
@@ -149,8 +145,6 @@ Der Header bietet die Möglichkeit, über eine Schnellnavigation auf ein Gerät 
 	\includegraphics[width=120mm]{images/devmgmtsrv/header.png}
 	\caption{Device Management Server Webseite - Header}
 \end{figure}
-
-
 
 \pagebreak
 \subsubsection{Footer}
