@@ -127,7 +127,12 @@ Aufgrund der Systemtests und spontaner Ideen während der Entwicklung und dem Te
 \paragraph{TourLive Server}
 %TODO flo erweitern
 \begin{itemize}
- \item Der Algorithmus für die Abstandsentwicklung basiert aktuell auf Basis der berechneten Etappendistanzen der Aufnahmegeräte. Anstelle dieser berechneten Distanzen könnte die Abstandsentwicklung auch auf Basis der Koordinaten im ValueContainer berechnet werden. Dies würde verhindern, dass allfällige Rechnungsfehler der Aufnahmegeräte nicht in die Abstandsentwicklung einflössen.
+ \item Der Algorithmus für die Abstandsentwicklung basiert aktuell auf Basis der berechneten Etappendistanzen der Aufnahmegeräte (siehe Kap \ref{quot:deficitealgo}). Anstelle dieser berechneten Distanzen könnte die Abstandsentwicklung auch auf Basis der Koordinaten im ValueContainer berechnet werden. Dies würde verhindern, dass allfällige Rechnungsfehler der Aufnahmegeräte nicht in die Abstandsentwicklung einflössen.
+ \item Nach dem Erstellen einer Etappe sind keine Informationen der Geräte vorhanden, dies führt dazu, dass die Etappe aus Sicht der Öffentlichkeit (Webseite) unstrukturiert und unfertig wirkt.
+ \item Für den produktiven Betrieb sollte die Webapplikation auf verschiedenen Server deployed werden, so kann ein System die API Aufgaben übernehmen und ein System die Webseite den Besuchern ausliefern.
+ \item In der Etappenansicht könnte die Navigation auch via Rennkilometer im Streckenprofil ermöglichen werden.
+ \item Aus der Administrationsansicht sollte es einen Link direkt zu der jeweiligen Etappe geben.
+ \item Die automatische Aktualisierung der Seite sollte man die Zeit in Sekunden angeben können.
 \end{itemize}
 
 \paragraph{Android Aufnahmesystem}
